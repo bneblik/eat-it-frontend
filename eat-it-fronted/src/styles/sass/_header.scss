@@ -1,0 +1,21 @@
+.headerComponent {
+  background-color: white;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: rgba(0, 0, 0, 0.125);
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.toRight {
+  margin-left: auto;
+}
+
+.logo {
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+}

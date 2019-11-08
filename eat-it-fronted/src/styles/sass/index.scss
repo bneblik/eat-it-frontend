@@ -1,0 +1,20 @@
+@import "meal";
+@import "meals";
+@import "header";
+@import "add-meal";
+
+.body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.appContent {
+  padding: 1em;
+  padding-top: 70px;
+}
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
