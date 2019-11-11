@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TMeal } from "../../types/Meals"
+import { connect } from 'react-redux';
 
 interface MealProps { 
     match: { 
@@ -9,46 +9,52 @@ interface MealProps {
 };
 interface MealState {
     meal: TMeal | undefined;
-    meals: TMeal[];
+  }
+
+type TMeal = {
+    id: number;
+    name: string;
+    recipe?: string;
 }
-  
-
-
 
 class Meal extends Component<MealProps, MealState> {
-    state = {
-        meal: undefined,
-        meals: []
-    };
-    componentDidUpdate() {
-        if(this.props.mealsList !== this.state.meals){
-            const id = this.props.match.params.id;
-            const meals = this.props.mealsList;
-            this.setState({
-                meal: meals.find(meal => meal.id.toString() === id),
-                meals
-            });        
+    constructor(props: Readonly<MealProps>){
+        super(props);
+        this.state = {
+            meal: undefined
         }
     }
-    
+    componentDidMount() {
+        const id = this.props.match.params.id;
+        this.setState({meal: this.props.mealsList.find(meal => meal.id.toString() === id)});
+    }
     render() {
-        console.log(this.props.mealsList);
-        // if(this.state.meal){
-        // return (
-        //     <div className="mealComponent">
-        //         <h1>{this.state.meal.name}</h1>
-        //         <div>{this.state.meal.recipe}</div>
-        //     </div>
-        // );
-        // }
-        // else {
+        if(this.state.meal){
+        return (
+            <div className="mealComponent">
+                <h1>{this.state.meal.name}</h1>
+                <div>{this.state.meal.recipe}</div>
+            </div>
+        );
+        }
+        else {
             return (
                 <div>
                     Cannot find element with id = {this.props.match.params.id}
                 </div>
             );
-        // }
+        }
     }
 }
 
-export { Meal };
+// export { Meal };
+const mapStateToProps = (state: any) => {
+    return ({
+      meals: state.meals.mealsList
+    });
+  };
+    
+  export default connect(
+    mapStateToProps
+  )(Meal);
+  

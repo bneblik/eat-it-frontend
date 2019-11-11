@@ -14,7 +14,7 @@ export function mealsReducer(
                 mealsList: [...state.mealsList, action.meal]
             };
         default:
-        return state;
+            return state;
     }
 }
   

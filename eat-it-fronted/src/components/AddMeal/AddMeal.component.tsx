@@ -1,24 +1,40 @@
 import React, { Component } from 'react';
-import {  Card, TextField, CardHeader, Button } from '@material-ui/core';
-import { addMeal } from '../../actions/action';
+import {  Card, TextField, MenuItem, CardHeader, Button } from '@material-ui/core';
+import { addMeal } from '../../actions/mealAction';
+import { ProductsList } from '../ProductsList/ProductsList.component';
+import { removeProduct, addProduct } from '../../actions/productAction';
 
 interface AddMealProps {
     addMeal: typeof addMeal;
+    removeProduct: typeof removeProduct;
+    addProduct: typeof addProduct;
+    productsList: ProductType[];
+}
+interface AddMealState {
+    name: string;
+    recipe: string;
+    selectedProductId: string;
+    productsList: ProductType[];
 }
 
+type ProductType = {
+    id: number,
+    name: string
+}
 
-class AddMeal extends Component<AddMealProps> {
+const allProducts : ProductType[] = [
+    {id: 1, name: 'egg'},
+    {id: 2, name: 'water'},
+    {id: 3, name: 'salt'}
+];
+class AddMeal extends Component<AddMealProps, AddMealState> {
     state = {
         name: '',
-        recipe: ''
+        recipe: '',
+        selectedProductId: '',
+        productsList: []
     };
-    componentDidMount(){
-        this.props.addMeal({
-            id: 3,
-            name: "addmeal",
-            recipe: "addmeal"
-          });
-    }
+
     add = () => {
         this.props.addMeal({
             id: 3,
@@ -28,7 +44,19 @@ class AddMeal extends Component<AddMealProps> {
         this.setState({name: '', recipe: ''});
     };
 
+    addProduct = () => {
+        const newProduct = allProducts.find((product) => {
+                return product.id === +this.state.selectedProductId
+            });
+        if (newProduct) {
+            this.props.addProduct(newProduct);
+            this.setState({selectedProductId: ''});
+        }
+       
+    };
+
     render() {
+        console.log(this.props.productsList);
         return (
             <div className="addMealComponent">
             <Card className="padding">
@@ -50,6 +78,35 @@ class AddMeal extends Component<AddMealProps> {
                     fullWidth={true}
                     onChange={(e)=>{this.setState({recipe: e.target.value});}}
                     />
+                </div>
+                <div className="padding">
+                    <div className="addProductGroup">
+                        <TextField
+                            label="Product"
+                            select
+                            className="selectProduct"
+                            value={this.state.selectedProductId}
+                            multiline={true}
+                            
+                            onChange={(e)=>{this.setState({selectedProductId: e.target.value});}}
+                            >
+                                {allProducts.map(option => (
+                                    <MenuItem key={option.id} value={option.id}>
+                                        {option.name}
+                                    </MenuItem>
+                                ))}
+                        </TextField>
+                        <Button
+                            className="addProduct"
+                            variant="contained"
+                            color="inherit"
+                            size="small"
+                            onClick={this.addProduct}
+                        >
+                            Add product
+                        </Button>
+                    </div>
+                    <ProductsList productsList={this.props.productsList} removeProduct={this.props.removeProduct}/>
                 </div>
                 <Button
                     className="addButton"
