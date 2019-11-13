@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link, Card, CardHeader, CardContent, Typography, CardActionArea } from '@material-ui/core';
 import { TMeal } from "../../types/Meals"
+import '../../styles/css/meals.styles.css'
 
 export interface MealsProps {
   mealsList: TMeal[];

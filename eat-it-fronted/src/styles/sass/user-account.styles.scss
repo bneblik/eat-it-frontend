@@ -1,0 +1,9 @@
+@import 'log-in.styles.scss';
+
+.userAccountComponent {
+    display: flex;
+    flex-wrap: wrap;
+    .signUpComponent {
+        background-color: rgba(0, 0, 0, 0.03);
+    }
+}

@@ -4,6 +4,6 @@ import { ProductsList } from './ProductsList.component';
 
 describe('ProductsList', () => {
     it('renders without crashing', () => {
-        shallow(<ProductsList />);
+        shallow(<ProductsList productsList={[]} removeProduct={(id)=>{return {type:'REMOVE_PRODUCT', productId:id}}}/>);
     })
 });

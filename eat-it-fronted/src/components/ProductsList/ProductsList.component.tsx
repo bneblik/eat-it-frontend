@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import {  Card, TextField, MenuItem, CardHeader, Button } from '@material-ui/core';
+import {  Button } from '@material-ui/core';
 import { ProductType } from '../../types/Products';
 import { removeProduct } from '../../actions/productAction';
+import '../../styles/css/products-list.styles.css'
 
 interface ProductsListProps {
     removeProduct: typeof removeProduct,
