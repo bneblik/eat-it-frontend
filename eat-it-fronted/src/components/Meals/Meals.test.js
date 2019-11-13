@@ -1,9 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import App from './App';
+import { Meals } from './Meals.component';
 
-describe('App', () => {
+describe('Meals', () => {
     it('renders without crashing', () => {
-        shallow(<App />);
+        shallow(<Meals />);
     })
 });
