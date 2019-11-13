@@ -3,6 +3,7 @@ import {  Card, TextField, MenuItem, CardHeader, Button } from '@material-ui/cor
 import { addMeal } from '../../actions/mealAction';
 import { ProductsList } from '../ProductsList/ProductsList.component';
 import { removeProduct, addProduct } from '../../actions/productAction';
+import '../../styles/css/add-meal.styles.css'
 
 interface AddMealProps {
     addMeal: typeof addMeal;
@@ -64,19 +65,19 @@ class AddMeal extends Component<AddMealProps, AddMealState> {
               <form>
                 <div className="padding">
                     <TextField
-                    label="Title"
-                    value={this.state.name}
-                    fullWidth={true}
-                    onChange={(e)=>{this.setState({name: e.target.value});}}
+                        label="Title"
+                        value={this.state.name}
+                        fullWidth={true}
+                        onChange={(e)=>{this.setState({name: e.target.value});}}
                     />
                 </div>
                 <div className="padding">
                     <TextField
-                    label="Recipe"
-                    value={this.state.recipe}
-                    multiline={true}
-                    fullWidth={true}
-                    onChange={(e)=>{this.setState({recipe: e.target.value});}}
+                        label="Recipe"
+                        value={this.state.recipe}
+                        multiline={true}
+                        fullWidth={true}
+                        onChange={(e)=>{this.setState({recipe: e.target.value});}}
                     />
                 </div>
                 <div className="padding">

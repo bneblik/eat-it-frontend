@@ -4,6 +4,6 @@ import { Meals } from './Meals.component';
 
 describe('Meals', () => {
     it('renders without crashing', () => {
-        shallow(<Meals />);
+        shallow(<Meals mealsList={[]}/>);
     })
 });

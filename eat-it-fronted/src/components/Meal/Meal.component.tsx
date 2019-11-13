@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import '../../styles/css/meal.styles.css'
 
 interface MealProps { 
     match: { 
@@ -47,14 +47,4 @@ class Meal extends Component<MealProps, MealState> {
     }
 }
 
-// export { Meal };
-const mapStateToProps = (state: any) => {
-    return ({
-      meals: state.meals.mealsList
-    });
-  };
-    
-  export default connect(
-    mapStateToProps
-  )(Meal);
-  
+export { Meal };

@@ -7,10 +7,10 @@ import { addMeal } from '../../actions/mealAction';
 import { connect } from "react-redux";
 import { reducers } from '../../reducers';
 import { MealsState } from '../../types/Meals';
-import Meal from '../Meal/Meal.component';
+import { Meal } from '../Meal/Meal.component';
 import { removeProduct, addProduct } from '../../actions/productAction';
 import { ProductsState } from '../../types/Products';
-
+import { UserAccount } from '../UserAccount/UserAccount.component';
 
 interface AppProps {
     meals: MealsState;
@@ -59,6 +59,11 @@ class App extends Component<AppProps>{
                                     addProduct={this.props.addProduct}
                                     removeProduct={this.props.removeProduct}
                                 /> </>
+                        }/>
+                        <Route 
+                            path="/login"
+                            render={(props) => <>
+                                <UserAccount {...props} /></>
                         }/>
                         <Redirect to="/"></Redirect>
                     </Switch>
