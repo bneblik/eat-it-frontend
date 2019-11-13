@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
 import { Link, Card, CardHeader, CardContent, Typography, CardActionArea } from '@material-ui/core';
+import { TMeal } from "../../types/Meals"
 
-const meals = [
-    { id: 1, name: 'soup', recipe: 'Add all ingredients and cook' },
-    { id: 2, name: 'sandwich', recipe: 'aaaaaaaaaaa' },
-    { id: 3, name: 'cake', recipe: 'bbbbbbbbb' },
-    { id: 4, name: 'pasta', recipe: 'cccccccccc' },
-];
+export interface MealsProps {
+  mealsList: TMeal[];
+}
 
-class Meals extends Component {
+
+class Meals extends Component<MealsProps> {
     render() {
         return (
             <div className="mealsComponent">
                 <h1>Meals:</h1>
                 <div>
-                    {meals.map(meal => (
+                    {this.props.mealsList.map(meal => (
                           <Card key={meal.id} className="card">
                           <CardActionArea>
                             <Link href={`/meal/${meal.id}`} color="inherit" underline="none">
@@ -30,10 +29,8 @@ class Meals extends Component {
                                 </Typography>
                               </CardContent>
                             </Card>
-                           
                     ))}
                 </div>
-                
             </div>
         );
     }

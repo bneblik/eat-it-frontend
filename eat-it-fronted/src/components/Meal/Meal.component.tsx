@@ -1,24 +1,24 @@
-import React, { Component, Props } from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-interface IProps { match: { params: { id: string } } };
-interface IState {
+interface MealProps { 
+    match: { 
+        params: { id: string } 
+    },
+    mealsList: TMeal[]
+};
+interface MealState {
     meal: TMeal | undefined;
   }
-  
+
 type TMeal = {
     id: number;
     name: string;
     recipe?: string;
 }
-const meals: TMeal[] = [
-    { id: 1, name: 'soup', recipe: 'Add all ingredients and cook' },
-    { id: 2, name: 'sandwich' },
-    { id: 3, name: 'cake' },
-    { id: 4, name: 'pasta' },
-];
 
-class Meal extends Component<IProps, IState> {
-    constructor(props: Readonly<IProps>){
+class Meal extends Component<MealProps, MealState> {
+    constructor(props: Readonly<MealProps>){
         super(props);
         this.state = {
             meal: undefined
@@ -26,7 +26,7 @@ class Meal extends Component<IProps, IState> {
     }
     componentDidMount() {
         const id = this.props.match.params.id;
-        this.setState({meal: meals.find(meal => meal.id.toString() === id)});
+        this.setState({meal: this.props.mealsList.find(meal => meal.id.toString() === id)});
     }
     render() {
         if(this.state.meal){
@@ -47,4 +47,14 @@ class Meal extends Component<IProps, IState> {
     }
 }
 
-export { Meal };
+// export { Meal };
+const mapStateToProps = (state: any) => {
+    return ({
+      meals: state.meals.mealsList
+    });
+  };
+    
+  export default connect(
+    mapStateToProps
+  )(Meal);
+  
