@@ -4,6 +4,9 @@ import { addMeal } from '../../actions/mealAction';
 import { ProductsList } from '../ProductsList/ProductsList.component';
 import { removeProduct, addProduct } from '../../actions/productAction';
 import '../../styles/css/add-meal.styles.css'
+import { connect } from 'react-redux';
+import { ProductsState } from '../../types/Products';
+import { productsReducer } from '../../reducers/productReducer';
 
 interface AddMealProps {
     addMeal: typeof addMeal;
@@ -15,7 +18,7 @@ interface AddMealState {
     name: string;
     recipe: string;
     selectedProductId: string;
-    productsList: ProductType[];
+    productsReducer: ProductsState;
 }
 
 type ProductType = {
@@ -29,11 +32,11 @@ const allProducts : ProductType[] = [
     {id: 3, name: 'salt'}
 ];
 class AddMeal extends Component<AddMealProps, AddMealState> {
-    state = {
+    state: AddMealState = {
         name: '',
         recipe: '',
         selectedProductId: '',
-        productsList: []
+        productsReducer: {} as ProductsState
     };
 
     add = () => {
@@ -57,7 +60,6 @@ class AddMeal extends Component<AddMealProps, AddMealState> {
     };
 
     render() {
-        console.log(this.props.productsList);
         return (
             <div className="addMealComponent">
             <Card className="padding">
@@ -126,4 +128,13 @@ class AddMeal extends Component<AddMealProps, AddMealState> {
     }
 }
 
-export { AddMeal };
+const mapStateToProps = (state: AddMealState) => {
+    return ({
+        productsList: state.productsReducer.productsList,
+    });
+  };
+    
+export default connect(
+    mapStateToProps,
+    { addMeal, addProduct, removeProduct }
+)(AddMeal);

@@ -4,7 +4,7 @@ const initialState: MealsState = {
     mealsList: [ {id: 1, name: 'very tasty meal', recipe: 'what to do'} ]
 };
 
-export function mealsReducer(
+export function addMealReducer(
     state = initialState,
     action: MealsActionType
 ) {

@@ -1,35 +1,51 @@
 import React, { Component } from 'react';
-import { Link, Card, CardHeader, CardContent, Typography, CardActionArea } from '@material-ui/core';
-import { TMeal } from "../../types/Meals"
+import { Card, CardHeader, CardContent, Typography, CardActionArea } from '@material-ui/core';
 import '../../styles/css/meals.styles.css'
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { fetchMeals } from '../../actions/mealsAction';
+import { Link } from 'react-router-dom';
+import { TMeal } from '../../types/MealTypes';
+import { mealsReducer } from '../../reducers/MealsReducer';
+import { MealsStateType } from '../../types/MealsTypes';
+import { productsReducer } from '../../reducers/productReducer';
 
-export interface MealsProps {
-  mealsList: TMeal[];
+interface MealsProps {
+  error: any | null,
+  meals: TMeal[],
+  pending: boolean,
+  fetchMeals: typeof fetchMeals;
 }
+type MealsState = {mealsReducer: MealsStateType};
 
 
-class Meals extends Component<MealsProps> {
+class Meals extends Component<MealsProps, MealsState> {
+    componentDidMount() {
+      const {fetchMeals} = this.props;
+      fetchMeals();
+    }
+
     render() {
         return (
             <div className="mealsComponent">
                 <h1>Meals:</h1>
                 <div>
-                    {this.props.mealsList.map(meal => (
-                          <Card key={meal.id} className="card">
+                    {this.props.meals.map(meal => (
+                        <Card key={meal.id} className="card">
                           <CardActionArea>
-                            <Link href={`/meal/${meal.id}`} color="inherit" underline="none">
+                            <Link to={{pathname: `/meals/${meal.id}`, state: {meal: meal}}} color="inherit">
                               <CardHeader
                                 title={meal.name}
                               />
-                              </Link>
-                              </CardActionArea>
+                            </Link>
+                          </CardActionArea>
 
-                              <CardContent>
-                                <Typography variant="body2" color="textSecondary" component="p">
-                                  {meal.recipe}
-                                </Typography>
-                              </CardContent>
-                            </Card>
+                          <CardContent>
+                            <Typography variant="body2" color="textSecondary" component="p">
+                              {meal.recipe}
+                            </Typography>
+                          </CardContent>
+                        </Card>
                     ))}
                 </div>
             </div>
@@ -37,4 +53,17 @@ class Meals extends Component<MealsProps> {
     }
 }
 
-export { Meals };
+const mapStateToProps = (state: MealsState) => {console.log(state); return {
+  error: state.mealsReducer.error,
+  meals: state.mealsReducer.meals,
+  pending: state.mealsReducer.pending
+}};
+
+const mapDispatchToProps = (dispatch: any) => bindActionCreators({
+  fetchMeals: fetchMeals
+}, dispatch);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Meals );

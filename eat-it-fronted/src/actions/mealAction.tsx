@@ -1,4 +1,5 @@
-import { ADD_MEAL, TMeal, AddMealAction } from "../types/Meals"
+import { ADD_MEAL, AddMealAction } from "../types/Meals"
+import { TMeal } from "../types/MealTypes";
 
 
 export function addMeal(meal: TMeal) : AddMealAction{

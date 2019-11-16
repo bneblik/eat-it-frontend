@@ -1,8 +1,10 @@
 import { combineReducers } from "redux";
-import { mealsReducer } from "./mealReducer";
 import { productsReducer } from "./productReducer";
+import { mealsReducer } from "./MealsReducer";
+import { addMealReducer } from "./mealReducer";
 
 export const reducers = combineReducers({
-    meals: mealsReducer,
-    products: productsReducer
+    mealsReducer: mealsReducer,
+    productsReducer: productsReducer,
+    mealReducer: addMealReducer
 });

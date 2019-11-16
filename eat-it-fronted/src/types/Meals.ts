@@ -1,10 +1,6 @@
-export const ADD_MEAL = "ADD_MEAL";
+import { TMeal } from "./MealTypes";
 
-export type TMeal = {
-    id: number;
-    name: string;
-    recipe?: string;
-}
+export const ADD_MEAL = "ADD_MEAL";
 
 export interface MealsState {
   mealsList: TMeal[];
