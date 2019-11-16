@@ -1,0 +1,12 @@
+language: node_js
+
+node_js:
+    - '12.10.0'
+
+before_script:
+    - 'yarn'
+    - 'yarn build'
+
+script:
+    - 'yarn lint'
+    - 'yarn test'
