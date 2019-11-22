@@ -29,7 +29,7 @@ class App extends Component<AppProps> {
                 path="/meals/:id"
                 render={(props) => (
                   <>
-                    <Meal {...props} mealsList={this.props.meals.mealsList} />{' '}
+                    <Meal {...props} />{' '}
                   </>
                 )}
               />
