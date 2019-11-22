@@ -9,6 +9,11 @@ import { MealsState } from '../../types/Meals';
 import { Meal } from '../Meal/Meal.component';
 import { ProductsState } from '../../types/Products';
 import { UserAccount } from '../UserAccount/UserAccount.component';
+import { MyFridge } from '../MyFridge/MyFridge.component';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faEnvelope, faKey } from '@fortawesome/free-solid-svg-icons';
+
+library.add(faEnvelope, faKey);
 
 interface AppProps {
   meals: MealsState;
@@ -51,6 +56,7 @@ class App extends Component<AppProps> {
                   </>
                 )}
               />
+              <Route path="/my-fridge" render={() => <MyFridge />} />
               <Redirect to="/"></Redirect>
             </Switch>
           </Router>

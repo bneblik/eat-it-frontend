@@ -1,20 +1,22 @@
 .headerComponent {
-    background-color: white;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-    z-index: 999;
+  background-color: white;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  z-index: 999;
 
-    .toRight {
-        margin-left: auto;
-    }
+  .toRight {
+    margin-left: auto;
+  }
 
-    .logo {
-        font-weight: bold;
-        padding: 0.5rem 1rem;
-    }
+  .logo {
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    color: rgba(33, 173, 33, 0.8);
+    font-size: larger;
+  }
 }
 
 .sticky {
-    position: fixed;
-    top: 0;
-    width: 100%;
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
