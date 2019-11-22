@@ -17,7 +17,7 @@ class ProductsList extends Component<ProductsListProps> {
   render() {
     return (
       <div>
-        {this.props.productsList.map(product => (
+        {this.props.productsList.map((product) => (
           <div key={product.id}>
             {product.name}
             <Button onClick={() => this.removeProduct(product.id)}>X</Button>

@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 import Meals from '../Meals/Meals.component';
-import {
-  Route,
-  Switch,
-  BrowserRouter as Router,
-  Redirect,
-} from 'react-router-dom';
+import { Route, Switch, BrowserRouter as Router, Redirect } from 'react-router-dom';
 import { Header } from '../Header/Header.component';
 import AddMeal from '../AddMeal/AddMeal.component';
 import { connect } from 'react-redux';
@@ -32,7 +27,7 @@ class App extends Component<AppProps> {
             <Switch>
               <Route
                 path="/meals/:id"
-                render={props => (
+                render={(props) => (
                   <>
                     <Meal {...props} mealsList={this.props.meals.mealsList} />{' '}
                   </>
@@ -50,7 +45,7 @@ class App extends Component<AppProps> {
               <Route path="/add-meal" render={() => <AddMeal />} />
               <Route
                 path="/login"
-                render={props => (
+                render={(props) => (
                   <>
                     <UserAccount {...props} />
                   </>
@@ -68,7 +63,7 @@ class App extends Component<AppProps> {
 const mapStateToProps = (state: AppState) => {
   return {
     meals: state.mealReducer,
-    products: state.productsReducer,
+    products: state.productsReducer
   };
 };
 

@@ -21,13 +21,13 @@ class Meal extends Component<MealProps, MealState> {
   constructor(props: Readonly<MealProps>) {
     super(props);
     this.state = {
-      meal: undefined,
+      meal: undefined
     };
   }
   componentDidMount() {
     const id = this.props.match.params.id;
     this.setState({
-      meal: this.props.mealsList.find(meal => meal.id.toString() === id),
+      meal: this.props.mealsList.find((meal) => meal.id.toString() === id)
     });
   }
   render() {
@@ -39,9 +39,7 @@ class Meal extends Component<MealProps, MealState> {
         </div>
       );
     } else {
-      return (
-        <div>Cannot find element with id = {this.props.match.params.id}</div>
-      );
+      return <div>Cannot find element with id = {this.props.match.params.id}</div>;
     }
   }
 }

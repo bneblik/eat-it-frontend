@@ -7,10 +7,10 @@ describe('ProductsList', () => {
     shallow(
       <ProductsList
         productsList={[]}
-        removeProduct={id => {
+        removeProduct={(id) => {
           return { type: 'REMOVE_PRODUCT', productId: id };
         }}
-      />,
+      />
     );
   });
 });

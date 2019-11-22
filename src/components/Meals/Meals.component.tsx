@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Card,
-  CardHeader,
-  CardContent,
-  Typography,
-  CardActionArea,
-} from '@material-ui/core';
+import { Card, CardHeader, CardContent, Typography, CardActionArea } from '@material-ui/core';
 import '../../styles/css/meals.styles.css';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -33,13 +27,13 @@ class Meals extends Component<MealsProps, MealsState> {
       <div className="mealsComponent">
         <h1>Meals:</h1>
         <div>
-          {this.props.meals.map(meal => (
+          {this.props.meals.map((meal) => (
             <Card key={meal.id} className="card">
               <CardActionArea>
                 <Link
                   to={{
                     pathname: `/meals/${meal.id}`,
-                    state: { meal: meal },
+                    state: { meal: meal }
                   }}
                   color="inherit"
                 >
@@ -65,19 +59,19 @@ const mapStateToProps = (state: MealsState) => {
   return {
     error: state.mealsReducer.error,
     meals: state.mealsReducer.meals,
-    pending: state.mealsReducer.pending,
+    pending: state.mealsReducer.pending
   };
 };
 
 const mapDispatchToProps = (dispatch: any) =>
   bindActionCreators(
     {
-      fetchMeals: fetchMeals,
+      fetchMeals: fetchMeals
     },
-    dispatch,
+    dispatch
   );
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(Meals);

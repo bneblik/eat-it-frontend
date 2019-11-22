@@ -9,7 +9,7 @@ describe('AddMeal', () => {
     shallow(
       <Provider store={store}>
         <AddMeal />
-      </Provider>,
+      </Provider>
     );
   });
 });
