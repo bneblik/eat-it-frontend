@@ -27,6 +27,9 @@ class Header extends Component {
             <Button href="/my-fridge" className="menuItem" color="inherit">
               My fridge
             </Button>
+            <Button href="/my-meal-plan" className="menuItem" color="inherit">
+              My meal plan
+            </Button>
           </div>
         </Toolbar>
       </nav>

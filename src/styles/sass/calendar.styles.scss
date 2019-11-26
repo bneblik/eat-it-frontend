@@ -1,0 +1,69 @@
+.calendarComponent {
+  min-width: 230px;
+  .cell {
+    width: 130px;
+    height: 30px;
+    padding: 1%;
+    flex: 1 1 20px;
+    text-align: center;
+  }
+  .cell.day:hover {
+    box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.2);
+  }
+  .row {
+    display: flex;
+  }
+  .center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .padding {
+    padding: 0 12px;
+  }
+  .calendarHeader {
+    width: 100%;
+    display: flex;
+    h3 {
+      margin: 0;
+    }
+  }
+  .daysHeader {
+    border-bottom: 1px solid rgba(0, 111, 1, 0.4);
+  }
+  .disabled {
+    color: gray;
+  }
+  .selected {
+    background-color: rgba(33, 173, 33, 0.6);
+  }
+  .selected.today {
+    background-color: rgba(33, 173, 33, 0.8);
+  }
+  .today {
+    border: 1px solid rgba(33, 173, 33, 0.8);
+  }
+
+  .col {
+    flex: 1;
+    max-width: 100%;
+  }
+
+  .col-start {
+    flex-grow: 1;
+    justify-content: flex-start;
+    text-align: left;
+  }
+
+  .col-center {
+    flex-grow: 4;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .col-end {
+    flex-grow: 1;
+    justify-content: flex-end;
+    text-align: right;
+  }
+}

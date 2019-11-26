@@ -1,29 +1,4 @@
 .myFridgeComponent {
-  table {
-    width: 100%;
-    tr {
-      display: flex;
-      flex-wrap: wrap;
-      th,
-      td {
-        min-width: 50px;
-        flex: 1 1 20px;
-        margin: 0.2em;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        .small {
-          font-size: 10px;
-          font-weight: normal;
-        }
-      }
-      box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
-      border-collapse: collapse;
-    }
-    .tableHeader {
-      border: 1px solid lightgray;
-    }
-  }
   .scrollOnOverflow {
     overflow-x: auto;
     tr {

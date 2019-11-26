@@ -12,6 +12,7 @@ import { UserAccount } from '../UserAccount/UserAccount.component';
 import { MyFridge } from '../MyFridge/MyFridge.component';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faEnvelope, faKey } from '@fortawesome/free-solid-svg-icons';
+import { MyMealPlan } from '../MyMealPlan/MyMealPlan.component';
 
 library.add(faEnvelope, faKey);
 
@@ -57,6 +58,7 @@ class App extends Component<AppProps> {
                 )}
               />
               <Route path="/my-fridge" render={() => <MyFridge />} />
+              <Route path="/my-meal-plan" render={() => <MyMealPlan />} />
               <Redirect to="/"></Redirect>
             </Switch>
           </Router>

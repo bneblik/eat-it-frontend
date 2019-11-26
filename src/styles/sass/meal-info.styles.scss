@@ -1,0 +1,50 @@
+.mealInfoComponent {
+  margin: 0.5em 0;
+  box-shadow: 0 3px 7px 0px rgba(0, 0, 0, 0.2);
+
+  display: flex;
+  flex-wrap: wrap;
+  div {
+    flex: 1 1 200px;
+    margin: 0.2em;
+  }
+  .image {
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    flex: 0 0 40px;
+    padding: 0.3em;
+    img {
+      height: 100%;
+      max-height: 130px;
+      width: auto;
+    }
+  }
+  .name {
+    padding: 0.4em;
+    font-size: 20px;
+  }
+  .link:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  .nutrients {
+    padding: 0.1em;
+    .circle {
+      padding: 3px;
+      display: inline-block;
+    }
+    .proteins {
+      color: rgb(180, 50, 50);
+    }
+    .carbs {
+      color: rgb(50, 160, 50);
+    }
+    .fats {
+      color: rgb(20, 120, 280);
+    }
+    .calories {
+      color: black;
+    }
+  }
+}

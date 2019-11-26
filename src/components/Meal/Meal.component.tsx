@@ -8,10 +8,10 @@ interface MealProps {
   };
 }
 interface MealState {
-  meal: TMeal;
+  meal: TMealExtended;
 }
 
-type TMeal = {
+export type TMealExtended = {
   id: number;
   name: string;
   recipe: string;
@@ -25,7 +25,7 @@ type TMeal = {
   yields?: number;
 };
 
-const meal: TMeal = {
+const meal: TMealExtended = {
   id: 1,
   name: 'Spaghetti carbonara',
   recipe:
