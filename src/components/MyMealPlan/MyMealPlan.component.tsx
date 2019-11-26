@@ -30,7 +30,7 @@ class MyMealPlan extends Component {
   componentDidMount() {}
 
   renderMealsForTheDay() {
-    if (this.state.meals == []) return <div>Nothing to display</div>;
+    if (this.state.meals === []) return <div>Nothing to display</div>;
     const mealsInfo: any[] = [];
     this.state.meals.forEach((meal) => mealsInfo.push(<MealInfo meal={meal}></MealInfo>));
     return <div>{mealsInfo}</div>;

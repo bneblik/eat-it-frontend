@@ -2,7 +2,9 @@
   background-color: white;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
   z-index: 999;
-
+  .flex {
+    display: flex;
+  }
   .toRight {
     margin-left: auto;
   }
@@ -13,8 +15,31 @@
     color: rgba(33, 173, 33, 0.8);
     font-size: larger;
   }
-}
 
+  // responsive header
+  .icon {
+    display: none;
+  }
+  @media screen and (max-width: 600px) {
+    .toRight#menu {
+      display: none;
+    }
+    .icon {
+      display: block;
+    }
+
+    .responsive .menuItem {
+      display: block !important;
+      text-align: center;
+    }
+    .responsive {
+      float: none;
+    }
+  }
+  @media screen and (min-width: 600px) {
+    display: flex;
+  }
+}
 .sticky {
   position: fixed;
   top: 0;
