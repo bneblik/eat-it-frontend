@@ -5,7 +5,7 @@ class SignUp extends Component {
   state = {
     username: '',
     password: '',
-    repeatPass: '',
+    repeatPass: ''
   };
   signUp() {}
   render() {
@@ -18,7 +18,7 @@ class SignUp extends Component {
               label="Username"
               value={this.state.username}
               fullWidth={true}
-              onChange={e => {
+              onChange={(e) => {
                 this.setState({ username: e.target.value });
               }}
             />
@@ -29,7 +29,7 @@ class SignUp extends Component {
               value={this.state.password}
               type="password"
               fullWidth={true}
-              onChange={e => {
+              onChange={(e) => {
                 this.setState({ password: e.target.value });
               }}
             />
@@ -40,7 +40,7 @@ class SignUp extends Component {
               value={this.state.repeatPass}
               type="password"
               fullWidth={true}
-              onChange={e => {
+              onChange={(e) => {
                 this.setState({ repeatPass: e.target.value });
               }}
             />

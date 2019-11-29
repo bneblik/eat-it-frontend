@@ -4,7 +4,7 @@ import { TextField, Button } from '@material-ui/core';
 class LogIn extends Component {
   state = {
     username: '',
-    password: '',
+    password: ''
   };
   logIn() {}
   render() {
@@ -17,7 +17,7 @@ class LogIn extends Component {
               label="Username"
               value={this.state.username}
               fullWidth={true}
-              onChange={e => {
+              onChange={(e) => {
                 this.setState({ username: e.target.value });
               }}
             />
@@ -28,7 +28,7 @@ class LogIn extends Component {
               value={this.state.password}
               type="password"
               fullWidth={true}
-              onChange={e => {
+              onChange={(e) => {
                 this.setState({ password: e.target.value });
               }}
             />

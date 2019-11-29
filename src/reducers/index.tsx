@@ -6,5 +6,5 @@ import { addMealReducer } from './mealReducer';
 export const reducers = combineReducers({
   mealsReducer: mealsReducer,
   productsReducer: productsReducer,
-  mealReducer: addMealReducer,
+  mealReducer: addMealReducer
 });

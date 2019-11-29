@@ -9,7 +9,7 @@ describe('App', () => {
     shallow(
       <Provider store={store}>
         <App />
-      </Provider>,
+      </Provider>
     );
   });
 });

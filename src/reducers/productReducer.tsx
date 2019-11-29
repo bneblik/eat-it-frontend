@@ -1,21 +1,13 @@
-import {
-  ADD_PRODUCT,
-  REMOVE_PRODUCT,
-  ProductsActionType,
-  ProductsState,
-} from '../types/Products';
+import { ADD_PRODUCT, REMOVE_PRODUCT, ProductsActionType, ProductsState } from '../types/Products';
 
 const initialState: ProductsState = {
-  productsList: [],
+  productsList: []
 };
 
-export function productsReducer(
-  state = initialState,
-  action: ProductsActionType,
-) {
+export function productsReducer(state = initialState, action: ProductsActionType) {
   switch (action.type) {
     case REMOVE_PRODUCT:
-      const filtered = state.productsList.filter(product => {
+      const filtered = state.productsList.filter((product) => {
         return product.id !== action.productId;
       });
       return { productsList: [...filtered] };

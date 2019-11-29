@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 import Meals from '../Meals/Meals.component';
-import {
-  Route,
-  Switch,
-  BrowserRouter as Router,
-  Redirect,
-} from 'react-router-dom';
+import { Route, Switch, BrowserRouter as Router, Redirect } from 'react-router-dom';
 import { Header } from '../Header/Header.component';
 import AddMeal from '../AddMeal/AddMeal.component';
 import { connect } from 'react-redux';
@@ -14,6 +9,12 @@ import { MealsState } from '../../types/Meals';
 import { Meal } from '../Meal/Meal.component';
 import { ProductsState } from '../../types/Products';
 import { UserAccount } from '../UserAccount/UserAccount.component';
+import { MyFridge } from '../MyFridge/MyFridge.component';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faEnvelope, faKey } from '@fortawesome/free-solid-svg-icons';
+import { MyMealPlan } from '../MyMealPlan/MyMealPlan.component';
+
+library.add(faEnvelope, faKey);
 
 interface AppProps {
   meals: MealsState;
@@ -32,9 +33,9 @@ class App extends Component<AppProps> {
             <Switch>
               <Route
                 path="/meals/:id"
-                render={props => (
+                render={(props) => (
                   <>
-                    <Meal {...props} mealsList={this.props.meals.mealsList} />{' '}
+                    <Meal {...props} />{' '}
                   </>
                 )}
               />
@@ -50,12 +51,14 @@ class App extends Component<AppProps> {
               <Route path="/add-meal" render={() => <AddMeal />} />
               <Route
                 path="/login"
-                render={props => (
+                render={(props) => (
                   <>
                     <UserAccount {...props} />
                   </>
                 )}
               />
+              <Route path="/my-fridge" render={() => <MyFridge />} />
+              <Route path="/my-meal-plan" render={() => <MyMealPlan />} />
               <Redirect to="/"></Redirect>
             </Switch>
           </Router>
@@ -68,7 +71,7 @@ class App extends Component<AppProps> {
 const mapStateToProps = (state: AppState) => {
   return {
     meals: state.mealReducer,
-    products: state.productsReducer,
+    products: state.productsReducer
   };
 };
 

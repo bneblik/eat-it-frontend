@@ -1,27 +1,23 @@
 import { axiosInstance } from '../utils/RequestService';
-import {
-  FETCH_MEALS_PENDING,
-  FETCH_MEALS_SUCCESS,
-  FETCH_MEALS_ERROR,
-} from '../types/MealsTypes';
+import { FETCH_MEALS_PENDING, FETCH_MEALS_SUCCESS, FETCH_MEALS_ERROR } from '../types/MealsTypes';
 
 export function fetchMealsPending() {
   return {
-    type: FETCH_MEALS_PENDING,
+    type: FETCH_MEALS_PENDING
   };
 }
 
 export function fetchMealsSuccess(meals: any) {
   return {
     type: FETCH_MEALS_SUCCESS,
-    meals: meals,
+    meals: meals
   };
 }
 
 export function fetchMealsError(error: any) {
   return {
     type: FETCH_MEALS_ERROR,
-    error: error,
+    error: error
   };
 }
 
@@ -30,10 +26,10 @@ export function fetchMeals() {
     dispatch(fetchMealsPending());
     axiosInstance
       .get('meals')
-      .then(response => {
+      .then((response) => {
         dispatch(fetchMealsSuccess(response.data.content.meals));
       })
-      .catch(error => {
+      .catch((error) => {
         dispatch(fetchMealsError(error));
       });
   };

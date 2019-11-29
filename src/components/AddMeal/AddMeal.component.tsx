@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
-import {
-  Card,
-  TextField,
-  MenuItem,
-  CardHeader,
-  Button,
-} from '@material-ui/core';
+import { Card, TextField, MenuItem, CardHeader, Button } from '@material-ui/core';
 import { addMeal } from '../../actions/mealAction';
 import { ProductsList } from '../ProductsList/ProductsList.component';
 import { removeProduct, addProduct } from '../../actions/productAction';
 import '../../styles/css/add-meal.styles.css';
 import { connect } from 'react-redux';
 import { ProductsState } from '../../types/Products';
+import { CreateProduct } from '../CreateProduct/CreateProduct.component';
 
 interface AddMealProps {
   addMeal: typeof addMeal;
@@ -24,6 +19,7 @@ interface AddMealState {
   recipe: string;
   selectedProductId: string;
   productsReducer: ProductsState;
+  creatingProduct: boolean;
 }
 
 type ProductType = {
@@ -34,7 +30,7 @@ type ProductType = {
 const allProducts: ProductType[] = [
   { id: 1, name: 'egg' },
   { id: 2, name: 'water' },
-  { id: 3, name: 'salt' },
+  { id: 3, name: 'salt' }
 ];
 class AddMeal extends Component<AddMealProps, AddMealState> {
   state: AddMealState = {
@@ -42,19 +38,20 @@ class AddMeal extends Component<AddMealProps, AddMealState> {
     recipe: '',
     selectedProductId: '',
     productsReducer: {} as ProductsState,
+    creatingProduct: false
   };
 
   add = () => {
     this.props.addMeal({
       id: 3,
       name: this.state.name,
-      recipe: this.state.recipe,
+      recipe: this.state.recipe
     });
     this.setState({ name: '', recipe: '' });
   };
 
   addProduct = () => {
-    const newProduct = allProducts.find(product => {
+    const newProduct = allProducts.find((product) => {
       return product.id === +this.state.selectedProductId;
     });
     if (newProduct) {
@@ -74,7 +71,7 @@ class AddMeal extends Component<AddMealProps, AddMealState> {
                 label="Title"
                 value={this.state.name}
                 fullWidth={true}
-                onChange={e => {
+                onChange={(e) => {
                   this.setState({ name: e.target.value });
                 }}
               />
@@ -85,7 +82,7 @@ class AddMeal extends Component<AddMealProps, AddMealState> {
                 value={this.state.recipe}
                 multiline={true}
                 fullWidth={true}
-                onChange={e => {
+                onChange={(e) => {
                   this.setState({ recipe: e.target.value });
                 }}
               />
@@ -98,13 +95,13 @@ class AddMeal extends Component<AddMealProps, AddMealState> {
                   className="selectProduct"
                   value={this.state.selectedProductId}
                   multiline={true}
-                  onChange={e => {
+                  onChange={(e) => {
                     this.setState({
-                      selectedProductId: e.target.value,
+                      selectedProductId: e.target.value
                     });
                   }}
                 >
-                  {allProducts.map(option => (
+                  {allProducts.map((option) => (
                     <MenuItem key={option.id} value={option.id}>
                       {option.name}
                     </MenuItem>
@@ -119,19 +116,11 @@ class AddMeal extends Component<AddMealProps, AddMealState> {
                 >
                   Add product
                 </Button>
+                <CreateProduct />
               </div>
-              <ProductsList
-                productsList={this.props.productsList}
-                removeProduct={this.props.removeProduct}
-              />
+              <ProductsList productsList={this.props.productsList} removeProduct={this.props.removeProduct} />
             </div>
-            <Button
-              className="addButton"
-              variant="contained"
-              color="inherit"
-              size="small"
-              onClick={this.add}
-            >
+            <Button className="addButton" variant="contained" color="inherit" size="small" onClick={this.add}>
               Add
             </Button>
           </form>
@@ -143,11 +132,11 @@ class AddMeal extends Component<AddMealProps, AddMealState> {
 
 const mapStateToProps = (state: AddMealState) => {
   return {
-    productsList: state.productsReducer.productsList,
+    productsList: state.productsReducer.productsList
   };
 };
 
 export default connect(
   mapStateToProps,
-  { addMeal, addProduct, removeProduct },
+  { addMeal, addProduct, removeProduct }
 )(AddMeal);

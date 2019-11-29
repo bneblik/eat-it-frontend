@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Card,
-  CardHeader,
-  CardContent,
-  Typography,
-  CardActionArea,
-} from '@material-ui/core';
+import { Card, CardHeader, CardContent, Typography, CardActionArea } from '@material-ui/core';
 import '../../styles/css/meals.styles.css';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -29,55 +23,56 @@ class Meals extends Component<MealsProps, MealsState> {
   }
 
   render() {
-    return (
-      <div className="mealsComponent">
-        <h1>Meals:</h1>
-        <div>
-          {this.props.meals.map(meal => (
-            <Card key={meal.id} className="card">
-              <CardActionArea>
-                <Link
-                  to={{
-                    pathname: `/meals/${meal.id}`,
-                    state: { meal: meal },
-                  }}
-                  color="inherit"
-                >
-                  <CardHeader title={meal.name} />
-                </Link>
-              </CardActionArea>
+    if (this.props.error || this.props.meals === []) return <div>Nothing to display</div>;
+    else
+      return (
+        <div className="mealsComponent">
+          <h1>Meals:</h1>
+          <div>
+            {this.props.meals.map((meal) => (
+              <Card key={meal.id} className="card">
+                <CardActionArea>
+                  <Link
+                    to={{
+                      pathname: `/meals/${meal.id}`,
+                      state: { meal: meal }
+                    }}
+                    color="inherit"
+                  >
+                    <CardHeader title={meal.name} />
+                  </Link>
+                </CardActionArea>
 
-              <CardContent>
-                <Typography variant="body2" color="textSecondary" component="p">
-                  {meal.recipe}
-                </Typography>
-              </CardContent>
-            </Card>
-          ))}
+                <CardContent>
+                  <Typography variant="body2" color="textSecondary" component="p">
+                    {meal.recipe}
+                  </Typography>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
-      </div>
-    );
+      );
   }
 }
 
 const mapStateToProps = (state: MealsState) => {
-  console.log(state);
   return {
     error: state.mealsReducer.error,
     meals: state.mealsReducer.meals,
-    pending: state.mealsReducer.pending,
+    pending: state.mealsReducer.pending
   };
 };
 
 const mapDispatchToProps = (dispatch: any) =>
   bindActionCreators(
     {
-      fetchMeals: fetchMeals,
+      fetchMeals: fetchMeals
     },
-    dispatch,
+    dispatch
   );
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(Meals);
