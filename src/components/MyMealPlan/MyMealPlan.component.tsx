@@ -17,7 +17,11 @@ const meal: TMealExtended = {
   prepareTime: '30 min',
   yields: 1
 };
-const mealsList = [meal, meal, meal, meal, meal];
+const mealsList = [1, 2, 3].map((i) => {
+  const temp = Object.assign({}, meal);
+  temp.id = i;
+  return temp;
+});
 
 interface MyMealPlanState {
   meals: TMealExtended[];
@@ -32,7 +36,7 @@ class MyMealPlan extends Component {
   renderMealsForTheDay() {
     if (this.state.meals === []) return <div>Nothing to display</div>;
     const mealsInfo: any[] = [];
-    this.state.meals.forEach((meal) => mealsInfo.push(<MealInfo meal={meal}></MealInfo>));
+    this.state.meals.forEach((meal, i) => mealsInfo.push(<MealInfo meal={meal} key={i}></MealInfo>));
     return <div>{mealsInfo}</div>;
   }
 

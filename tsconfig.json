@@ -1,12 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext",
-      "es6"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext", "es6"],
     "noImplicitAny": true,
     "noImplicitThis": true,
     "strictNullChecks": true,
@@ -23,7 +18,6 @@
     "noEmit": true,
     "jsx": "react"
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"],
+  "exclude": ["src/sw-build.js", "src/sw-template.js"]
 }

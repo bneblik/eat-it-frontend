@@ -36,7 +36,7 @@ class Calendar extends Component {
     );
   }
 
-  renderDayCell = (day: Date) => {
+  renderDayCell = (day: Date, i: number) => {
     let styles = 'cell day center';
     if (isToday(day)) {
       styles += ' today';
@@ -48,7 +48,7 @@ class Calendar extends Component {
     }
     const newSelection = day;
     return (
-      <div className={styles} onClick={() => this.selectDate(newSelection)}>
+      <div className={styles} key={i} onClick={() => this.selectDate(newSelection)}>
         {getDate(day)}
       </div>
     );
@@ -58,14 +58,18 @@ class Calendar extends Component {
     const firstOfMonth: Date = startOfMonth(this.state.selectedDate);
     const lastOfMonth: Date = lastDayOfMonth(this.state.selectedDate);
     let currentDay: Date = startOfWeek(firstOfMonth, { weekStartsOn: 1 });
-
+    let key = 0;
     while (isBefore(currentDay, lastOfMonth)) {
       const days: any[] = [];
       for (let i = 1; i <= 7; i++) {
-        days.push(this.renderDayCell(currentDay));
+        days.push(this.renderDayCell(currentDay, i));
         currentDay = addDays(currentDay, 1);
       }
-      weeks.push(<div className="row">{days}</div>);
+      weeks.push(
+        <div key={key++} className="row">
+          {days}
+        </div>
+      );
     }
     return <div>{weeks}</div>;
   };
@@ -73,7 +77,13 @@ class Calendar extends Component {
   headerDays = () => {
     const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
     const header: any[] = [];
-    days.forEach((day) => header.push(<div className="cell">{day.toUpperCase()}</div>));
+    days.forEach((day, i) =>
+      header.push(
+        <div className="cell" key={i}>
+          {day.toUpperCase()}
+        </div>
+      )
+    );
     return <div className="row daysHeader">{header}</div>;
   };
   topOfCalenar = () => {
