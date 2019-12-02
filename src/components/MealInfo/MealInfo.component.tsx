@@ -16,20 +16,20 @@ class MealInfo extends Component<MealInfoProps> {
     return (
       <div className="nutrients">
         <span className="circle carbs">
-          <FontAwesomeIcon icon={faCircle} title={`carbohydrates: ${this.props.meal.carbs}g`} size="1x" />
-          {` carbs: ${this.props.meal.carbs}g`}
+          <FontAwesomeIcon icon={faCircle} title={`carbohydrates: ${this.props.meal.carbs}`} size="1x" />
+          {` carbs (g): ${this.props.meal.carbs}`}
         </span>
         <span className="circle proteins">
-          <FontAwesomeIcon icon={faCircle} title={`proteins: ${this.props.meal.protein}g`} size="1x" />
-          {` proteins: ${this.props.meal.protein}g`}
+          <FontAwesomeIcon icon={faCircle} title={`proteins: ${this.props.meal.protein}`} size="1x" />
+          {` proteins (g): ${this.props.meal.protein}`}
         </span>
         <span className="circle fats">
-          <FontAwesomeIcon icon={faCircle} title={`fats: ${this.props.meal.fats}g`} size="1x" />
-          {` fats: ${this.props.meal.fats}g`}
+          <FontAwesomeIcon icon={faCircle} title={`fats: ${this.props.meal.fats}`} size="1x" />
+          {` fats (g): ${this.props.meal.fats}`}
         </span>
         <span className="circle calories">
           <FontAwesomeIcon icon={faCircle} title={`calories: ${this.props.meal.calories}`} size="1x" />
-          {` calories: ${this.props.meal.calories}`}
+          {` kcal (g): ${this.props.meal.calories}`}
         </span>
       </div>
     );
