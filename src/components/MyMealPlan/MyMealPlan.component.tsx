@@ -15,7 +15,7 @@ const meal: TMealExtended = {
   protein: 16.5,
   carbs: 16,
   prepareTime: '30 min',
-  yields: 1
+  servings: 1
 };
 const mealsList = [1, 2, 3].map((i) => {
   const temp = Object.assign({}, meal);

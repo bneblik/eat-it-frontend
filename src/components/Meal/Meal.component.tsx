@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../../styles/css/meal.styles.css';
 import image from '../../styles/images/placeholder.png';
+import { MealComments } from '../MealComments/MealComments.component';
 
 interface MealProps {
   match: {
@@ -22,7 +23,7 @@ export type TMealExtended = {
   protein?: number;
   carbs?: number;
   prepareTime?: string;
-  yields?: number;
+  servings?: number;
 };
 
 const meal: TMealExtended = {
@@ -37,7 +38,7 @@ const meal: TMealExtended = {
   protein: 16.5,
   carbs: 16,
   prepareTime: '30 min',
-  yields: 1
+  servings: 1
 };
 
 class Meal extends Component<MealProps, MealState> {
@@ -55,7 +56,7 @@ class Meal extends Component<MealProps, MealState> {
         <p>
           <span>Prepare time: {this.state.meal.prepareTime}</span>
           <span> | </span>
-          <span>Yields: {this.state.meal.yields}</span>
+          <span>Servings: {this.state.meal.servings}</span>
         </p>
         <p>
           <span>Calories: {this.state.meal.calories}</span>
@@ -73,13 +74,13 @@ class Meal extends Component<MealProps, MealState> {
     if (this.state.meal.id === +this.props.match.params.id) {
       return (
         <div className="mealComponent">
-          <div className="top">
+          <div className="top card">
             <div className="image">
               <img src={image} alt="Meal" />
             </div>
             {this.renderAboutInfo()}
           </div>
-          <div className="ingredients">
+          <div className="ingredients card">
             <h3>Ingredients</h3>
             {this.state.meal.ingredients.map((ingredient, key) => (
               <p key={key}>
@@ -87,13 +88,13 @@ class Meal extends Component<MealProps, MealState> {
               </p>
             ))}
           </div>
-          <div>
+          <div className="card">
             <h3>Recipe</h3>
             {this.state.meal.recipe.split('\n').map((line, key) => (
               <p key={key}>{line}</p>
             ))}
           </div>
-          <div></div>
+          <MealComments></MealComments>
         </div>
       );
     } else {

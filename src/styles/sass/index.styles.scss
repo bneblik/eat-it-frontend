@@ -1,16 +1,26 @@
 body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    line-height: 1.5;
-    font-size: 14px;
-    margin: 0px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-size: 14px;
+  margin: 0px;
 
-    .appContent {
-        padding: 1em;
-        padding-top: 70px;
-    }
+  .appContent {
+    padding: 1em;
+    padding-top: 70px;
+  }
 
-    a {
-        color: inherit;
-        text-decoration: inherit;
-    }
+  a {
+    color: inherit;
+    text-decoration: inherit;
+  }
+  .card {
+    margin: 0.5em 0;
+    box-shadow: 0 3px 7px 0px rgba(0, 0, 0, 0.2);
+    padding: 1em;
+  }
+  .center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }

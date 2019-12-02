@@ -39,15 +39,7 @@ class App extends Component<AppProps> {
                   </>
                 )}
               />
-              <Route
-                path="/meals"
-                render={() => (
-                  <>
-                    <Meals />
-                    <AddMeal />
-                  </>
-                )}
-              />
+              <Route path="/meals" render={() => <Meals />} />
               <Route path="/add-meal" render={() => <AddMeal />} />
               <Route
                 path="/login"
