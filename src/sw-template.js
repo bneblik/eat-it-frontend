@@ -30,7 +30,7 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-export function sendPushNotification(e, title, message) {
+function sendPushNotification(e, title, message) {
   const options = {
     body: message,
     vibrate: [100, 50, 100],
@@ -40,7 +40,7 @@ export function sendPushNotification(e, title, message) {
     },
     actions: [{ action: 'close', title: 'Close' }]
   };
-  e.waitUntil(self.registration.showNotification(e, title, options));
+  e.waitUntil(self.registration.showNotification(title, options));
 }
 
 self.addEventListener('push', function(e) {

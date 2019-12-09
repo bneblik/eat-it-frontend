@@ -1,0 +1,41 @@
+.mealCommentsComponent {
+  max-width: 950px;
+  margin: auto;
+  overflow: overlay;
+  padding-top: 2em;
+
+  .singleComment {
+    border: 1px solid rgba(1, 1, 1, 0.2);
+    padding: 14px;
+    margin: 0.3em 0;
+    display: flex;
+
+    .commentInfo {
+      padding-left: 1em;
+      width: 100%;
+      .date {
+        color: rgba(1, 1, 1, 0.7);
+        // float: right;
+      }
+    }
+  }
+
+  .toRight {
+    float: right;
+  }
+
+  .rightGroup {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    > span {
+      padding: 0.5em;
+    }
+    .addComment {
+      background-color: green;
+    }
+    .addComment:hover {
+      background-color: green;
+    }
+  }
+}
