@@ -1,0 +1,19 @@
+.nutrientsInfoComponent {
+  padding: 0.1em;
+  .circle {
+    padding: 3px;
+    display: inline-block;
+  }
+  .proteins {
+    color: rgb(180, 50, 50);
+  }
+  .carbs {
+    color: rgb(50, 160, 50);
+  }
+  .fats {
+    color: rgb(20, 120, 280);
+  }
+  .calories {
+    color: black;
+  }
+}

@@ -34,14 +34,17 @@ class Header extends Component {
           <Button href="/add-meal" className="menuItem" color="inherit">
             Add meal
           </Button>
-          <Button href="/login" className="menuItem" color="inherit">
-            Log in
-          </Button>
           <Button href="/my-fridge" className="menuItem" color="inherit">
             My fridge
           </Button>
           <Button href="/my-meal-plan" className="menuItem" color="inherit">
             My meal plan
+          </Button>
+          <Button href="/user-panel" className="menuItem" color="inherit">
+            User panel
+          </Button>
+          <Button href="/login" className="menuItem" color="inherit">
+            Log in
           </Button>
         </div>
       </nav>

@@ -13,6 +13,7 @@ import { MyFridge } from '../MyFridge/MyFridge.component';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faEnvelope, faKey } from '@fortawesome/free-solid-svg-icons';
 import { MyMealPlan } from '../MyMealPlan/MyMealPlan.component';
+import { UserPanel } from '../UserPanel/UserPanel.component';
 
 library.add(faEnvelope, faKey);
 
@@ -31,26 +32,13 @@ class App extends Component<AppProps> {
         <div className="appContent">
           <Router>
             <Switch>
-              <Route
-                path="/meals/:id"
-                render={(props) => (
-                  <>
-                    <Meal {...props} />{' '}
-                  </>
-                )}
-              />
+              <Route path="/meals/:id" render={(props) => <Meal {...props} />} />
               <Route path="/meals" render={() => <Meals />} />
               <Route path="/add-meal" render={() => <AddMeal />} />
-              <Route
-                path="/login"
-                render={(props) => (
-                  <>
-                    <UserAccount {...props} />
-                  </>
-                )}
-              />
               <Route path="/my-fridge" render={() => <MyFridge />} />
               <Route path="/my-meal-plan" render={() => <MyMealPlan />} />
+              <Route path="/user-panel" render={() => <UserPanel username="exampleUser123" />} />
+              <Route path="/login" render={(props) => <UserAccount {...props} />} />
               <Redirect to="/"></Redirect>
             </Switch>
           </Router>

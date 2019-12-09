@@ -1,0 +1,76 @@
+.header {
+  font-size: 16px;
+}
+.formTime {
+  display: grid;
+  .radiosInline {
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+  .Mui-checked {
+    color: green !important;
+  }
+}
+.reminder {
+  padding: 1em;
+  display: flex;
+  .reminderInfo {
+    flex: 1 1 90%;
+    .time {
+      font-size: 16px;
+    }
+    .repeat {
+      color: darkslategray;
+    }
+  }
+  .trash {
+    font-size: 18px;
+    background: transparent;
+    border: none;
+    padding: 15px;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+  }
+}
+
+.panel {
+  padding: 1em;
+}
+.gray {
+  color: gray;
+}
+
+hr,
+br {
+  margin: 1.2em 0;
+}
+
+.setting {
+  display: flex;
+  & > * {
+    padding-bottom: 10px;
+  }
+  span {
+    flex: 2 2 90%;
+    font-size: 16px;
+  }
+  .icon {
+    font-size: 20px;
+    color: green;
+    flex: 1 1 10%;
+  }
+}
+
+.MuiTypography-body1 {
+  font-size: 14px !important;
+}
+
+.addReminderButton {
+  justify-self: flex-end;
+  width: 15%;
+}
+
+.aboutUser > * {
+  margin: 10px !important;
+}
