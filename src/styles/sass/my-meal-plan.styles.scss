@@ -1,0 +1,10 @@
+.myMealPlanComponent {
+  .mealInfoComponent {
+    margin: 0.5em 0;
+    display: flex;
+    flex-wrap: wrap;
+    img {
+      max-height: 130px !important;
+    }
+  }
+}

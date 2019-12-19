@@ -1,17 +1,17 @@
 import {
-  MealsStateType,
+  MyMealsStateType,
   FETCH_MEALS_PENDING,
   FETCH_MEALS_SUCCESS,
   FETCH_MEALS_ERROR
 } from '../types/MealsTypes';
 
-const initialState: MealsStateType = {
+const initialState: MyMealsStateType = {
   pending: false,
   meals: [],
   error: null
 };
 
-export function mealsReducer(state: MealsStateType = initialState, action: any): MealsStateType {
+export function mealsReducer(state: MyMealsStateType = initialState, action: any): MyMealsStateType {
   switch (action.type) {
     case FETCH_MEALS_PENDING:
       return {

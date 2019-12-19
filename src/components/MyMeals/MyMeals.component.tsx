@@ -4,19 +4,19 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { fetchMeals } from '../../actions/mealsAction';
 import { TMeal } from '../../types/MealTypes';
-import { MealsStateType } from '../../types/MealsTypes';
+import { MyMealsStateType } from '../../types/MealsTypes';
 import { MealInfo } from '../MealInfo/MealInfo.component';
 import { TMealExtended } from '../Meal/Meal.component';
 
-interface MealsProps {
+interface MyMealsProps {
   error: any | null;
   meals: TMeal[];
   pending: boolean;
   fetchMeals: typeof fetchMeals;
 }
-type MealsState = { mealsReducer: MealsStateType };
+type MyMealsState = { mealsReducer: MyMealsStateType };
 
-class Meals extends Component<MealsProps, MealsState> {
+class MyMeals extends Component<MyMealsProps, MyMealsState> {
   componentDidMount() {
     const { fetchMeals } = this.props;
     fetchMeals();
@@ -27,18 +27,15 @@ class Meals extends Component<MealsProps, MealsState> {
     else
       return (
         <div className="mealsComponent">
-          <h1>Meals:</h1>
-          <div>
-            {this.props.meals.map((meal) => (
-              <MealInfo key={meal.id} meal={meal as TMealExtended}></MealInfo>
-            ))}
-          </div>
+          {this.props.meals.map((meal) => (
+            <MealInfo key={meal.id} meal={meal as TMealExtended}></MealInfo>
+          ))}
         </div>
       );
   }
 }
 
-const mapStateToProps = (state: MealsState) => {
+const mapStateToProps = (state: MyMealsState) => {
   return {
     error: state.mealsReducer.error,
     meals: state.mealsReducer.meals,
@@ -57,4 +54,4 @@ const mapDispatchToProps = (dispatch: any) =>
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Meals);
+)(MyMeals);

@@ -5,6 +5,9 @@ import { Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import image from '../../styles/images/placeholder.png';
 import { NutrientsInfo } from '../NutrientsInfo/NutrientsInfo.component';
+import { Rating } from '../Rating/Rating.component';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClock } from '@fortawesome/free-regular-svg-icons';
 
 interface MealInfoProps {
   meal: TMealExtended;
@@ -17,7 +20,7 @@ class MealInfo extends Component<MealInfoProps> {
         <div className="image">
           <img src={image} alt="Meal" />
         </div>
-        <div>
+        <div className="info">
           <Link
             to={{
               pathname: `/meals/${this.props.meal.id}`,
@@ -27,11 +30,18 @@ class MealInfo extends Component<MealInfoProps> {
           >
             <div className="name link">{this.props.meal.name} </div>
           </Link>
+          <div>
+            <Rating stars={5} readonly={true} />
+            <span className="toRight">
+              <FontAwesomeIcon icon={faClock} className="paddingIcon" />
+              30 min
+            </span>
+          </div>
           <NutrientsInfo
-            kcal={this.props.meal.calories}
-            carbs={this.props.meal.carbs}
-            proteins={this.props.meal.protein}
-            fats={this.props.meal.fats}
+            kcal={1} /*{this.props.meal.calories}*/
+            carbs={1} /*{this.props.meal.carbs}*/
+            proteins={1} /*{this.props.meal.protein}*/
+            fats={1} /*{this.props.meal.fats}*/
           />
 
           <div>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Meals from '../Meals/Meals.component';
+import MyMeals from '../MyMeals/MyMeals.component';
 import { Route, Switch, BrowserRouter as Router, Redirect } from 'react-router-dom';
 import { Header } from '../Header/Header.component';
 import AddMeal from '../AddMeal/AddMeal.component';
@@ -33,7 +33,7 @@ class App extends Component<AppProps> {
           <Router>
             <Switch>
               <Route path="/meals/:id" render={(props) => <Meal {...props} />} />
-              <Route path="/meals" render={() => <Meals />} />
+              <Route path="/meals" render={() => <MyMeals />} />
               <Route path="/add-meal" render={() => <AddMeal />} />
               <Route path="/my-fridge" render={() => <MyFridge />} />
               <Route path="/my-meal-plan" render={() => <MyMealPlan />} />

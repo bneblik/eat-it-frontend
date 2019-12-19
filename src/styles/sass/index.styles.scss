@@ -18,6 +18,14 @@ body {
     box-shadow: 0 3px 7px 0px rgba(0, 0, 0, 0.2);
     padding: 1em;
   }
+  .MuiButton-contained {
+    background-color: rgba(33, 173, 33, 1);
+    font-size: 12px;
+    font-weight: 600;
+    &:hover {
+      background-color: rgba(33, 173, 33, 0.8);
+    }
+  }
   .center {
     display: flex;
     align-items: center;

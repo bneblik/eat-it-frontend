@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button } from '@material-ui/core';
 import '../../styles/css/header.styles.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faUser, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 
 interface HeaderState {
   responsive: boolean;
@@ -40,11 +40,11 @@ class Header extends Component {
           <Button href="/my-meal-plan" className="menuItem" color="inherit">
             My meal plan
           </Button>
-          <Button href="/user-panel" className="menuItem" color="inherit">
-            User panel
+          <Button href="/user-panel" className="menuItem itemIcon" color="inherit">
+            <FontAwesomeIcon icon={faUser} />
           </Button>
-          <Button href="/login" className="menuItem" color="inherit">
-            Log in
+          <Button href="/login" className="menuItem itemIcon" color="inherit">
+            <FontAwesomeIcon icon={faSignInAlt} />
           </Button>
         </div>
       </nav>
