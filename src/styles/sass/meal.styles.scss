@@ -18,4 +18,19 @@
       width: 100%;
     }
   }
+
+  .ingredients > .header {
+    display: flex;
+    > h3 {
+      flex: 1 100px;
+    }
+  }
+  .greenButton {
+    color: green;
+    border-color: green;
+    margin: 10px;
+    &:hover {
+      background-color: lightgreen;
+    }
+  }
 }

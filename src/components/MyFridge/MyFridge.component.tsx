@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import '../../styles/css/my-fridge.styles.css';
 import { InputAdornment, Input, FormControl } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faCheck, faCircle } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faCheck } from '@fortawesome/free-solid-svg-icons';
+import { NutrientsInfo } from '../NutrientsInfo/NutrientsInfo.component';
 
 interface MyFridgeState {
   products: TProduct[];
@@ -46,6 +47,7 @@ class MyFridge extends Component {
     products: products
   };
   componentDidMount() {}
+
   renderProductInFridge(product: TProduct) {
     return (
       <>
@@ -56,33 +58,17 @@ class MyFridge extends Component {
             endAdornment={<InputAdornment position="end">g</InputAdornment>}
           ></Input>
         </FormControl>
-        {this.renderNutrientsInfo(product)}
+        <NutrientsInfo
+          kcal={product.calories}
+          carbs={product.carbs}
+          proteins={product.protein}
+          fats={product.fats}
+        />
         <button className="corner cornerButton">X</button>
       </>
     );
   }
-  renderNutrientsInfo(product: TProduct) {
-    return (
-      <div className="nutrients">
-        <span className="circle carbs">
-          <FontAwesomeIcon icon={faCircle} title={`carbohydrates: ${product.carbs}g`} size="1x" />
-          {` ${product.carbs}g`}
-        </span>
-        <span className="circle proteins">
-          <FontAwesomeIcon icon={faCircle} title={`proteins: ${product.protein}g`} size="1x" />
-          {` ${product.protein}g`}
-        </span>
-        <span className="circle fats">
-          <FontAwesomeIcon icon={faCircle} title={`fats: ${product.fats}g`} size="1x" />
-          {` ${product.fats}g`}
-        </span>
-        <span className="circle calories">
-          <FontAwesomeIcon icon={faCircle} title={`calories: ${product.calories}`} size="1x" />
-          {` ${product.calories}`}
-        </span>
-      </div>
-    );
-  }
+
   renderProductToBuy(product: TProduct) {
     return (
       <>

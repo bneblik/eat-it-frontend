@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import '../../styles/css/meal.styles.css';
 import image from '../../styles/images/placeholder.png';
 import { MealComments } from '../MealComments/MealComments.component';
+import { ProductInfo } from '../ProductInfo/ProductInfo.component';
+import { Button } from '@material-ui/core';
+import { NutrientsInfo } from '../NutrientsInfo/NutrientsInfo.component';
 
 interface MealProps {
   match: {
@@ -58,15 +61,12 @@ class Meal extends Component<MealProps, MealState> {
           <span> | </span>
           <span>Servings: {this.state.meal.servings}</span>
         </p>
-        <p>
-          <span>Calories: {this.state.meal.calories}</span>
-          <span> | </span>
-          <span>Fats: {this.state.meal.fats}</span>
-          <span> | </span>
-          <span>Carbs: {this.state.meal.carbs}</span>
-          <span> | </span>
-          <span>Protein: {this.state.meal.protein}</span>
-        </p>
+        <NutrientsInfo
+          carbs={this.state.meal.carbs}
+          proteins={this.state.meal.protein}
+          fats={this.state.meal.fats}
+          kcal={this.state.meal.calories}
+        />
       </div>
     );
   }
@@ -81,11 +81,14 @@ class Meal extends Component<MealProps, MealState> {
             {this.renderAboutInfo()}
           </div>
           <div className="ingredients card">
-            <h3>Ingredients</h3>
+            <div className="header">
+              <h3>Ingredients</h3>
+              <Button variant="outlined" className="greenButton">
+                Add all to shopping list
+              </Button>
+            </div>
             {this.state.meal.ingredients.map((ingredient, key) => (
-              <p key={key}>
-                {key + 1}. {ingredient}
-              </p>
+              <ProductInfo key={key} product={ingredient} />
             ))}
           </div>
           <div className="card">
