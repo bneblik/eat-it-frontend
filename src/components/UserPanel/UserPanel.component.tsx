@@ -118,7 +118,7 @@ class UserPanel extends Component<UserPanelProps> {
 
   render() {
     return (
-      <>
+      <div>
         <div>
           {this.renderSettingTitle('Set information about you', faHeartbeat)}
           <div className="panel aboutUser">
@@ -197,7 +197,7 @@ class UserPanel extends Component<UserPanelProps> {
             />
           </div>
         </div>
-      </>
+      </div>
     );
   }
 }

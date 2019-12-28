@@ -18,7 +18,7 @@ class Header extends Component {
   };
   render() {
     return (
-      <nav className="headerComponent sticky">
+      <nav className="headerComponent sticky ">
         <div className="flex">
           <a href="/">
             <div className="logo">Eat it!</div>

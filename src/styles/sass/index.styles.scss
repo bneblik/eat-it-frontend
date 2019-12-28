@@ -4,7 +4,7 @@ body {
   font-size: 14px;
   margin: 0px;
 
-  .appContent {
+  .appContent > div {
     padding: 1em;
     padding-top: 70px;
   }
@@ -26,6 +26,10 @@ body {
       background-color: rgba(33, 173, 33, 0.8);
     }
   }
+  .svg-inline--fa {
+    padding-right: 10px;
+  }
+
   .center {
     display: flex;
     align-items: center;
