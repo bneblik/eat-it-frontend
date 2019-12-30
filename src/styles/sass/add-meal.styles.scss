@@ -1,10 +1,39 @@
 .addMealComponent {
+  .title {
+    text-align: center;
+  }
+  form > div {
+    display: flex;
+    align-items: baseline;
+  }
   .padding {
     padding: 1em;
+    & > .svg-inline--fa {
+      font-size: 24px;
+      color: green;
+      padding-right: 7px;
+      flex: 1 1 10%;
+      min-width: 30px;
+      & + div {
+        flex: 1 1 90%;
+        margin-right: 5%;
+      }
+    }
   }
 
-  .addButton {
+  .uploadImage {
+    background: rgba(0, 128, 0, 0.7);
+  }
+
+  .groupButton {
     float: right;
+    margin: 5px;
+    &.cancel {
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+    &.save {
+      background-color: rgba(33, 173, 33, 0.9);
+    }
   }
 
   .addProductGroup {
@@ -12,6 +41,11 @@
     flex-wrap: wrap;
     .selectProduct {
       flex: 100px;
+    }
+    button {
+      margin: 1em 0.2em;
+      height: 60%;
+      background: rgba(0, 128, 0, 0.7);
     }
   }
 }

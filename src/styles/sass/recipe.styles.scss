@@ -1,0 +1,25 @@
+.recipeComponent {
+  display: flex;
+  align-items: baseline;
+  .title {
+    font-size: 16px;
+    color: gray;
+  }
+  .steps {
+    width: 100%;
+    .step {
+      display: flex;
+    }
+  }
+  .MuiFormControl-root {
+    min-width: 56px;
+    margin: 0.2em;
+  }
+  .svg-inline--fa {
+    font-size: 16px;
+  }
+  .add {
+    margin: 0.4em 0;
+    float: right;
+  }
+}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, TextField, MenuItem, CardHeader, Button, IconButton } from '@material-ui/core';
+import { Card, TextField, MenuItem, CardHeader, Button } from '@material-ui/core';
 import { addMeal } from '../../actions/mealAction';
 import { ProductsList } from '../ProductsList/ProductsList.component';
 import { removeProduct, addProduct } from '../../actions/productAction';
@@ -8,7 +8,20 @@ import { connect } from 'react-redux';
 import { ProductsState } from '../../types/Products';
 import { CreateProduct } from '../CreateProduct/CreateProduct.component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import {
+  faPlus,
+  faUtensils,
+  faInfo,
+  faClipboardList,
+  faFilter,
+  faBalanceScaleRight,
+  faListOl,
+  faCheck,
+  faCamera,
+  faTimes
+} from '@fortawesome/free-solid-svg-icons';
+import { faClock } from '@fortawesome/free-regular-svg-icons';
+import { Recipe } from '../Recipe/Recipe.component';
 
 interface AddMealProps {
   addMeal: typeof addMeal;
@@ -65,12 +78,15 @@ class AddMeal extends Component<AddMealProps, AddMealState> {
   render() {
     return (
       <div className="addMealComponent">
-        <Card className="padding">
-          <CardHeader title="Add new meal" />
+        <Card>
+          <CardHeader className="title" title="Add a new meal" />
           <form>
             <div className="padding">
+              <FontAwesomeIcon icon={faUtensils} />
               <TextField
+                variant="outlined"
                 label="Name"
+                autoFocus={true}
                 value={this.state.name}
                 fullWidth={true}
                 onChange={(e) => {
@@ -79,7 +95,9 @@ class AddMeal extends Component<AddMealProps, AddMealState> {
               />
             </div>
             <div className="padding">
+              <FontAwesomeIcon icon={faInfo} />
               <TextField
+                variant="outlined"
                 label="Description"
                 value={this.state.name}
                 fullWidth={true}
@@ -89,7 +107,17 @@ class AddMeal extends Component<AddMealProps, AddMealState> {
               />
             </div>
             <div className="padding">
+              <FontAwesomeIcon icon={faCamera} />
+              <div>
+                <Button variant="contained" className="uploadImage">
+                  Add image
+                </Button>
+              </div>
+            </div>
+            <div className="padding">
+              <FontAwesomeIcon icon={faClock} />
               <TextField
+                variant="outlined"
                 label="Preparation time"
                 value={this.state.name}
                 fullWidth={true}
@@ -99,7 +127,9 @@ class AddMeal extends Component<AddMealProps, AddMealState> {
               />
             </div>
             <div className="padding">
+              <FontAwesomeIcon icon={faBalanceScaleRight} />
               <TextField
+                variant="outlined"
                 label="Servings"
                 value={this.state.name}
                 fullWidth={true}
@@ -109,8 +139,11 @@ class AddMeal extends Component<AddMealProps, AddMealState> {
               />
             </div>
             <div className="padding">
+              <FontAwesomeIcon icon={faFilter} />
               <TextField
+                variant="outlined"
                 label="Category"
+                select
                 value={this.state.name}
                 fullWidth={true}
                 onChange={(e) => {
@@ -119,52 +152,66 @@ class AddMeal extends Component<AddMealProps, AddMealState> {
               />
             </div>
             <div className="padding">
-              <TextField
-                label="Recipe"
-                value={this.state.recipe}
-                multiline={true}
-                fullWidth={true}
-                onChange={(e) => {
-                  this.setState({ recipe: e.target.value });
-                }}
-              />
+              <FontAwesomeIcon icon={faListOl} />
+              <Recipe />
             </div>
             <div className="padding">
-              <div className="addProductGroup">
-                <TextField
-                  label="Product"
-                  select
-                  className="selectProduct"
-                  value={this.state.selectedProductId}
-                  multiline={true}
-                  onChange={(e) => {
-                    this.setState({
-                      selectedProductId: e.target.value
-                    });
-                  }}
-                >
-                  {allProducts.map((option) => (
-                    <MenuItem key={option.id} value={option.id}>
-                      {option.name}
-                    </MenuItem>
-                  ))}
-                </TextField>
-                <Button
-                  className="addProduct"
-                  variant="outlined"
-                  color="inherit"
-                  size="small"
-                  onClick={this.addProduct}
-                >
-                  Add product
-                </Button>
-                <CreateProduct />
+              <FontAwesomeIcon icon={faClipboardList} />
+              <div>
+                <div className="addProductGroup">
+                  <TextField
+                    label="Product"
+                    select
+                    variant="outlined"
+                    className="selectProduct"
+                    value={this.state.selectedProductId}
+                    multiline={true}
+                    onChange={(e) => {
+                      this.setState({
+                        selectedProductId: e.target.value
+                      });
+                    }}
+                  >
+                    {allProducts.map((option) => (
+                      <MenuItem key={option.id} value={option.id}>
+                        {option.name}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                  <span>
+                    <Button
+                      className="addProduct"
+                      variant="contained"
+                      onClick={this.addProduct}
+                      startIcon={<FontAwesomeIcon icon={faPlus} />}
+                    >
+                      Add
+                    </Button>
+                    <CreateProduct />
+                  </span>
+                </div>
+                <ProductsList
+                  productsList={this.props.productsList}
+                  removeProduct={this.props.removeProduct}
+                />
               </div>
-              <ProductsList productsList={this.props.productsList} removeProduct={this.props.removeProduct} />
             </div>
-            <IconButton className="addButton" onClick={this.add}>
-              <FontAwesomeIcon icon={faPlus} />
-            </IconButton>
+            <Button
+              className="groupButton save"
+              variant="contained"
+              onClick={this.add}
+              startIcon={<FontAwesomeIcon icon={faCheck} />}
+            >
+              Save
+            </Button>
+            <Button
+              className="groupButton cancel"
+              variant="contained"
+              onClick={this.add}
+              startIcon={<FontAwesomeIcon icon={faTimes} />}
+            >
+              Cancel
+            </Button>
           </form>
         </Card>
       </div>

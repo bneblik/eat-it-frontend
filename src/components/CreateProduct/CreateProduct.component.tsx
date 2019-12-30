@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { TextField, Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit } from '@fortawesome/free-regular-svg-icons';
 
 type CreateProductState = {
   name: string;
@@ -35,14 +37,15 @@ class CreateProduct extends Component {
           color="inherit"
           size="small"
           onClick={this.toggleDialog.bind(this)}
+          startIcon={<FontAwesomeIcon icon={faEdit} />}
         >
-          Create new product
+          Other
         </Button>
         <Dialog open={this.state.dialogOpened} aria-labelledby="form-dialog-title">
-          <DialogTitle id="form-dialog-title">Create new product</DialogTitle>
+          <DialogTitle id="form-dialog-title">Create a new product</DialogTitle>
           <DialogContent>
             <TextField
-              label="Title"
+              label="Name"
               value={this.state.name}
               fullWidth={true}
               onChange={(e) => {
