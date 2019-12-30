@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, TextField, MenuItem, CardHeader, Button } from '@material-ui/core';
+import { Card, TextField, MenuItem, CardHeader, Button, IconButton } from '@material-ui/core';
 import { addMeal } from '../../actions/mealAction';
 import { ProductsList } from '../ProductsList/ProductsList.component';
 import { removeProduct, addProduct } from '../../actions/productAction';
@@ -7,6 +7,8 @@ import '../../styles/css/add-meal.styles.css';
 import { connect } from 'react-redux';
 import { ProductsState } from '../../types/Products';
 import { CreateProduct } from '../CreateProduct/CreateProduct.component';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 interface AddMealProps {
   addMeal: typeof addMeal;
@@ -68,7 +70,47 @@ class AddMeal extends Component<AddMealProps, AddMealState> {
           <form>
             <div className="padding">
               <TextField
-                label="Title"
+                label="Name"
+                value={this.state.name}
+                fullWidth={true}
+                onChange={(e) => {
+                  this.setState({ name: e.target.value });
+                }}
+              />
+            </div>
+            <div className="padding">
+              <TextField
+                label="Description"
+                value={this.state.name}
+                fullWidth={true}
+                onChange={(e) => {
+                  this.setState({ name: e.target.value });
+                }}
+              />
+            </div>
+            <div className="padding">
+              <TextField
+                label="Preparation time"
+                value={this.state.name}
+                fullWidth={true}
+                onChange={(e) => {
+                  this.setState({ name: e.target.value });
+                }}
+              />
+            </div>
+            <div className="padding">
+              <TextField
+                label="Servings"
+                value={this.state.name}
+                fullWidth={true}
+                onChange={(e) => {
+                  this.setState({ name: e.target.value });
+                }}
+              />
+            </div>
+            <div className="padding">
+              <TextField
+                label="Category"
                 value={this.state.name}
                 fullWidth={true}
                 onChange={(e) => {
@@ -109,7 +151,7 @@ class AddMeal extends Component<AddMealProps, AddMealState> {
                 </TextField>
                 <Button
                   className="addProduct"
-                  variant="contained"
+                  variant="outlined"
                   color="inherit"
                   size="small"
                   onClick={this.addProduct}
@@ -120,9 +162,9 @@ class AddMeal extends Component<AddMealProps, AddMealState> {
               </div>
               <ProductsList productsList={this.props.productsList} removeProduct={this.props.removeProduct} />
             </div>
-            <Button className="addButton" variant="contained" color="inherit" size="small" onClick={this.add}>
-              Add
-            </Button>
+            <IconButton className="addButton" onClick={this.add}>
+              <FontAwesomeIcon icon={faPlus} />
+            </IconButton>
           </form>
         </Card>
       </div>

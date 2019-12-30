@@ -1,21 +1,17 @@
 .addMealComponent {
-    .padding {
-        padding: 1em;
-    }
+  .padding {
+    padding: 1em;
+  }
 
-    .addButton {
-        background-color: rgba(33,173,33,0.8);;
-        float: right;
-    }
-    .addButton:hover {
-        background-color: rgba(33,173,33,1);
-    }
+  .addButton {
+    float: right;
+  }
 
-    .addProductGroup {
-        display: flex;
-        flex-wrap: wrap;
-        .selectProduct {
-            flex: 100px;
-        }
+  .addProductGroup {
+    display: flex;
+    flex-wrap: wrap;
+    .selectProduct {
+      flex: 100px;
     }
+  }
 }

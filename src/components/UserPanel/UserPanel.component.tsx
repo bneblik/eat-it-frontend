@@ -120,8 +120,8 @@ class UserPanel extends Component<UserPanelProps> {
     return (
       <div>
         <div>
-          {this.renderSettingTitle('Set information about you', faHeartbeat)}
           <div className="panel aboutUser">
+            {this.renderSettingTitle('Set information about you', faHeartbeat)}
             <TextField
               InputLabelProps={{
                 shrink: true
@@ -148,10 +148,9 @@ class UserPanel extends Component<UserPanelProps> {
             />
           </div>
         </div>
-        <hr />
         <div>
-          {this.renderSettingTitle('Set reminders about meal time', faStopwatch)}
           <div className="panel formTime">
+            {this.renderSettingTitle('Set reminders about meal time', faStopwatch)}
             <TextField
               InputLabelProps={{
                 shrink: true
@@ -182,10 +181,9 @@ class UserPanel extends Component<UserPanelProps> {
           </div>
           {this.displayTimes()}
         </div>
-        <br />
         <div>
-          {this.renderSettingTitle('Change password', faUnlock)}
           <div className="panel">
+            {this.renderSettingTitle('Change password', faUnlock)}
             <TextField
               variant="outlined"
               value={this.state.password}

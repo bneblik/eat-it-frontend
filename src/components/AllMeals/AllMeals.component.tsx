@@ -26,13 +26,13 @@ class AllMeals extends Component<AllMealsProps, AllMealsState> {
     fetchMeals();
   }
   selectCategory() {
-    const options = ['all', 'breakfast', 'dinner'];
+    const options = ['all categories', 'breakfast', 'dinner'];
     return (
       <TextField
         className="selectCategory"
         variant="filled"
         select
-        value={'all'}
+        value={'all categories'}
         onChange={() => {}}
         SelectProps={{ native: true }}
       >
@@ -55,7 +55,7 @@ class AllMeals extends Component<AllMealsProps, AllMealsState> {
               className="searcher"
               variant="outlined"
               InputProps={{
-                startAdornment: <FontAwesomeIcon icon={faSearch} />
+                startAdornment: <FontAwesomeIcon icon={faSearch} className="padding" />
               }}
               placeholder="Search for a meal..."
             />
