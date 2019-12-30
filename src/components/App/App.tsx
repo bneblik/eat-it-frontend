@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import MyMeals from '../MyMeals/MyMeals.component';
 import AllMeals from '../AllMeals/AllMeals.component';
 import { Route, Switch, BrowserRouter as Router, Redirect } from 'react-router-dom';
 import { Header } from '../Header/Header.component';
@@ -15,6 +14,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faEnvelope, faKey } from '@fortawesome/free-solid-svg-icons';
 import { MyMealPlan } from '../MyMealPlan/MyMealPlan.component';
 import { UserPanel } from '../UserPanel/UserPanel.component';
+import { ShoppingList } from '../ShoppingList/ShoppingList.component';
 
 library.add(faEnvelope, faKey);
 
@@ -33,15 +33,15 @@ class App extends Component<AppProps> {
         <div className="appContent">
           <Router>
             <Switch>
-              <Route path="/all" render={() => <AllMeals />} />
+              <Route path="/meals" render={() => <AllMeals />} />
               <Route path="/meals/:id" render={(props) => <Meal {...props} />} />
-              <Route path="/meals" render={() => <MyMeals />} />
               <Route path="/add-meal" render={() => <AddMeal />} />
               <Route path="/my-fridge" render={() => <MyFridge />} />
               <Route path="/my-meal-plan" render={() => <MyMealPlan />} />
               <Route path="/user-panel" render={() => <UserPanel username="exampleUser123" />} />
               <Route path="/login" render={(props) => <UserAccount {...props} />} />
-              <Redirect to="/all"></Redirect>
+              <Route path="/shopping-list" render={(props) => <ShoppingList {...props} />} />
+              <Redirect to="/meals"></Redirect>
             </Switch>
           </Router>
         </div>

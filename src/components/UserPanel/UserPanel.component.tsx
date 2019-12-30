@@ -7,12 +7,21 @@ import {
   FormControlLabel,
   Radio,
   FormGroup,
-  Checkbox
+  Checkbox,
+  ExpansionPanel,
+  ExpansionPanelSummary,
+  ExpansionPanelDetails
 } from '@material-ui/core';
 import '../../styles/css/user-panel.styles.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
-import { faUnlock, faStopwatch, IconDefinition, faHeartbeat } from '@fortawesome/free-solid-svg-icons';
+import {
+  faStopwatch,
+  IconDefinition,
+  faHeartbeat,
+  faChevronDown,
+  faBell
+} from '@fortawesome/free-solid-svg-icons';
 
 interface UserPanelProps {
   username: string;
@@ -41,6 +50,7 @@ class UserPanel extends Component<UserPanelProps> {
     this.state.mealTimes.forEach((mealTime, j: number) =>
       times.push(
         <div key={j} className="reminder">
+          <FontAwesomeIcon className="bell" icon={faBell} />
           <div className="reminderInfo">
             <div className="time">{mealTime.time}</div>
             <div className="repeat">{mealTime.repeat.join(', ')}</div>
@@ -119,9 +129,11 @@ class UserPanel extends Component<UserPanelProps> {
   render() {
     return (
       <div>
-        <div>
-          <div className="panel aboutUser">
+        <ExpansionPanel>
+          <ExpansionPanelSummary expandIcon={<FontAwesomeIcon icon={faChevronDown} />}>
             {this.renderSettingTitle('Set information about you', faHeartbeat)}
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails className="aboutUser">
             <TextField
               InputLabelProps={{
                 shrink: true
@@ -146,55 +158,47 @@ class UserPanel extends Component<UserPanelProps> {
                 this.setState({ weight: e.target.value });
               }}
             />
-          </div>
-        </div>
-        <div>
-          <div className="panel formTime">
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
+
+        <ExpansionPanel>
+          <ExpansionPanelSummary expandIcon={<FontAwesomeIcon icon={faChevronDown} />}>
             {this.renderSettingTitle('Set reminders about meal time', faStopwatch)}
-            <TextField
-              InputLabelProps={{
-                shrink: true
-              }}
-              variant="outlined"
-              value={this.state.newTime}
-              label="Time"
-              type="time"
-              onChange={(e) => {
-                this.setState({ newTime: e.target.value });
-              }}
-            />
-            <FormControl>
-              <div className="gray">Repeat:</div>
-              <RadioGroup
-                className="radiosInline"
-                value={this.state.repeat}
-                onChange={(e) => this.handleRepeat(e)}
-              >
-                <FormControlLabel value="daily" control={<Radio />} label="Daily" />
-                <FormControlLabel value="other" control={<Radio />} label="Other" />
-              </RadioGroup>
-              {this.daysChooser()}
-            </FormControl>
-            <Button className="addReminderButton" variant="outlined" onClick={this.addTime}>
-              Add
-            </Button>
-          </div>
-          {this.displayTimes()}
-        </div>
-        <div>
-          <div className="panel">
-            {this.renderSettingTitle('Change password', faUnlock)}
-            <TextField
-              variant="outlined"
-              value={this.state.password}
-              type="password"
-              fullWidth={true}
-              onChange={(e) => {
-                this.setState({ password: e.target.value });
-              }}
-            />
-          </div>
-        </div>
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails>
+            {' '}
+            <div className="formTime">
+              <TextField
+                InputLabelProps={{
+                  shrink: true
+                }}
+                variant="outlined"
+                value={this.state.newTime}
+                label="Time"
+                type="time"
+                onChange={(e) => {
+                  this.setState({ newTime: e.target.value });
+                }}
+              />
+              <FormControl>
+                <div className="gray">Repeat:</div>
+                <RadioGroup
+                  className="radiosInline"
+                  value={this.state.repeat}
+                  onChange={(e) => this.handleRepeat(e)}
+                >
+                  <FormControlLabel value="daily" control={<Radio />} label="Daily" />
+                  <FormControlLabel value="other" control={<Radio />} label="Other" />
+                </RadioGroup>
+                {this.daysChooser()}
+              </FormControl>
+              <Button className="addReminderButton" variant="outlined" onClick={this.addTime}>
+                Add
+              </Button>
+            </div>
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
+        {this.displayTimes()}
       </div>
     );
   }

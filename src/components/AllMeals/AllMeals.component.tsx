@@ -5,12 +5,11 @@ import { connect } from 'react-redux';
 import { fetchMeals } from '../../actions/mealsAction';
 import { TMeal } from '../../types/MealTypes';
 import { MyMealsStateType } from '../../types/MealsTypes';
-import { MealInfo } from '../MealInfo/MealInfo.component';
-import { TMealExtended } from '../Meal/Meal.component';
 import image from '../../styles/images/background-image.jpg';
 import { TextField, FormControlLabel, Switch } from '@material-ui/core';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import MyMealsComponent from '../MyMeals/MyMeals.component';
 
 interface AllMealsProps {
   error: any | null;
@@ -30,7 +29,7 @@ class AllMeals extends Component<AllMealsProps, AllMealsState> {
     return (
       <TextField
         className="selectCategory"
-        variant="filled"
+        variant="outlined"
         select
         value={'all categories'}
         onChange={() => {}}
@@ -60,19 +59,15 @@ class AllMeals extends Component<AllMealsProps, AllMealsState> {
               placeholder="Search for a meal..."
             />
             <div className="searchFilters">
+              {this.selectCategory()}
               <FormControlLabel
                 control={<Switch checked={true} onChange={() => {}} />}
-                label="Only my meals"
+                label="only my meals"
               />
-              {this.selectCategory()}
             </div>
           </div>
         </div>
-        <div className="mealsComponent">
-          {this.props.meals.map((meal) => (
-            <MealInfo key={meal.id} meal={meal as TMealExtended}></MealInfo>
-          ))}
-        </div>
+        <MyMealsComponent />
       </div>
     );
   }

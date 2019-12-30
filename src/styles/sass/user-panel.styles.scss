@@ -3,6 +3,7 @@
 }
 .formTime {
   display: grid;
+  width: 100%;
   .radiosInline {
     flex-direction: row;
     flex-wrap: nowrap;
@@ -22,6 +23,10 @@
     .repeat {
       color: darkslategray;
     }
+  }
+  .bell {
+    font-size: 18px;
+    padding: 15px;
   }
   .trash {
     font-size: 18px;
@@ -51,9 +56,7 @@ br {
 
 .setting {
   display: flex;
-  & > * {
-    padding-bottom: 10px;
-  }
+  width: 100%;
   span {
     flex: 2 2 90%;
     font-size: 16px;

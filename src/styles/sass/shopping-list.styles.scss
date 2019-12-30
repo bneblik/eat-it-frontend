@@ -1,0 +1,63 @@
+$count: 4;
+.shoppingListComponent {
+  @for $i from 1 through $count {
+    .categoryBlock:nth-of-type(#{$i}) {
+      $color: rgb(random(255), random(255), random(255));
+      border-left-color: #{$color};
+      .title {
+        color: #{$color};
+      }
+    }
+  }
+  .categoryBlock {
+    border-left-width: 3px;
+    border-left-style: solid;
+    margin: 0.3em !important;
+    width: auto;
+    max-width: 90%;
+    float: left;
+  }
+
+  .addProduct {
+    float: right;
+    background: rgba(0, 128, 0, 0.7);
+  }
+
+  .productsContainer {
+    .productItem {
+      box-shadow: 0 0.8px 4px 0px rgba(0, 0, 0, 0.2);
+      width: 90%;
+      margin: 0.5em auto;
+      padding: 0.6em;
+      position: relative;
+
+      overflow: hidden;
+      .productName {
+        padding-right: 15px;
+        max-width: 200px;
+        color: rgba(7, 8, 7, 0.7);
+        font-weight: 700;
+      }
+      .corner {
+        position: absolute;
+        top: 0.5px;
+        right: 0.5px;
+      }
+      .cornerButton {
+        background: transparent;
+        border: none;
+      }
+      .cornerButton:hover {
+        border: 1px solid lightgray;
+      }
+      .amountControl {
+        max-width: 150px;
+      }
+    }
+  }
+  .center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

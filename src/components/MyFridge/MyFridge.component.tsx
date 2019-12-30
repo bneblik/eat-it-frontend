@@ -89,34 +89,19 @@ class MyFridge extends Component {
   }
   render() {
     return (
-      <>
-        <div className="myFridgeComponent">
-          <h2>What do I have in my fridge?</h2>
-          <div className="productsContainer">
-            {this.state.products.map((product, key) => (
-              <div key={key} className="productItem">
-                {this.renderProductInFridge(product)}
-              </div>
-            ))}
-            <div className="productItem center">
-              <FontAwesomeIcon icon={faPlus} size="2x" className="buttonAdd" />
+      <div className="myFridgeComponent">
+        <h2>What do I have in my fridge?</h2>
+        <div className="productsContainer">
+          {this.state.products.map((product, key) => (
+            <div key={key} className="productItem">
+              {this.renderProductInFridge(product)}
             </div>
+          ))}
+          <div className="productItem center">
+            <FontAwesomeIcon icon={faPlus} size="2x" className="buttonAdd" />
           </div>
         </div>
-        <div className="myFridgeComponent">
-          <h2>What do I need to buy?</h2>
-          <div className="productsContainer">
-            {this.state.products.map((product, key) => (
-              <div key={key} className="productItem">
-                {this.renderProductToBuy(product)}
-              </div>
-            ))}
-            <div className="productItem center">
-              <FontAwesomeIcon icon={faPlus} size="2x" className="buttonAdd" />
-            </div>
-          </div>
-        </div>
-      </>
+      </div>
     );
   }
 }
