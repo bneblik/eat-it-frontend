@@ -1,6 +1,11 @@
 .mealsComponent {
-  h1 {
-    margin: 1em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  .mealInfoComponent {
+    min-width: 31%;
+    max-width: 100%;
+    width: 380px;
   }
   .card {
     margin: 1em;

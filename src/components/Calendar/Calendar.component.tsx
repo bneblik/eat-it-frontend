@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../../styles/css/calendar.styles.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight, faChevronLeft, faCalendarDay } from '@fortawesome/free-solid-svg-icons';
-import { Button } from '@material-ui/core';
+import { Button, Dialog, DialogContent, DialogActions } from '@material-ui/core';
 import {
   isSameMonth,
   addDays,
@@ -17,22 +17,56 @@ import {
   format,
   isToday
 } from 'date-fns';
+import { faCalendarAlt } from '@fortawesome/free-regular-svg-icons';
 
 interface CalendarState {
   selectedDate: Date;
+  open: boolean;
 }
 
 class Calendar extends Component {
   state: CalendarState = {
-    selectedDate: new Date()
+    selectedDate: new Date(),
+    open: false
+  };
+  toggleCalendar = () => {
+    this.setState((prevState: CalendarState) => ({
+      open: !prevState.open
+    }));
   };
   render() {
     return (
-      <div className="calendarComponent">
-        {this.topOfCalenar()}
-        {this.headerDays()}
-        {this.drawDays()}
-      </div>
+      <>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={this.toggleCalendar}
+          endIcon={<FontAwesomeIcon icon={faCalendarAlt} />}
+        >
+          Select day
+        </Button>
+        <Dialog
+          onClose={this.toggleCalendar}
+          aria-labelledby="customized-dialog-title"
+          open={this.state.open}
+        >
+          <DialogContent>
+            <div className="calendarComponent">
+              {this.topOfCalenar()}
+              {this.headerDays()}
+              {this.drawDays()}
+            </div>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.toggleCalendar} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={this.toggleCalendar} color="primary" autoFocus>
+              Ok
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </>
     );
   }
 

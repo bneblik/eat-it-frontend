@@ -1,0 +1,103 @@
+.allMealsComponent {
+  padding: 0 !important;
+  .searchPanel {
+    max-height: 500px;
+    overflow: hidden;
+    position: relative;
+    img {
+      width: 100%;
+      filter: brightness(0.7);
+      min-height: 400px;
+      min-width: 600px;
+    }
+    .searchField {
+      position: absolute;
+      bottom: 30%;
+      right: 50%;
+      width: 80%;
+      transform: translate(50%, 50%);
+      .searcher {
+        width: 100%;
+      }
+      .searchFilters {
+        text-align: right;
+        padding-top: 1em;
+        .MuiFormControlLabel-root {
+          margin-left: 10px;
+          margin-right: 0px;
+          color: white;
+          border: solid 1px;
+          border-radius: 4px;
+          padding-right: 5px;
+        }
+        .MuiInputBase-root {
+          color: white;
+          font-size: 14px !important;
+          option {
+            color: black;
+          }
+          svg {
+            color: white;
+          }
+        }
+      }
+    }
+
+    .MuiOutlinedInput-root {
+      background: white;
+      .MuiOutlinedInput-notchedOutline {
+        border: none !important;
+        color: black;
+      }
+      .MuiInputLabel-formControl {
+        color: black !important;
+      }
+    }
+    .container {
+      background: rgba(22, 233, 45, 0.5);
+      position: absolute;
+      top: 0;
+      width: 100%;
+      min-height: 400px;
+      min-width: 600px;
+    }
+    .selectCategory {
+      margin-bottom: 5px;
+      .MuiInputBase-root {
+        background-color: transparent;
+        border: solid 1px;
+        height: 40px;
+      }
+      .MuiInput-underline:after {
+        border-bottom: rgba(1, 1, 1, 0.5) !important;
+      }
+    }
+  }
+
+  .MuiSwitch-root {
+    .MuiSwitch-colorSecondary.Mui-checked {
+      color: rgba(73, 173, 73, 1);
+    }
+    .MuiSwitch-track {
+      background-color: rgba(73, 173, 73, 1) !important;
+    }
+  }
+  .MuiOutlinedInput-inputSelect {
+    padding-right: 29px;
+  }
+}
+
+.searchField {
+  padding: 1em;
+}
+.searchPan:before {
+  content: '';
+  background: inherit;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  box-shadow: inset 0 0 0 3000px rgba(255, 255, 255, 0.6);
+  filter: blur(10px);
+}

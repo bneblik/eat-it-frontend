@@ -43,10 +43,12 @@ class MyMealPlan extends Component {
   render() {
     return (
       <div className="myMealPlanComponent">
-        <h2>My meal plan for today</h2>
+        <h2>
+          My meal plan for today
+          <Calendar></Calendar>
+        </h2>
         {this.renderMealsForTheDay()}
         <br></br>
-        <Calendar></Calendar>
       </div>
     );
   }

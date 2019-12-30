@@ -1,14 +1,14 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Meals from './Meals.component';
+import AllMeals from './AllMeals.component';
 import { Provider } from 'react-redux';
 import { store } from '../../store/store';
 
-describe('Meals', () => {
+describe('AllMeals', () => {
   it('renders without crashing', () => {
     shallow(
       <Provider store={store}>
-        <Meals />
+        <AllMeals />
       </Provider>
     );
   });

@@ -1,5 +1,5 @@
 .headerComponent {
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.9);
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
   z-index: 999;
   .flex {
@@ -17,6 +17,11 @@
   }
   .menuItem {
     margin: 8px;
+    color: rgba(0, 0, 0, 0.65);
+  }
+  .itemIcon {
+    font-size: 20px;
+    margin: 0px;
   }
   // responsive header
   .icon {
@@ -41,6 +46,18 @@
   }
   @media screen and (min-width: 700px) {
     display: flex;
+  }
+  &.mainSite {
+    background: rgba(0, 2, 15, 0.4);
+    color: white;
+    .logo {
+      font-size: 30px;
+    }
+    .responsive,
+    .icon,
+    .logo {
+      color: white;
+    }
   }
 }
 .sticky {
