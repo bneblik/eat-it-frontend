@@ -4,10 +4,17 @@
   margin: 3px;
   display: flex;
   flex-wrap: wrap;
-  > * {
+  align-items: center;
+  text-align: center;
+  & > * {
     flex: 1 30px;
   }
-  > .nutrientsInfoComponent {
+  & > .nutrientsInfoComponent {
     flex: 1 200px;
+  }
+  img {
+    max-height: 50px;
+    max-width: 50px;
+    padding-right: 10px;
   }
 }

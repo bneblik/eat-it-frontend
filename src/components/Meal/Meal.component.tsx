@@ -3,8 +3,12 @@ import '../../styles/css/meal.styles.css';
 import image from '../../styles/images/placeholder.png';
 import { MealComments } from '../MealComments/MealComments.component';
 import { ProductInfo } from '../ProductInfo/ProductInfo.component';
-import { Button } from '@material-ui/core';
+import { Button, FormControlLabel, Checkbox } from '@material-ui/core';
 import { NutrientsInfo } from '../NutrientsInfo/NutrientsInfo.component';
+import { faShoppingBasket, faPlus, faBalanceScaleRight } from '@fortawesome/free-solid-svg-icons';
+import { faClock } from '@fortawesome/free-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { AddToMealPlan } from '../AddToMealPlan/AddToMealPlan.component';
 
 interface MealProps {
   match: {
@@ -56,10 +60,16 @@ class Meal extends Component<MealProps, MealState> {
     return (
       <div className="about">
         <h1>{this.state.meal.name}</h1>
-        <p>
-          <span>Prepare time: {this.state.meal.prepareTime}</span>
-          <span> | </span>
-          <span>Servings: {this.state.meal.servings}</span>
+        <p className="prepInfo">
+          <span>
+            <FontAwesomeIcon icon={faClock} />
+            Prepare time: {this.state.meal.prepareTime}
+          </span>
+          <span className="divider"> | </span>
+          <span>
+            <FontAwesomeIcon icon={faBalanceScaleRight} />
+            Servings: {this.state.meal.servings}
+          </span>
         </p>
         <NutrientsInfo
           carbs={this.state.meal.carbs}
@@ -67,6 +77,7 @@ class Meal extends Component<MealProps, MealState> {
           fats={this.state.meal.fats}
           kcal={this.state.meal.calories}
         />
+        <AddToMealPlan />
       </div>
     );
   }
@@ -83,13 +94,30 @@ class Meal extends Component<MealProps, MealState> {
           <div className="ingredients card">
             <div className="header">
               <h3>Ingredients</h3>
-              <Button variant="outlined" className="greenButton">
-                Add all to shopping list
-              </Button>
             </div>
             {this.state.meal.ingredients.map((ingredient, key) => (
               <ProductInfo key={key} product={ingredient} />
             ))}
+            <div className="shoppingListGroup">
+              <FormControlLabel
+                className="shoppingListButton"
+                control={
+                  <Checkbox
+                    icon={<FontAwesomeIcon icon={faShoppingBasket} />}
+                    checkedIcon={<FontAwesomeIcon className="basket" icon={faShoppingBasket} />}
+                    value="checkedH"
+                  />
+                }
+                label="Select all"
+              />
+              <Button
+                className="shoppingListButton"
+                variant="outlined"
+                startIcon={<FontAwesomeIcon icon={faPlus} />}
+              >
+                Add selected to your shopping list
+              </Button>
+            </div>
           </div>
           <div className="card">
             <h3>Recipe</h3>

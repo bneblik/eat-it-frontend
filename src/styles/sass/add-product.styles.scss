@@ -1,0 +1,49 @@
+@import './global-variables.styles.scss';
+
+.addProductComponent {
+  .MuiTextField-root {
+    width: 80%;
+  }
+  .MuiDialogTitle-root {
+    padding-bottom: 0;
+  }
+  fieldset {
+    border-radius: 4px;
+    margin: 1em;
+    border-color: gray;
+
+    legend {
+      color: gray;
+    }
+    .inputContainer:first-of-type {
+      margin-top: 0;
+    }
+  }
+  .inputContainer {
+    align-items: baseline;
+    display: flex;
+    margin: 5px;
+    svg {
+      color: gray;
+      padding: 0 0.5em;
+      &.kcal {
+        color: $kcal-color;
+      }
+      &.fats {
+        color: $fats-color;
+      }
+      &.carbs {
+        color: $carbs-color;
+      }
+      &.proteins {
+        color: $proteins-color;
+      }
+    }
+
+    button {
+      margin: 1em 0.2em;
+      height: 60%;
+      background: rgba(0, 128, 0, 0.7);
+    }
+  }
+}

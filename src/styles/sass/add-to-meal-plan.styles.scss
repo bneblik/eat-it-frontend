@@ -1,0 +1,18 @@
+.addToMealPlanComponent {
+  .inputContainer {
+    align-items: center;
+    display: flex;
+    margin: 10px;
+    svg {
+      font-size: 20px;
+      color: gray;
+      padding: 0 0.5em;
+    }
+    .Mui-checked svg {
+      color: green;
+    }
+  }
+  .inputContainer:last-of-type {
+    padding-left: 40px;
+  }
+}

@@ -7,15 +7,23 @@ $count: 4;
       .title {
         color: #{$color};
       }
+      .MuiCheckbox-root svg {
+        color: #{$color};
+      }
     }
+  }
+  h5 {
+    padding: 0.5em;
   }
   .categoryBlock {
     border-left-width: 3px;
     border-left-style: solid;
     margin: 0.3em !important;
-    width: auto;
-    max-width: 90%;
     float: left;
+    .productsDetails {
+      display: block;
+      text-align: center;
+    }
   }
 
   .addProduct {
@@ -26,38 +34,45 @@ $count: 4;
   .productsContainer {
     .productItem {
       box-shadow: 0 0.8px 4px 0px rgba(0, 0, 0, 0.2);
-      width: 90%;
-      margin: 0.5em auto;
+      width: 96%;
+      margin: 0.5em 0;
       padding: 0.6em;
-      position: relative;
-
-      overflow: hidden;
+      .MuiFormControlLabel-root {
+        margin: 0;
+      }
+      .MuiTypography-root {
+        width: 100%;
+      }
+      .listItem {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        & > * {
+          flex: 1 1 auto;
+        }
+        .trashButton {
+          max-width: fit-content;
+          svg {
+            font-size: 14px;
+          }
+        }
+        img {
+          max-width: 40px;
+          padding-right: 10px;
+        }
+      }
       .productName {
         padding-right: 15px;
-        max-width: 200px;
+        width: fit-content;
         color: rgba(7, 8, 7, 0.7);
         font-weight: 700;
       }
-      .corner {
-        position: absolute;
-        top: 0.5px;
-        right: 0.5px;
-      }
-      .cornerButton {
-        background: transparent;
-        border: none;
-      }
-      .cornerButton:hover {
-        border: 1px solid lightgray;
+      .amountInput {
+        flex-grow: 0.1;
       }
       .amountControl {
-        max-width: 150px;
+        max-width: 700px;
       }
     }
-  }
-  .center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 }

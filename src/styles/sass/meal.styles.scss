@@ -7,8 +7,21 @@
       flex: 1 1 250px;
       margin: 0.2em;
     }
-    .about div {
+    .about {
       padding: 0;
+      .prepInfo {
+        color: gray;
+        margin: 0;
+        svg {
+          font-size: 20px;
+        }
+        .divider {
+          padding: 0 10px;
+        }
+      }
+    }
+    svg {
+      padding-right: 10px;
     }
   }
   .image {
@@ -18,11 +31,28 @@
       width: 100%;
     }
   }
+  .shoppingListGroup {
+    text-align: right;
+    .shoppingListButton {
+      margin: auto 5px;
+      white-space: nowrap;
+    }
+  }
 
-  .ingredients > .header {
-    display: flex;
-    > h3 {
-      flex: 1 100px;
+  .ingredients {
+    & > .header {
+      display: flex;
+      flex-wrap: wrap;
+      & > h3 {
+        flex: 1 100px;
+      }
+    }
+
+    svg {
+      font-size: 20px;
+    }
+    .MuiCheckbox-colorSecondary.Mui-checked {
+      color: green;
     }
   }
   .greenButton {
