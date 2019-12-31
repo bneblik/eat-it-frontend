@@ -33,8 +33,8 @@ class App extends Component<AppProps> {
         <div className="appContent">
           <Router>
             <Switch>
-              <Route path="/meals" render={() => <AllMeals />} />
               <Route path="/meals/:id" render={(props) => <Meal {...props} />} />
+              <Route path="/meals" render={() => <AllMeals />} />
               <Route path="/add-meal" render={() => <AddMeal />} />
               <Route path="/my-fridge" render={() => <MyFridge />} />
               <Route path="/my-meal-plan" render={() => <MyMealPlan />} />

@@ -8,10 +8,14 @@ import {
   ExpansionPanelSummary,
   Typography,
   ExpansionPanelDetails,
-  Button
+  IconButton,
+  FormControlLabel,
+  Checkbox
 } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faCheck, faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { AddProduct } from '../AddProduct/AddProduct.component';
+import apple from '../../styles/images/apple.jpg';
 
 interface MyFridgeState {
   shoppingList: TShoppingList[];
@@ -115,44 +119,50 @@ class ShoppingList extends Component {
     shoppingList: shoppingList
   };
 
-  renderProductToBuy(product: TProduct) {
+  renderProductToBuy(product: TProduct, key: number) {
     return (
-      <>
-        <div className="productName">{product.name}</div>
-        <FormControl className="amountControl">
-          <Input
-            value={product.amount}
-            endAdornment={<InputAdornment position="end">g</InputAdornment>}
-          ></Input>
-        </FormControl>
-        <div className="corner">
-          <button className="cornerButton checkButton">
-            <FontAwesomeIcon icon={faCheck} size="1x" />
-          </button>
-        </div>
-      </>
+      <FormControl className="productItem" key={key}>
+        <FormControlLabel
+          control={<Checkbox checked={true} onChange={() => {}} />}
+          label={
+            <span className="listItem">
+              <img src={apple} alt="product"></img>
+              <div className="productName">{product.name}</div>
+              <span className="amountInput">
+                <Input
+                  value={product.amount}
+                  endAdornment={<InputAdornment position="end">g</InputAdornment>}
+                ></Input>
+              </span>
+              <span className="trashButton">
+                <IconButton>
+                  <FontAwesomeIcon icon={faTrash} size="1x" />
+                </IconButton>
+              </span>
+            </span>
+          }
+        />
+      </FormControl>
     );
   }
   render() {
     return (
       <div className="shoppingListComponent">
-        <h2>
+        <Typography variant="h5">
           Shopping List
-          <Button className="addProduct" variant="contained" startIcon={<FontAwesomeIcon icon={faPlus} />}>
-            Add to list
-          </Button>
-        </h2>
+          <AddProduct buttonName="Add to list" />
+        </Typography>
         <div className="productsContainer">
           {this.state.shoppingList.map((element, key) => (
             <ExpansionPanel key={key} className="categoryBlock">
               <ExpansionPanelSummary expandIcon={<FontAwesomeIcon icon={faChevronDown} />}>
                 <Typography className="title">{element.category}</Typography>
               </ExpansionPanelSummary>
-              {element.products.map((product, prodKey) => (
-                <ExpansionPanelDetails key={prodKey} className="productItem">
-                  {this.renderProductToBuy(product)}
-                </ExpansionPanelDetails>
-              ))}
+              <ExpansionPanelDetails className="productsDetails">
+                {element.products.map((product, prodKey) => {
+                  return this.renderProductToBuy(product, prodKey);
+                })}
+              </ExpansionPanelDetails>
             </ExpansionPanel>
           ))}
         </div>

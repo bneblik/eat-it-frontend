@@ -6,7 +6,7 @@ import { removeProduct, addProduct } from '../../actions/productAction';
 import '../../styles/css/add-meal.styles.css';
 import { connect } from 'react-redux';
 import { ProductsState } from '../../types/Products';
-import { CreateProduct } from '../CreateProduct/CreateProduct.component';
+import { AddProduct } from '../AddProduct/AddProduct.component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faPlus,
@@ -187,7 +187,7 @@ class AddMeal extends Component<AddMealProps, AddMealState> {
                     >
                       Add
                     </Button>
-                    <CreateProduct />
+                    <AddProduct buttonName="Create new" />
                   </span>
                 </div>
                 <ProductsList
