@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import '../../styles/css/meal.styles.css';
-import image from '../../styles/images/placeholder.png';
+import image from '../../styles/images/carbonara.jpg';
 import { MealComments } from '../MealComments/MealComments.component';
 import { ProductInfo } from '../ProductInfo/ProductInfo.component';
 import { Button, FormControlLabel, Checkbox } from '@material-ui/core';
 import { NutrientsInfo } from '../NutrientsInfo/NutrientsInfo.component';
-import { faShoppingBasket, faPlus, faBalanceScaleRight } from '@fortawesome/free-solid-svg-icons';
+import { faShoppingBasket, faPlus, faBalanceScaleRight, faFilter } from '@fortawesome/free-solid-svg-icons';
 import { faClock } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AddToMealPlan } from '../AddToMealPlan/AddToMealPlan.component';
@@ -31,6 +31,7 @@ export type TMealExtended = {
   carbs?: number;
   prepareTime?: string;
   servings?: number;
+  category?: string;
 };
 
 const meal: TMealExtended = {
@@ -45,7 +46,8 @@ const meal: TMealExtended = {
   protein: 16.5,
   carbs: 16,
   prepareTime: '30 min',
-  servings: 1
+  servings: 1,
+  category: 'dinner'
 };
 
 class Meal extends Component<MealProps, MealState> {
@@ -70,6 +72,11 @@ class Meal extends Component<MealProps, MealState> {
             <FontAwesomeIcon icon={faBalanceScaleRight} />
             Servings: {this.state.meal.servings}
           </span>
+          <span className="divider"> | </span>
+          <span>
+            <FontAwesomeIcon icon={faFilter} />
+            Category: {this.state.meal.category}
+          </span>
         </p>
         <NutrientsInfo
           carbs={this.state.meal.carbs}
@@ -78,6 +85,23 @@ class Meal extends Component<MealProps, MealState> {
           kcal={this.state.meal.calories}
         />
         <AddToMealPlan />
+      </div>
+    );
+  }
+
+  renderYoutubeVideo() {
+    return (
+      <div className="card">
+        <h3>Watch this recipe on YouTube</h3>
+        <div className="youtubeVideo">
+          <iframe
+            title="recipe"
+            src="https://www.youtube.com/embed/3AAdKl1UYZs"
+            frameBorder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+        </div>
       </div>
     );
   }
@@ -125,6 +149,7 @@ class Meal extends Component<MealProps, MealState> {
               <p key={key}>{line}</p>
             ))}
           </div>
+          {this.renderYoutubeVideo()}
           <MealComments></MealComments>
         </div>
       );
