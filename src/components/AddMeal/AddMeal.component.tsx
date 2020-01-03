@@ -18,7 +18,8 @@ import {
   faListOl,
   faCheck,
   faCamera,
-  faTimes
+  faTimes,
+  faVideo
 } from '@fortawesome/free-solid-svg-icons';
 import { faClock } from '@fortawesome/free-regular-svg-icons';
 import { Recipe } from '../Recipe/Recipe.component';
@@ -156,11 +157,24 @@ class AddMeal extends Component<AddMealProps, AddMealState> {
               <Recipe />
             </div>
             <div className="padding">
+              <FontAwesomeIcon icon={faVideo} />
+              <TextField
+                variant="outlined"
+                label="YouTube video"
+                helperText="Provide url for YouTube recipe"
+                value={this.state.name}
+                fullWidth={true}
+                onChange={(e) => {
+                  this.setState({ name: e.target.value });
+                }}
+              />
+            </div>
+            <div className="padding">
               <FontAwesomeIcon icon={faClipboardList} />
               <div>
                 <div className="addProductGroup">
                   <TextField
-                    label="Product"
+                    label="Ingredient"
                     select
                     variant="outlined"
                     className="selectProduct"
