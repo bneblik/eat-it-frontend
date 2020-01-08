@@ -1,0 +1,18 @@
+{
+  "Recipe": {
+    "origin": [
+      [
+        "src/components/Recipe/Recipe.component.tsx",
+        29
+      ]
+    ]
+  },
+  "Add step": {
+    "origin": [
+      [
+        "src/components/Recipe/Recipe.component.tsx",
+        33
+      ]
+    ]
+  }
+}

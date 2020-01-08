@@ -5,6 +5,7 @@ import { Checkbox } from '@material-ui/core';
 import apple from '../../styles/images/banana.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingBasket } from '@fortawesome/free-solid-svg-icons';
+import { i18n } from '../..';
 
 interface ProductInfoProps {
   key?: number;
@@ -17,7 +18,7 @@ class ProductInfo extends Component<ProductInfoProps> {
       <div className="productInfoComponent" key={this.props.key}>
         <img src={apple} alt="product"></img>
         <span>{this.props.product}</span>
-        <div>amount: 120g</div>
+        <div>{i18n._('amount')}: 120g</div>
         <NutrientsInfo kcal={1} fats={2} proteins={3} carbs={4} />
         <Checkbox
           icon={<FontAwesomeIcon icon={faShoppingBasket} />}

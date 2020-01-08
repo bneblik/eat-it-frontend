@@ -5,6 +5,7 @@ import { subDays, formatDistanceToNow } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserAlt } from '@fortawesome/free-solid-svg-icons';
 import { Rating } from '../Rating/Rating.component';
+import { i18n } from '../..';
 
 interface MealCommentsState {
   comments: string[];
@@ -55,7 +56,7 @@ class MealComments extends Component {
             <Rating className="center" stars={3} readonly={true}></Rating>
             <span>
               <Button className="addComment" variant="contained" color="primary">
-                Comment
+                {i18n._('Comment')}
               </Button>
             </span>
           </span>

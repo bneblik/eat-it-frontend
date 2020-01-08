@@ -1,0 +1,42 @@
+{
+  "Watch this recipe on YouTube": {
+    "origin": [
+      [
+        "src/components/Meal/Meal.component.tsx",
+        59
+      ]
+    ]
+  },
+  "Ingredients": {
+    "origin": [
+      [
+        "src/components/Meal/Meal.component.tsx",
+        76
+      ]
+    ]
+  },
+  "Select all": {
+    "origin": [
+      [
+        "src/components/Meal/Meal.component.tsx",
+        80
+      ]
+    ]
+  },
+  "Add selected to your shopping list": {
+    "origin": [
+      [
+        "src/components/Meal/Meal.component.tsx",
+        82
+      ]
+    ]
+  },
+  "Cannot find element with id": {
+    "origin": [
+      [
+        "src/components/Meal/Meal.component.tsx",
+        96
+      ]
+    ]
+  }
+}

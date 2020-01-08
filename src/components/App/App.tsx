@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import AllMeals from '../AllMeals/AllMeals.component';
-import { Route, Switch, BrowserRouter as Router, Redirect } from 'react-router-dom';
-import { Header } from '../Header/Header.component';
+import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
+import Header from '../Header/Header.component';
 import AddMeal from '../AddMeal/AddMeal.component';
 import { connect } from 'react-redux';
 import { reducers } from '../../reducers';
@@ -15,35 +15,55 @@ import { faEnvelope, faKey } from '@fortawesome/free-solid-svg-icons';
 import { MyMealPlan } from '../MyMealPlan/MyMealPlan.component';
 import { UserPanel } from '../UserPanel/UserPanel.component';
 import { ShoppingList } from '../ShoppingList/ShoppingList.component';
+import { i18n } from '../..';
+import { routes } from './RouteConstants';
 
 library.add(faEnvelope, faKey);
 
 interface AppProps {
   meals: MealsState;
   products: ProductsState;
+  history: any;
+  location: any;
+  match: any;
 }
 
 type AppState = ReturnType<typeof reducers>;
 
 class App extends Component<AppProps> {
+  constructor(props: AppProps) {
+    super(props);
+    const newLang = this.props.match.params.lng;
+    if (newLang !== i18n.language) {
+      i18n.activate(newLang);
+    }
+  }
   render() {
     return (
       <>
-        <Header></Header>
+        <Header history={this.props.history} match={this.props.match}></Header>
         <div className="appContent">
-          <Router>
-            <Switch>
-              <Route path="/meals/:id" render={(props) => <Meal {...props} />} />
-              <Route path="/meals" render={() => <AllMeals />} />
-              <Route path="/add-meal" render={() => <AddMeal />} />
-              <Route path="/my-fridge" render={() => <MyFridge />} />
-              <Route path="/my-meal-plan" render={() => <MyMealPlan />} />
-              <Route path="/user-panel" render={() => <UserPanel username="exampleUser123" />} />
-              <Route path="/login" render={(props) => <UserAccount {...props} />} />
-              <Route path="/shopping-list" render={(props) => <ShoppingList {...props} />} />
-              <Redirect to="/meals"></Redirect>
-            </Switch>
-          </Router>
+          <Route
+            render={({ match: { url } }) => (
+              <Switch>
+                <Route path={`${url}${routes.meal}`} render={(props) => <Meal {...props} />} />
+                <Route exact path={`${url}${routes.meals}`} render={(props) => <AllMeals {...props} />} />
+                <Route path={`${url}${routes.addMeal}`} render={(props) => <AddMeal {...props} />} />
+                <Route exact path={`${url}${routes.myFridge}`} render={(props) => <MyFridge {...props} />} />
+                <Route path={`${url}${routes.myMealPlan}`} render={(props) => <MyMealPlan {...props} />} />
+                <Route
+                  path={`${url}${routes.userPanel}`}
+                  render={(props) => <UserPanel {...props} username="exampleUser123" />}
+                />
+                <Route path={`${url}${routes.login}`} render={(props) => <UserAccount {...props} />} />
+                <Route
+                  path={`${url}${routes.shoppingList}`}
+                  render={(props) => <ShoppingList {...props} />}
+                />
+                <Redirect to={`${url}${routes.meal}`} />
+              </Switch>
+            )}
+          />
         </div>
       </>
     );
@@ -57,4 +77,4 @@ const mapStateToProps = (state: AppState) => {
   };
 };
 
-export default connect(mapStateToProps)(App);
+export default withRouter(connect(mapStateToProps)(App));

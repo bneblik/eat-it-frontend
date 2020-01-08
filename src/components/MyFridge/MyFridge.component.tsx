@@ -4,6 +4,7 @@ import { InputAdornment, Input, FormControl } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { NutrientsInfo } from '../NutrientsInfo/NutrientsInfo.component';
+import { i18n } from '../..';
 
 interface MyFridgeState {
   products: TProduct[];
@@ -90,7 +91,7 @@ class MyFridge extends Component {
   render() {
     return (
       <div className="myFridgeComponent">
-        <h2>What do I have in my fridge?</h2>
+        <h2>{i18n._('What do I have in my fridge?')}</h2>
         <div className="productsContainer">
           {this.state.products.map((product, key) => (
             <div key={key} className="productItem">

@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-regular-svg-icons';
 import '../../styles/css/add-product.styles.css';
 import { faFilter, faUtensils, faCircle, faCamera } from '@fortawesome/free-solid-svg-icons';
+import { i18n } from '../..';
 
 type AddProductState = {
   name: string;
@@ -61,7 +62,7 @@ class AddProduct extends Component<AddProductProps> {
             <div className="inputContainer">
               <FontAwesomeIcon icon={faUtensils} />
               <TextField
-                label="Name"
+                label={i18n._('Name')}
                 value={this.state.name}
                 onChange={(e) => {
                   this.setState({ name: e.target.value });
@@ -83,16 +84,16 @@ class AddProduct extends Component<AddProductProps> {
               <FontAwesomeIcon icon={faCamera} />
               <div>
                 <Button variant="contained" className="uploadImage">
-                  Add image
+                  {i18n._('Add image')}
                 </Button>
               </div>
             </div>
             <fieldset>
-              <legend>Nutritents info</legend>
+              <legend>{i18n._('Nutritents info')}</legend>
               <div className="inputContainer">
                 <FontAwesomeIcon className="kcal" icon={faCircle} size="1x" />
                 <TextField
-                  label="Calories"
+                  label={i18n._('Calories')}
                   value={this.state.calories}
                   InputProps={{
                     endAdornment: <InputAdornment position="end">kcal</InputAdornment>
@@ -106,7 +107,7 @@ class AddProduct extends Component<AddProductProps> {
               <div className="inputContainer">
                 <FontAwesomeIcon className="carbs" icon={faCircle} size="1x" />
                 <TextField
-                  label="Carbohydrates"
+                  label={i18n._('Carbohydrates')}
                   value={this.state.calories}
                   InputProps={{
                     endAdornment: <InputAdornment position="end">g</InputAdornment>
@@ -120,7 +121,7 @@ class AddProduct extends Component<AddProductProps> {
               <div className="inputContainer">
                 <FontAwesomeIcon className="fats" icon={faCircle} size="1x" />
                 <TextField
-                  label="Fats"
+                  label={i18n._('Fats')}
                   value={this.state.calories}
                   InputProps={{
                     endAdornment: <InputAdornment position="end">g</InputAdornment>
@@ -134,7 +135,7 @@ class AddProduct extends Component<AddProductProps> {
               <div className="inputContainer">
                 <FontAwesomeIcon className="proteins" icon={faCircle} size="1x" />
                 <TextField
-                  label="Proteins"
+                  label={i18n._('Proteins')}
                   value={this.state.calories}
                   InputProps={{
                     endAdornment: <InputAdornment position="end">g</InputAdornment>
@@ -148,10 +149,10 @@ class AddProduct extends Component<AddProductProps> {
           </DialogContent>
           <DialogActions>
             <Button onClick={this.toggleDialog.bind(this)} color="primary">
-              Cancel
+              {i18n._('Cancel')}
             </Button>
             <Button onClick={this.toggleDialog.bind(this)} color="primary">
-              Save
+              {i18n._('Save')}
             </Button>
           </DialogActions>
         </Dialog>

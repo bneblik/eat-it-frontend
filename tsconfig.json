@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext", "es6"],
     "noImplicitAny": true,
     "noImplicitThis": true,
@@ -16,7 +15,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react"
+    "jsx": "preserve",
+    "target": "es2016"
   },
   "include": ["src"],
   "exclude": ["src/sw-build.js", "src/sw-template.js"]

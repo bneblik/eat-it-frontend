@@ -1,0 +1,62 @@
+{
+  "Add to your meal plan": {
+    "origin": [
+      [
+        "src/components/AddToMealPlan/AddToMealPlan.component.tsx",
+        28
+      ],
+      [
+        "src/components/AddToMealPlan/AddToMealPlan.component.tsx",
+        31
+      ]
+    ]
+  },
+  "Meal name": {
+    "origin": [
+      [
+        "src/components/AddToMealPlan/AddToMealPlan.component.tsx",
+        35
+      ]
+    ]
+  },
+  "Date": {
+    "origin": [
+      [
+        "src/components/AddToMealPlan/AddToMealPlan.component.tsx",
+        41
+      ]
+    ]
+  },
+  "Time": {
+    "origin": [
+      [
+        "src/components/AddToMealPlan/AddToMealPlan.component.tsx",
+        47
+      ]
+    ]
+  },
+  "Set reminder": {
+    "origin": [
+      [
+        "src/components/AddToMealPlan/AddToMealPlan.component.tsx",
+        52
+      ]
+    ]
+  },
+  "Cancel": {
+    "origin": [
+      [
+        "src/components/AddToMealPlan/AddToMealPlan.component.tsx",
+        57
+      ]
+    ]
+  },
+  "Add": {
+    "origin": [
+      [
+        "src/components/AddToMealPlan/AddToMealPlan.component.tsx",
+        60
+      ]
+    ]
+  }
+}

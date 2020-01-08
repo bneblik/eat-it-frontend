@@ -22,6 +22,7 @@ import {
   faChevronDown,
   faBell
 } from '@fortawesome/free-solid-svg-icons';
+import { i18n } from '@lingui/core';
 
 interface UserPanelProps {
   username: string;
@@ -131,7 +132,7 @@ class UserPanel extends Component<UserPanelProps> {
       <div>
         <ExpansionPanel>
           <ExpansionPanelSummary expandIcon={<FontAwesomeIcon icon={faChevronDown} />}>
-            {this.renderSettingTitle('Set information about you', faHeartbeat)}
+            {this.renderSettingTitle(i18n._('Set information about you'), faHeartbeat)}
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className="aboutUser">
             <TextField
@@ -140,7 +141,7 @@ class UserPanel extends Component<UserPanelProps> {
               }}
               variant="outlined"
               value={this.state.height}
-              label="Height (in cm)"
+              label={i18n._('Height (in cm)')}
               type="number"
               onChange={(e) => {
                 this.setState({ height: e.target.value });
@@ -152,7 +153,7 @@ class UserPanel extends Component<UserPanelProps> {
               }}
               variant="outlined"
               value={this.state.weight}
-              label="Weight (in kg)"
+              label={i18n._('Weight (in kg)')}
               type="number"
               onChange={(e) => {
                 this.setState({ weight: e.target.value });
@@ -163,7 +164,7 @@ class UserPanel extends Component<UserPanelProps> {
 
         <ExpansionPanel>
           <ExpansionPanelSummary expandIcon={<FontAwesomeIcon icon={faChevronDown} />}>
-            {this.renderSettingTitle('Set reminders about meal time', faStopwatch)}
+            {this.renderSettingTitle(i18n._('Set reminders about meal time'), faStopwatch)}
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
             {' '}
@@ -174,26 +175,26 @@ class UserPanel extends Component<UserPanelProps> {
                 }}
                 variant="outlined"
                 value={this.state.newTime}
-                label="Time"
+                label={i18n._('Time')}
                 type="time"
                 onChange={(e) => {
                   this.setState({ newTime: e.target.value });
                 }}
               />
               <FormControl>
-                <div className="gray">Repeat:</div>
+                <div className="gray">{i18n._('Repeat')}:</div>
                 <RadioGroup
                   className="radiosInline"
                   value={this.state.repeat}
                   onChange={(e) => this.handleRepeat(e)}
                 >
-                  <FormControlLabel value="daily" control={<Radio />} label="Daily" />
-                  <FormControlLabel value="other" control={<Radio />} label="Other" />
+                  <FormControlLabel value="daily" control={<Radio />} label={i18n._('Daily')} />
+                  <FormControlLabel value="other" control={<Radio />} label={i18n._('Other')} />
                 </RadioGroup>
                 {this.daysChooser()}
               </FormControl>
               <Button className="addReminderButton" variant="outlined" onClick={this.addTime}>
-                Add
+                {i18n._('Add')}
               </Button>
             </div>
           </ExpansionPanelDetails>

@@ -1,0 +1,34 @@
+{
+  "carbs": {
+    "origin": [
+      [
+        "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
+        12
+      ]
+    ]
+  },
+  "proteins": {
+    "origin": [
+      [
+        "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
+        16
+      ]
+    ]
+  },
+  "fats": {
+    "origin": [
+      [
+        "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
+        20
+      ]
+    ]
+  },
+  "kcal": {
+    "origin": [
+      [
+        "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
+        24
+      ]
+    ]
+  }
+}

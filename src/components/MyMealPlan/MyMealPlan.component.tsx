@@ -3,6 +3,7 @@ import '../../styles/css/my-meal-plan.styles.css';
 import { Calendar } from '../Calendar/Calendar.component';
 import { TMealExtended } from '../Meal/Meal.component';
 import { MealInfo } from '../MealInfo/MealInfo.component';
+import { i18n } from '../..';
 
 const meal: TMealExtended = {
   id: 1,
@@ -44,7 +45,7 @@ class MyMealPlan extends Component {
     return (
       <div className="myMealPlanComponent">
         <h2>
-          My meal plan for today
+          {i18n._('My meal plan for today')}
           <Calendar></Calendar>
         </h2>
         {this.renderMealsForTheDay()}

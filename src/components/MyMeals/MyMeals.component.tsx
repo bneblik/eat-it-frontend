@@ -7,6 +7,7 @@ import { TMeal } from '../../types/MealTypes';
 import { MyMealsStateType } from '../../types/MealsTypes';
 import { MealInfo } from '../MealInfo/MealInfo.component';
 import { TMealExtended } from '../Meal/Meal.component';
+import { i18n } from '../..';
 
 interface MyMealsProps {
   error: any | null;
@@ -23,7 +24,7 @@ class MyMeals extends Component<MyMealsProps, MyMealsState> {
   }
 
   render() {
-    if (this.props.error || this.props.meals === []) return <div>Nothing to display</div>;
+    if (this.props.error || this.props.meals === []) return <div>{i18n._('Nothing to display')}</div>;
     else
       return (
         <div className="mealsComponent">

@@ -9,6 +9,7 @@ import { faShoppingBasket, faPlus, faBalanceScaleRight, faFilter } from '@fortaw
 import { faClock } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AddToMealPlan } from '../AddToMealPlan/AddToMealPlan.component';
+import { i18n } from '@lingui/core';
 
 interface MealProps {
   match: {
@@ -92,7 +93,7 @@ class Meal extends Component<MealProps, MealState> {
   renderYoutubeVideo() {
     return (
       <div className="card">
-        <h3>Watch this recipe on YouTube</h3>
+        <h3>{i18n._('Watch this recipe on YouTube')}</h3>
         <div className="youtubeVideo">
           <iframe
             title="recipe"
@@ -109,7 +110,7 @@ class Meal extends Component<MealProps, MealState> {
     if (this.state.meal.id === +this.props.match.params.id) {
       return (
         <div className="mealComponent">
-          <div className="top card">
+          <div className="top">
             <div className="image">
               <img src={image} alt="Meal" />
             </div>
@@ -117,7 +118,7 @@ class Meal extends Component<MealProps, MealState> {
           </div>
           <div className="ingredients card">
             <div className="header">
-              <h3>Ingredients</h3>
+              <h3>{i18n._('Ingredients')}</h3>
             </div>
             {this.state.meal.ingredients.map((ingredient, key) => (
               <ProductInfo key={key} product={ingredient} />
@@ -132,14 +133,14 @@ class Meal extends Component<MealProps, MealState> {
                     value="checkedH"
                   />
                 }
-                label="Select all"
+                label={i18n._('Select all')}
               />
               <Button
                 className="shoppingListButton"
                 variant="outlined"
                 startIcon={<FontAwesomeIcon icon={faPlus} />}
               >
-                Add selected to your shopping list
+                {i18n._('Add selected to your shopping list')}
               </Button>
             </div>
           </div>
@@ -154,7 +155,11 @@ class Meal extends Component<MealProps, MealState> {
         </div>
       );
     } else {
-      return <div>Cannot find element with id = {this.props.match.params.id}</div>;
+      return (
+        <div>
+          {i18n._('Cannot find element with id')} = {this.props.match.params.id}
+        </div>
+      );
     }
   }
 }

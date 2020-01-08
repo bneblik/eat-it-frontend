@@ -1,0 +1,10 @@
+{
+  "My meal plan for today": {
+    "origin": [
+      [
+        "src/components/MyMealPlan/MyMealPlan.component.tsx",
+        42
+      ]
+    ]
+  }
+}

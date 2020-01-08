@@ -10,6 +10,7 @@ import { TextField, FormControlLabel, Switch } from '@material-ui/core';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import MyMealsComponent from '../MyMeals/MyMeals.component';
+import { i18n } from '../..';
 
 interface AllMealsProps {
   error: any | null;
@@ -43,7 +44,6 @@ class AllMeals extends Component<AllMealsProps, AllMealsState> {
       </TextField>
     );
   }
-
   render() {
     return (
       <div className="allMealsComponent">
@@ -56,13 +56,13 @@ class AllMeals extends Component<AllMealsProps, AllMealsState> {
               InputProps={{
                 startAdornment: <FontAwesomeIcon icon={faSearch} className="padding" />
               }}
-              placeholder="Search for a meal..."
+              placeholder={i18n._('Search for a meal...')}
             />
             <div className="searchFilters">
               {this.selectCategory()}
               <FormControlLabel
                 control={<Switch checked={true} onChange={() => {}} />}
-                label="only my meals"
+                label={i18n._('only my meals')}
               />
             </div>
           </div>

@@ -3,6 +3,7 @@ import '../../styles/css/recipe.styles.css';
 import { TextField, IconButton } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { i18n } from '../..';
 
 class Recipe extends Component {
   state = {
@@ -36,13 +37,13 @@ class Recipe extends Component {
   render() {
     return (
       <div className="recipeComponent">
-        <div className="title">Recipe</div>
+        <div className="title">{i18n._('Recipe')}</div>
         <div className="steps">
           {this.displaySteps()}
           <div className="step">
             <TextField
               variant="outlined"
-              label="Add step"
+              label={i18n._('Add step')}
               value={this.state.newStep}
               multiline={true}
               fullWidth={true}

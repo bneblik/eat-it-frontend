@@ -16,6 +16,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { AddProduct } from '../AddProduct/AddProduct.component';
 import apple from '../../styles/images/apple.jpg';
+import { i18n } from '../..';
 
 interface MyFridgeState {
   shoppingList: TShoppingList[];
@@ -149,7 +150,7 @@ class ShoppingList extends Component {
     return (
       <div className="shoppingListComponent">
         <Typography variant="h5">
-          Shopping List
+          {i18n._('Shopping List')}
           <AddProduct buttonName="Add to list" />
         </Typography>
         <div className="productsContainer">

@@ -23,6 +23,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { faClock } from '@fortawesome/free-regular-svg-icons';
 import { Recipe } from '../Recipe/Recipe.component';
+import { i18n } from '../..';
 
 interface AddMealProps {
   addMeal: typeof addMeal;
@@ -80,13 +81,13 @@ class AddMeal extends Component<AddMealProps, AddMealState> {
     return (
       <div className="addMealComponent">
         <Card>
-          <CardHeader className="title" title="Add a new meal" />
+          <CardHeader className="title" title={i18n._('Add a new meal')} />
           <form>
             <div className="padding">
               <FontAwesomeIcon icon={faUtensils} />
               <TextField
                 variant="outlined"
-                label="Name"
+                label={i18n._('Name')}
                 autoFocus={true}
                 value={this.state.name}
                 fullWidth={true}
@@ -99,7 +100,7 @@ class AddMeal extends Component<AddMealProps, AddMealState> {
               <FontAwesomeIcon icon={faInfo} />
               <TextField
                 variant="outlined"
-                label="Description"
+                label={i18n._('Description')}
                 value={this.state.name}
                 fullWidth={true}
                 onChange={(e) => {
@@ -111,7 +112,7 @@ class AddMeal extends Component<AddMealProps, AddMealState> {
               <FontAwesomeIcon icon={faCamera} />
               <div>
                 <Button variant="contained" className="uploadImage">
-                  Add image
+                  {i18n._('Add image')}
                 </Button>
               </div>
             </div>
@@ -119,7 +120,7 @@ class AddMeal extends Component<AddMealProps, AddMealState> {
               <FontAwesomeIcon icon={faClock} />
               <TextField
                 variant="outlined"
-                label="Preparation time"
+                label={i18n._('Preparation time')}
                 value={this.state.name}
                 fullWidth={true}
                 onChange={(e) => {
@@ -131,7 +132,7 @@ class AddMeal extends Component<AddMealProps, AddMealState> {
               <FontAwesomeIcon icon={faBalanceScaleRight} />
               <TextField
                 variant="outlined"
-                label="Servings"
+                label={i18n._('Servings')}
                 value={this.state.name}
                 fullWidth={true}
                 onChange={(e) => {
@@ -143,7 +144,7 @@ class AddMeal extends Component<AddMealProps, AddMealState> {
               <FontAwesomeIcon icon={faFilter} />
               <TextField
                 variant="outlined"
-                label="Category"
+                label={i18n._('Category')}
                 select
                 value={this.state.name}
                 fullWidth={true}
@@ -160,8 +161,8 @@ class AddMeal extends Component<AddMealProps, AddMealState> {
               <FontAwesomeIcon icon={faVideo} />
               <TextField
                 variant="outlined"
-                label="YouTube video"
-                helperText="Provide url for YouTube recipe"
+                label={i18n._('YouTube video')}
+                helperText={i18n._('Provide url for YouTube recipe')}
                 value={this.state.name}
                 fullWidth={true}
                 onChange={(e) => {
@@ -174,7 +175,7 @@ class AddMeal extends Component<AddMealProps, AddMealState> {
               <div>
                 <div className="addProductGroup">
                   <TextField
-                    label="Ingredient"
+                    label={i18n._('Ingredient')}
                     select
                     variant="outlined"
                     className="selectProduct"
@@ -199,9 +200,9 @@ class AddMeal extends Component<AddMealProps, AddMealState> {
                       onClick={this.addProduct}
                       startIcon={<FontAwesomeIcon icon={faPlus} />}
                     >
-                      Add
+                      {i18n._('Add')}
                     </Button>
-                    <AddProduct buttonName="Create new" />
+                    <AddProduct buttonName={i18n._('Create new')} />
                   </span>
                 </div>
                 <ProductsList
@@ -216,7 +217,7 @@ class AddMeal extends Component<AddMealProps, AddMealState> {
               onClick={this.add}
               startIcon={<FontAwesomeIcon icon={faCheck} />}
             >
-              Save
+              {i18n._('Save')}
             </Button>
             <Button
               className="groupButton cancel"
@@ -224,7 +225,7 @@ class AddMeal extends Component<AddMealProps, AddMealState> {
               onClick={this.add}
               startIcon={<FontAwesomeIcon icon={faTimes} />}
             >
-              Cancel
+              {i18n._('Cancel')}
             </Button>
           </form>
         </Card>
