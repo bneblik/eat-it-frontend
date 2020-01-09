@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Header from './Header.component';
+import { Products } from './Products.component';
 
 jest.mock('../..', () => ({
   get i18n() {
@@ -8,8 +8,8 @@ jest.mock('../..', () => ({
   }
 }));
 
-describe('Header', () => {
+describe('Products', () => {
   it('renders without crashing', () => {
-    shallow(<Header history={{}} match={{}} />);
+    shallow(<Products component="MyFridge" />);
   });
 });

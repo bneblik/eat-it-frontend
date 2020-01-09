@@ -9,14 +9,13 @@ import { MealsState } from '../../types/Meals';
 import { Meal } from '../Meal/Meal.component';
 import { ProductsState } from '../../types/Products';
 import { UserAccount } from '../UserAccount/UserAccount.component';
-import { MyFridge } from '../MyFridge/MyFridge.component';
+import { Products } from '../Products/Products.component';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faEnvelope, faKey } from '@fortawesome/free-solid-svg-icons';
 import { MyMealPlan } from '../MyMealPlan/MyMealPlan.component';
 import { UserPanel } from '../UserPanel/UserPanel.component';
-import { ShoppingList } from '../ShoppingList/ShoppingList.component';
-import { i18n } from '../..';
 import { routes } from './RouteConstants';
+import { i18n } from '../..';
 
 library.add(faEnvelope, faKey);
 
@@ -44,25 +43,32 @@ class App extends Component<AppProps> {
         <Header history={this.props.history} match={this.props.match}></Header>
         <div className="appContent">
           <Route
-            render={({ match: { url } }) => (
-              <Switch>
-                <Route path={`${url}${routes.meal}`} render={(props) => <Meal {...props} />} />
-                <Route exact path={`${url}${routes.meals}`} render={(props) => <AllMeals {...props} />} />
-                <Route path={`${url}${routes.addMeal}`} render={(props) => <AddMeal {...props} />} />
-                <Route exact path={`${url}${routes.myFridge}`} render={(props) => <MyFridge {...props} />} />
-                <Route path={`${url}${routes.myMealPlan}`} render={(props) => <MyMealPlan {...props} />} />
-                <Route
-                  path={`${url}${routes.userPanel}`}
-                  render={(props) => <UserPanel {...props} username="exampleUser123" />}
-                />
-                <Route path={`${url}${routes.login}`} render={(props) => <UserAccount {...props} />} />
-                <Route
-                  path={`${url}${routes.shoppingList}`}
-                  render={(props) => <ShoppingList {...props} />}
-                />
-                <Redirect to={`${url}${routes.meal}`} />
-              </Switch>
-            )}
+            render={({ match: { url } }) => {
+              url = url === '/' ? '' : url;
+              return (
+                <Switch>
+                  <Route path={`${url}${routes.meal}`} render={(props) => <Meal {...props} />} />
+                  <Route exact path={`${url}${routes.meals}`} render={(props) => <AllMeals {...props} />} />
+                  <Route path={`${url}${routes.addMeal}`} render={(props) => <AddMeal {...props} />} />
+                  <Route
+                    exact
+                    path={`${url}${routes.myFridge}`}
+                    render={(props) => <Products component="MyFridge" {...props} />}
+                  />
+                  <Route path={`${url}${routes.myMealPlan}`} render={(props) => <MyMealPlan {...props} />} />
+                  <Route
+                    path={`${url}${routes.userPanel}`}
+                    render={(props) => <UserPanel {...props} username="exampleUser123" />}
+                  />
+                  <Route path={`${url}${routes.login}`} render={(props) => <UserAccount {...props} />} />
+                  <Route
+                    path={`${url}${routes.shoppingList}`}
+                    render={(props) => <Products component="ShoppingList" {...props} />}
+                  />
+                  <Redirect exact to={`${url}${routes.meals}`} />
+                </Switch>
+              );
+            }}
           />
         </div>
       </>
@@ -76,5 +82,6 @@ const mapStateToProps = (state: AppState) => {
     products: state.productsReducer
   };
 };
+export const ConnectedApp = connect(mapStateToProps)(App);
 
-export default withRouter(connect(mapStateToProps)(App));
+export default withRouter(ConnectedApp);

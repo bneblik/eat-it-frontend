@@ -1,9 +1,25 @@
 {
+  "Add product": {
+    "origin": [
+      [
+        "src/components/AddProduct/AddProduct.component.tsx",
+        31
+      ]
+    ]
+  },
   "Name": {
     "origin": [
       [
         "src/components/AddProduct/AddProduct.component.tsx",
         35
+      ]
+    ]
+  },
+  "Category": {
+    "origin": [
+      [
+        "src/components/AddProduct/AddProduct.component.tsx",
+        41
       ]
     ]
   },

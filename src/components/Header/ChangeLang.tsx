@@ -63,7 +63,7 @@ class ChangeLang extends Component<ChangeLangProps> {
           </IconButton>
           <DialogTitle className="title">
             <FontAwesomeIcon icon={faGlobeEurope} />
-            Change language
+            {i18n._('Change language')}
           </DialogTitle>
           <DialogContent>
             <RadioGroup value={i18n.language} onChange={this.handleChange}>

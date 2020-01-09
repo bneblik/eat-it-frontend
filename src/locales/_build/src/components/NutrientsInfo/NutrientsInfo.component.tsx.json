@@ -1,5 +1,13 @@
 {
-  "carbs": {
+  "Calories": {
+    "origin": [
+      [
+        "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
+        9
+      ]
+    ]
+  },
+  "Carbohydrates": {
     "origin": [
       [
         "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
@@ -7,15 +15,23 @@
       ]
     ]
   },
-  "proteins": {
+  "C": {
     "origin": [
       [
         "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
-        16
+        14
       ]
     ]
   },
-  "fats": {
+  "Proteins": {
+    "origin": [
+      [
+        "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
+        18
+      ]
+    ]
+  },
+  "P": {
     "origin": [
       [
         "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
@@ -23,11 +39,19 @@
       ]
     ]
   },
-  "kcal": {
+  "Fats": {
     "origin": [
       [
         "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
         24
+      ]
+    ]
+  },
+  "F": {
+    "origin": [
+      [
+        "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
+        26
       ]
     ]
   }

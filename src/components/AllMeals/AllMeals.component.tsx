@@ -11,29 +11,42 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import MyMealsComponent from '../MyMeals/MyMeals.component';
 import { i18n } from '../..';
+import { History, LocationState } from 'history';
 
 interface AllMealsProps {
   error: any | null;
   meals: TMeal[];
   pending: boolean;
   fetchMeals: typeof fetchMeals;
+  history: History<LocationState>;
 }
-type AllMealsState = { mealsReducer: MyMealsStateType };
+type AllMealsState = { mealsReducer: MyMealsStateType; cat: string; onlyMy: boolean; searcher: string };
+const CATEGORY = 'cat';
+const ONLY_MY = 'onlyMy';
+const TEXT = 'text';
 
 class AllMeals extends Component<AllMealsProps, AllMealsState> {
+  constructor(props: AllMealsProps) {
+    super(props);
+    const searchParams = new URLSearchParams(this.props.history.location.search);
+    let category = searchParams.get(CATEGORY);
+    if (category === null) category = 'all';
+    this.state = { cat: category, onlyMy: false, searcher: '', mealsReducer: {} as any };
+  }
   componentDidMount() {
     const { fetchMeals } = this.props;
     fetchMeals();
   }
+
   selectCategory() {
-    const options = ['all categories', 'breakfast', 'dinner'];
+    const options = ['all', 'breakfast', 'dinner'];
     return (
       <TextField
         className="selectCategory"
         variant="outlined"
         select
-        value={'all categories'}
-        onChange={() => {}}
+        value={this.state.cat}
+        onChange={(e: any) => this.handleCategory(e)}
         SelectProps={{ native: true }}
       >
         {options.map((option, key) => (
@@ -53,15 +66,17 @@ class AllMeals extends Component<AllMealsProps, AllMealsState> {
             <TextField
               className="searcher"
               variant="outlined"
+              value={this.state.searcher}
               InputProps={{
                 startAdornment: <FontAwesomeIcon icon={faSearch} className="padding" />
               }}
               placeholder={i18n._('Search for a meal...')}
+              onChange={(e: any) => this.handleSearcher(e)}
             />
             <div className="searchFilters">
               {this.selectCategory()}
               <FormControlLabel
-                control={<Switch checked={true} onChange={() => {}} />}
+                control={<Switch checked={this.state.onlyMy} onChange={() => this.handleOnlyMy()} />}
                 label={i18n._('only my meals')}
               />
             </div>
@@ -70,6 +85,27 @@ class AllMeals extends Component<AllMealsProps, AllMealsState> {
         <MyMealsComponent />
       </div>
     );
+  }
+
+  handleOnlyMy() {
+    const newValue = !this.state.onlyMy;
+    this.setState({ onlyMy: newValue });
+    this.setUrlParams(newValue, ONLY_MY);
+  }
+  handleCategory(event: React.ChangeEvent<HTMLInputElement>) {
+    const selected = (event.target as HTMLInputElement).value;
+    this.setState({ cat: selected });
+    this.setUrlParams(selected, CATEGORY);
+  }
+  handleSearcher(event: React.ChangeEvent<HTMLInputElement>) {
+    const selected = (event.target as HTMLInputElement).value;
+    this.setState({ searcher: selected });
+    this.setUrlParams(selected, TEXT);
+  }
+  setUrlParams(newValue: any, attr: string) {
+    const searchParams = new URLSearchParams(this.props.history.location.search);
+    searchParams.set(attr, newValue);
+    this.props.history.push({ search: searchParams.toString() });
   }
 }
 

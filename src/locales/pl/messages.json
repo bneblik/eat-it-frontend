@@ -38,6 +38,19 @@
       ]
     ]
   },
+  "Add product": {
+    "translation": "Dodaj produkt",
+    "origin": [
+      [
+        "src/components/AddProduct/AddProduct.component.tsx",
+        31
+      ],
+      [
+        "src/components/Products/Products.component.tsx",
+        131
+      ]
+    ]
+  },
   "Add selected to your shopping list": {
     "translation": "Dodaj zaznaczone do listy zakupów",
     "origin": [
@@ -69,12 +82,25 @@
       ]
     ]
   },
+  "C": {
+    "translation": "K",
+    "origin": [
+      [
+        "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
+        14
+      ]
+    ]
+  },
   "Calories": {
     "translation": "Kalorie",
     "origin": [
       [
         "src/components/AddProduct/AddProduct.component.tsx",
         57
+      ],
+      [
+        "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
+        9
       ]
     ]
   },
@@ -114,6 +140,10 @@
       [
         "src/components/AddProduct/AddProduct.component.tsx",
         66
+      ],
+      [
+        "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
+        12
       ]
     ]
   },
@@ -123,6 +153,19 @@
       [
         "src/components/AddMeal/AddMeal.component.tsx",
         86
+      ],
+      [
+        "src/components/AddProduct/AddProduct.component.tsx",
+        41
+      ]
+    ]
+  },
+  "Change language": {
+    "translation": "Zmień język",
+    "origin": [
+      [
+        "src/components/Header/ChangeLang.tsx",
+        42
       ]
     ]
   },
@@ -171,12 +214,25 @@
       ]
     ]
   },
+  "F": {
+    "translation": "T",
+    "origin": [
+      [
+        "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
+        26
+      ]
+    ]
+  },
   "Fats": {
     "translation": "Tłuszcze",
     "origin": [
       [
         "src/components/AddProduct/AddProduct.component.tsx",
         75
+      ],
+      [
+        "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
+        24
       ]
     ]
   },
@@ -342,6 +398,15 @@
       ]
     ]
   },
+  "P": {
+    "translation": "B",
+    "origin": [
+      [
+        "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
+        20
+      ]
+    ]
+  },
   "Password": {
     "translation": "Hasło",
     "origin": [
@@ -366,6 +431,10 @@
       [
         "src/components/AddProduct/AddProduct.component.tsx",
         84
+      ],
+      [
+        "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
+        18
       ]
     ]
   },
@@ -414,7 +483,7 @@
     "origin": [
       [
         "src/components/AllMeals/AllMeals.component.tsx",
-        32
+        48
       ]
     ]
   },
@@ -476,8 +545,8 @@
     "translation": "Lista zakupów",
     "origin": [
       [
-        "src/components/ShoppingList/ShoppingList.component.tsx",
-        113
+        "src/components/Products/Products.component.tsx",
+        128
       ]
     ]
   },
@@ -525,8 +594,8 @@
     "translation": "Co mam w lodówce?",
     "origin": [
       [
-        "src/components/MyFridge/MyFridge.component.tsx",
-        63
+        "src/components/Products/Products.component.tsx",
+        129
       ]
     ]
   },
@@ -555,7 +624,8 @@
         "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
         12
       ]
-    ]
+    ],
+    "obsolete": true
   },
   "fats": {
     "translation": "tłuszcze",
@@ -564,7 +634,8 @@
         "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
         20
       ]
-    ]
+    ],
+    "obsolete": true
   },
   "fri": {
     "translation": "pt",
@@ -582,7 +653,8 @@
         "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
         24
       ]
-    ]
+    ],
+    "obsolete": true
   },
   "mon": {
     "translation": "pn",
@@ -598,7 +670,7 @@
     "origin": [
       [
         "src/components/AllMeals/AllMeals.component.tsx",
-        35
+        51
       ]
     ]
   },
@@ -609,7 +681,8 @@
         "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
         16
       ]
-    ]
+    ],
+    "obsolete": true
   },
   "sat": {
     "translation": "sob",

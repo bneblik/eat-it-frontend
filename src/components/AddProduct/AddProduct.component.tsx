@@ -57,7 +57,7 @@ class AddProduct extends Component<AddProductProps> {
           {this.props.buttonName}
         </Button>
         <Dialog open={this.state.dialogOpened} className="addProductComponent">
-          <DialogTitle id="form-dialog-title">Add product</DialogTitle>
+          <DialogTitle id="form-dialog-title">{i18n._('Add product')}</DialogTitle>
           <DialogContent>
             <div className="inputContainer">
               <FontAwesomeIcon icon={faUtensils} />
@@ -72,7 +72,7 @@ class AddProduct extends Component<AddProductProps> {
             <div className="inputContainer">
               <FontAwesomeIcon icon={faFilter} />
               <TextField
-                label="Category"
+                label={i18n._('Category')}
                 value={this.state.calories}
                 select
                 onChange={(e) => {
@@ -161,4 +161,4 @@ class AddProduct extends Component<AddProductProps> {
   }
 }
 
-export { AddProduct };
+export default AddProduct;

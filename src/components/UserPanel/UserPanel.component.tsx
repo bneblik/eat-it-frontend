@@ -22,7 +22,7 @@ import {
   faChevronDown,
   faBell
 } from '@fortawesome/free-solid-svg-icons';
-import { i18n } from '@lingui/core';
+import { i18n } from '../..';
 
 interface UserPanelProps {
   username: string;
