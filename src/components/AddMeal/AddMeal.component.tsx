@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Card, TextField, MenuItem, CardHeader, Button } from '@material-ui/core';
-import { addMeal } from '../../actions/mealAction';
 import { ProductsList } from '../ProductsList/ProductsList.component';
 import { removeProduct, addProduct } from '../../actions/productAction';
 import '../../styles/css/add-meal.styles.css';
@@ -26,7 +25,6 @@ import { Recipe } from '../Recipe/Recipe.component';
 import { i18n } from '../..';
 
 interface AddMealProps {
-  addMeal: typeof addMeal;
   removeProduct: typeof removeProduct;
   addProduct: typeof addProduct;
   productsList: ProductType[];
@@ -59,11 +57,11 @@ class AddMeal extends Component<AddMealProps, AddMealState> {
   };
 
   add = () => {
-    this.props.addMeal({
-      id: 3,
-      name: this.state.name,
-      recipe: this.state.recipe
-    });
+    // this.props.addMeal({
+    //   id: 3,
+    //   name: this.state.name,
+    //   recipe: this.state.recipe
+    // });
     this.setState({ name: '', recipe: '' });
   };
 
@@ -242,5 +240,5 @@ const mapStateToProps = (state: AddMealState) => {
 
 export default connect(
   mapStateToProps,
-  { addMeal, addProduct, removeProduct }
+  { addProduct, removeProduct }
 )(AddMeal);

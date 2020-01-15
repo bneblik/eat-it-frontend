@@ -5,8 +5,7 @@ import Header from '../Header/Header.component';
 import AddMeal from '../AddMeal/AddMeal.component';
 import { connect } from 'react-redux';
 import { reducers } from '../../reducers';
-import { MealsState } from '../../types/Meals';
-import { Meal } from '../Meal/Meal.component';
+import Meal from '../Meal/Meal.component';
 import { ProductsState } from '../../types/Products';
 import { UserAccount } from '../UserAccount/UserAccount.component';
 import { Products } from '../Products/Products.component';
@@ -16,11 +15,12 @@ import { MyMealPlan } from '../MyMealPlan/MyMealPlan.component';
 import { UserPanel } from '../UserPanel/UserPanel.component';
 import { routes } from './RouteConstants';
 import { i18n } from '../..';
+import { MealsStateType } from '../../types/MealsTypes';
 
 library.add(faEnvelope, faKey);
 
 interface AppProps {
-  meals: MealsState;
+  meals: MealsStateType;
   products: ProductsState;
   history: any;
   location: any;
@@ -78,7 +78,7 @@ class App extends Component<AppProps> {
 
 const mapStateToProps = (state: AppState) => {
   return {
-    meals: state.mealReducer,
+    meals: state.mealsReducer,
     products: state.productsReducer
   };
 };

@@ -7,16 +7,16 @@ export interface AddProductAction {
 }
 
 export interface RemoveProductAction {
-    type: typeof REMOVE_PRODUCT;
-    productId: number;
+  type: typeof REMOVE_PRODUCT;
+  productId: number;
 }
 
 export type ProductsActionType = AddProductAction | RemoveProductAction;
 
 export type ProductType = {
-  id: number,
-  name: string
-}
+  id: number;
+  name: string;
+};
 
 export interface ProductsState {
   productsList: ProductType[];

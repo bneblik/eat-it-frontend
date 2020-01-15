@@ -4,39 +4,48 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { fetchMeals } from '../../actions/mealsAction';
 import { TMeal } from '../../types/MealTypes';
-import { MyMealsStateType } from '../../types/MealsTypes';
 import { MealInfo } from '../MealInfo/MealInfo.component';
-import { TMealExtended } from '../Meal/Meal.component';
 import { i18n } from '../..';
+import { MealsStateType } from '../../types/MealsTypes';
 
-interface MyMealsProps {
+interface MealsProps {
   error: any | null;
   meals: TMeal[];
   pending: boolean;
   fetchMeals: typeof fetchMeals;
 }
-type MyMealsState = { mealsReducer: MyMealsStateType };
+type MealsState = { mealsReducer: MealsStateType };
 
-class MyMeals extends Component<MyMealsProps, MyMealsState> {
+class Meals extends Component<MealsProps, MealsState> {
   componentDidMount() {
     const { fetchMeals } = this.props;
     fetchMeals();
   }
 
+  showSkeletons() {
+    const skeletons = [];
+    for (let i = 0; i < 9; i++) {
+      skeletons.push(<MealInfo key={i} meal={undefined}></MealInfo>);
+    }
+    return <div className="mealsComponent">{skeletons}</div>;
+  }
+
   render() {
     if (this.props.error || this.props.meals === []) return <div>{i18n._('Nothing to display')}</div>;
-    else
+    else if (this.props.pending) return this.showSkeletons();
+    else {
       return (
         <div className="mealsComponent">
           {this.props.meals.map((meal) => (
-            <MealInfo key={meal.id} meal={meal as TMealExtended}></MealInfo>
+            <MealInfo key={meal.id} meal={meal}></MealInfo>
           ))}
         </div>
       );
+    }
   }
 }
 
-const mapStateToProps = (state: MyMealsState) => {
+const mapStateToProps = (state: MealsState) => {
   return {
     error: state.mealsReducer.error,
     meals: state.mealsReducer.meals,
@@ -55,4 +64,4 @@ const mapDispatchToProps = (dispatch: any) =>
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(MyMeals);
+)(Meals);

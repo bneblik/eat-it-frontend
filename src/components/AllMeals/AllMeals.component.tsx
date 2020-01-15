@@ -4,12 +4,12 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { fetchMeals } from '../../actions/mealsAction';
 import { TMeal } from '../../types/MealTypes';
-import { MyMealsStateType } from '../../types/MealsTypes';
+import { MealsStateType } from '../../types/MealsTypes';
 import image from '../../styles/images/background-image.jpg';
 import { TextField, FormControlLabel, Switch } from '@material-ui/core';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import MyMealsComponent from '../MyMeals/MyMeals.component';
+import MealsComponent from '../Meals/Meals.component';
 import { i18n } from '../..';
 import { History, LocationState } from 'history';
 
@@ -20,7 +20,7 @@ interface AllMealsProps {
   fetchMeals: typeof fetchMeals;
   history: History<LocationState>;
 }
-type AllMealsState = { mealsReducer: MyMealsStateType; cat: string; onlyMy: boolean; searcher: string };
+type AllMealsState = { mealsReducer: MealsStateType; cat: string; onlyMy: boolean; searcher: string };
 const CATEGORY = 'cat';
 const ONLY_MY = 'onlyMy';
 const TEXT = 'text';
@@ -82,7 +82,7 @@ class AllMeals extends Component<AllMealsProps, AllMealsState> {
             </div>
           </div>
         </div>
-        <MyMealsComponent />
+        <MealsComponent />
       </div>
     );
   }

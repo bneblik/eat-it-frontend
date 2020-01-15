@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import '../../styles/css/my-meal-plan.styles.css';
 import { Calendar } from '../Calendar/Calendar.component';
-import { TMealExtended } from '../Meal/Meal.component';
 import { MealInfo } from '../MealInfo/MealInfo.component';
 import { i18n } from '../..';
+import { TMeal } from '../../types/MealTypes';
 
-const meal: TMealExtended = {
+const meal: TMeal = {
   id: 1,
   name: 'Spaghetti carbonara',
   recipe: 'Heat pasta water: Put a large pot of salted water on to boil (1 Tbsp salt for every 2 ',
@@ -25,7 +25,7 @@ const mealsList = [1, 2, 3].map((i) => {
 });
 
 interface MyMealPlanState {
-  meals: TMealExtended[];
+  meals: TMeal[];
 }
 
 class MyMealPlan extends Component {
