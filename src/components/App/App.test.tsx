@@ -1,14 +1,20 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import App from './App';
+import { ConnectedApp } from './App';
 import { Provider } from 'react-redux';
 import { store } from '../../store/store';
+
+jest.mock('../..', () => ({
+  get i18n() {
+    return {};
+  }
+}));
 
 describe('App', () => {
   it('renders without crashing', () => {
     shallow(
       <Provider store={store}>
-        <App />
+        <ConnectedApp match={{ url: '', params: { lng: 'en' } }} history={{}} location={{}} />
       </Provider>
     );
   });

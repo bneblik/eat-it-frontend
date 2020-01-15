@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../../styles/css/shopping-list.styles.css';
+import '../../styles/css/products.styles.css';
 import {
   InputAdornment,
   Input,
@@ -14,12 +14,18 @@ import {
 } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faChevronDown } from '@fortawesome/free-solid-svg-icons';
-import { AddProduct } from '../AddProduct/AddProduct.component';
+import AddProduct from '../AddProduct/AddProduct.component';
 import apple from '../../styles/images/apple.jpg';
+import { i18n } from '../..';
+import { NutrientsInfo } from '../NutrientsInfo/NutrientsInfo.component';
 
-interface MyFridgeState {
-  shoppingList: TShoppingList[];
+const ShoppingList = 'ShoppingList';
+interface ProductsState {
+  productsCategories: TShoppingList[];
 }
+type ProductsProps = {
+  component: 'MyFridge' | 'ShoppingList';
+};
 
 type TProduct = {
   id: number;
@@ -35,7 +41,7 @@ type TShoppingList = {
   products: TProduct[];
 };
 
-const shoppingList: TShoppingList[] = [
+const productsCategories: TShoppingList[] = [
   {
     category: 'first category',
     products: [
@@ -114,53 +120,68 @@ const shoppingList: TShoppingList[] = [
   }
 ];
 
-class ShoppingList extends Component {
-  state: MyFridgeState = {
-    shoppingList: shoppingList
+class Products extends Component<ProductsProps> {
+  state: ProductsState = {
+    productsCategories: productsCategories
   };
-
-  renderProductToBuy(product: TProduct, key: number) {
+  selectComponent(product: TProduct, key: number) {
+    if (this.props.component === ShoppingList) {
+      return (
+        <FormControl className="productItem" key={key}>
+          <FormControlLabel
+            control={<Checkbox checked={true} onChange={() => {}} />}
+            label={this.renderProductToBuy(product)}
+          />
+        </FormControl>
+      );
+    } else {
+      return (
+        <div className="productItem" key={key}>
+          {this.renderProductToBuy(product)}
+          <NutrientsInfo kcal={1} proteins={23} carbs={1221} fats={0} />
+        </div>
+      );
+    }
+  }
+  renderProductToBuy(product: TProduct) {
     return (
-      <FormControl className="productItem" key={key}>
-        <FormControlLabel
-          control={<Checkbox checked={true} onChange={() => {}} />}
-          label={
-            <span className="listItem">
-              <img src={apple} alt="product"></img>
-              <div className="productName">{product.name}</div>
-              <span className="amountInput">
-                <Input
-                  value={product.amount}
-                  endAdornment={<InputAdornment position="end">g</InputAdornment>}
-                ></Input>
-              </span>
-              <span className="trashButton">
-                <IconButton>
-                  <FontAwesomeIcon icon={faTrash} size="1x" />
-                </IconButton>
-              </span>
-            </span>
-          }
-        />
-      </FormControl>
+      <span className="listItem">
+        <img src={apple} alt="product"></img>
+        <div className="productName">{product.name}</div>
+        <span className="amountInput">
+          <Input
+            value={product.amount}
+            endAdornment={<InputAdornment position="end">g</InputAdornment>}
+          ></Input>
+        </span>
+        <span className="trashButton">
+          <IconButton>
+            <FontAwesomeIcon icon={faTrash} size="1x" />
+          </IconButton>
+        </span>
+      </span>
     );
   }
   render() {
     return (
       <div className="shoppingListComponent">
-        <Typography variant="h5">
-          Shopping List
-          <AddProduct buttonName="Add to list" />
+        <Typography className="title" variant="h5">
+          <span>
+            {this.props.component === ShoppingList
+              ? i18n._('Shopping List')
+              : i18n._('What do I have in my fridge?')}
+          </span>
+          <AddProduct buttonName={i18n._('Add product')} />
         </Typography>
-        <div className="productsContainer">
-          {this.state.shoppingList.map((element, key) => (
-            <ExpansionPanel key={key} className="categoryBlock">
+        <div className={`productsContainer ${this.props.component}`}>
+          {this.state.productsCategories.map((element, key) => (
+            <ExpansionPanel defaultExpanded={true} key={key} className="categoryBlock">
               <ExpansionPanelSummary expandIcon={<FontAwesomeIcon icon={faChevronDown} />}>
                 <Typography className="title">{element.category}</Typography>
               </ExpansionPanelSummary>
               <ExpansionPanelDetails className="productsDetails">
                 {element.products.map((product, prodKey) => {
-                  return this.renderProductToBuy(product, prodKey);
+                  return this.selectComponent(product, prodKey);
                 })}
               </ExpansionPanelDetails>
             </ExpansionPanel>
@@ -171,4 +192,4 @@ class ShoppingList extends Component {
   }
 }
 
-export { ShoppingList };
+export { Products };

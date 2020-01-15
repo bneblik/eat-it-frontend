@@ -1,0 +1,114 @@
+{
+  "Add a new meal": {
+    "origin": [
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        50
+      ]
+    ]
+  },
+  "Name": {
+    "origin": [
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        54
+      ]
+    ]
+  },
+  "Description": {
+    "origin": [
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        60
+      ]
+    ]
+  },
+  "Add image": {
+    "origin": [
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        68
+      ]
+    ]
+  },
+  "Preparation time": {
+    "origin": [
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        74
+      ]
+    ]
+  },
+  "Servings": {
+    "origin": [
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        80
+      ]
+    ]
+  },
+  "Category": {
+    "origin": [
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        86
+      ]
+    ]
+  },
+  "YouTube video": {
+    "origin": [
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        96
+      ]
+    ]
+  },
+  "Provide url for YouTube recipe": {
+    "origin": [
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        96
+      ]
+    ]
+  },
+  "Ingredient": {
+    "origin": [
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        104
+      ]
+    ]
+  },
+  "Add": {
+    "origin": [
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        115
+      ]
+    ]
+  },
+  "Create new": {
+    "origin": [
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        117
+      ]
+    ]
+  },
+  "Save": {
+    "origin": [
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        124
+      ]
+    ]
+  },
+  "Cancel": {
+    "origin": [
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        127
+      ]
+    ]
+  }
+}

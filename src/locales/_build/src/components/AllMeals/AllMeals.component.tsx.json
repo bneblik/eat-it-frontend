@@ -1,0 +1,18 @@
+{
+  "Search for a meal...": {
+    "origin": [
+      [
+        "src/components/AllMeals/AllMeals.component.tsx",
+        48
+      ]
+    ]
+  },
+  "only my meals": {
+    "origin": [
+      [
+        "src/components/AllMeals/AllMeals.component.tsx",
+        51
+      ]
+    ]
+  }
+}

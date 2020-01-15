@@ -1,0 +1,90 @@
+{
+  "Add product": {
+    "origin": [
+      [
+        "src/components/AddProduct/AddProduct.component.tsx",
+        31
+      ]
+    ]
+  },
+  "Name": {
+    "origin": [
+      [
+        "src/components/AddProduct/AddProduct.component.tsx",
+        35
+      ]
+    ]
+  },
+  "Category": {
+    "origin": [
+      [
+        "src/components/AddProduct/AddProduct.component.tsx",
+        41
+      ]
+    ]
+  },
+  "Add image": {
+    "origin": [
+      [
+        "src/components/AddProduct/AddProduct.component.tsx",
+        49
+      ]
+    ]
+  },
+  "Nutritents info": {
+    "origin": [
+      [
+        "src/components/AddProduct/AddProduct.component.tsx",
+        54
+      ]
+    ]
+  },
+  "Calories": {
+    "origin": [
+      [
+        "src/components/AddProduct/AddProduct.component.tsx",
+        57
+      ]
+    ]
+  },
+  "Carbohydrates": {
+    "origin": [
+      [
+        "src/components/AddProduct/AddProduct.component.tsx",
+        66
+      ]
+    ]
+  },
+  "Fats": {
+    "origin": [
+      [
+        "src/components/AddProduct/AddProduct.component.tsx",
+        75
+      ]
+    ]
+  },
+  "Proteins": {
+    "origin": [
+      [
+        "src/components/AddProduct/AddProduct.component.tsx",
+        84
+      ]
+    ]
+  },
+  "Cancel": {
+    "origin": [
+      [
+        "src/components/AddProduct/AddProduct.component.tsx",
+        94
+      ]
+    ]
+  },
+  "Save": {
+    "origin": [
+      [
+        "src/components/AddProduct/AddProduct.component.tsx",
+        97
+      ]
+    ]
+  }
+}

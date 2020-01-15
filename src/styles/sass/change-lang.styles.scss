@@ -1,0 +1,20 @@
+.changeLangComponent {
+  .close {
+    width: auto;
+    height: auto;
+    position: absolute;
+    right: 0;
+    font-size: 20px;
+    margin: 5px;
+  }
+  .title {
+    padding-right: 50px;
+    padding-bottom: 0;
+    svg {
+      padding-right: 10px;
+    }
+  }
+  .option .MuiRadio-colorSecondary.Mui-checked {
+    color: green;
+  }
+}

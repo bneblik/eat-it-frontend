@@ -1,0 +1,30 @@
+{
+  "Log in": {
+    "origin": [
+      [
+        "src/components/LogIn/LogIn.component.tsx",
+        15
+      ],
+      [
+        "src/components/LogIn/LogIn.component.tsx",
+        29
+      ]
+    ]
+  },
+  "Username": {
+    "origin": [
+      [
+        "src/components/LogIn/LogIn.component.tsx",
+        18
+      ]
+    ]
+  },
+  "Password": {
+    "origin": [
+      [
+        "src/components/LogIn/LogIn.component.tsx",
+        23
+      ]
+    ]
+  }
+}

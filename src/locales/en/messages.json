@@ -1,0 +1,732 @@
+{
+  "Add": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        115
+      ],
+      [
+        "src/components/AddToMealPlan/AddToMealPlan.component.tsx",
+        60
+      ],
+      [
+        "src/components/UserPanel/UserPanel.component.tsx",
+        115
+      ]
+    ]
+  },
+  "Add a new meal": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        50
+      ]
+    ]
+  },
+  "Add image": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        68
+      ],
+      [
+        "src/components/AddProduct/AddProduct.component.tsx",
+        49
+      ]
+    ]
+  },
+  "Add product": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/AddProduct/AddProduct.component.tsx",
+        31
+      ],
+      [
+        "src/components/Products/Products.component.tsx",
+        131
+      ]
+    ]
+  },
+  "Add selected to your shopping list": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/Meal/Meal.component.tsx",
+        82
+      ]
+    ]
+  },
+  "Add step": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/Recipe/Recipe.component.tsx",
+        33
+      ]
+    ]
+  },
+  "Add to your meal plan": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/AddToMealPlan/AddToMealPlan.component.tsx",
+        28
+      ],
+      [
+        "src/components/AddToMealPlan/AddToMealPlan.component.tsx",
+        31
+      ]
+    ]
+  },
+  "C": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
+        14
+      ]
+    ]
+  },
+  "Calories": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/AddProduct/AddProduct.component.tsx",
+        57
+      ],
+      [
+        "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
+        9
+      ]
+    ]
+  },
+  "Cancel": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        127
+      ],
+      [
+        "src/components/AddProduct/AddProduct.component.tsx",
+        94
+      ],
+      [
+        "src/components/AddToMealPlan/AddToMealPlan.component.tsx",
+        57
+      ],
+      [
+        "src/components/Calendar/Calendar.component.tsx",
+        128
+      ]
+    ]
+  },
+  "Cannot find element with id": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/Meal/Meal.component.tsx",
+        96
+      ]
+    ]
+  },
+  "Carbohydrates": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/AddProduct/AddProduct.component.tsx",
+        66
+      ],
+      [
+        "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
+        12
+      ]
+    ]
+  },
+  "Category": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        86
+      ],
+      [
+        "src/components/AddProduct/AddProduct.component.tsx",
+        41
+      ]
+    ]
+  },
+  "Change language": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/Header/ChangeLang.tsx",
+        42
+      ]
+    ]
+  },
+  "Comment": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/MealComments/MealComments.component.tsx",
+        45
+      ]
+    ]
+  },
+  "Create new": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        117
+      ]
+    ]
+  },
+  "Daily": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/UserPanel/UserPanel.component.tsx",
+        109
+      ]
+    ]
+  },
+  "Date": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/AddToMealPlan/AddToMealPlan.component.tsx",
+        41
+      ]
+    ]
+  },
+  "Description": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        60
+      ]
+    ]
+  },
+  "F": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
+        26
+      ]
+    ]
+  },
+  "Fats": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/AddProduct/AddProduct.component.tsx",
+        75
+      ],
+      [
+        "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
+        24
+      ]
+    ]
+  },
+  "Height (in cm)": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/UserPanel/UserPanel.component.tsx",
+        83
+      ]
+    ]
+  },
+  "Hello": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/Header/Header.component.tsx",
+        60
+      ]
+    ],
+    "obsolete": true
+  },
+  "Hello World": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/AllMeals/AllMeals.component.tsx",
+        39
+      ],
+      [
+        "src/components/MyFridge/MyFridge.component.tsx",
+        40
+      ],
+      [
+        "src/components/MyMeals/MyMeals.component.tsx",
+        15
+      ]
+    ],
+    "obsolete": true
+  },
+  "Ingredient": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        104
+      ]
+    ]
+  },
+  "Ingredients": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/Meal/Meal.component.tsx",
+        76
+      ]
+    ]
+  },
+  "Log in": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/LogIn/LogIn.component.tsx",
+        15
+      ],
+      [
+        "src/components/LogIn/LogIn.component.tsx",
+        29
+      ]
+    ]
+  },
+  "Meal name": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/AddToMealPlan/AddToMealPlan.component.tsx",
+        35
+      ]
+    ]
+  },
+  "Meals": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/Header/Header.component.tsx",
+        31
+      ]
+    ]
+  },
+  "My fridge": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/Header/Header.component.tsx",
+        34
+      ]
+    ]
+  },
+  "My meal plan": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/Header/Header.component.tsx",
+        37
+      ]
+    ]
+  },
+  "My meal plan for today": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/MyMealPlan/MyMealPlan.component.tsx",
+        42
+      ]
+    ]
+  },
+  "Name": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        54
+      ],
+      [
+        "src/components/AddProduct/AddProduct.component.tsx",
+        35
+      ]
+    ]
+  },
+  "Nothing to display": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/MyMeals/MyMeals.component.tsx",
+        15
+      ]
+    ]
+  },
+  "Nutritents info": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/AddProduct/AddProduct.component.tsx",
+        54
+      ]
+    ]
+  },
+  "Ok": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/Calendar/Calendar.component.tsx",
+        131
+      ]
+    ]
+  },
+  "Other": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/UserPanel/UserPanel.component.tsx",
+        110
+      ]
+    ]
+  },
+  "P": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
+        20
+      ]
+    ]
+  },
+  "Password": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/LogIn/LogIn.component.tsx",
+        23
+      ]
+    ]
+  },
+  "Preparation time": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        74
+      ]
+    ]
+  },
+  "Proteins": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/AddProduct/AddProduct.component.tsx",
+        84
+      ],
+      [
+        "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
+        18
+      ]
+    ]
+  },
+  "Provide url for YouTube recipe": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        96
+      ]
+    ]
+  },
+  "Recipe": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/Recipe/Recipe.component.tsx",
+        29
+      ]
+    ]
+  },
+  "Repeat": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/UserPanel/UserPanel.component.tsx",
+        107
+      ]
+    ]
+  },
+  "Save": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        124
+      ],
+      [
+        "src/components/AddProduct/AddProduct.component.tsx",
+        97
+      ]
+    ]
+  },
+  "Search for a meal...": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/AllMeals/AllMeals.component.tsx",
+        48
+      ]
+    ]
+  },
+  "Select all": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/Meal/Meal.component.tsx",
+        80
+      ]
+    ]
+  },
+  "Select day": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/Calendar/Calendar.component.tsx",
+        116
+      ]
+    ]
+  },
+  "Servings": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        80
+      ]
+    ]
+  },
+  "Set information about you": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/UserPanel/UserPanel.component.tsx",
+        78
+      ]
+    ]
+  },
+  "Set reminder": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/AddToMealPlan/AddToMealPlan.component.tsx",
+        52
+      ]
+    ]
+  },
+  "Set reminders about meal time": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/UserPanel/UserPanel.component.tsx",
+        96
+      ]
+    ]
+  },
+  "Shopping List": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/Products/Products.component.tsx",
+        128
+      ]
+    ]
+  },
+  "Time": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/AddToMealPlan/AddToMealPlan.component.tsx",
+        47
+      ],
+      [
+        "src/components/UserPanel/UserPanel.component.tsx",
+        103
+      ]
+    ]
+  },
+  "Username": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/LogIn/LogIn.component.tsx",
+        18
+      ]
+    ]
+  },
+  "Watch this recipe on YouTube": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/Meal/Meal.component.tsx",
+        59
+      ]
+    ]
+  },
+  "Weight (in kg)": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/UserPanel/UserPanel.component.tsx",
+        88
+      ]
+    ]
+  },
+  "What do I have in my fridge?": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/Products/Products.component.tsx",
+        129
+      ]
+    ]
+  },
+  "YouTube video": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        96
+      ]
+    ]
+  },
+  "amount": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/ProductInfo/ProductInfo.component.tsx",
+        14
+      ]
+    ]
+  },
+  "carbs": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
+        12
+      ]
+    ],
+    "obsolete": true
+  },
+  "fats": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
+        20
+      ]
+    ],
+    "obsolete": true
+  },
+  "fri": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/Calendar/Calendar.component.tsx",
+        61
+      ]
+    ]
+  },
+  "kcal": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
+        24
+      ]
+    ],
+    "obsolete": true
+  },
+  "mon": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/Calendar/Calendar.component.tsx",
+        57
+      ]
+    ]
+  },
+  "only my meals": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/AllMeals/AllMeals.component.tsx",
+        51
+      ]
+    ]
+  },
+  "proteins": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
+        16
+      ]
+    ],
+    "obsolete": true
+  },
+  "sat": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/Calendar/Calendar.component.tsx",
+        62
+      ]
+    ]
+  },
+  "sun": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/Calendar/Calendar.component.tsx",
+        63
+      ]
+    ]
+  },
+  "thu": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/Calendar/Calendar.component.tsx",
+        60
+      ]
+    ]
+  },
+  "tue": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/Calendar/Calendar.component.tsx",
+        58
+      ]
+    ]
+  },
+  "wed": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/Calendar/Calendar.component.tsx",
+        59
+      ]
+    ]
+  }
+}

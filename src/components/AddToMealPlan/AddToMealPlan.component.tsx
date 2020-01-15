@@ -18,6 +18,7 @@ import {
   faBell as faBellSolid
 } from '@fortawesome/free-solid-svg-icons';
 import '../../styles/css/add-to-meal-plan.styles.css';
+import { i18n } from '../..';
 
 type AddToMealPlanState = {
   name: string;
@@ -53,15 +54,15 @@ class AddToMealPlan extends Component {
           onClick={this.toggleDialog.bind(this)}
           startIcon={<FontAwesomeIcon icon={faClipboardList} />}
         >
-          Add to your meal plan
+          {i18n._('Add to your meal plan')}
         </Button>
         <Dialog open={this.state.dialogOpened} className="addToMealPlanComponent">
-          <DialogTitle>Add to your meal plan</DialogTitle>
+          <DialogTitle>{i18n._('Add to your meal plan')}</DialogTitle>
           <DialogContent>
             <div className="inputContainer">
               <FontAwesomeIcon icon={faUtensils} />
               <TextField
-                label="Meal name"
+                label={i18n._('Meal name')}
                 variant="outlined"
                 value={this.state.name}
                 onChange={(e) => {
@@ -72,7 +73,7 @@ class AddToMealPlan extends Component {
             <div className="inputContainer">
               <FontAwesomeIcon icon={faCalendarDay} />
               <TextField
-                label="Date"
+                label={i18n._('Date')}
                 variant="outlined"
                 value={this.state.name}
                 onChange={(e) => {
@@ -83,7 +84,7 @@ class AddToMealPlan extends Component {
             <div className="inputContainer">
               <FontAwesomeIcon icon={faClock} />
               <TextField
-                label="Time"
+                label={i18n._('Time')}
                 variant="outlined"
                 value={this.state.name}
                 onChange={(e) => {
@@ -100,16 +101,16 @@ class AddToMealPlan extends Component {
                     value={true}
                   />
                 }
-                label="Set reminder"
+                label={i18n._('Set reminder')}
               />
             </div>
           </DialogContent>
           <DialogActions>
             <Button onClick={this.toggleDialog.bind(this)} color="primary">
-              Cancel
+              {i18n._('Cancel')}
             </Button>
             <Button onClick={this.toggleDialog.bind(this)} color="primary">
-              Add
+              {i18n._('Add')}
             </Button>
           </DialogActions>
         </Dialog>

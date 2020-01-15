@@ -18,6 +18,7 @@ import {
   isToday
 } from 'date-fns';
 import { faCalendarAlt } from '@fortawesome/free-regular-svg-icons';
+import { i18n } from '../..';
 
 interface CalendarState {
   selectedDate: Date;
@@ -43,13 +44,9 @@ class Calendar extends Component {
           onClick={this.toggleCalendar}
           endIcon={<FontAwesomeIcon icon={faCalendarAlt} />}
         >
-          Select day
+          {i18n._('Select day')}
         </Button>
-        <Dialog
-          onClose={this.toggleCalendar}
-          aria-labelledby="customized-dialog-title"
-          open={this.state.open}
-        >
+        <Dialog onClose={this.toggleCalendar} open={this.state.open}>
           <DialogContent>
             <div className="calendarComponent">
               {this.topOfCalenar()}
@@ -59,10 +56,10 @@ class Calendar extends Component {
           </DialogContent>
           <DialogActions>
             <Button onClick={this.toggleCalendar} color="primary">
-              Cancel
+              {i18n._('Cancel')}
             </Button>
             <Button onClick={this.toggleCalendar} color="primary" autoFocus>
-              Ok
+              {i18n._('Ok')}
             </Button>
           </DialogActions>
         </Dialog>
@@ -109,7 +106,15 @@ class Calendar extends Component {
   };
 
   headerDays = () => {
-    const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+    const days = [
+      i18n._('mon'),
+      i18n._('tue'),
+      i18n._('wed'),
+      i18n._('thu'),
+      i18n._('fri'),
+      i18n._('sat'),
+      i18n._('sun')
+    ];
     const header: any[] = [];
     days.forEach((day, i) =>
       header.push(

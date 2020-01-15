@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { TextField, Button } from '@material-ui/core';
+import { i18n } from '@lingui/core';
 
 class LogIn extends Component {
   state = {
@@ -10,11 +11,11 @@ class LogIn extends Component {
   render() {
     return (
       <div className="panel">
-        <h2 className="title">Log in</h2>
+        <h2 className="title">{i18n._('Log in')}</h2>
         <form>
           <div className="padding">
             <TextField
-              label="Username"
+              label={i18n._('Username')}
               value={this.state.username}
               fullWidth={true}
               onChange={(e) => {
@@ -24,7 +25,7 @@ class LogIn extends Component {
           </div>
           <div className="padding">
             <TextField
-              label="Password"
+              label={i18n._('Password')}
               value={this.state.password}
               type="password"
               fullWidth={true}
@@ -41,8 +42,7 @@ class LogIn extends Component {
               size="small"
               onClick={this.logIn}
             >
-              {' '}
-              Log in{' '}
+              {i18n._('Log in')}
             </Button>
           </div>
         </form>

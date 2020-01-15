@@ -1,0 +1,82 @@
+{
+  "mon": {
+    "origin": [
+      [
+        "src/components/Calendar/Calendar.component.tsx",
+        57
+      ]
+    ]
+  },
+  "tue": {
+    "origin": [
+      [
+        "src/components/Calendar/Calendar.component.tsx",
+        58
+      ]
+    ]
+  },
+  "wed": {
+    "origin": [
+      [
+        "src/components/Calendar/Calendar.component.tsx",
+        59
+      ]
+    ]
+  },
+  "thu": {
+    "origin": [
+      [
+        "src/components/Calendar/Calendar.component.tsx",
+        60
+      ]
+    ]
+  },
+  "fri": {
+    "origin": [
+      [
+        "src/components/Calendar/Calendar.component.tsx",
+        61
+      ]
+    ]
+  },
+  "sat": {
+    "origin": [
+      [
+        "src/components/Calendar/Calendar.component.tsx",
+        62
+      ]
+    ]
+  },
+  "sun": {
+    "origin": [
+      [
+        "src/components/Calendar/Calendar.component.tsx",
+        63
+      ]
+    ]
+  },
+  "Select day": {
+    "origin": [
+      [
+        "src/components/Calendar/Calendar.component.tsx",
+        116
+      ]
+    ]
+  },
+  "Cancel": {
+    "origin": [
+      [
+        "src/components/Calendar/Calendar.component.tsx",
+        128
+      ]
+    ]
+  },
+  "Ok": {
+    "origin": [
+      [
+        "src/components/Calendar/Calendar.component.tsx",
+        131
+      ]
+    ]
+  }
+}

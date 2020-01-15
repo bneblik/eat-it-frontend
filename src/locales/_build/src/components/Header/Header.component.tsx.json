@@ -1,0 +1,26 @@
+{
+  "Meals": {
+    "origin": [
+      [
+        "src/components/Header/Header.component.tsx",
+        31
+      ]
+    ]
+  },
+  "My fridge": {
+    "origin": [
+      [
+        "src/components/Header/Header.component.tsx",
+        34
+      ]
+    ]
+  },
+  "My meal plan": {
+    "origin": [
+      [
+        "src/components/Header/Header.component.tsx",
+        37
+      ]
+    ]
+  }
+}
