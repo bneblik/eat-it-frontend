@@ -6,12 +6,13 @@ import { fetchMeals } from '../../actions/mealsAction';
 import { TMeal } from '../../types/MealTypes';
 import { MealsStateType } from '../../types/MealsTypes';
 import image from '../../styles/images/background-image.jpg';
-import { TextField, FormControlLabel, Switch } from '@material-ui/core';
+import { TextField, FormControlLabel, Switch, Snackbar } from '@material-ui/core';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import MealsComponent from '../Meals/Meals.component';
 import { i18n } from '../..';
 import { History, LocationState } from 'history';
+import { Alert } from '@material-ui/lab';
 
 interface AllMealsProps {
   error: any | null;
@@ -100,6 +101,7 @@ class AllMeals extends Component<AllMealsProps, AllMealsState> {
           </div>
         </div>
         <MealsComponent />
+        {this.showAlert()}
       </div>
     );
   }
@@ -125,6 +127,16 @@ class AllMeals extends Component<AllMealsProps, AllMealsState> {
     this.props.history.push({ search: searchParams.toString() });
     fetchMeals();
   }
+
+  showAlert = () => {
+    return (
+      <Snackbar open={!!this.props.error} autoHideDuration={6000} onClose={() => {}}>
+        <Alert onClose={() => {}} severity="error">
+          Server is unreacheable.
+        </Alert>
+      </Snackbar>
+    );
+  };
 }
 
 const mapStateToProps = (state: AllMealsState) => {

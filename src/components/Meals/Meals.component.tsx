@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import '../../styles/css/meals.styles.css';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -20,6 +20,17 @@ class Meals extends Component<MealsProps, MealsState> {
   componentDidMount() {
     const { fetchMeals } = this.props;
     fetchMeals();
+    window.addEventListener('scroll', this.handleScroll);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  handleScroll() {
+    if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight)
+      return;
+    console.log('Fetching more...');
   }
 
   showSkeletons() {

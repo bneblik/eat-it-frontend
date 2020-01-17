@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import AddProduct from './AddProduct.component';
+import ShoppingList from './ShoppingList.component';
 import { Provider } from 'react-redux';
 import { store } from '../../store/store';
 
@@ -10,11 +10,11 @@ jest.mock('../..', () => ({
   }
 }));
 
-describe('AddProduct', () => {
+describe('ShoppingList', () => {
   it('renders without crashing', () => {
     shallow(
       <Provider store={store}>
-        <AddProduct buttonName="" />
+        <ShoppingList />
       </Provider>
     );
   });
