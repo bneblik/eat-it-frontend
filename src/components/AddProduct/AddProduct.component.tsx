@@ -1,21 +1,17 @@
 import React, { Component } from 'react';
-import {
-  TextField,
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  InputAdornment
-} from '@material-ui/core';
+import { Button, Dialog, DialogTitle, DialogContent, DialogActions, InputAdornment } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-regular-svg-icons';
 import '../../styles/css/add-product.styles.css';
-import { faFilter, faUtensils, faCircle, faCamera } from '@fortawesome/free-solid-svg-icons';
+import { faFilter, faUtensils, faCircle, faBalanceScaleLeft } from '@fortawesome/free-solid-svg-icons';
 import { i18n } from '../..';
+import TextField from '@material-ui/core/TextField';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 
 type AddProductState = {
   name: string;
+  amount: string;
+  category: string;
   calories: string;
   carbs: string;
   fats: string;
@@ -26,21 +22,28 @@ type AddProductState = {
 type AddProductProps = {
   buttonName: string;
 };
+const defaultState: AddProductState = {
+  name: '',
+  amount: '',
+  category: '',
+  calories: '',
+  carbs: '',
+  fats: '',
+  protein: '',
+  dialogOpened: false
+};
 
 class AddProduct extends Component<AddProductProps> {
-  state: AddProductState = {
-    name: '',
-    calories: '',
-    carbs: '',
-    fats: '',
-    protein: '',
-    dialogOpened: false
-  };
+  state: AddProductState = defaultState;
 
   toggleDialog() {
-    this.setState((prevState: AddProductState) => ({
-      dialogOpened: !prevState.dialogOpened
-    }));
+    const opened = this.state.dialogOpened;
+    if (opened) {
+      this.setState(defaultState);
+    }
+    this.setState({
+      dialogOpened: !opened
+    });
   }
 
   render() {
@@ -57,15 +60,31 @@ class AddProduct extends Component<AddProductProps> {
           {this.props.buttonName}
         </Button>
         <Dialog open={this.state.dialogOpened} className="addProductComponent">
-          <DialogTitle id="form-dialog-title">{i18n._('Add product')}</DialogTitle>
+          <DialogTitle>{i18n._('Add product')}</DialogTitle>
           <DialogContent>
             <div className="inputContainer">
               <FontAwesomeIcon icon={faUtensils} />
-              <TextField
-                label={i18n._('Name')}
+              <Autocomplete
+                className="autocomplete"
+                options={['a', 'ab', 'bc']}
+                getOptionLabel={(o) => o}
+                onChange={(e, v) => {
+                  this.setState({ name: v });
+                }}
                 value={this.state.name}
+                noOptionsText={i18n._('No products')}
+                renderInput={(params: any) => (
+                  <TextField {...params} value={this.state.name} fullWidth label={i18n._('Name')} />
+                )}
+              />
+            </div>
+            <div className="inputContainer">
+              <FontAwesomeIcon icon={faBalanceScaleLeft} />
+              <TextField
+                label={i18n._('Amount')}
+                value={this.state.amount}
                 onChange={(e) => {
-                  this.setState({ name: e.target.value });
+                  this.setState({ amount: e.target.value });
                 }}
               />
             </div>
@@ -73,20 +92,10 @@ class AddProduct extends Component<AddProductProps> {
               <FontAwesomeIcon icon={faFilter} />
               <TextField
                 label={i18n._('Category')}
-                value={this.state.calories}
-                select
-                onChange={(e) => {
-                  this.setState({ calories: e.target.value });
-                }}
+                value={this.state.category}
+                disabled={true}
+                className="disabled"
               />
-            </div>
-            <div className="inputContainer">
-              <FontAwesomeIcon icon={faCamera} />
-              <div>
-                <Button variant="contained" className="uploadImage">
-                  {i18n._('Add image')}
-                </Button>
-              </div>
             </div>
             <fieldset>
               <legend>{i18n._('Nutritents info')}</legend>
@@ -98,9 +107,8 @@ class AddProduct extends Component<AddProductProps> {
                   InputProps={{
                     endAdornment: <InputAdornment position="end">kcal</InputAdornment>
                   }}
-                  onChange={(e) => {
-                    this.setState({ calories: e.target.value });
-                  }}
+                  disabled={true}
+                  className="disabled"
                 />
               </div>
 
@@ -112,9 +120,8 @@ class AddProduct extends Component<AddProductProps> {
                   InputProps={{
                     endAdornment: <InputAdornment position="end">g</InputAdornment>
                   }}
-                  onChange={(e) => {
-                    this.setState({ calories: e.target.value });
-                  }}
+                  disabled={true}
+                  className="disabled"
                 />
               </div>
 
@@ -126,9 +133,8 @@ class AddProduct extends Component<AddProductProps> {
                   InputProps={{
                     endAdornment: <InputAdornment position="end">g</InputAdornment>
                   }}
-                  onChange={(e) => {
-                    this.setState({ calories: e.target.value });
-                  }}
+                  disabled={true}
+                  className="disabled"
                 />
               </div>
 
@@ -140,9 +146,8 @@ class AddProduct extends Component<AddProductProps> {
                   InputProps={{
                     endAdornment: <InputAdornment position="end">g</InputAdornment>
                   }}
-                  onChange={(e) => {
-                    this.setState({ calories: e.target.value });
-                  }}
+                  disabled={true}
+                  className="disabled"
                 />
               </div>
             </fieldset>

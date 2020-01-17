@@ -22,6 +22,7 @@ import { NutrientsInfo } from '../NutrientsInfo/NutrientsInfo.component';
 const ShoppingList = 'ShoppingList';
 interface ProductsState {
   productsCategories: TShoppingList[];
+  selected: string[];
 }
 type ProductsProps = {
   component: 'MyFridge' | 'ShoppingList';
@@ -35,6 +36,7 @@ type TProduct = {
   protein: number;
   carbs: number;
   amount: number;
+  inBasket?: boolean;
 };
 type TShoppingList = {
   category: string;
@@ -122,28 +124,37 @@ const productsCategories: TShoppingList[] = [
 
 class Products extends Component<ProductsProps> {
   state: ProductsState = {
-    productsCategories: productsCategories
+    productsCategories: productsCategories,
+    selected: []
   };
+  handleSelect(name: any) {
+    this.setState((prevState: ProductsState) => ({ selected: [...prevState.selected, name] }));
+  }
   selectComponent(product: TProduct, key: number) {
     if (this.props.component === ShoppingList) {
       return (
         <FormControl className="productItem" key={key}>
           <FormControlLabel
-            control={<Checkbox checked={true} onChange={() => {}} />}
-            label={this.renderProductToBuy(product)}
+            control={
+              <Checkbox
+                checked={this.state.selected.includes(product.name)}
+                onChange={() => this.handleSelect(product.name)}
+              />
+            }
+            label={this.renderProduct(product)}
           />
         </FormControl>
       );
     } else {
       return (
         <div className="productItem" key={key}>
-          {this.renderProductToBuy(product)}
+          {this.renderProduct(product)}
           <NutrientsInfo kcal={1} proteins={23} carbs={1221} fats={0} />
         </div>
       );
     }
   }
-  renderProductToBuy(product: TProduct) {
+  renderProduct(product: TProduct) {
     return (
       <span className="listItem">
         <img src={apple} alt="product"></img>
@@ -151,6 +162,7 @@ class Products extends Component<ProductsProps> {
         <span className="amountInput">
           <Input
             value={product.amount}
+            onChange={(e) => this.handleChangeAmount(e.target.value, product.name, 'category')}
             endAdornment={<InputAdornment position="end">g</InputAdornment>}
           ></Input>
         </span>
@@ -161,6 +173,16 @@ class Products extends Component<ProductsProps> {
         </span>
       </span>
     );
+  }
+  handleChangeAmount(value: string, name: string, category: string) {
+    console.log(value);
+    console.log(name);
+    this.setState((prevState: ProductsState) => {
+      const found = prevState.productsCategories.find((cat) => cat.category === category);
+      if (found) {
+        found.products.filter((product) => product.name === name).map((product) => (product.amount = +value));
+      }
+    });
   }
   render() {
     return (

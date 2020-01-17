@@ -1,5 +1,12 @@
 import { axiosInstance } from '../utils/RequestService';
-import { FETCH_MEAL_PENDING, FETCH_MEAL_SUCCESS, FETCH_MEAL_ERROR } from '../types/MealTypes';
+import {
+  ADD_MEAL,
+  FETCH_MEAL_PENDING,
+  FETCH_MEAL_SUCCESS,
+  FETCH_MEAL_ERROR,
+  TMeal,
+  AddMealAction
+} from '../types/MealTypes';
 
 export function fetchMealPending() {
   return {
@@ -32,5 +39,12 @@ export function fetchMeal(id: string) {
       .catch((error) => {
         dispatch(fetchMealError(error));
       });
+  };
+}
+
+export function addMeal(meal: TMeal): AddMealAction {
+  return {
+    type: ADD_MEAL,
+    meal: meal
   };
 }

@@ -1,21 +1,20 @@
-export const REMOVE_PRODUCT = 'REMOVE_PRODUCT';
-export const ADD_PRODUCT = 'ADD_PRODUCT';
+export const FETCH_PRODUCTS = 'FETCH_PRODUCTS';
 
-export interface AddProductAction {
-  type: typeof ADD_PRODUCT;
-  product: ProductType;
+export interface FetchProductsAction {
+  type: typeof FETCH_PRODUCTS;
+  products: ProductType[];
 }
 
-export interface RemoveProductAction {
-  type: typeof REMOVE_PRODUCT;
-  productId: number;
-}
-
-export type ProductsActionType = AddProductAction | RemoveProductAction;
+export type ProductsActionType = FetchProductsAction;
 
 export type ProductType = {
   id: number;
   name: string;
+  calories: number;
+  fats: number;
+  proteins: number;
+  carbs: number;
+  category: string;
 };
 
 export interface ProductsState {

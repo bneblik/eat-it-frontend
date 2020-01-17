@@ -15,17 +15,19 @@ jest.mock('../..', () => ({
 const testMeal: TMeal = {
   id: 1,
   name: 'Spaghetti carbonara',
-  recipe:
-    "Heat pasta water: Put a large pot of salted water on to boil (1 Tbsp salt for every 2 quarts of water.)\nSauté pancetta/bacon and garlic: While the water is coming to a boil, heat the olive oil in a large sauté pan over medium heat. Add the bacon or pancetta and cook slowly until crispy. Add the garlic (if using) and cook another minute, then turn off the heat and put the pancetta and garlic into a large bowl.\nBeat eggs and half of the cheese: In a small bowl, beat the eggs and mix in about half of the cheese.\nCook pasta: Once the water has reached a rolling boil, add the dry pasta, and cook, uncovered, at a rolling boil.\nToss pasta with pancetta/bacon: When the pasta is al dente (still a little firm, not mushy), use tongs to move it to the bowl with the bacon and garlic. Let it be dripping wet. Reserve some of the pasta water. Move the pasta from the pot to the bowl quickly, as you want the pasta to be hot. It's the heat of the pasta that will heat the eggs sufficiently to create a creamy sauce.\nToss everything to combine, allowing the pasta to cool just enough so that it doesn't make the eggs curdle when you mix them in. (That's the tricky part.)\n6 Add the beaten egg mixture: Add the beaten eggs with cheese and toss quickly to combine once more. Add salt to taste. Add some pasta water back to the pasta to keep it from drying out.",
+  description: 'It is a short description',
+  recipe: ['Heat pasta water: Put a large pot of salted water on to boil (1 Tbsp salt for every 2 '],
   createdAt: new Date(),
-  ingredients: ['butter', 'bacon', 'garlic', 'eggs', 'parmesan', 'spaghetti pasta', 'salt', 'pepper'],
+  ingredients: [
+    { id: 1, name: 'butter', calories: 12, fats: 123, carbs: 22, proteins: 2, category: 'dairy' }
+  ],
   calories: 200,
   fats: 9,
-  protein: 16.5,
+  proteins: 16.5,
   carbs: 16,
   prepareTime: '30 min',
-  servings: 1,
-  category: 'dinner'
+  category: 'dinner',
+  video: 'aajds'
 };
 const initialState: MealStateType = {
   meal: undefined,

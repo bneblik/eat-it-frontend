@@ -4,7 +4,7 @@ import image from '../../styles/images/carbonara.jpg';
 import { MealComments } from '../MealComments/MealComments.component';
 import { Button, FormControlLabel, Checkbox } from '@material-ui/core';
 import { NutrientsInfo } from '../NutrientsInfo/NutrientsInfo.component';
-import { faShoppingBasket, faPlus, faBalanceScaleRight, faFilter } from '@fortawesome/free-solid-svg-icons';
+import { faShoppingBasket, faPlus, faFilter } from '@fortawesome/free-solid-svg-icons';
 import { faClock } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AddToMealPlan } from '../AddToMealPlan/AddToMealPlan.component';
@@ -29,9 +29,6 @@ interface MealState {
 }
 
 class Meal extends Component<MealProps, MealState> {
-  constructor(props: Readonly<MealProps>) {
-    super(props);
-  }
   componentDidMount() {
     window.scrollTo(0, 0);
     this.props.fetchMeal(this.props.match.params.id);
@@ -51,10 +48,6 @@ class Meal extends Component<MealProps, MealState> {
                 Prepare time: {this.props.meal.prepareTime}
               </span>
               <span className="divider"> | </span>
-              <span>
-                <FontAwesomeIcon icon={faBalanceScaleRight} />
-                Servings: {this.props.meal.servings}
-              </span>
               <span className="divider"> | </span>
               <span>
                 <FontAwesomeIcon icon={faFilter} />
@@ -68,12 +61,16 @@ class Meal extends Component<MealProps, MealState> {
         ) : (
           <NutrientsInfo
             carbs={this.props.meal.carbs}
-            proteins={this.props.meal.protein}
+            proteins={this.props.meal.proteins}
             fats={this.props.meal.fats}
             kcal={this.props.meal.calories}
           />
         )}
-        {this.props.pending ? <Skeleton width="20px" height="10px" /> : <AddToMealPlan />}
+        {this.props.pending ? (
+          <Skeleton width="20px" height="10px" />
+        ) : (
+          <AddToMealPlan mealName={this.props.meal.name} />
+        )}
       </div>
     );
   }
@@ -160,7 +157,7 @@ class Meal extends Component<MealProps, MealState> {
             {this.props.pending ? (
               <Skeleton height="80px" />
             ) : (
-              this.props.meal.recipe.split('\n').map((line, key) => <p key={key}>{line}</p>)
+              this.props.meal.recipe.forEach((line, key) => <p key={key}>{line}</p>)
             )}
           </div>
           {this.renderYoutubeVideo()}

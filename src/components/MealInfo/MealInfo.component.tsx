@@ -27,32 +27,32 @@ class MealInfo extends Component<MealInfoProps> {
           )}
         </div>
         <div className="info">
-          {!this.props.meal ? (
-            <Skeleton variant="rect" width={'30%'} height={'30px'} />
-          ) : (
-            <Link
-              to={{
-                pathname: `/${i18n.language}/meals/${this.props.meal.id}`
-              }}
-              color="inherit"
-            >
-              <div className="name link">{this.props.meal.name} </div>
-            </Link>
-          )}
-          {!this.props.meal ? (
-            <div className="relative">
-              <Skeleton variant="text" width={'50%'} />
-              <Skeleton variant="text" width={'100px'} className="absoluteRight" />
-            </div>
-          ) : (
-            <div>
+          <div className="top">
+            {!this.props.meal ? (
+              <Skeleton variant="rect" width={'30%'} height={'30px'} />
+            ) : (
+              <Link
+                to={{
+                  pathname: `/${i18n.language}/meals/${this.props.meal.id}`
+                }}
+                color="inherit"
+              >
+                <div className="name link">{this.props.meal.name} </div>
+              </Link>
+            )}
+            {!this.props.meal ? (
+              <div className="relative">
+                <Skeleton variant="text" width={'50%'} />
+                <Skeleton variant="text" width={'100px'} className="absoluteRight" />
+              </div>
+            ) : (
               <span className="toRight">
-                <Rating stars={5} readonly={true} />
+                <Rating stars={5} readonly={true} />{' '}
                 <FontAwesomeIcon icon={faClock} className="paddingIcon" />
                 30 min
               </span>
-            </div>
-          )}
+            )}
+          </div>
           {!this.props.meal ? (
             <Skeleton variant="text" width={'100%'} />
           ) : (

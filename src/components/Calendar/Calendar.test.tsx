@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { Calendar } from './Calendar.component';
+import { enGB } from 'date-fns/locale';
 
 jest.mock('../..', () => ({
   get i18n() {
@@ -10,6 +11,6 @@ jest.mock('../..', () => ({
 
 describe('Calendar', () => {
   it('renders without crashing', () => {
-    shallow(<Calendar />);
+    shallow(<Calendar selectedDate={new Date()} changeSelectedDate={() => {}} dateLocale={enGB} />);
   });
 });

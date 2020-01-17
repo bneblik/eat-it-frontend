@@ -20,16 +20,23 @@ import {
 import { faCalendarAlt } from '@fortawesome/free-regular-svg-icons';
 import { i18n } from '../..';
 
-interface CalendarState {
+type CalendarProps = {
   selectedDate: Date;
+  changeSelectedDate: (date: Date) => void;
+  dateLocale: Locale;
+};
+
+interface CalendarState {
   open: boolean;
 }
 
-class Calendar extends Component {
-  state: CalendarState = {
-    selectedDate: new Date(),
-    open: false
-  };
+class Calendar extends Component<CalendarProps, CalendarState> {
+  constructor(props: CalendarProps) {
+    super(props);
+    this.state = {
+      open: false
+    };
+  }
   toggleCalendar = () => {
     this.setState((prevState: CalendarState) => ({
       open: !prevState.open
@@ -56,10 +63,7 @@ class Calendar extends Component {
           </DialogContent>
           <DialogActions>
             <Button onClick={this.toggleCalendar} color="primary">
-              {i18n._('Cancel')}
-            </Button>
-            <Button onClick={this.toggleCalendar} color="primary" autoFocus>
-              {i18n._('Ok')}
+              {i18n._('Close')}
             </Button>
           </DialogActions>
         </Dialog>
@@ -72,9 +76,9 @@ class Calendar extends Component {
     if (isToday(day)) {
       styles += ' today';
     }
-    if (isSameDay(day, this.state.selectedDate)) {
+    if (isSameDay(day, this.props.selectedDate)) {
       styles += ' selected';
-    } else if (!isSameMonth(day, this.state.selectedDate)) {
+    } else if (!isSameMonth(day, this.props.selectedDate)) {
       styles += ' disabled';
     }
     const newSelection = day;
@@ -86,8 +90,8 @@ class Calendar extends Component {
   };
   drawDays = () => {
     const weeks = [];
-    const firstOfMonth: Date = startOfMonth(this.state.selectedDate);
-    const lastOfMonth: Date = lastDayOfMonth(this.state.selectedDate);
+    const firstOfMonth: Date = startOfMonth(this.props.selectedDate);
+    const lastOfMonth: Date = lastDayOfMonth(this.props.selectedDate);
     let currentDay: Date = startOfWeek(firstOfMonth, { weekStartsOn: 1 });
     let key = 0;
     while (isBefore(currentDay, lastOfMonth)) {
@@ -134,7 +138,7 @@ class Calendar extends Component {
           </Button>
         </div>
         <div className="col col-center">
-          <h3>{format(this.state.selectedDate, 'MMMM yyyy')}</h3>
+          <h3>{format(this.props.selectedDate, 'LLLL yyyy', { locale: this.props.dateLocale })}</h3>
           <span>
             <span>
               <Button title="Today" onClick={this.selectToday}>
@@ -154,20 +158,16 @@ class Calendar extends Component {
   };
 
   selectDate = (newSelection: Date) => {
-    this.setState({ selectedDate: newSelection });
+    this.props.changeSelectedDate(newSelection);
   };
   goToNextMonth = () => {
-    this.setState((prevState: CalendarState) => ({
-      selectedDate: addMonths(prevState.selectedDate, 1)
-    }));
+    this.props.changeSelectedDate(addMonths(this.props.selectedDate, 1));
   };
   goToPrevMonth = () => {
-    this.setState((prevState: CalendarState) => ({
-      selectedDate: subMonths(prevState.selectedDate, 1)
-    }));
+    this.props.changeSelectedDate(subMonths(this.props.selectedDate, 1));
   };
   selectToday = () => {
-    this.setState({ selectedDate: new Date() });
+    this.props.changeSelectedDate(new Date());
   };
 }
 

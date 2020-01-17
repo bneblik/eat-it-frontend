@@ -11,17 +11,19 @@ import { UserAccount } from '../UserAccount/UserAccount.component';
 import { Products } from '../Products/Products.component';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faEnvelope, faKey } from '@fortawesome/free-solid-svg-icons';
-import { MyMealPlan } from '../MyMealPlan/MyMealPlan.component';
+import MyMealPlan from '../MyMealPlan/MyMealPlan.component';
 import { UserPanel } from '../UserPanel/UserPanel.component';
 import { routes } from './RouteConstants';
 import { i18n } from '../..';
 import { MealsStateType } from '../../types/MealsTypes';
+import { fetchProducts } from '../../actions/productAction';
 
 library.add(faEnvelope, faKey);
 
 interface AppProps {
   meals: MealsStateType;
   products: ProductsState;
+  fetchProducts: typeof fetchProducts;
   history: any;
   location: any;
   match: any;
@@ -37,6 +39,11 @@ class App extends Component<AppProps> {
       i18n.activate(newLang);
     }
   }
+
+  componentDidMount() {
+    this.props.fetchProducts();
+  }
+
   render() {
     return (
       <>
@@ -82,6 +89,9 @@ const mapStateToProps = (state: AppState) => {
     products: state.productsReducer
   };
 };
-export const ConnectedApp = connect(mapStateToProps)(App);
+export const ConnectedApp = connect(
+  mapStateToProps,
+  { fetchProducts }
+)(App);
 
 export default withRouter(ConnectedApp);

@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import MyMealPlan from './MyMealPlan.component';
+import RecommendedMeals from './RecommendedMeals.component';
 import { Provider } from 'react-redux';
 import { store } from '../../store/store';
 
@@ -10,11 +10,11 @@ jest.mock('../..', () => ({
   }
 }));
 
-describe('MyMealPlan', () => {
+describe('RecommendedMeals', () => {
   it('renders without crashing', () => {
     shallow(
       <Provider store={store}>
-        <MyMealPlan />
+        <RecommendedMeals />
       </Provider>
     );
   });

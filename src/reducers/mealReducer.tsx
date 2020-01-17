@@ -1,4 +1,10 @@
-import { FETCH_MEAL_PENDING, FETCH_MEAL_SUCCESS, FETCH_MEAL_ERROR, MealStateType } from '../types/MealTypes';
+import {
+  FETCH_MEAL_PENDING,
+  FETCH_MEAL_SUCCESS,
+  FETCH_MEAL_ERROR,
+  MealStateType,
+  ADD_MEAL
+} from '../types/MealTypes';
 const initialState: MealStateType = {
   pending: false,
   meal: undefined,
@@ -23,6 +29,12 @@ export function mealReducer(state: MealStateType = initialState, action: any): M
         ...state,
         pending: false,
         error: action.error
+      };
+    case ADD_MEAL:
+      return {
+        ...state,
+        pending: false,
+        meal: action.meal
       };
     default:
       return state;
