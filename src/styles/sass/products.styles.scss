@@ -1,4 +1,6 @@
-$count: 4;
+@import './global-variables.styles.scss';
+$count: 10;
+
 .shoppingListComponent {
   @for $i from 1 through $count {
     .categoryBlock:nth-of-type(#{$i}) {
@@ -89,8 +91,21 @@ $count: 4;
     flex-wrap: wrap;
     .categoryBlock {
       width: 100%;
-      max-width: 300px;
+      max-width: 450px;
       min-width: 250px;
+    }
+  }
+  .stickyButton {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: $button-color;
+    color: white;
+    svg {
+      padding-right: 10px;
+    }
+    &:hover {
+      background: $button-color-hover;
     }
   }
 }

@@ -7,6 +7,8 @@ import { faFilter, faUtensils, faCircle, faBalanceScaleLeft } from '@fortawesome
 import { i18n } from '../..';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import { ProductType, ProductsState } from '../../types/Products';
+import { connect } from 'react-redux';
 
 type AddProductState = {
   name: string;
@@ -17,10 +19,12 @@ type AddProductState = {
   fats: string;
   protein: string;
   dialogOpened: boolean;
+  productsReducer: ProductsState;
 };
 
 type AddProductProps = {
   buttonName: string;
+  productsList: ProductType[];
 };
 const defaultState: AddProductState = {
   name: '',
@@ -30,7 +34,8 @@ const defaultState: AddProductState = {
   carbs: '',
   fats: '',
   protein: '',
-  dialogOpened: false
+  dialogOpened: false,
+  productsReducer: {} as ProductsState
 };
 
 class AddProduct extends Component<AddProductProps> {
@@ -66,10 +71,18 @@ class AddProduct extends Component<AddProductProps> {
               <FontAwesomeIcon icon={faUtensils} />
               <Autocomplete
                 className="autocomplete"
-                options={['a', 'ab', 'bc']}
+                options={this.props.productsList}
                 getOptionLabel={(o) => o}
-                onChange={(e, v) => {
-                  this.setState({ name: v });
+                renderOption={(option) => <span>{option.name ? option.name : ''}</span>}
+                onChange={(e, product) => {
+                  this.setState({
+                    name: product ? product.name : '',
+                    category: product ? product.category : '',
+                    calories: product ? product.calories : '',
+                    carbs: product ? product.carbs : '',
+                    fats: product ? product.fats : '',
+                    protein: product ? product.protein : ''
+                  });
                 }}
                 value={this.state.name}
                 noOptionsText={i18n._('No products')}
@@ -166,4 +179,10 @@ class AddProduct extends Component<AddProductProps> {
   }
 }
 
-export default AddProduct;
+const mapStateToProps = (state: AddProductState) => {
+  return {
+    productsList: state.productsReducer.productsList
+  };
+};
+
+export default connect(mapStateToProps)(AddProduct);

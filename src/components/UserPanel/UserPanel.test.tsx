@@ -1,6 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { UserPanel } from './UserPanel.component';
+import UserPanel from './UserPanel.component';
+import { Provider } from 'react-redux';
+import { store } from '../../store/store';
 
 jest.mock('../..', () => ({
   get i18n() {
@@ -10,6 +12,10 @@ jest.mock('../..', () => ({
 
 describe('UserPanel', () => {
   it('renders without crashing', () => {
-    shallow(<UserPanel username="username1" />);
+    shallow(
+      <Provider store={store}>
+        <UserPanel username="username1" />
+      </Provider>
+    );
   });
 });
