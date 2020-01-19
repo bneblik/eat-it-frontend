@@ -1,9 +1,6 @@
 @import './global-variables.styles.scss';
 
 .addProductComponent {
-  .MuiTextField-root {
-    width: 80%;
-  }
   .MuiDialogTitle-root {
     padding-bottom: 0;
   }
@@ -20,6 +17,12 @@
     }
   }
   .inputContainer {
+    & > div {
+      width: 80%;
+    }
+    .autocomplete {
+      display: inline-flex;
+    }
     align-items: baseline;
     display: flex;
     margin: 5px;
@@ -40,10 +43,16 @@
       }
     }
 
-    button {
-      margin: 1em 0.2em;
-      height: 60%;
-      background: rgba(0, 128, 0, 0.7);
+    button svg {
+      padding: 0;
+    }
+  }
+  .disabled {
+    div {
+      color: inherit;
+    }
+    .MuiInput-underline::before {
+      border-bottom-width: 0;
     }
   }
 }

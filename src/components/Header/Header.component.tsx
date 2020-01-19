@@ -42,33 +42,31 @@ class Header extends Component<HeaderProps> {
           <Button href={`/${i18n.language}${routes.myMealPlan}`} className="menuItem" color="inherit">
             {i18n._('My meal plan')}
           </Button>
-          <IconButton
-            href={`/${i18n.language}${routes.addMeal}`}
-            className="menuItem itemIcon"
-            color="inherit"
-          >
-            <FontAwesomeIcon icon={faPlus} />
-          </IconButton>
-          <IconButton
-            href={`/${i18n.language}${routes.shoppingList}`}
-            className="menuItem itemIcon"
-            color="inherit"
-          >
-            <FontAwesomeIcon icon={faShoppingBasket} />
-          </IconButton>
-          <IconButton
-            href={`/${i18n.language}${routes.userPanel}`}
-            className="menuItem itemIcon"
-            color="inherit"
-          >
-            <FontAwesomeIcon icon={faUser} />
-          </IconButton>
-          <span className="menuItem itemIcon">
-            <ChangeLang history={this.props.history} match={this.props.match} />
+          <span className="menuItem">
+            <IconButton href={`/${i18n.language}${routes.addMeal}`} className="itemIcon" color="inherit">
+              <FontAwesomeIcon icon={faPlus} />
+            </IconButton>
           </span>
-          <IconButton href={`/${i18n.language}${routes.login}`} className="menuItem itemIcon" color="inherit">
-            <FontAwesomeIcon icon={faSignInAlt} />
-          </IconButton>
+          <span className="menuItem">
+            <IconButton href={`/${i18n.language}${routes.shoppingList}`} className="itemIcon" color="inherit">
+              <FontAwesomeIcon icon={faShoppingBasket} />
+            </IconButton>
+          </span>
+          <span className="menuItem">
+            <IconButton href={`/${i18n.language}${routes.userPanel}`} className="itemIcon" color="inherit">
+              <FontAwesomeIcon icon={faUser} />
+            </IconButton>
+          </span>
+          <span className="menuItem">
+            <span className="itemIcon">
+              <ChangeLang history={this.props.history} match={this.props.match} />
+            </span>
+          </span>
+          <span className="menuItem">
+            <IconButton href={`/${i18n.language}${routes.login}`} className="itemIcon" color="inherit">
+              <FontAwesomeIcon icon={faSignInAlt} />
+            </IconButton>
+          </span>
         </div>
       </nav>
     );

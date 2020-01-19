@@ -11,7 +11,7 @@ class LogIn extends Component {
   render() {
     return (
       <div className="panel">
-        <h2 className="title">{i18n._('Log in')}</h2>
+        <h2 className="title">{i18n._('Log in with Google')}</h2>
         <form>
           <div className="padding">
             <TextField

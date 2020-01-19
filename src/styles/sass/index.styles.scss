@@ -1,3 +1,5 @@
+@import './global-variables.styles.scss';
+
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -24,12 +26,12 @@ body {
     text-transform: none;
   }
   .MuiButton-contained {
-    background-color: rgba(0, 128, 0, 0.7);
+    background-color: $button-color;
     font-size: 12px;
     font-weight: 600;
     color: white;
     &:hover {
-      background-color: rgba(33, 173, 33, 0.8);
+      background-color: $button-color-hover;
     }
   }
   .svg-inline--fa.padding {

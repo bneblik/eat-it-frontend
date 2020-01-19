@@ -10,6 +10,6 @@ jest.mock('../..', () => ({
 
 describe('Recipe', () => {
   it('renders without crashing', () => {
-    shallow(<Recipe />);
+    shallow(<Recipe steps={[]} removeStep={() => {}} addStep={() => {}} />);
   });
 });

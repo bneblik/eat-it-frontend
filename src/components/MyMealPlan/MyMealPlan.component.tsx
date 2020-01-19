@@ -1,58 +1,97 @@
 import React, { Component } from 'react';
 import '../../styles/css/my-meal-plan.styles.css';
 import { Calendar } from '../Calendar/Calendar.component';
-import { TMealExtended } from '../Meal/Meal.component';
 import { MealInfo } from '../MealInfo/MealInfo.component';
 import { i18n } from '../..';
-
-const meal: TMealExtended = {
-  id: 1,
-  name: 'Spaghetti carbonara',
-  recipe: 'Heat pasta water: Put a large pot of salted water on to boil (1 Tbsp salt for every 2 ',
-  createdAt: new Date(),
-  ingredients: ['butter', 'bacon', 'garlic', 'eggs', 'parmesan', 'spaghetti pasta', 'salt', 'pepper'],
-  calories: 200,
-  fats: 9,
-  protein: 16.5,
-  carbs: 16,
-  prepareTime: '30 min',
-  servings: 1
-};
-const mealsList = [1, 2, 3].map((i) => {
-  const temp = Object.assign({}, meal);
-  temp.id = i;
-  return temp;
-});
+import { TMeal } from '../../types/MealTypes';
+import { changeSelectedDate } from '../../actions/calendarAction';
+import { DateState } from '../../types/Calendar';
+import { connect } from 'react-redux';
+import { formatRelative } from 'date-fns';
+import { pl, enGB } from 'date-fns/locale';
+import RecommendedMeals from '../RecommendedMeals/RecommendedMeals.component';
+import { fetchMealPlan } from '../../actions/mealPlanActon';
+import { MealPlanState } from '../../types/MealPlan';
 
 interface MyMealPlanState {
-  meals: TMealExtended[];
+  calendarReducer: DateState;
+  mealPlanReducer: MealPlanState;
+  dateLocale: Locale;
 }
-
-class MyMealPlan extends Component {
-  state: MyMealPlanState = {
-    meals: mealsList
-  };
-  componentDidMount() {}
-
+interface MyMealPlanProps {
+  selectedDate: Date;
+  changeSelectedDate: typeof changeSelectedDate;
+  mealPlan: TMeal[];
+  fetchMealPlan: typeof fetchMealPlan;
+}
+class MyMealPlan extends Component<MyMealPlanProps, MyMealPlanState> {
+  constructor(props: MyMealPlanProps) {
+    super(props);
+    this.state = {
+      dateLocale: i18n.language === 'pl' ? pl : enGB,
+      calendarReducer: {} as any,
+      mealPlanReducer: {} as any
+    };
+  }
+  componentDidMount() {
+    this.props.fetchMealPlan();
+  }
   renderMealsForTheDay() {
-    if (this.state.meals === []) return <div>Nothing to display</div>;
+    if (this.props.mealPlan === []) return <div>Nothing to display</div>;
     const mealsInfo: any[] = [];
-    this.state.meals.forEach((meal, i) => mealsInfo.push(<MealInfo meal={meal} key={i}></MealInfo>));
+    this.props.mealPlan.forEach((meal, i) => mealsInfo.push(<MealInfo meal={meal} key={i}></MealInfo>));
     return <div>{mealsInfo}</div>;
+  }
+
+  componentDidUpdate() {
+    if (i18n.language === 'pl' && this.state.dateLocale !== pl) {
+      this.setState({ dateLocale: pl });
+    } else if (i18n.language === 'en' && this.state.dateLocale !== enGB) {
+      this.setState({ dateLocale: enGB });
+    }
+  }
+
+  changeSelectedDate = (date: Date) => {
+    this.props.changeSelectedDate(date);
+  };
+
+  cutTime(dateRelative: string) {
+    let substr = ' at ';
+    if (i18n.language === 'pl') substr = ' o ';
+    const index = dateRelative.indexOf(substr);
+    if (index === -1) return dateRelative;
+    return dateRelative.substring(0, index);
   }
 
   render() {
     return (
-      <div className="myMealPlanComponent">
-        <h2>
-          {i18n._('My meal plan for today')}
-          <Calendar></Calendar>
-        </h2>
-        {this.renderMealsForTheDay()}
-        <br></br>
-      </div>
+      <>
+        <div className="myMealPlanComponent">
+          <h2>
+            {i18n._('My meal plan for ')}
+            {this.cutTime(
+              formatRelative(this.props.selectedDate, new Date(), { locale: this.state.dateLocale })
+            )}
+            <Calendar
+              selectedDate={this.props.selectedDate}
+              changeSelectedDate={this.changeSelectedDate}
+              dateLocale={this.state.dateLocale}
+            ></Calendar>
+          </h2>
+          {this.renderMealsForTheDay()}
+        </div>
+        <RecommendedMeals />
+      </>
     );
   }
 }
 
-export { MyMealPlan };
+const mapStateToProps = (state: MyMealPlanState) => ({
+  selectedDate: state.calendarReducer.selectedDate,
+  mealPlan: state.mealPlanReducer.mealPlan
+});
+
+export default connect(
+  mapStateToProps,
+  { changeSelectedDate, fetchMealPlan }
+)(MyMealPlan);

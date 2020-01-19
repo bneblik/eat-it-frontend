@@ -15,34 +15,43 @@ import {
   faUtensils,
   faClipboardList,
   faCalendarDay,
-  faBell as faBellSolid
+  faBell as faBellSolid,
+  faBalanceScaleRight
 } from '@fortawesome/free-solid-svg-icons';
 import '../../styles/css/add-to-meal-plan.styles.css';
 import { i18n } from '../..';
+import { format } from 'date-fns';
 
+type AddToMealPlanProps = {
+  mealName: string;
+};
 type AddToMealPlanState = {
-  name: string;
-  calories: string;
-  carbs: string;
-  fats: string;
-  protein: string;
+  portion: string;
+  date: string;
+  time: string;
+  reminder: boolean;
   dialogOpened: boolean;
+  portionOptions: string[];
 };
 
-class AddToMealPlan extends Component {
-  state: AddToMealPlanState = {
-    name: '',
-    calories: '',
-    carbs: '',
-    fats: '',
-    protein: '',
-    dialogOpened: false
-  };
+const initialState: AddToMealPlanState = {
+  portion: '1',
+  date: format(new Date(), 'yyyy-MM-dd'),
+  time: '12:00',
+  reminder: false,
+  dialogOpened: false,
+  portionOptions: ['0.5', '1', '2']
+};
+
+class AddToMealPlan extends Component<AddToMealPlanProps> {
+  state: AddToMealPlanState = initialState;
 
   toggleDialog() {
-    this.setState((prevState: AddToMealPlanState) => ({
-      dialogOpened: !prevState.dialogOpened
-    }));
+    if (this.state.dialogOpened) {
+      this.setState(initialState);
+    } else {
+      this.setState({ dialogOpened: true });
+    }
   }
 
   render() {
@@ -64,20 +73,39 @@ class AddToMealPlan extends Component {
               <TextField
                 label={i18n._('Meal name')}
                 variant="outlined"
-                value={this.state.name}
-                onChange={(e) => {
-                  this.setState({ name: e.target.value });
-                }}
+                disabled={true}
+                value={this.props.mealName}
               />
+            </div>
+            <div className="inputContainer">
+              <FontAwesomeIcon icon={faBalanceScaleRight} />
+              <TextField
+                label={i18n._('Portion')}
+                variant="outlined"
+                select
+                SelectProps={{ native: true }}
+                value={this.state.portion}
+                onChange={(e) => {
+                  this.setState({ portion: e.target.value });
+                }}
+              >
+                {this.state.portionOptions.map((option, key) => (
+                  <option key={key} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </TextField>
             </div>
             <div className="inputContainer">
               <FontAwesomeIcon icon={faCalendarDay} />
               <TextField
                 label={i18n._('Date')}
                 variant="outlined"
-                value={this.state.name}
+                type="date"
+                value={this.state.date}
                 onChange={(e) => {
-                  this.setState({ name: e.target.value });
+                  console.log(this.state.date);
+                  this.setState({ date: e.target.value });
                 }}
               />
             </div>
@@ -86,9 +114,10 @@ class AddToMealPlan extends Component {
               <TextField
                 label={i18n._('Time')}
                 variant="outlined"
-                value={this.state.name}
+                type="time"
+                value={this.state.time}
                 onChange={(e) => {
-                  this.setState({ name: e.target.value });
+                  this.setState({ time: e.target.value });
                 }}
               />
             </div>
@@ -98,7 +127,10 @@ class AddToMealPlan extends Component {
                   <Checkbox
                     icon={<FontAwesomeIcon icon={faBellRegular} />}
                     checkedIcon={<FontAwesomeIcon icon={faBellSolid} />}
-                    value={true}
+                    value={this.state.reminder}
+                    onChange={() =>
+                      this.setState((prev: AddToMealPlanState) => ({ reminder: !prev.reminder }))
+                    }
                   />
                 }
                 label={i18n._('Set reminder')}

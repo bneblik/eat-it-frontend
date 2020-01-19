@@ -46,8 +46,13 @@
       color: black;
     }
   }
-  .toRight {
-    float: right;
+  .top {
+    display: flex;
+    flex-wrap: wrap;
+    .toRight {
+      text-align: right;
+      flex-grow: 1;
+    }
   }
   .paddingIcon {
     padding-right: 5px;
