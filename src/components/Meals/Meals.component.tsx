@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from 'react';
+import React, { Component } from 'react';
 import '../../styles/css/meals.styles.css';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
