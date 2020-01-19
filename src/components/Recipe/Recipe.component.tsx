@@ -5,15 +5,24 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { i18n } from '../..';
 
-class Recipe extends Component {
-  state = {
-    newStep: '',
-    steps: ['Example first step']
+interface RecipeProps {
+  steps: string[];
+  removeStep: (step: string) => void;
+  addStep: (step: string) => void;
+}
+
+interface RecipeState {
+  newStep: string;
+}
+
+class Recipe extends Component<RecipeProps> {
+  state: RecipeState = {
+    newStep: ''
   };
 
   displaySteps() {
     const stepsList: any[] = [];
-    this.state.steps.forEach((step, i) =>
+    this.props.steps.forEach((step, i) =>
       stepsList.push(
         <div key={i} className="step">
           <TextField
@@ -25,7 +34,7 @@ class Recipe extends Component {
               this.setState({ recipe: e.target.value });
             }}
           />
-          <IconButton>
+          <IconButton onClick={() => this.removeStep(step)}>
             <FontAwesomeIcon icon={faTrash} />
           </IconButton>
         </div>
@@ -33,6 +42,17 @@ class Recipe extends Component {
     );
     return stepsList;
   }
+
+  addStep = () => {
+    if (this.state.newStep !== '') {
+      this.props.addStep(this.state.newStep);
+      this.setState({ newStep: '' });
+    }
+  };
+
+  removeStep = (step: string) => {
+    this.props.removeStep(step);
+  };
 
   render() {
     return (
@@ -51,7 +71,7 @@ class Recipe extends Component {
                 this.setState({ newStep: e.target.value });
               }}
             />
-            <IconButton className="add">
+            <IconButton className="add" onClick={this.addStep}>
               <FontAwesomeIcon icon={faPlus} />
             </IconButton>
           </div>

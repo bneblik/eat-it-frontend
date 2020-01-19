@@ -77,6 +77,10 @@ br {
   width: 15%;
 }
 
-.aboutUser > * {
-  margin: 10px !important;
+.aboutUser {
+  display: grid;
+  width: 100%;
+  & > span > * {
+    margin: 10px !important;
+  }
 }

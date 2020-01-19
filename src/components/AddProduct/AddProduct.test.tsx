@@ -1,6 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import AddProduct from './AddProduct.component';
+import { Provider } from 'react-redux';
+import { store } from '../../store/store';
 
 jest.mock('../..', () => ({
   get i18n() {
@@ -10,6 +12,10 @@ jest.mock('../..', () => ({
 
 describe('AddProduct', () => {
   it('renders without crashing', () => {
-    shallow(<AddProduct buttonName="" />);
+    shallow(
+      <Provider store={store}>
+        <AddProduct buttonName="" />
+      </Provider>
+    );
   });
 });

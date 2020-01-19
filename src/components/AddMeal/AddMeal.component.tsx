@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-import { Card, TextField, MenuItem, CardHeader, Button } from '@material-ui/core';
-import { addMeal } from '../../actions/mealAction';
+import { Card, TextField, CardHeader, Button } from '@material-ui/core';
 import { ProductsList } from '../ProductsList/ProductsList.component';
-import { removeProduct, addProduct } from '../../actions/productAction';
 import '../../styles/css/add-meal.styles.css';
 import { connect } from 'react-redux';
-import { ProductsState } from '../../types/Products';
-import AddProduct from '../AddProduct/AddProduct.component';
+import { ProductsState, ProductType } from '../../types/Products';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faPlus,
@@ -14,7 +11,6 @@ import {
   faInfo,
   faClipboardList,
   faFilter,
-  faBalanceScaleRight,
   faListOl,
   faCheck,
   faCamera,
@@ -24,57 +20,65 @@ import {
 import { faClock } from '@fortawesome/free-regular-svg-icons';
 import { Recipe } from '../Recipe/Recipe.component';
 import { i18n } from '../..';
+import { Autocomplete } from '@material-ui/lab';
+import { addMeal } from '../../actions/mealAction';
+import { MealStateType, TMeal } from '../../types/MealTypes';
+import { bindActionCreators } from 'redux';
 
 interface AddMealProps {
-  addMeal: typeof addMeal;
-  removeProduct: typeof removeProduct;
-  addProduct: typeof addProduct;
   productsList: ProductType[];
+  addMeal: typeof addMeal;
+  error: any | null;
+  meal: TMeal | undefined;
+  pending: boolean;
 }
 interface AddMealState {
   name: string;
-  recipe: string;
-  selectedProductId: string;
+  recipeSteps: string[];
+  description: string;
+  prepTime: string;
+  category: string;
+  video: string;
+  selectedProduct: ProductType;
   productsReducer: ProductsState;
-  creatingProduct: boolean;
+  selectedProductsList: ProductType[];
+  mealReducer: MealStateType;
 }
 
-type ProductType = {
-  id: number;
-  name: string;
+const initialState: AddMealState = {
+  name: '',
+  recipeSteps: [],
+  description: '',
+  prepTime: '',
+  category: '',
+  video: '',
+  selectedProduct: {} as ProductType,
+  selectedProductsList: [],
+  productsReducer: {} as ProductsState,
+  mealReducer: {} as MealStateType
 };
 
-const allProducts: ProductType[] = [
-  { id: 1, name: 'egg' },
-  { id: 2, name: 'water' },
-  { id: 3, name: 'salt' }
-];
 class AddMeal extends Component<AddMealProps, AddMealState> {
-  state: AddMealState = {
-    name: '',
-    recipe: '',
-    selectedProductId: '',
-    productsReducer: {} as ProductsState,
-    creatingProduct: false
-  };
-
+  state: AddMealState = initialState;
   add = () => {
     this.props.addMeal({
-      id: 3,
+      id: 1,
       name: this.state.name,
-      recipe: this.state.recipe
+      recipe: this.state.recipeSteps,
+      description: this.state.description,
+      prepareTime: this.state.prepTime,
+      category: this.state.category,
+      video: this.state.video,
+      ingredients: this.state.selectedProductsList
     });
-    this.setState({ name: '', recipe: '' });
+    this.setState(initialState);
   };
 
   addProduct = () => {
-    const newProduct = allProducts.find((product) => {
-      return product.id === +this.state.selectedProductId;
-    });
-    if (newProduct) {
-      this.props.addProduct(newProduct);
-      this.setState({ selectedProductId: '' });
-    }
+    this.setState((prev: AddMealState) => ({
+      selectedProductsList: [...prev.selectedProductsList, prev.selectedProduct]
+    }));
+    this.setState({ selectedProduct: {} as ProductType });
   };
 
   render() {
@@ -101,10 +105,10 @@ class AddMeal extends Component<AddMealProps, AddMealState> {
               <TextField
                 variant="outlined"
                 label={i18n._('Description')}
-                value={this.state.name}
+                value={this.state.description}
                 fullWidth={true}
                 onChange={(e) => {
-                  this.setState({ name: e.target.value });
+                  this.setState({ description: e.target.value });
                 }}
               />
             </div>
@@ -121,41 +125,42 @@ class AddMeal extends Component<AddMealProps, AddMealState> {
               <TextField
                 variant="outlined"
                 label={i18n._('Preparation time')}
-                value={this.state.name}
+                value={this.state.prepTime}
                 fullWidth={true}
                 onChange={(e) => {
-                  this.setState({ name: e.target.value });
-                }}
-              />
-            </div>
-            <div className="padding">
-              <FontAwesomeIcon icon={faBalanceScaleRight} />
-              <TextField
-                variant="outlined"
-                label={i18n._('Servings')}
-                value={this.state.name}
-                fullWidth={true}
-                onChange={(e) => {
-                  this.setState({ name: e.target.value });
+                  this.setState({ prepTime: e.target.value });
                 }}
               />
             </div>
             <div className="padding">
               <FontAwesomeIcon icon={faFilter} />
-              <TextField
-                variant="outlined"
-                label={i18n._('Category')}
-                select
-                value={this.state.name}
-                fullWidth={true}
-                onChange={(e) => {
-                  this.setState({ name: e.target.value });
+              <Autocomplete
+                options={['dinner', 'breakfast']}
+                className="autocomplete"
+                getOptionLabel={(o) => o}
+                onChange={(e, v) => {
+                  this.setState({ category: v });
                 }}
+                value={this.state.category}
+                noOptionsText={i18n._('No categories')}
+                renderInput={(params: any) => (
+                  <TextField
+                    {...params}
+                    variant="outlined"
+                    value={this.state.category}
+                    fullWidth
+                    label={i18n._('Category')}
+                  />
+                )}
               />
             </div>
             <div className="padding">
               <FontAwesomeIcon icon={faListOl} />
-              <Recipe />
+              <Recipe
+                steps={this.state.recipeSteps}
+                removeStep={this.removeRecipeStep}
+                addStep={this.addRecipeStep}
+              />
             </div>
             <div className="padding">
               <FontAwesomeIcon icon={faVideo} />
@@ -163,10 +168,10 @@ class AddMeal extends Component<AddMealProps, AddMealState> {
                 variant="outlined"
                 label={i18n._('YouTube video')}
                 helperText={i18n._('Provide url for YouTube recipe')}
-                value={this.state.name}
+                value={this.state.video}
                 fullWidth={true}
                 onChange={(e) => {
-                  this.setState({ name: e.target.value });
+                  this.setState({ video: e.target.value });
                 }}
               />
             </div>
@@ -174,25 +179,25 @@ class AddMeal extends Component<AddMealProps, AddMealState> {
               <FontAwesomeIcon icon={faClipboardList} />
               <div>
                 <div className="addProductGroup">
-                  <TextField
-                    label={i18n._('Ingredient')}
-                    select
-                    variant="outlined"
-                    className="selectProduct"
-                    value={this.state.selectedProductId}
-                    multiline={true}
-                    onChange={(e) => {
-                      this.setState({
-                        selectedProductId: e.target.value
-                      });
+                  <Autocomplete
+                    options={this.props.productsList}
+                    className="autocomplete"
+                    getOptionLabel={(o) => (o.name ? o.name : '')}
+                    onChange={(e, v) => {
+                      this.setState({ selectedProduct: v });
                     }}
-                  >
-                    {allProducts.map((option) => (
-                      <MenuItem key={option.id} value={option.id}>
-                        {option.name}
-                      </MenuItem>
-                    ))}
-                  </TextField>
+                    value={this.state.selectedProduct}
+                    noOptionsText={i18n._('No products')}
+                    renderInput={(params: any) => (
+                      <TextField
+                        {...params}
+                        variant="outlined"
+                        value={this.state.selectedProduct}
+                        fullWidth
+                        label={i18n._('Ingredient')}
+                      />
+                    )}
+                  />
                   <span>
                     <Button
                       className="addProduct"
@@ -202,12 +207,11 @@ class AddMeal extends Component<AddMealProps, AddMealState> {
                     >
                       {i18n._('Add')}
                     </Button>
-                    <AddProduct buttonName={i18n._('Create new')} />
                   </span>
                 </div>
                 <ProductsList
-                  productsList={this.props.productsList}
-                  removeProduct={this.props.removeProduct}
+                  productsList={this.state.selectedProductsList}
+                  removeProduct={this.removeFromSelectedProducts}
                 />
               </div>
             </div>
@@ -232,15 +236,42 @@ class AddMeal extends Component<AddMealProps, AddMealState> {
       </div>
     );
   }
+
+  removeFromSelectedProducts = (product: ProductType) => {
+    this.setState((prev: AddMealState) => ({
+      selectedProductsList: prev.selectedProductsList.filter((p: ProductType) => p !== product)
+    }));
+  };
+  removeRecipeStep = (step: string) => {
+    this.setState((prev: AddMealState) => ({
+      recipeSteps: prev.recipeSteps.filter((s: string) => s !== step)
+    }));
+  };
+  addRecipeStep = (step: string) => {
+    this.setState((prev: AddMealState) => ({
+      recipeSteps: [...prev.recipeSteps, step]
+    }));
+  };
 }
 
 const mapStateToProps = (state: AddMealState) => {
   return {
-    productsList: state.productsReducer.productsList
+    productsList: state.productsReducer.productsList,
+    error: state.mealReducer.error,
+    meal: state.mealReducer.meal,
+    pending: state.mealReducer.pending
   };
 };
 
+const mapDispatchToProps = (dispatch: any) =>
+  bindActionCreators(
+    {
+      addMeal: addMeal
+    },
+    dispatch
+  );
+
 export default connect(
   mapStateToProps,
-  { addMeal, addProduct, removeProduct }
+  mapDispatchToProps
 )(AddMeal);

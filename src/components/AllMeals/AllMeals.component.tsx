@@ -4,14 +4,15 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { fetchMeals } from '../../actions/mealsAction';
 import { TMeal } from '../../types/MealTypes';
-import { MyMealsStateType } from '../../types/MealsTypes';
+import { MealsStateType } from '../../types/MealsTypes';
 import image from '../../styles/images/background-image.jpg';
-import { TextField, FormControlLabel, Switch } from '@material-ui/core';
+import { TextField, FormControlLabel, Switch, Snackbar } from '@material-ui/core';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import MyMealsComponent from '../MyMeals/MyMeals.component';
+import MealsComponent from '../Meals/Meals.component';
 import { i18n } from '../..';
 import { History, LocationState } from 'history';
+import { Alert } from '@material-ui/lab';
 
 interface AllMealsProps {
   error: any | null;
@@ -20,10 +21,10 @@ interface AllMealsProps {
   fetchMeals: typeof fetchMeals;
   history: History<LocationState>;
 }
-type AllMealsState = { mealsReducer: MyMealsStateType; cat: string; onlyMy: boolean; searcher: string };
-const CATEGORY = 'cat';
+type AllMealsState = { mealsReducer: MealsStateType; cat: string; onlyMy: boolean; searcher: string };
+const CATEGORY = 'c';
 const ONLY_MY = 'onlyMy';
-const TEXT = 'text';
+const QUERY = 'q';
 
 class AllMeals extends Component<AllMealsProps, AllMealsState> {
   constructor(props: AllMealsProps) {
@@ -31,15 +32,35 @@ class AllMeals extends Component<AllMealsProps, AllMealsState> {
     const searchParams = new URLSearchParams(this.props.history.location.search);
     let category = searchParams.get(CATEGORY);
     if (category === null) category = 'all';
-    this.state = { cat: category, onlyMy: false, searcher: '', mealsReducer: {} as any };
+    let onlyMy = searchParams.get(ONLY_MY);
+    if (onlyMy === null) onlyMy = 'false';
+    let query = searchParams.get(QUERY);
+    if (query === null) query = '';
+    this.state = {
+      cat: category,
+      onlyMy: onlyMy === 'true' ? true : false,
+      searcher: query,
+      mealsReducer: {} as any
+    };
   }
   componentDidMount() {
     const { fetchMeals } = this.props;
     fetchMeals();
   }
 
+  onlyMyMeals() {
+    if (true) {
+      return (
+        <FormControlLabel
+          control={<Switch checked={this.state.onlyMy} onChange={() => this.handleOnlyMy()} />}
+          label={i18n._('only my meals')}
+        />
+      );
+    }
+  }
+
   selectCategory() {
-    const options = ['all', 'breakfast', 'dinner'];
+    const options = ['all categories', 'breakfast', 'dinner'];
     return (
       <TextField
         className="selectCategory"
@@ -75,14 +96,12 @@ class AllMeals extends Component<AllMealsProps, AllMealsState> {
             />
             <div className="searchFilters">
               {this.selectCategory()}
-              <FormControlLabel
-                control={<Switch checked={this.state.onlyMy} onChange={() => this.handleOnlyMy()} />}
-                label={i18n._('only my meals')}
-              />
+              {this.onlyMyMeals()}
             </div>
           </div>
         </div>
-        <MyMealsComponent />
+        <MealsComponent />
+        {this.showAlert()}
       </div>
     );
   }
@@ -100,13 +119,24 @@ class AllMeals extends Component<AllMealsProps, AllMealsState> {
   handleSearcher(event: React.ChangeEvent<HTMLInputElement>) {
     const selected = (event.target as HTMLInputElement).value;
     this.setState({ searcher: selected });
-    this.setUrlParams(selected, TEXT);
+    this.setUrlParams(selected, QUERY);
   }
   setUrlParams(newValue: any, attr: string) {
     const searchParams = new URLSearchParams(this.props.history.location.search);
     searchParams.set(attr, newValue);
     this.props.history.push({ search: searchParams.toString() });
+    fetchMeals();
   }
+
+  showAlert = () => {
+    return (
+      <Snackbar open={!!this.props.error} autoHideDuration={6000} onClose={() => {}}>
+        <Alert onClose={() => {}} severity="error">
+          Server is unreacheable.
+        </Alert>
+      </Snackbar>
+    );
+  };
 }
 
 const mapStateToProps = (state: AllMealsState) => {
