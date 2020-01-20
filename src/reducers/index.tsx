@@ -9,6 +9,8 @@ import { shoppingListReducer } from './shoppingListReducer';
 import { fridgeReducer } from './fridgeReducer';
 import { aboutUserReducer } from './aboutUserReducer';
 import { reminderReducer } from './reminderReducer';
+import { createUserReducer } from './createUserReducer';
+import { authReducer } from './authReducer';
 
 export const reducers = combineReducers({
   mealsReducer: mealsReducer,
@@ -20,5 +22,7 @@ export const reducers = combineReducers({
   shoppingListReducer: shoppingListReducer,
   fridgeReducer: fridgeReducer,
   aboutUserReducer: aboutUserReducer,
-  reminderReducer: reminderReducer
+  reminderReducer: reminderReducer,
+  createUserReducer: createUserReducer,
+  authReducer: authReducer
 });

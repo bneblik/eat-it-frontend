@@ -1,7 +1,35 @@
 import axios from 'axios';
 
+export const JWT_TOKEN = 'jwt_token';
+const BASE_URL = 'http://localhost:3000/api/v1/';
+export const requestConsts = {
+  GET_MEALS_URL: 'meals',
+  CREATE_USER_URL: 'users/registrations',
+  LOG_IN_URL: 'users/sessions',
+  LOG_OUT_URL: 'users/logout'
+};
+
 export const axiosInstance = axios.create({
-  baseURL: 'http://localhost:3000/api/v1/',
+  baseURL: BASE_URL,
   responseType: 'text',
-  headers: { Accept: 'application/json' }
+  headers: {
+    'Content-Type': 'application/json',
+    Accept: 'application/json'
+  }
 });
+
+export const axiosInstanceWithJwt = () => {
+  const jwtToken = localStorage.get(JWT_TOKEN);
+  if (jwtToken) {
+    return axios.create({
+      baseURL: BASE_URL,
+      responseType: 'text',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${jwtToken}`
+      }
+    });
+  }
+  return axiosInstance;
+};

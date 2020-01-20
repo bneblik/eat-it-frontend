@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../../styles/css/all-meals.styles.css';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { fetchMeals } from '../../actions/mealsAction';
+import { fetchMeals, clearMealsErrors } from '../../actions/mealsAction';
 import { TMeal } from '../../types/MealTypes';
 import { MealsStateType } from '../../types/MealsTypes';
 import image from '../../styles/images/background-image.jpg';
@@ -19,6 +19,7 @@ interface AllMealsProps {
   meals: TMeal[];
   pending: boolean;
   fetchMeals: typeof fetchMeals;
+  clearMealsErrors: typeof clearMealsErrors;
   history: History<LocationState>;
 }
 type AllMealsState = { mealsReducer: MealsStateType; cat: string; onlyMy: boolean; searcher: string };
@@ -127,12 +128,20 @@ class AllMeals extends Component<AllMealsProps, AllMealsState> {
     this.props.history.push({ search: searchParams.toString() });
     fetchMeals();
   }
+  clearErrors() {
+    this.props.clearMealsErrors();
+  }
 
   showAlert = () => {
     return (
-      <Snackbar open={!!this.props.error} autoHideDuration={6000} onClose={() => {}}>
-        <Alert onClose={() => {}} severity="error">
-          Server is unreacheable.
+      <Snackbar open={!!this.props.error}>
+        <Alert
+          onClose={() => {
+            this.props.clearMealsErrors();
+          }}
+          severity="error"
+        >
+          {i18n._('Server is unreacheable.')}
         </Alert>
       </Snackbar>
     );
@@ -150,7 +159,8 @@ const mapStateToProps = (state: AllMealsState) => {
 const mapDispatchToProps = (dispatch: any) =>
   bindActionCreators(
     {
-      fetchMeals: fetchMeals
+      fetchMeals: fetchMeals,
+      clearMealsErrors: clearMealsErrors
     },
     dispatch
   );

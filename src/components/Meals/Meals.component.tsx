@@ -42,7 +42,7 @@ class Meals extends Component<MealsProps, MealsState> {
   }
 
   render() {
-    if (this.props.error || this.props.meals === []) return <div>{i18n._('Nothing to display')}</div>;
+    if (this.props.error || this.props.meals.length === 0) return <div>{i18n._('Nothing to display')}</div>;
     else if (this.props.pending) return this.showSkeletons();
     else {
       return (

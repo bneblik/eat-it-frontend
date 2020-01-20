@@ -18,6 +18,10 @@ import { routes } from './RouteConstants';
 import { i18n } from '../..';
 import { MealsStateType } from '../../types/MealsTypes';
 import { fetchProducts } from '../../actions/productAction';
+import { logOut, clearAuthSuccess, clearAuthError } from '../../actions/authAction';
+import { AuthStateType } from '../../types/AuthTypes';
+import { bindActionCreators } from 'redux';
+import { successAlert, errorAlert } from '../../helpers/Alert.component';
 
 library.add(faEnvelope, faKey);
 
@@ -25,6 +29,10 @@ interface AppProps {
   meals: MealsStateType;
   products: ProductsState;
   fetchProducts: typeof fetchProducts;
+  auth: AuthStateType;
+  logOut: typeof logOut;
+  clearAuthSuccess: typeof clearAuthSuccess;
+  clearAuthError: typeof clearAuthError;
   history: any;
   location: any;
   match: any;
@@ -45,10 +53,14 @@ class App extends Component<AppProps> {
     this.props.fetchProducts();
   }
 
+  logout = () => {
+    this.props.logOut();
+  };
+
   render() {
     return (
       <>
-        <Header history={this.props.history} match={this.props.match}></Header>
+        <Header history={this.props.history} match={this.props.match} logout={this.logout}></Header>
         <div className="appContent">
           <Route
             render={({ match: { url } }) => {
@@ -75,20 +87,50 @@ class App extends Component<AppProps> {
             }}
           />
         </div>
+        {this.showAuthAlert()}
       </>
     );
+  }
+
+  showAuthAlert() {
+    if (!this.props.auth.pending && !!this.props.auth.error) {
+      return errorAlert({
+        isOpen: !!this.props.auth.error,
+        message: this.props.auth.error,
+        onClose: () => this.props.clearAuthError()
+      });
+    } else if (!this.props.auth.pending && !!this.props.auth.success) {
+      return successAlert({
+        isOpen: !!this.props.auth.success,
+        message: this.props.auth.success,
+        onClose: () => this.props.clearAuthSuccess()
+      });
+    }
   }
 }
 
 const mapStateToProps = (state: AppState) => {
   return {
     meals: state.mealsReducer,
-    products: state.productsReducer
+    products: state.productsReducer,
+    auth: state.authReducer
   };
 };
+
+const mapDispatchToProps = (dispatch: any) =>
+  bindActionCreators(
+    {
+      logOut,
+      fetchProducts,
+      clearAuthSuccess,
+      clearAuthError
+    },
+    dispatch
+  );
+
 export const ConnectedApp = connect(
   mapStateToProps,
-  { fetchProducts }
+  mapDispatchToProps
 )(App);
 
 export default withRouter(ConnectedApp);

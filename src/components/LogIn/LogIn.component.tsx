@@ -1,25 +1,48 @@
 import React, { Component } from 'react';
 import { TextField, Button } from '@material-ui/core';
 import { i18n } from '@lingui/core';
+import { bindActionCreators } from 'redux';
+import { AuthStateType } from '../../types/AuthTypes';
+import { logIn } from '../../actions/authAction';
+import { connect } from 'react-redux';
 
-class LogIn extends Component {
-  state = {
-    username: '',
-    password: ''
+interface LogInState {
+  authReducer: AuthStateType;
+  email: string;
+  password: string;
+}
+interface LogInProps {
+  error: any | null;
+  success: any | null;
+  pending: boolean;
+  logIn: typeof logIn;
+}
+
+class LogIn extends Component<LogInProps, LogInState> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+      authReducer: {} as any
+    };
+  }
+  logIn = () => {
+    this.props.logIn({ email: this.state.email, password: this.state.password });
   };
-  logIn() {}
   render() {
     return (
       <div className="panel">
-        <h2 className="title">{i18n._('Log in with Google')}</h2>
+        <h2 className="title">{i18n._('Log in')}</h2>
         <form>
           <div className="padding">
             <TextField
-              label={i18n._('Username')}
-              value={this.state.username}
+              label={i18n._('Email')}
+              value={this.state.email}
               fullWidth={true}
+              required
               onChange={(e) => {
-                this.setState({ username: e.target.value });
+                this.setState({ email: e.target.value });
               }}
             />
           </div>
@@ -28,6 +51,7 @@ class LogIn extends Component {
               label={i18n._('Password')}
               value={this.state.password}
               type="password"
+              required
               fullWidth={true}
               onChange={(e) => {
                 this.setState({ password: e.target.value });
@@ -51,4 +75,21 @@ class LogIn extends Component {
   }
 }
 
-export { LogIn };
+const mapStateToProps = (state: LogInState) => ({
+  pending: state.authReducer.pending,
+  error: state.authReducer.error,
+  success: state.authReducer.success
+});
+
+const mapDispatchToProps = (dispatch: any) =>
+  bindActionCreators(
+    {
+      logIn: logIn
+    },
+    dispatch
+  );
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LogIn);
