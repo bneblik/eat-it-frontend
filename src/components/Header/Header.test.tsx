@@ -10,6 +10,6 @@ jest.mock('../..', () => ({
 
 describe('Header', () => {
   it('renders without crashing', () => {
-    shallow(<Header history={{}} match={{}} />);
+    shallow(<Header logout={() => {}} history={{}} match={{}} />);
   });
 });

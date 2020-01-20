@@ -1,15 +1,24 @@
 import React, { Component } from 'react';
-import { Button, IconButton } from '@material-ui/core';
+import { Button, IconButton, Tooltip } from '@material-ui/core';
 import '../../styles/css/header.styles.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faUser, faSignInAlt, faPlus, faShoppingBasket } from '@fortawesome/free-solid-svg-icons';
+import {
+  faBars,
+  faUser,
+  faSignInAlt,
+  faPlus,
+  faShoppingBasket,
+  faSignOutAlt
+} from '@fortawesome/free-solid-svg-icons';
 import ChangeLang from './ChangeLang';
 import { routes } from '../App/RouteConstants';
 import { i18n } from '../..';
+import { JWT_TOKEN } from '../../utils/RequestService';
 
 type HeaderProps = {
   history: any;
   match: any;
+  logout: () => void;
 };
 interface HeaderState {
   responsive: boolean;
@@ -62,14 +71,34 @@ class Header extends Component<HeaderProps> {
               <ChangeLang history={this.props.history} match={this.props.match} />
             </span>
           </span>
-          <span className="menuItem">
-            <IconButton href={`/${i18n.language}${routes.login}`} className="itemIcon" color="inherit">
-              <FontAwesomeIcon icon={faSignInAlt} />
-            </IconButton>
-          </span>
+          {this.handleLogInOut()}
         </div>
       </nav>
     );
+  }
+
+  handleLogInOut() {
+    if (localStorage.getItem(JWT_TOKEN)) {
+      return (
+        <span className="menuItem">
+          <Tooltip title="Log out">
+            <IconButton onClick={() => this.props.logout()} className="itemIcon" color="inherit">
+              <FontAwesomeIcon icon={faSignOutAlt} />
+            </IconButton>
+          </Tooltip>
+        </span>
+      );
+    } else {
+      return (
+        <span className="menuItem">
+          <Tooltip title="Log in">
+            <IconButton href={`/${i18n.language}${routes.login}`} className="itemIcon" color="inherit">
+              <FontAwesomeIcon icon={faSignInAlt} />
+            </IconButton>
+          </Tooltip>
+        </span>
+      );
+    }
   }
 }
 

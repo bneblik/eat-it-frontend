@@ -2,7 +2,8 @@ import {
   MealsStateType,
   FETCH_MEALS_PENDING,
   FETCH_MEALS_SUCCESS,
-  FETCH_MEALS_ERROR
+  FETCH_MEALS_ERROR,
+  CLEAR_MEALS_ERRORS
 } from '../types/MealsTypes';
 
 const initialState: MealsStateType = {
@@ -29,6 +30,11 @@ export function mealsReducer(state: MealsStateType = initialState, action: any):
         ...state,
         pending: false,
         error: action.error
+      };
+    case CLEAR_MEALS_ERRORS:
+      return {
+        ...state,
+        error: null
       };
     default:
       return state;
