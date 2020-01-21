@@ -203,7 +203,7 @@ class UserPanel extends Component<UserPanelProps> {
                 variant="outlined"
                 onClick={() => this.props.saveAboutUser()}
               >
-                {i18n._('Add')}
+                {i18n._('Save')}
               </Button>
             </div>
           </ExpansionPanelDetails>

@@ -1,8 +1,11 @@
 .myMealPlanComponent {
-  h2 {
-    width: 100%;
-    button {
-      float: right;
+  & > span {
+    display: flex;
+    .calendarButton {
+      flex: 1 1 200px;
+      button {
+        float: right;
+      }
     }
   }
   .mealInfoComponent {

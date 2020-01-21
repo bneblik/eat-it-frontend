@@ -3,12 +3,14 @@ import {
   CREATE_USER_SUCCESS,
   CREATE_USER_ERROR,
   CLEAR_CREATE_USER_ERROR,
+  CLEAR_CREATE_USER_SUCCESS,
   CreateUserStateType
 } from '../types/CreateUserTypes';
 const initialState: CreateUserStateType = {
   pending: false,
   user: undefined,
-  error: null
+  error: null,
+  success: null
 };
 
 export function createUserReducer(
@@ -25,7 +27,8 @@ export function createUserReducer(
       return {
         ...state,
         pending: false,
-        user: action.user
+        user: action.user,
+        success: action.success
       };
     case CREATE_USER_ERROR:
       return {
@@ -37,6 +40,11 @@ export function createUserReducer(
       return {
         ...state,
         error: null
+      };
+    case CLEAR_CREATE_USER_SUCCESS:
+      return {
+        ...state,
+        success: null
       };
     default:
       return state;

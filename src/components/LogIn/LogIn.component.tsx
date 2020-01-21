@@ -29,6 +29,7 @@ class LogIn extends Component<LogInProps, LogInState> {
   }
   logIn = () => {
     this.props.logIn({ email: this.state.email, password: this.state.password });
+    this.setState({ email: '', password: '' });
   };
   render() {
     return (
@@ -38,9 +39,9 @@ class LogIn extends Component<LogInProps, LogInState> {
           <div className="padding">
             <TextField
               label={i18n._('Email')}
+              className="emailField"
               value={this.state.email}
               fullWidth={true}
-              required
               onChange={(e) => {
                 this.setState({ email: e.target.value });
               }}
@@ -49,9 +50,9 @@ class LogIn extends Component<LogInProps, LogInState> {
           <div className="padding">
             <TextField
               label={i18n._('Password')}
+              className="passwordField"
               value={this.state.password}
               type="password"
-              required
               fullWidth={true}
               onChange={(e) => {
                 this.setState({ password: e.target.value });

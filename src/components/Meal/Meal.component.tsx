@@ -45,13 +45,13 @@ class Meal extends Component<MealProps, MealState> {
             <>
               <span>
                 <FontAwesomeIcon icon={faClock} />
-                Prepare time: {this.props.meal.prepareTime}
+                {i18n._(`Prepare time: ${this.props.meal.prepareTime}`)}
               </span>
               <span className="divider"> | </span>
               <span className="divider"> | </span>
               <span>
                 <FontAwesomeIcon icon={faFilter} />
-                Category: {this.props.meal.category}
+                {i18n._(`Category: ${this.props.meal.category}`)}
               </span>
             </>
           )}

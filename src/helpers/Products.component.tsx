@@ -12,7 +12,7 @@ import {
   FormControlLabel,
   Checkbox,
   Fab,
-  Snackbar
+  Tooltip
 } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faChevronDown, faCheck } from '@fortawesome/free-solid-svg-icons';
@@ -27,6 +27,7 @@ import { i18n } from '..';
 const ShoppingList = 'ShoppingList';
 type TProduct = ShoppingListProduct | FridgeProduct;
 type TKind = TShoppingList | TFridge;
+
 type ProductsProps = {
   component: 'MyFridge' | 'ShoppingList';
   productsCategories: TKind[];
@@ -35,14 +36,19 @@ type ProductsProps = {
   removeProduct: (product: TProduct, category: string) => void;
   saveChanges: () => void;
 };
-
-class ProductsHelper extends Component<ProductsProps> {
+type ProductsState = {
+  unsaved: boolean;
+};
+class ProductsHelper extends Component<ProductsProps, ProductsState> {
+  state: ProductsState = {
+    unsaved: false
+  };
   renderShoppingList(product: ShoppingListProduct, category: string, key: number) {
     return (
       <FormControl className="productItem" key={key}>
         <FormControlLabel
           control={
-            <Checkbox checked={product.inBasket} onChange={() => this.props.addToBasket(product, category)} />
+            <Checkbox checked={product.inBasket} onChange={() => this.handleAddToBasket(product, category)} />
           }
           label={this.renderProduct(product, category)}
         />
@@ -58,18 +64,30 @@ class ProductsHelper extends Component<ProductsProps> {
           <Input
             value={product.amount}
             type="number"
-            onChange={(e) => this.props.changeAmount(product, category, e.target.value)}
+            onChange={(e) => this.handleChangeAmount(product, category, e.target.value)}
             endAdornment={<InputAdornment position="end">g</InputAdornment>}
           ></Input>
         </span>
         <span className="trashButton">
-          <IconButton onClick={() => this.props.removeProduct(product, category)}>
-            <FontAwesomeIcon icon={faTrash} size="1x" />
-          </IconButton>
+          <Tooltip title="remove">
+            <IconButton onClick={() => this.handleRemoveProduct(product, category)}>
+              <FontAwesomeIcon icon={faTrash} size="1x" />
+            </IconButton>
+          </Tooltip>
         </span>
       </span>
     );
   }
+
+  displayWarning = () => {
+    if (this.state.unsaved) {
+      return <Alert severity="warning">{i18n._('You have unsaved changes')}</Alert>;
+    }
+  };
+  markAsUnsaved() {
+    if (!this.state.unsaved) this.setState({ unsaved: true });
+  }
+
   render() {
     return (
       <div className="shoppingListComponent">
@@ -81,6 +99,7 @@ class ProductsHelper extends Component<ProductsProps> {
           </span>
           <AddProduct buttonName={i18n._('Add product')} />
         </Typography>
+        {this.displayWarning()}
         <div className={`productsContainer ${this.props.component}`}>
           {this.props.productsCategories.map((element, key) => (
             <ExpansionPanel defaultExpanded={true} key={key} className="categoryBlock">
@@ -93,7 +112,7 @@ class ProductsHelper extends Component<ProductsProps> {
             </ExpansionPanel>
           ))}
         </div>
-        <Fab className="stickyButton" variant="extended" onClick={() => this.props.saveChanges()}>
+        <Fab className="stickyButton" variant="extended" onClick={this.handleSaveChanges}>
           <FontAwesomeIcon icon={faCheck} />
           {i18n._('Save changes')}
         </Fab>
@@ -120,14 +139,21 @@ class ProductsHelper extends Component<ProductsProps> {
     });
   }
 
-  showAlert = () => {
-    return (
-      <Snackbar open={true} autoHideDuration={6000} onClose={() => {}}>
-        <Alert onClose={() => {}} severity="success">
-          This is a success message!
-        </Alert>
-      </Snackbar>
-    );
+  handleRemoveProduct = (product, category) => {
+    this.props.removeProduct(product, category);
+    this.markAsUnsaved();
+  };
+  handleChangeAmount = (product, category, value) => {
+    this.props.changeAmount(product, category, value);
+    this.markAsUnsaved();
+  };
+  handleAddToBasket = (product, category) => {
+    this.props.addToBasket(product, category);
+    this.markAsUnsaved();
+  };
+  handleSaveChanges = () => {
+    this.props.saveChanges();
+    this.setState({ unsaved: false });
   };
 }
 

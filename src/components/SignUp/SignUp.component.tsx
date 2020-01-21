@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { TextField, Button } from '@material-ui/core';
 import { UserType, CreateUserStateType } from '../../types/CreateUserTypes';
-import { createUser, clearCreateUserError } from '../../actions/createUserAction';
+import { createUser, clearCreateUserError, clearCreateUserSuccess } from '../../actions/createUserAction';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { i18n } from '@lingui/core';
@@ -19,24 +19,28 @@ interface SignUpState {
 }
 interface SignUpProps {
   error: any | null;
+  success: any | null;
   user: UserType;
   pending: boolean;
   createUser: typeof createUser;
   clearCreateUserError: typeof clearCreateUserError;
+  clearCreateUserSuccess: typeof clearCreateUserSuccess;
 }
+const initialState = {
+  email: '',
+  emailErrorText: '',
+  username: '',
+  password: '',
+  paswdErrorText: '',
+  repeatPass: '',
+  repeatPaswdErrorText: '',
+  createUserReducer: {} as any
+};
+
 class SignUp extends Component<SignUpProps, SignUpState> {
   constructor(props) {
     super(props);
-    this.state = {
-      email: '',
-      emailErrorText: '',
-      username: '',
-      password: '',
-      paswdErrorText: '',
-      repeatPass: '',
-      repeatPaswdErrorText: '',
-      createUserReducer: {} as any
-    };
+    this.state = initialState;
   }
   signUp = () => {
     this.props.createUser({
@@ -44,15 +48,17 @@ class SignUp extends Component<SignUpProps, SignUpState> {
       nick: this.state.username,
       password: this.state.password
     });
+    this.setState(initialState);
   };
   render() {
     return (
       <div className="signUpComponent panel">
-        <h2 className="title">Don't have an account yet? Join us!</h2>
+        <h2 className="title">{i18n._("Don't have an account yet? Join us!")}</h2>
         <form>
           <div className="padding">
             <TextField
-              label="Email"
+              label={i18n._('Email')}
+              className="emailField"
               required
               value={this.state.email}
               type="email"
@@ -66,7 +72,8 @@ class SignUp extends Component<SignUpProps, SignUpState> {
           </div>
           <div className="padding">
             <TextField
-              label="Username"
+              label={i18n._('Username')}
+              className="usernameField"
               value={this.state.username}
               fullWidth={true}
               onChange={(e) => {
@@ -76,7 +83,8 @@ class SignUp extends Component<SignUpProps, SignUpState> {
           </div>
           <div className="padding">
             <TextField
-              label="Password"
+              label={i18n._('Password')}
+              className="passwordField"
               value={this.state.password}
               error={this.state.paswdErrorText !== ''}
               helperText={this.state.paswdErrorText}
@@ -90,7 +98,8 @@ class SignUp extends Component<SignUpProps, SignUpState> {
           </div>
           <div className="padding">
             <TextField
-              label="Repeat password"
+              label={i18n._('Repeat password')}
+              className="repeatPswdField"
               value={this.state.repeatPass}
               type="password"
               required
@@ -111,7 +120,7 @@ class SignUp extends Component<SignUpProps, SignUpState> {
               onClick={this.signUp}
               disabled={this.isSubmitDisabled()}
             >
-              Sign up
+              {i18n._('Sign up')}
             </Button>
           </div>
         </form>
@@ -129,9 +138,9 @@ class SignUp extends Component<SignUpProps, SignUpState> {
       });
     } else if (!this.props.pending && !!this.props.user) {
       return successAlert({
-        isOpen: !!this.props.user,
+        isOpen: !!this.props.success,
         message: i18n._('User successfully created'),
-        onClose: () => this.props.clearCreateUserError()
+        onClose: () => this.props.clearCreateUserSuccess()
       });
     }
   }
@@ -182,14 +191,16 @@ class SignUp extends Component<SignUpProps, SignUpState> {
 const mapStateToProps = (state: SignUpState) => ({
   user: state.createUserReducer.user,
   pending: state.createUserReducer.pending,
-  error: state.createUserReducer.error
+  error: state.createUserReducer.error,
+  success: state.createUserReducer.success
 });
 
 const mapDispatchToProps = (dispatch: any) =>
   bindActionCreators(
     {
-      createUser: createUser,
-      clearCreateUserError: clearCreateUserError
+      createUser,
+      clearCreateUserError,
+      clearCreateUserSuccess
     },
     dispatch
   );

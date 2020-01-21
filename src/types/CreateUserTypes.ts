@@ -2,11 +2,13 @@ export const CREATE_USER_PENDING = 'CREATE_USER_PENDING';
 export const CREATE_USER_SUCCESS = 'CREATE_USER_SUCCESS';
 export const CREATE_USER_ERROR = 'CREATE_USER_ERROR';
 export const CLEAR_CREATE_USER_ERROR = 'CLEAR_CREATE_USER_ERROR';
+export const CLEAR_CREATE_USER_SUCCESS = 'CLEAR_CREATE_USER_SUCCESS';
 
 export type CreateUserStateType = {
   pending: boolean;
   user: UserType;
   error: any | null;
+  success: any | null;
 };
 
 export interface UserType {
