@@ -1,7 +1,6 @@
 import {
   FETCH_FRIDGE_SUCC,
   FridgeState,
-  FridgeActionType,
   CHANGE_AMOUNT_IN_FRIDGE,
   REMOVE_PRODUCT_FROM_FRIDGE,
   ADD_PRODUCT_TO_FRIDGE
@@ -11,7 +10,7 @@ const initialState: FridgeState = {
   fridge: []
 };
 
-export function fridgeReducer(state = initialState, action: FridgeActionType) {
+export function fridgeReducer(state = initialState, action: any): FridgeState {
   switch (action.type) {
     case FETCH_FRIDGE_SUCC:
       return { fridge: action.fridge };
@@ -41,7 +40,7 @@ export function fridgeReducer(state = initialState, action: FridgeActionType) {
           ? { ...elem, products: [...elem.products, { ...action.product, amount: action.amount }] }
           : elem
       );
-      return addedProduct;
+      return { fridge: addedProduct };
     default:
       return state;
   }

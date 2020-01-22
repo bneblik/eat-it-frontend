@@ -12,7 +12,7 @@ const initialState: AboutUserState = {
   height: ''
 };
 
-export function aboutUserReducer(state = initialState, action: AboutUserActionType) {
+export function aboutUserReducer(state = initialState, action: any) {
   switch (action.type) {
     case SAVE_USER_INFO:
       return { weight: action.weight, height: action.height };

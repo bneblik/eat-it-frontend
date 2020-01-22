@@ -1,7 +1,6 @@
 import {
   FETCH_SHOPPING_LIST_SUCC,
   ShoppingListState,
-  ShoppingListActionType,
   ADD_TO_BASKET,
   REMOVE_PRODUCT_FROM_LIST,
   CHANGE_AMOUNT_IN_LIST,
@@ -12,7 +11,7 @@ const initialState: ShoppingListState = {
   shoppingList: []
 };
 
-export function shoppingListReducer(state = initialState, action: ShoppingListActionType) {
+export function shoppingListReducer(state = initialState, action: any): ShoppingListState {
   switch (action.type) {
     case FETCH_SHOPPING_LIST_SUCC:
       action.shoppingList.map((elem) => elem.products.forEach((p) => (p.inBasket = false)));
@@ -53,7 +52,7 @@ export function shoppingListReducer(state = initialState, action: ShoppingListAc
           ? { ...elem, products: [...elem.products, { ...action.product, amount: action.amount }] }
           : elem
       );
-      return addedProduct;
+      return { shoppingList: addedProduct };
     default:
       return state;
   }

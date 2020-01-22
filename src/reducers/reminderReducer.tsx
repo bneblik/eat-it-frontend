@@ -10,7 +10,7 @@ const initialState: ReminderState = {
   reminders: []
 };
 
-export function reminderReducer(state = initialState, action: ReminderActionType) {
+export function reminderReducer(state = initialState, action: any) {
   switch (action.type) {
     case ADD_REMINDER:
       return { reminders: [...state.reminders, action.reminder] };
