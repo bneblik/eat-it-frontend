@@ -76,24 +76,26 @@ class Meal extends Component<MealProps, MealState> {
   }
 
   renderYoutubeVideo() {
-    return (
-      <div className="card">
-        <h3>{i18n._('Watch this recipe on YouTube')}</h3>
-        <div className="youtubeVideo">
-          {this.props.pending ? (
-            <Skeleton variant="rect" component="iframe" />
-          ) : (
-            <iframe
-              title="recipe"
-              src="https://www.youtube.com/embed/3AAdKl1UYZs"
-              frameBorder="0"
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
-          )}
+    if (this.props.pending || this.props.meal.video) {
+      return (
+        <div className="card">
+          <h3>{i18n._('Watch this recipe on YouTube')}</h3>
+          <div className="youtubeVideo">
+            {this.props.pending ? (
+              <Skeleton variant="rect" component="iframe" />
+            ) : (
+              <iframe
+                title="recipe"
+                src={`https://www.youtube.com/embed/${this.props.meal.video}`}
+                frameBorder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            )}
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
   }
   render() {
     if (!this.props.pending && !this.props.meal) {
@@ -154,11 +156,11 @@ class Meal extends Component<MealProps, MealState> {
           </div>
           <div className="card">
             <h3>Recipe</h3>
-            {this.props.pending ? (
+            {/* {this.props.pending ? (
               <Skeleton height="80px" />
             ) : (
               this.props.meal.recipe.forEach((line, key) => <p key={key}>{line}</p>)
-            )}
+            )} */}
           </div>
           {this.renderYoutubeVideo()}
           <MealComments></MealComments>

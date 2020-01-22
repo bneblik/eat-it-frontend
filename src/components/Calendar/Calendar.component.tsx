@@ -133,15 +133,17 @@ class Calendar extends Component<CalendarProps, CalendarState> {
     return (
       <div className="calendarHeader">
         <div className="col col-start center">
-          <Button onClick={this.goToPrevMonth}>
+          <Button id="prevMonth" onClick={this.goToPrevMonth}>
             <FontAwesomeIcon icon={faChevronLeft} color="rgb(50, 160, 50)" />
           </Button>
         </div>
         <div className="col col-center">
-          <h3>{format(this.props.selectedDate, 'LLLL yyyy', { locale: this.props.dateLocale })}</h3>
+          <h3 id="header">
+            {format(this.props.selectedDate, 'LLLL yyyy', { locale: this.props.dateLocale })}
+          </h3>
           <span>
             <span>
-              <Button title="Today" onClick={this.selectToday}>
+              <Button id="today" title="Today" onClick={this.selectToday}>
                 <FontAwesomeIcon className="padding" icon={faCalendarDay} />
                 {format(new Date(), 'do MMM')}
               </Button>
@@ -149,7 +151,7 @@ class Calendar extends Component<CalendarProps, CalendarState> {
           </span>
         </div>
         <div className="col col-end center">
-          <Button onClick={this.goToNextMonth}>
+          <Button id="nextMonth" onClick={this.goToNextMonth}>
             <FontAwesomeIcon icon={faChevronRight} color="rgb(50, 160, 50)" />
           </Button>
         </div>

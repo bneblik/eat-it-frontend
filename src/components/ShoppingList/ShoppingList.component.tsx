@@ -7,12 +7,14 @@ import {
   addToBasket,
   changeAmountInList,
   removeProductFromList,
-  saveShoppingList
+  saveShoppingList,
+  addProductToList
 } from '../../actions/shoppingListAction';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Alert } from '@material-ui/lab';
 import ProductsHelper from '../../helpers/Products.component';
+import { i18n } from '../..';
 
 interface ShoppingListCompState {
   shoppingListReducer: ShoppingListState;
@@ -24,9 +26,10 @@ type ShoppingListProps = {
   changeAmount: typeof changeAmountInList;
   removeProduct: typeof removeProductFromList;
   saveShoppingList: typeof saveShoppingList;
+  addProduct: typeof addProductToList;
 };
 
-class ShoppingList extends Component<ShoppingListProps> {
+export class ShoppingList extends Component<ShoppingListProps> {
   componentDidMount() {
     this.props.fetchMyShoppingList();
   }
@@ -34,10 +37,12 @@ class ShoppingList extends Component<ShoppingListProps> {
   render() {
     return (
       <ProductsHelper
+        emptyMessage={i18n._('Your shopping list is empty')}
         saveChanges={this.props.saveShoppingList}
         removeProduct={this.props.removeProduct}
         changeAmount={this.props.changeAmount}
         addToBasket={this.props.addToBasket}
+        addProduct={this.props.addProduct}
         productsCategories={this.props.productsCategories}
         component="ShoppingList"
       />
@@ -66,7 +71,8 @@ const mapDispatchToProps = (dispatch: any) =>
       addToBasket: addToBasket,
       changeAmount: changeAmountInList,
       removeProduct: removeProductFromList,
-      saveShoppingList: saveShoppingList
+      saveShoppingList: saveShoppingList,
+      addProduct: addProductToList
     },
     dispatch
   );

@@ -21,19 +21,19 @@ class NutrientsInfo extends Component<NutrientsInfoProps> {
         <Tooltip title={`${i18n._('Carbohydrates')}: ${this.props.carbs} g`} placement="bottom-end">
           <span className="circle carbs">
             <span className="letter">{i18n._('C')}:</span>
-            {`${this.props.carbs} g`}
+            <span id="carbs">{`${this.props.carbs} g`}</span>
           </span>
         </Tooltip>
         <Tooltip title={`${i18n._('Proteins')}: ${this.props.proteins} g`} placement="bottom-end">
           <span className="circle proteins">
             <span className="letter">{i18n._('P')}:</span>
-            {`${this.props.proteins} g`}
+            <span id="proteins">{`${this.props.proteins} g`}</span>
           </span>
         </Tooltip>
         <Tooltip title={`${i18n._('Fats')}: ${this.props.fats} g`} placement="bottom-end">
           <span className="circle fats">
             <span className="letter">{i18n._('F')}:</span>
-            {`${this.props.fats} g`}
+            <span id="fats">{`${this.props.fats} g`}</span>
           </span>
         </Tooltip>
       </div>

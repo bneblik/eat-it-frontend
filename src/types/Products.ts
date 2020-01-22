@@ -15,6 +15,7 @@ export type ProductType = {
   proteins: number;
   carbs: number;
   category: string;
+  amount?: string;
 };
 
 export interface ProductsState {

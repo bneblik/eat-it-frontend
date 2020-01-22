@@ -46,6 +46,5 @@ describe('LogIn', () => {
     expect(spy).toHaveBeenCalled();
     wrapper.update();
     component = wrapper.find('LogIn').instance();
-    console.log(component.props);
   });
 });

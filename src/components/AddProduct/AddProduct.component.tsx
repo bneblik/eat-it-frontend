@@ -17,7 +17,7 @@ type AddProductState = {
   calories: string;
   carbs: string;
   fats: string;
-  protein: string;
+  proteins: string;
   dialogOpened: boolean;
   productsReducer: ProductsState;
 };
@@ -25,6 +25,7 @@ type AddProductState = {
 type AddProductProps = {
   buttonName: string;
   productsList: ProductType[];
+  addProduct: (product: ProductType, category: string, amount: string) => void;
 };
 const defaultState: AddProductState = {
   name: '',
@@ -33,21 +34,36 @@ const defaultState: AddProductState = {
   calories: '',
   carbs: '',
   fats: '',
-  protein: '',
+  proteins: '',
   dialogOpened: false,
   productsReducer: {} as ProductsState
 };
 
-class AddProduct extends Component<AddProductProps> {
+export class AddProduct extends Component<AddProductProps> {
   state: AddProductState = defaultState;
 
-  toggleDialog() {
-    const opened = this.state.dialogOpened;
-    if (opened) {
-      this.setState(defaultState);
-    }
+  close() {
     this.setState({
-      dialogOpened: !opened
+      dialogOpened: false
+    });
+  }
+
+  save() {
+    const product: ProductType = {
+      id: 1,
+      name: this.state.name,
+      category: this.state.category,
+      calories: +this.state.calories,
+      carbs: +this.state.carbs,
+      fats: +this.state.fats,
+      proteins: +this.state.proteins
+    };
+    this.props.addProduct(product, this.state.category, this.state.amount);
+    this.close();
+  }
+  open() {
+    this.setState({
+      dialogOpened: true
     });
   }
 
@@ -59,7 +75,7 @@ class AddProduct extends Component<AddProductProps> {
           variant="contained"
           color="inherit"
           size="small"
-          onClick={this.toggleDialog.bind(this)}
+          onClick={this.open.bind(this)}
           startIcon={<FontAwesomeIcon icon={faEdit} />}
         >
           {this.props.buttonName}
@@ -70,18 +86,19 @@ class AddProduct extends Component<AddProductProps> {
             <div className="inputContainer">
               <FontAwesomeIcon icon={faUtensils} />
               <Autocomplete
+                id="name"
                 className="autocomplete"
                 options={this.props.productsList}
                 getOptionLabel={(o) => o}
                 renderOption={(option) => <span>{option.name ? option.name : ''}</span>}
-                onChange={(e, product) => {
+                onChange={(_, product) => {
                   this.setState({
                     name: product ? product.name : '',
                     category: product ? product.category : '',
                     calories: product ? product.calories : '',
                     carbs: product ? product.carbs : '',
                     fats: product ? product.fats : '',
-                    protein: product ? product.protein : ''
+                    proteins: product ? product.proteins : ''
                   });
                 }}
                 value={this.state.name}
@@ -94,6 +111,7 @@ class AddProduct extends Component<AddProductProps> {
             <div className="inputContainer">
               <FontAwesomeIcon icon={faBalanceScaleLeft} />
               <TextField
+                id="amount"
                 label={i18n._('Amount')}
                 value={this.state.amount}
                 onChange={(e) => {
@@ -104,6 +122,7 @@ class AddProduct extends Component<AddProductProps> {
             <div className="inputContainer">
               <FontAwesomeIcon icon={faFilter} />
               <TextField
+                id="category"
                 label={i18n._('Category')}
                 value={this.state.category}
                 disabled={true}
@@ -117,6 +136,7 @@ class AddProduct extends Component<AddProductProps> {
                 <TextField
                   label={i18n._('Calories')}
                   value={this.state.calories}
+                  id="calories"
                   InputProps={{
                     endAdornment: <InputAdornment position="end">kcal</InputAdornment>
                   }}
@@ -129,7 +149,8 @@ class AddProduct extends Component<AddProductProps> {
                 <FontAwesomeIcon className="carbs" icon={faCircle} size="1x" />
                 <TextField
                   label={i18n._('Carbohydrates')}
-                  value={this.state.calories}
+                  id="carbs"
+                  value={this.state.carbs}
                   InputProps={{
                     endAdornment: <InputAdornment position="end">g</InputAdornment>
                   }}
@@ -142,7 +163,8 @@ class AddProduct extends Component<AddProductProps> {
                 <FontAwesomeIcon className="fats" icon={faCircle} size="1x" />
                 <TextField
                   label={i18n._('Fats')}
-                  value={this.state.calories}
+                  id="fats"
+                  value={this.state.fats}
                   InputProps={{
                     endAdornment: <InputAdornment position="end">g</InputAdornment>
                   }}
@@ -155,7 +177,8 @@ class AddProduct extends Component<AddProductProps> {
                 <FontAwesomeIcon className="proteins" icon={faCircle} size="1x" />
                 <TextField
                   label={i18n._('Proteins')}
-                  value={this.state.calories}
+                  id="proteins"
+                  value={this.state.proteins}
                   InputProps={{
                     endAdornment: <InputAdornment position="end">g</InputAdornment>
                   }}
@@ -166,10 +189,10 @@ class AddProduct extends Component<AddProductProps> {
             </fieldset>
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.toggleDialog.bind(this)} color="primary">
+            <Button id="cancel" onClick={this.close.bind(this)} color="primary">
               {i18n._('Cancel')}
             </Button>
-            <Button onClick={this.toggleDialog.bind(this)} color="primary">
+            <Button id="save" onClick={this.save.bind(this)} color="primary">
               {i18n._('Save')}
             </Button>
           </DialogActions>

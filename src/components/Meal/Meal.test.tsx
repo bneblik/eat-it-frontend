@@ -37,6 +37,7 @@ const initialState: MealStateType = {
 const id = '5';
 let store: any;
 let meal: any;
+window.scrollTo = jest.fn();
 
 describe('Meal', () => {
   beforeEach(() => {
@@ -49,7 +50,6 @@ describe('Meal', () => {
         <Meal match={{ params: { id: id } }} />
       </Provider>
     );
-    spyOn(window, 'scrollTo').and.callFake(() => {});
   });
   it('should display text', () => {
     expect(store.getActions()).toEqual([{ type: 'FETCH_MEAL_PENDING' }]);

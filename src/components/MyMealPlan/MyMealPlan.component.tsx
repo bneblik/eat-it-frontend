@@ -24,7 +24,8 @@ interface MyMealPlanProps {
   mealPlan: TMeal[];
   fetchMealPlan: typeof fetchMealPlan;
 }
-class MyMealPlan extends Component<MyMealPlanProps, MyMealPlanState> {
+
+export class MyMealPlan extends Component<MyMealPlanProps, MyMealPlanState> {
   constructor(props: MyMealPlanProps) {
     super(props);
     this.state = {
@@ -71,7 +72,9 @@ class MyMealPlan extends Component<MyMealPlanProps, MyMealPlanState> {
             <h2>
               {i18n._('My meal plan for ')}
               {this.cutTime(
-                formatRelative(this.props.selectedDate, new Date(), { locale: this.state.dateLocale })
+                formatRelative(this.props.selectedDate, new Date(), {
+                  locale: this.state.dateLocale
+                })
               )}
             </h2>
             <span className="calendarButton">

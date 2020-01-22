@@ -7,6 +7,10 @@
       font-size: 20px;
       color: gray;
       padding: 0 0.5em;
+      width: 20px;
+    }
+    & > div {
+      flex: 1 1 10px;
     }
     .Mui-checked svg {
       color: green;

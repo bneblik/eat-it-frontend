@@ -30,6 +30,15 @@ export interface RemoveProductListAction {
   category: string;
 }
 
+export const ADD_PRODUCT_TO_LIST = 'ADD_PRODUCT_TO_LIST';
+
+export interface AddProductListAction {
+  type: typeof ADD_PRODUCT_TO_LIST;
+  product: ShoppingListProduct;
+  category: string;
+  amount: number;
+}
+
 export const SAVE_SHOPPING_LIST = 'SAVE_SHOPPING_LIST';
 
 export interface SaveShoppingListAction {
@@ -43,6 +52,7 @@ export type ShoppingListActionType =
   | AddToBasketAction
   | ChangeAmountListAction
   | RemoveProductListAction
+  | AddProductListAction
   | SaveShoppingListAction;
 
 export interface ShoppingListState {

@@ -58,7 +58,7 @@ const initialState: AddMealState = {
   mealReducer: {} as MealStateType
 };
 
-class AddMeal extends Component<AddMealProps, AddMealState> {
+export class AddMeal extends Component<AddMealProps, AddMealState> {
   state: AddMealState = initialState;
   add = () => {
     this.props.addMeal({
@@ -92,6 +92,7 @@ class AddMeal extends Component<AddMealProps, AddMealState> {
               <TextField
                 variant="outlined"
                 label={i18n._('Name')}
+                id="name"
                 autoFocus={true}
                 value={this.state.name}
                 fullWidth={true}
@@ -105,6 +106,7 @@ class AddMeal extends Component<AddMealProps, AddMealState> {
               <TextField
                 variant="outlined"
                 label={i18n._('Description')}
+                id="description"
                 value={this.state.description}
                 fullWidth={true}
                 onChange={(e) => {
@@ -124,6 +126,7 @@ class AddMeal extends Component<AddMealProps, AddMealState> {
               <FontAwesomeIcon icon={faClock} />
               <TextField
                 variant="outlined"
+                id="prepTime"
                 label={i18n._('Preparation time')}
                 value={this.state.prepTime}
                 fullWidth={true}
@@ -137,6 +140,7 @@ class AddMeal extends Component<AddMealProps, AddMealState> {
               <Autocomplete
                 options={['dinner', 'breakfast']}
                 className="autocomplete"
+                id="category"
                 getOptionLabel={(o) => o}
                 onChange={(e, v) => {
                   this.setState({ category: v });
@@ -166,6 +170,7 @@ class AddMeal extends Component<AddMealProps, AddMealState> {
               <FontAwesomeIcon icon={faVideo} />
               <TextField
                 variant="outlined"
+                id="video"
                 label={i18n._('YouTube video')}
                 helperText={i18n._('Provide url for YouTube recipe')}
                 value={this.state.video}

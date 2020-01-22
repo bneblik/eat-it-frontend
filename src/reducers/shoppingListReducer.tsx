@@ -4,7 +4,8 @@ import {
   ShoppingListActionType,
   ADD_TO_BASKET,
   REMOVE_PRODUCT_FROM_LIST,
-  CHANGE_AMOUNT_IN_LIST
+  CHANGE_AMOUNT_IN_LIST,
+  ADD_PRODUCT_TO_LIST
 } from '../types/ShoppingList';
 
 const initialState: ShoppingListState = {
@@ -46,6 +47,13 @@ export function shoppingListReducer(state = initialState, action: ShoppingListAc
           : elem
       );
       return { shoppingList: withoutRemoved };
+    case ADD_PRODUCT_TO_LIST:
+      const addedProduct = state.shoppingList.map((elem) =>
+        elem.category === action.category
+          ? { ...elem, products: [...elem.products, { ...action.product, amount: action.amount }] }
+          : elem
+      );
+      return addedProduct;
     default:
       return state;
   }

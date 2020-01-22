@@ -10,6 +10,6 @@ jest.mock('../..', () => ({
 
 describe('AddToMealPlan', () => {
   it('renders without crashing', () => {
-    shallow(<AddToMealPlan />);
+    shallow(<AddToMealPlan mealName="meal" />);
   });
 });

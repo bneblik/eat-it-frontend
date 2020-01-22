@@ -30,11 +30,13 @@ type TKind = TShoppingList | TFridge;
 
 type ProductsProps = {
   component: 'MyFridge' | 'ShoppingList';
+  emptyMessage: string;
   productsCategories: TKind[];
   addToBasket?: (product: TProduct, category: string) => void;
   changeAmount: (product: TProduct, category: string, amount: string) => void;
   removeProduct: (product: TProduct, category: string) => void;
   saveChanges: () => void;
+  addProduct: (product: TProduct, category: string, amount: number) => void;
 };
 type ProductsState = {
   unsaved: boolean;
@@ -97,21 +99,25 @@ class ProductsHelper extends Component<ProductsProps, ProductsState> {
               ? i18n._('Shopping List')
               : i18n._('What do I have in my fridge?')}
           </span>
-          <AddProduct buttonName={i18n._('Add product')} />
+          <AddProduct buttonName={i18n._('Add product')} addProduct={this.handleAddProduct} />
         </Typography>
         {this.displayWarning()}
-        <div className={`productsContainer ${this.props.component}`}>
-          {this.props.productsCategories.map((element, key) => (
-            <ExpansionPanel defaultExpanded={true} key={key} className="categoryBlock">
-              <ExpansionPanelSummary expandIcon={<FontAwesomeIcon icon={faChevronDown} />}>
-                <Typography className="title">{element.category}</Typography>
-              </ExpansionPanelSummary>
-              <ExpansionPanelDetails className="productsDetails">
-                {this.selectComponent(element.products, element.category)}
-              </ExpansionPanelDetails>
-            </ExpansionPanel>
-          ))}
-        </div>
+        {this.props.productsCategories === [] ? (
+          <h3>{this.props.emptyMessage}</h3>
+        ) : (
+          <div className={`productsContainer ${this.props.component}`}>
+            {this.props.productsCategories.map((element, key) => (
+              <ExpansionPanel defaultExpanded={true} key={key} className="categoryBlock">
+                <ExpansionPanelSummary expandIcon={<FontAwesomeIcon icon={faChevronDown} />}>
+                  <Typography className="title">{element.category}</Typography>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails className="productsDetails">
+                  {this.selectComponent(element.products, element.category)}
+                </ExpansionPanelDetails>
+              </ExpansionPanel>
+            ))}
+          </div>
+        )}
         <Fab className="stickyButton" variant="extended" onClick={this.handleSaveChanges}>
           <FontAwesomeIcon icon={faCheck} />
           {i18n._('Save changes')}
@@ -141,6 +147,10 @@ class ProductsHelper extends Component<ProductsProps, ProductsState> {
 
   handleRemoveProduct = (product, category) => {
     this.props.removeProduct(product, category);
+    this.markAsUnsaved();
+  };
+  handleAddProduct = (product, category, value) => {
+    this.props.addProduct(product, category, value);
     this.markAsUnsaved();
   };
   handleChangeAmount = (product, category, value) => {

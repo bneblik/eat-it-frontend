@@ -34,7 +34,6 @@ export function createUser(userData: any) {
     axiosInstance
       .post(requestConsts.CREATE_USER_URL, { user: userData })
       .then((response) => {
-        console.log(response.data);
         dispatch(createUserSuccess(response.data.content.user, 'a'));
       })
       .catch((error) => {

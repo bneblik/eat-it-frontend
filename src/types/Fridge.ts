@@ -22,6 +22,15 @@ export interface RemoveProductFridgeAction {
   category: string;
 }
 
+export const ADD_PRODUCT_TO_FRIDGE = 'ADD_PRODUCT_TO_FRIDGE';
+
+export interface AddProductFridgeAction {
+  type: typeof ADD_PRODUCT_TO_FRIDGE;
+  product: FridgeProduct;
+  category: string;
+  amount: number;
+}
+
 export const SAVE_FRIDGE = 'SAVE_FRIDGE';
 
 export interface SaveFridgeAction {
@@ -34,6 +43,7 @@ export type FridgeActionType =
   | FetchFridgeSuccAction
   | ChangeAmountFridgeAction
   | RemoveProductFridgeAction
+  | AddProductFridgeAction
   | SaveFridgeAction;
 
 export interface FridgeState {

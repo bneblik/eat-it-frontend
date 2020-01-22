@@ -87,7 +87,7 @@ class Header extends Component<HeaderProps> {
       return (
         <span className="menuItem">
           <Tooltip title="Log out">
-            <IconButton onClick={() => this.props.logout()} className="itemIcon" color="inherit">
+            <IconButton id="logOut" onClick={() => this.props.logout()} className="itemIcon" color="inherit">
               <FontAwesomeIcon icon={faSignOutAlt} />
             </IconButton>
           </Tooltip>
@@ -95,7 +95,7 @@ class Header extends Component<HeaderProps> {
       );
     } else {
       return (
-        <Button href={`/${i18n.language}${routes.login}`} className="menuItem" color="inherit">
+        <Button id="logIn" href={`/${i18n.language}${routes.login}`} className="menuItem" color="inherit">
           {i18n._('Log in')}
         </Button>
       );

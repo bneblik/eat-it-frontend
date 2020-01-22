@@ -12,13 +12,12 @@ import { i18n } from '../..';
 
 interface MealInfoProps {
   meal: TMeal | undefined;
-  key: number;
 }
 
 class MealInfo extends Component<MealInfoProps> {
   render() {
     return (
-      <div key={this.props.key} className="mealInfoComponent">
+      <div className="mealInfoComponent">
         <div className="image">
           {!this.props.meal ? (
             <Skeleton variant="rect" width={'100%'} height={'330px'} />
@@ -37,7 +36,7 @@ class MealInfo extends Component<MealInfoProps> {
                 }}
                 color="inherit"
               >
-                <div className="name link">{this.props.meal.name} </div>
+                <div className="name link">{this.props.meal.name}</div>
               </Link>
             )}
             {!this.props.meal ? (
@@ -47,9 +46,9 @@ class MealInfo extends Component<MealInfoProps> {
               </div>
             ) : (
               <span className="toRight">
-                <Rating stars={5} readonly={true} />{' '}
+                <Rating stars={5} readonly={true} />
                 <FontAwesomeIcon icon={faClock} className="paddingIcon" />
-                30 min
+                <span id="prepTime">{this.props.meal.prepareTime}</span>
               </span>
             )}
           </div>
