@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { NutrientsInfo } from './NutrientsInfo.component';
-import { TMeal } from '../../types/MealTypes';
 
 jest.mock('../..', () => ({
   get i18n() {

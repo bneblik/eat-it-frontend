@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount, shallow, render } from 'enzyme';
+import { shallow } from 'enzyme';
 import { MyMealPlan } from './MyMealPlan.component';
 import { TMeal } from '../../types/MealTypes';
 import { addDays, format } from 'date-fns';

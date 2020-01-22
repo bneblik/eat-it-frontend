@@ -1,4 +1,4 @@
-import { ProductsActionType, ProductsState, FETCH_PRODUCTS } from '../types/Products';
+import { ProductsState, FETCH_PRODUCTS } from '../types/Products';
 
 const initialState: ProductsState = {
   productsList: []

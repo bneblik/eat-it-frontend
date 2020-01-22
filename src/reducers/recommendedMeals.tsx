@@ -1,8 +1,4 @@
-import {
-  RecommendedMealsState,
-  FETCH_RECOMMENDED_SUCCESS,
-  RecommendedMealsActionType
-} from '../types/RecommendedMeals';
+import { RecommendedMealsState, FETCH_RECOMMENDED_SUCCESS } from '../types/RecommendedMeals';
 
 const initialState: RecommendedMealsState = {
   recommendedMeals: []

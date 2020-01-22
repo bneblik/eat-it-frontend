@@ -53,14 +53,14 @@ class AddToMealPlan extends Component<AddToMealPlanProps> {
   }
 
   save() {
-    const data = {
-      id: 1,
-      name: this.props.mealName,
-      portion: this.state.portion,
-      date: +this.state.date,
-      time: +this.state.time,
-      reminder: +this.state.reminder
-    };
+    // const data = {
+    //   id: 1,
+    //   name: this.props.mealName,
+    //   portion: this.state.portion,
+    //   date: +this.state.date,
+    //   time: +this.state.time,
+    //   reminder: +this.state.reminder
+    // };
     // this.props.addToMealPlan(data);
     this.close();
   }

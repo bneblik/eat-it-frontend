@@ -1,4 +1,4 @@
-import { CHANGE_DATE, DateState, CalendarActionType } from '../types/Calendar';
+import { CHANGE_DATE, DateState } from '../types/Calendar';
 
 const initialState: DateState = {
   selectedDate: new Date()

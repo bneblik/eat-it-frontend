@@ -1,7 +1,6 @@
 import {
   SAVE_USER_INFO,
   FETCH_USER_INFO,
-  AboutUserActionType,
   AboutUserState,
   SET_USER_WEIGHT,
   SET_USER_HEIGHT

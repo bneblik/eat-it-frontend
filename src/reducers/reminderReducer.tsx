@@ -1,10 +1,4 @@
-import {
-  ReminderState,
-  ADD_REMINDER,
-  REMOVE_REMINDER,
-  FETCH_REMINDERS,
-  ReminderActionType
-} from '../types/Reminder';
+import { ReminderState, ADD_REMINDER, REMOVE_REMINDER, FETCH_REMINDERS } from '../types/Reminder';
 
 const initialState: ReminderState = {
   reminders: []
