@@ -2,14 +2,7 @@ import React, { Component } from 'react';
 import { Button, IconButton, Tooltip } from '@material-ui/core';
 import '../../styles/css/header.styles.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faBars,
-  faUser,
-  faSignInAlt,
-  faPlus,
-  faShoppingBasket,
-  faSignOutAlt
-} from '@fortawesome/free-solid-svg-icons';
+import { faBars, faUser, faPlus, faShoppingBasket, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import ChangeLang from './ChangeLang';
 import { routes } from '../App/RouteConstants';
 import { i18n } from '../..';
@@ -52,24 +45,36 @@ class Header extends Component<HeaderProps> {
             {i18n._('My meal plan')}
           </Button>
           <span className="menuItem">
-            <IconButton href={`/${i18n.language}${routes.addMeal}`} className="itemIcon" color="inherit">
-              <FontAwesomeIcon icon={faPlus} />
-            </IconButton>
+            <Tooltip title={i18n._('Change lang')}>
+              <IconButton href={`/${i18n.language}${routes.addMeal}`} className="itemIcon" color="inherit">
+                <FontAwesomeIcon icon={faPlus} />
+              </IconButton>
+            </Tooltip>
           </span>
           <span className="menuItem">
-            <IconButton href={`/${i18n.language}${routes.shoppingList}`} className="itemIcon" color="inherit">
-              <FontAwesomeIcon icon={faShoppingBasket} />
-            </IconButton>
+            <Tooltip title={i18n._('Change lang')}>
+              <IconButton
+                href={`/${i18n.language}${routes.shoppingList}`}
+                className="itemIcon"
+                color="inherit"
+              >
+                <FontAwesomeIcon icon={faShoppingBasket} />
+              </IconButton>
+            </Tooltip>
           </span>
           <span className="menuItem">
-            <IconButton href={`/${i18n.language}${routes.userPanel}`} className="itemIcon" color="inherit">
-              <FontAwesomeIcon icon={faUser} />
-            </IconButton>
+            <Tooltip title={i18n._('Change lang')}>
+              <IconButton href={`/${i18n.language}${routes.userPanel}`} className="itemIcon" color="inherit">
+                <FontAwesomeIcon icon={faUser} />
+              </IconButton>
+            </Tooltip>
           </span>
           <span className="menuItem">
-            <span className="itemIcon">
-              <ChangeLang history={this.props.history} match={this.props.match} />
-            </span>
+            <Tooltip title={i18n._('Change lang')}>
+              <span className="itemIcon">
+                <ChangeLang history={this.props.history} match={this.props.match} />
+              </span>
+            </Tooltip>
           </span>
           {this.handleLogInOut()}
         </div>
@@ -82,7 +87,7 @@ class Header extends Component<HeaderProps> {
       return (
         <span className="menuItem">
           <Tooltip title="Log out">
-            <IconButton onClick={() => this.props.logout()} className="itemIcon" color="inherit">
+            <IconButton id="logOut" onClick={() => this.props.logout()} className="itemIcon" color="inherit">
               <FontAwesomeIcon icon={faSignOutAlt} />
             </IconButton>
           </Tooltip>
@@ -90,13 +95,9 @@ class Header extends Component<HeaderProps> {
       );
     } else {
       return (
-        <span className="menuItem">
-          <Tooltip title="Log in">
-            <IconButton href={`/${i18n.language}${routes.login}`} className="itemIcon" color="inherit">
-              <FontAwesomeIcon icon={faSignInAlt} />
-            </IconButton>
-          </Tooltip>
-        </span>
+        <Button id="logIn" href={`/${i18n.language}${routes.login}`} className="menuItem" color="inherit">
+          {i18n._('Log in')}
+        </Button>
       );
     }
   }

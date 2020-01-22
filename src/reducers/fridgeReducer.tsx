@@ -1,16 +1,16 @@
 import {
   FETCH_FRIDGE_SUCC,
   FridgeState,
-  FridgeActionType,
   CHANGE_AMOUNT_IN_FRIDGE,
-  REMOVE_PRODUCT_FROM_FRIDGE
+  REMOVE_PRODUCT_FROM_FRIDGE,
+  ADD_PRODUCT_TO_FRIDGE
 } from '../types/Fridge';
 
 const initialState: FridgeState = {
   fridge: []
 };
 
-export function fridgeReducer(state = initialState, action: FridgeActionType) {
+export function fridgeReducer(state = initialState, action: any): FridgeState {
   switch (action.type) {
     case FETCH_FRIDGE_SUCC:
       return { fridge: action.fridge };
@@ -34,6 +34,13 @@ export function fridgeReducer(state = initialState, action: FridgeActionType) {
           : elem
       );
       return { fridge: withoutRemoved };
+    case ADD_PRODUCT_TO_FRIDGE:
+      const addedProduct = state.fridge.map((elem) =>
+        elem.category === action.category
+          ? { ...elem, products: [...elem.products, { ...action.product, amount: action.amount }] }
+          : elem
+      );
+      return { fridge: addedProduct };
     default:
       return state;
   }

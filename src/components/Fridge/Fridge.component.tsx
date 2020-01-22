@@ -11,8 +11,10 @@ import {
   fetchMyFridge,
   saveFridge,
   changeAmountInFridge,
-  removeProductFromFridge
+  removeProductFromFridge,
+  addProductToFridge
 } from '../../actions/fridgeAction';
+import { i18n } from '@lingui/core';
 
 interface ProductsState {
   fridgeReducer: FridgeState;
@@ -22,10 +24,11 @@ type ProductsProps = {
   fetchMyFridge: typeof fetchMyFridge;
   changeAmount: typeof changeAmountInFridge;
   removeProduct: typeof removeProductFromFridge;
+  addProduct: typeof addProductToFridge;
   saveFridge: typeof saveFridge;
 };
 
-class Fridge extends Component<ProductsProps> {
+export class Fridge extends Component<ProductsProps> {
   componentDidMount() {
     this.props.fetchMyFridge();
   }
@@ -33,10 +36,12 @@ class Fridge extends Component<ProductsProps> {
   render() {
     return (
       <ProductsHelper
+        emptyMessage={i18n._('Your fridge is empty.')}
         saveChanges={this.props.saveFridge}
         removeProduct={this.props.removeProduct}
         changeAmount={this.props.changeAmount}
         productsCategories={this.props.productsCategories}
+        addProduct={this.props.addProduct}
         component="MyFridge"
       />
     );
@@ -63,7 +68,8 @@ const mapDispatchToProps = (dispatch: any) =>
       fetchMyFridge: fetchMyFridge,
       changeAmount: changeAmountInFridge,
       removeProduct: removeProductFromFridge,
-      saveFridge: saveFridge
+      addProduct: addProductToFridge,
+      saveFridge
     },
     dispatch
   );

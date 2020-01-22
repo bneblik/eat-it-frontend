@@ -6,20 +6,27 @@ import apple from '../../styles/images/banana.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingBasket } from '@fortawesome/free-solid-svg-icons';
 import { i18n } from '../..';
+import { ProductType } from '../../types/Products';
 
 interface ProductInfoProps {
-  key?: number;
-  product: string;
+  product: ProductType;
 }
 
 class ProductInfo extends Component<ProductInfoProps> {
   render() {
     return (
-      <div className="productInfoComponent" key={this.props.key}>
+      <div className="productInfoComponent">
         <img src={apple} alt="product"></img>
         <span>{this.props.product}</span>
-        <div>{i18n._('amount')}: 120g</div>
-        <NutrientsInfo kcal={1} fats={2} proteins={3} carbs={4} />
+        <div>
+          {i18n._('amount')}: {this.props.product.amount}
+        </div>
+        <NutrientsInfo
+          kcal={this.props.product.calories}
+          fats={this.props.product.fats}
+          proteins={this.props.product.proteins}
+          carbs={this.props.product.carbs}
+        />
         <Checkbox
           icon={<FontAwesomeIcon icon={faShoppingBasket} />}
           checkedIcon={<FontAwesomeIcon icon={faShoppingBasket} />}

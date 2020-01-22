@@ -5,6 +5,7 @@ import {
   FridgeProduct,
   CHANGE_AMOUNT_IN_FRIDGE,
   REMOVE_PRODUCT_FROM_FRIDGE,
+  ADD_PRODUCT_TO_FRIDGE,
   SAVE_FRIDGE
 } from '../types/Fridge';
 
@@ -126,5 +127,14 @@ function saveFridgeSuccess() {
 export function saveFridge() {
   return (dispatch: any) => {
     dispatch(saveFridgeSuccess());
+  };
+}
+
+export function addProductToFridge(product: FridgeProduct, category: string, amount: number) {
+  return {
+    type: ADD_PRODUCT_TO_FRIDGE,
+    product,
+    category,
+    amount
   };
 }

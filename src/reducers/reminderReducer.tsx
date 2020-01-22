@@ -1,16 +1,10 @@
-import {
-  ReminderState,
-  ADD_REMINDER,
-  REMOVE_REMINDER,
-  FETCH_REMINDERS,
-  ReminderActionType
-} from '../types/Reminder';
+import { ReminderState, ADD_REMINDER, REMOVE_REMINDER, FETCH_REMINDERS } from '../types/Reminder';
 
 const initialState: ReminderState = {
   reminders: []
 };
 
-export function reminderReducer(state = initialState, action: ReminderActionType) {
+export function reminderReducer(state = initialState, action: any) {
   switch (action.type) {
     case ADD_REMINDER:
       return { reminders: [...state.reminders, action.reminder] };

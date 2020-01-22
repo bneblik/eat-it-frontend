@@ -16,8 +16,8 @@ class MealComments extends Component {
     comments: ['Very tasty!', 'I like it :)', 'Easy to prepare and very tasty.']
   };
 
-  singleComment = (comment: string) => (
-    <div className="singleComment">
+  singleComment = (comment: string, key: number) => (
+    <div className="singleComment" key={key}>
       <div className="center">
         <FontAwesomeIcon icon={faUserAlt} size="3x" />
       </div>
@@ -35,8 +35,8 @@ class MealComments extends Component {
 
   listComments = () => {
     const list: any = [];
-    this.state.comments.forEach((comment) => {
-      list.push(this.singleComment(comment));
+    this.state.comments.forEach((comment, key) => {
+      list.push(this.singleComment(comment, key));
     });
     return list;
   };

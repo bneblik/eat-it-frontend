@@ -46,12 +46,28 @@ const initialState: AddToMealPlanState = {
 class AddToMealPlan extends Component<AddToMealPlanProps> {
   state: AddToMealPlanState = initialState;
 
-  toggleDialog() {
-    if (this.state.dialogOpened) {
-      this.setState(initialState);
-    } else {
-      this.setState({ dialogOpened: true });
-    }
+  close() {
+    this.setState({
+      dialogOpened: false
+    });
+  }
+
+  save() {
+    // const data = {
+    //   id: 1,
+    //   name: this.props.mealName,
+    //   portion: this.state.portion,
+    //   date: +this.state.date,
+    //   time: +this.state.time,
+    //   reminder: +this.state.reminder
+    // };
+    // this.props.addToMealPlan(data);
+    this.close();
+  }
+  open() {
+    this.setState({
+      dialogOpened: true
+    });
   }
 
   render() {
@@ -60,7 +76,7 @@ class AddToMealPlan extends Component<AddToMealPlanProps> {
         <Button
           className="addButton"
           variant="contained"
-          onClick={this.toggleDialog.bind(this)}
+          onClick={this.open.bind(this)}
           startIcon={<FontAwesomeIcon icon={faClipboardList} />}
         >
           {i18n._('Add to your meal plan')}
@@ -104,7 +120,6 @@ class AddToMealPlan extends Component<AddToMealPlanProps> {
                 type="date"
                 value={this.state.date}
                 onChange={(e) => {
-                  console.log(this.state.date);
                   this.setState({ date: e.target.value });
                 }}
               />
@@ -138,10 +153,10 @@ class AddToMealPlan extends Component<AddToMealPlanProps> {
             </div>
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.toggleDialog.bind(this)} color="primary">
+            <Button onClick={this.close.bind(this)} color="primary">
               {i18n._('Cancel')}
             </Button>
-            <Button onClick={this.toggleDialog.bind(this)} color="primary">
+            <Button onClick={this.save.bind(this)} color="primary">
               {i18n._('Add')}
             </Button>
           </DialogActions>

@@ -6,7 +6,8 @@ import {
   ShoppingListProduct,
   CHANGE_AMOUNT_IN_LIST,
   REMOVE_PRODUCT_FROM_LIST,
-  SAVE_SHOPPING_LIST
+  SAVE_SHOPPING_LIST,
+  ADD_PRODUCT_TO_LIST
 } from '../types/ShoppingList';
 
 const exampleShoppingList: TShoppingList[] = [
@@ -135,5 +136,14 @@ function saveShoppingListSuccess() {
 export function saveShoppingList() {
   return (dispatch: any) => {
     dispatch(saveShoppingListSuccess());
+  };
+}
+
+export function addProductToList(product: ShoppingListProduct, category: string, amount: number) {
+  return {
+    type: ADD_PRODUCT_TO_LIST,
+    product,
+    category,
+    amount
   };
 }

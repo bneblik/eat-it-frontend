@@ -27,7 +27,7 @@ const CATEGORY = 'c';
 const ONLY_MY = 'onlyMy';
 const QUERY = 'q';
 
-class AllMeals extends Component<AllMealsProps, AllMealsState> {
+export class AllMeals extends Component<AllMealsProps, AllMealsState> {
   constructor(props: AllMealsProps) {
     super(props);
     const searchParams = new URLSearchParams(this.props.history.location.search);
@@ -136,12 +136,13 @@ class AllMeals extends Component<AllMealsProps, AllMealsState> {
     return (
       <Snackbar open={!!this.props.error}>
         <Alert
+          id="alert"
           onClose={() => {
             this.props.clearMealsErrors();
           }}
           severity="error"
         >
-          {i18n._('Server is unreacheable.')}
+          {this.props.error}
         </Alert>
       </Snackbar>
     );
