@@ -104,7 +104,13 @@ export class AddProduct extends Component<AddProductProps> {
                 value={this.state.name}
                 noOptionsText={i18n._('No products')}
                 renderInput={(params: any) => (
-                  <TextField {...params} value={this.state.name} fullWidth label={i18n._('Name')} />
+                  <TextField
+                    {...params}
+                    variant="filled"
+                    value={this.state.name}
+                    fullWidth
+                    label={i18n._('Name')}
+                  />
                 )}
               />
             </div>
@@ -114,6 +120,7 @@ export class AddProduct extends Component<AddProductProps> {
                 id="amount"
                 label={i18n._('Amount')}
                 value={this.state.amount}
+                variant="filled"
                 onChange={(e) => {
                   this.setState({ amount: e.target.value });
                 }}
@@ -126,6 +133,7 @@ export class AddProduct extends Component<AddProductProps> {
                 label={i18n._('Category')}
                 value={this.state.category}
                 disabled={true}
+                variant="filled"
                 className="disabled"
               />
             </div>
@@ -137,6 +145,7 @@ export class AddProduct extends Component<AddProductProps> {
                   label={i18n._('Calories')}
                   value={this.state.calories}
                   id="calories"
+                  variant="filled"
                   InputProps={{
                     endAdornment: <InputAdornment position="end">kcal</InputAdornment>
                   }}
@@ -150,6 +159,7 @@ export class AddProduct extends Component<AddProductProps> {
                 <TextField
                   label={i18n._('Carbohydrates')}
                   id="carbs"
+                  variant="filled"
                   value={this.state.carbs}
                   InputProps={{
                     endAdornment: <InputAdornment position="end">g</InputAdornment>
@@ -165,6 +175,7 @@ export class AddProduct extends Component<AddProductProps> {
                   label={i18n._('Fats')}
                   id="fats"
                   value={this.state.fats}
+                  variant="filled"
                   InputProps={{
                     endAdornment: <InputAdornment position="end">g</InputAdornment>
                   }}
@@ -178,6 +189,7 @@ export class AddProduct extends Component<AddProductProps> {
                 <TextField
                   label={i18n._('Proteins')}
                   id="proteins"
+                  variant="filled"
                   value={this.state.proteins}
                   InputProps={{
                     endAdornment: <InputAdornment position="end">g</InputAdornment>

@@ -40,6 +40,7 @@ class LogIn extends Component<LogInProps, LogInState> {
             <TextField
               label={i18n._('Email')}
               className="emailField"
+              variant="filled"
               value={this.state.email}
               fullWidth={true}
               onChange={(e) => {
@@ -52,6 +53,7 @@ class LogIn extends Component<LogInProps, LogInState> {
               label={i18n._('Password')}
               className="passwordField"
               value={this.state.password}
+              variant="filled"
               type="password"
               fullWidth={true}
               onChange={(e) => {

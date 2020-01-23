@@ -2,7 +2,14 @@ import React, { Component } from 'react';
 import { Button, IconButton, Tooltip } from '@material-ui/core';
 import '../../styles/css/header.styles.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faUser, faPlus, faShoppingBasket, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import {
+  faBars,
+  faUser,
+  faPlus,
+  faShoppingBasket,
+  faSignOutAlt,
+  faAdjust
+} from '@fortawesome/free-solid-svg-icons';
 import ChangeLang from './ChangeLang';
 import { routes } from '../App/RouteConstants';
 import { i18n } from '../..';
@@ -45,14 +52,14 @@ class Header extends Component<HeaderProps> {
             {i18n._('My meal plan')}
           </Button>
           <span className="menuItem">
-            <Tooltip title={i18n._('Change lang')}>
+            <Tooltip title={i18n._('Add Meal')}>
               <IconButton href={`/${i18n.language}${routes.addMeal}`} className="itemIcon" color="inherit">
                 <FontAwesomeIcon icon={faPlus} />
               </IconButton>
             </Tooltip>
           </span>
           <span className="menuItem">
-            <Tooltip title={i18n._('Change lang')}>
+            <Tooltip title={i18n._('Shopping list')}>
               <IconButton
                 href={`/${i18n.language}${routes.shoppingList}`}
                 className="itemIcon"
@@ -63,7 +70,7 @@ class Header extends Component<HeaderProps> {
             </Tooltip>
           </span>
           <span className="menuItem">
-            <Tooltip title={i18n._('Change lang')}>
+            <Tooltip title={i18n._('User panel')}>
               <IconButton href={`/${i18n.language}${routes.userPanel}`} className="itemIcon" color="inherit">
                 <FontAwesomeIcon icon={faUser} />
               </IconButton>
@@ -76,11 +83,29 @@ class Header extends Component<HeaderProps> {
               </span>
             </Tooltip>
           </span>
+          <span className="menuItem">
+            <Tooltip title={i18n._('Change contrast')}>
+              <IconButton onClick={this.changeContrast} className="itemIcon" color="inherit">
+                <FontAwesomeIcon icon={faAdjust} />
+              </IconButton>
+            </Tooltip>
+          </span>
           {this.handleLogInOut()}
         </div>
       </nav>
     );
   }
+
+  changeContrast = () => {
+    const wcag = 'wcag';
+    if (!document.body.classList.contains(wcag)) {
+      localStorage.setItem(wcag, 'true');
+      document.body.classList.add(wcag);
+    } else {
+      localStorage.removeItem(wcag);
+      document.body.classList.remove(wcag);
+    }
+  };
 
   handleLogInOut() {
     if (localStorage.getItem(JWT_TOKEN)) {

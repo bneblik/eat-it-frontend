@@ -51,6 +51,9 @@ class App extends Component<AppProps> {
 
   componentDidMount() {
     this.props.fetchProducts();
+    if (localStorage.getItem('wcag')) {
+      document.body.classList.add('wcag');
+    }
   }
 
   logout = () => {
