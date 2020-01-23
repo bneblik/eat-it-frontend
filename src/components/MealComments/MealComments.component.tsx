@@ -4,13 +4,17 @@ import { TextField, Button } from '@material-ui/core';
 import { subDays, formatDistanceToNow } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserAlt } from '@fortawesome/free-solid-svg-icons';
-import { Rating } from '../Rating/Rating.component';
+import Rating from '@material-ui/lab/Rating';
 import { i18n } from '../..';
 
 interface MealCommentsState {
   comments: string[];
 }
 
+/**
+ * This component renders given list of comments of a meal
+ * @author Beata Szczuka
+ */
 class MealComments extends Component {
   state: MealCommentsState = {
     comments: ['Very tasty!', 'I like it :)', 'Easy to prepare and very tasty.']
@@ -24,7 +28,13 @@ class MealComments extends Component {
       <div className="commentInfo">
         <div>
           <span>Abcde</span>
-          <Rating className="toRight" stars={3} readonly={true}></Rating>
+          <Rating
+            value={3}
+            precision={0.5}
+            onChange={(_, newValue) => {
+              console.log(newValue);
+            }}
+          />
         </div>
         <span className="date">{formatDistanceToNow(subDays(new Date(), 3), { addSuffix: true })}</span>
 
@@ -53,7 +63,13 @@ class MealComments extends Component {
         ></TextField>
         <div>
           <span className="rightGroup">
-            <Rating className="center" stars={3} readonly={true}></Rating>
+            <Rating
+              value={3}
+              precision={0.5}
+              onChange={(_, newValue) => {
+                console.log(newValue);
+              }}
+            />
             <span>
               <Button className="addComment" variant="contained" color="primary">
                 {i18n._('Comment')}

@@ -15,13 +15,23 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGlobeEurope, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 interface ChangeLangProps {
+  /**
+   * contains address URL
+   */
   history: History<LocationState>;
+  /**
+   * contains @param url with information about current language
+   */
   match: any;
 }
 type ChangeLangState = {
   dialogOpened: boolean;
 };
 
+/**
+ * This component is a form for changing language of the application
+ * @author Beata Szczuka
+ */
 class ChangeLang extends Component<ChangeLangProps> {
   state: ChangeLangState = {
     dialogOpened: false

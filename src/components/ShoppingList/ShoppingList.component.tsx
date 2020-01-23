@@ -20,6 +20,9 @@ interface ShoppingListCompState {
   shoppingListReducer: ShoppingListState;
 }
 type ShoppingListProps = {
+  /**
+   * contains the shopping list of a logged in user
+   */
   productsCategories: TShoppingList[];
   fetchMyShoppingList: typeof fetchMyShoppingList;
   addToBasket: typeof addToBasket;
@@ -29,6 +32,12 @@ type ShoppingListProps = {
   addProduct: typeof addProductToList;
 };
 
+/**
+ * This component passes the appropriate props to the Products component.
+ * The result is a shopping list of the logged in user.
+ * @see ProductsHelper
+ * @author Beata Szczuka
+ */
 export class ShoppingList extends Component<ShoppingListProps> {
   componentDidMount() {
     this.props.fetchMyShoppingList();

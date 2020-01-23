@@ -5,12 +5,28 @@ import { i18n } from '../..';
 import { Tooltip } from '@material-ui/core';
 
 interface NutrientsInfoProps {
+  /**
+   * contains the amount of calories in kcal
+   */
   kcal: number | undefined;
+  /**
+   * contains the amount of fats in grams
+   */
   fats: number | undefined;
+  /**
+   * contains the amount of fats in grams
+   */
   carbs: number | undefined;
+  /**
+   * contains the amount of fats in grams
+   */
   proteins: number | undefined;
 }
 
+/**
+ * This component renders short information about calories, carbohydrates, proteins and fats.
+ * @author Beata Szczuka
+ */
 class NutrientsInfo extends Component<NutrientsInfoProps> {
   render() {
     return (

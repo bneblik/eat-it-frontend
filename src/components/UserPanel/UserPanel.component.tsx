@@ -50,6 +50,13 @@ interface UserPanelState {
   aboutUserReducer: AboutUserState;
   reminderReducer: ReminderState;
 }
+
+/**
+ * This component contains a form to enter the user's height and weight,
+ * used to generate statistics and a form to set notifications for the upcoming meal time
+ * @see Statistics
+ * @author Beata Szczuka
+ */
 class UserPanel extends Component<UserPanelProps> {
   days = [
     i18n._('mon'),

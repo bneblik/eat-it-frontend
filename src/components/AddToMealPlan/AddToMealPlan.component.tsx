@@ -23,6 +23,9 @@ import { i18n } from '../..';
 import { format } from 'date-fns';
 
 type AddToMealPlanProps = {
+  /**
+   * the name of meal which should be added to the meal plan
+   */
   mealName: string;
 };
 type AddToMealPlanState = {
@@ -43,6 +46,10 @@ const initialState: AddToMealPlanState = {
   portionOptions: ['0.5', '1', '2']
 };
 
+/**
+ * This component renders the form of adding a meal to the meal plan of the logged in user.
+ * @author Beata Szczuka
+ */
 class AddToMealPlan extends Component<AddToMealPlanProps> {
   state: AddToMealPlanState = initialState;
 

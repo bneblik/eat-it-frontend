@@ -12,6 +12,7 @@ import { pl, enGB } from 'date-fns/locale';
 import RecommendedMeals from '../RecommendedMeals/RecommendedMeals.component';
 import { fetchMealPlan } from '../../actions/mealPlanActon';
 import { MealPlanState } from '../../types/MealPlan';
+import Statistics from '../Statistics/Statistics.component';
 
 interface MyMealPlanState {
   calendarReducer: DateState;
@@ -19,12 +20,30 @@ interface MyMealPlanState {
   dateLocale: Locale;
 }
 interface MyMealPlanProps {
+  /**
+   * a date for which the meal plan is displayed
+   */
   selectedDate: Date;
+  /**
+   * changes value of @param selectedDate
+   */
   changeSelectedDate: typeof changeSelectedDate;
-  mealPlan: TMeal[];
+  /**
+   * fetches meal plan and dispatches result
+   */
   fetchMealPlan: typeof fetchMealPlan;
+  /**
+   * contains fetched meal plan of the logged in user
+   */
+  mealPlan: TMeal[];
 }
 
+/**
+ * This component renders the meal plan of a logged in user
+ * @see Calendar
+ * @see RecommendedMeals
+ * @author Beata Szczuka
+ */
 export class MyMealPlan extends Component<MyMealPlanProps, MyMealPlanState> {
   constructor(props: MyMealPlanProps) {
     super(props);
@@ -86,6 +105,7 @@ export class MyMealPlan extends Component<MyMealPlanProps, MyMealPlanState> {
             </span>
           </span>
           {this.renderMealsForTheDay()}
+          <Statistics day={this.props.selectedDate} />
         </div>
         <RecommendedMeals />
       </>

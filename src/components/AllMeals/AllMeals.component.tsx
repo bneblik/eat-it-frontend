@@ -9,17 +9,35 @@ import image from '../../styles/images/background-image.jpg';
 import { TextField, FormControlLabel, Switch, Snackbar } from '@material-ui/core';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import MealsComponent from '../Meals/Meals.component';
+import Meals from '../Meals/Meals.component';
 import { i18n } from '../..';
 import { History, LocationState } from 'history';
 import { Alert } from '@material-ui/lab';
 
 interface AllMealsProps {
+  /**
+   * contains an error message or is null
+   */
   error: any | null;
+  /**
+   * contains a list of meals to display
+   */
   meals: TMeal[];
+  /**
+   * determines whether adding is pending
+   */
   pending: boolean;
+  /**
+   * fetches meals and dispatches the result
+   */
   fetchMeals: typeof fetchMeals;
+  /**
+   * clears @param error
+   */
   clearMealsErrors: typeof clearMealsErrors;
+  /**
+   * contains @param search
+   */
   history: History<LocationState>;
 }
 type AllMealsState = { mealsReducer: MealsStateType; cat: string; onlyMy: boolean; searcher: string };
@@ -27,6 +45,11 @@ const CATEGORY = 'c';
 const ONLY_MY = 'onlyMy';
 const QUERY = 'q';
 
+/**
+ * This component renders the main page of the application.
+ * It contains a searcher and the Meals component with search results.
+ * @author Beata Szczuka
+ */
 export class AllMeals extends Component<AllMealsProps, AllMealsState> {
   constructor(props: AllMealsProps) {
     super(props);
@@ -101,7 +124,7 @@ export class AllMeals extends Component<AllMealsProps, AllMealsState> {
             </div>
           </div>
         </div>
-        <MealsComponent />
+        <Meals />
         {this.showAlert()}
       </div>
     );

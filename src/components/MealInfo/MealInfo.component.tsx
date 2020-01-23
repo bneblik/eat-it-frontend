@@ -3,7 +3,7 @@ import '../../styles/css/meal-info.styles.css';
 import { Link } from 'react-router-dom';
 import image from '../../styles/images/placeholder.png';
 import { NutrientsInfo } from '../NutrientsInfo/NutrientsInfo.component';
-import { Rating } from '../Rating/Rating.component';
+import Rating from '@material-ui/lab/Rating';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClock } from '@fortawesome/free-regular-svg-icons';
 import { Skeleton } from '@material-ui/lab';
@@ -11,9 +11,16 @@ import { TMeal } from '../../types/MealTypes';
 import { i18n } from '../..';
 
 interface MealInfoProps {
+  /**
+   * contains informations to display
+   */
   meal: TMeal | undefined;
 }
 
+/**
+ * This component renders short information about one meal
+ * @author Beata Szczuka
+ */
 class MealInfo extends Component<MealInfoProps> {
   render() {
     return (
@@ -46,7 +53,13 @@ class MealInfo extends Component<MealInfoProps> {
               </div>
             ) : (
               <span className="toRight">
-                <Rating stars={5} readonly={true} />
+                <Rating
+                  value={3}
+                  precision={0.5}
+                  onChange={(_, newValue) => {
+                    console.log(newValue);
+                  }}
+                />
                 <FontAwesomeIcon icon={faClock} className="paddingIcon" />
                 <span id="prepTime">{this.props.meal.prepareTime}</span>
               </span>

@@ -10,19 +10,32 @@ import {
   faSignOutAlt,
   faAdjust
 } from '@fortawesome/free-solid-svg-icons';
-import ChangeLang from './ChangeLang';
+import ChangeLang from '../ChangeLang/ChangeLang.component';
 import { routes } from '../App/RouteConstants';
 import { i18n } from '../..';
 import { JWT_TOKEN } from '../../utils/RequestService';
 
 type HeaderProps = {
+  /**
+   * contains address URL
+   */
   history: any;
+  /**
+   * contains @param url with information about current language
+   */
   match: any;
+  /**
+   * loges off the user
+   */
   logout: () => void;
 };
 interface HeaderState {
   responsive: boolean;
 }
+/**
+ * This component is the header of the application.
+ * @author Beata Szczuka
+ */
 class Header extends Component<HeaderProps> {
   state: HeaderState = {
     responsive: false

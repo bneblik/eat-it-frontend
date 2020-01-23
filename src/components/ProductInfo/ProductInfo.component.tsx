@@ -9,9 +9,16 @@ import { i18n } from '../..';
 import { ProductType } from '../../types/Products';
 
 interface ProductInfoProps {
+  /**
+   * contains information about product to display
+   */
   product: ProductType;
 }
 
+/**
+ * This component renders short information a product.
+ * @author Beata Szczuka
+ */
 class ProductInfo extends Component<ProductInfoProps> {
   render() {
     return (

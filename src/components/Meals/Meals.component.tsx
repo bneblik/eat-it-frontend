@@ -9,13 +9,30 @@ import { i18n } from '../..';
 import { MealsStateType } from '../../types/MealsTypes';
 
 interface MealsProps {
+  /**
+   * contains an error message or is null
+   */
   error: any | null;
+  /**
+   * contains informations about meals to display
+   */
   meals: TMeal[];
+  /**
+   * determines whether adding is pending
+   */
   pending: boolean;
+  /**
+   * fetches meals and dispatches results
+   */
   fetchMeals: typeof fetchMeals;
 }
 type MealsState = { mealsReducer: MealsStateType };
 
+/**
+ * This component renders short information for each meal of @param meals
+ * @see MealInfo
+ * @author Beata Szczuka
+ */
 class Meals extends Component<MealsProps, MealsState> {
   componentDidMount() {
     const { fetchMeals } = this.props;

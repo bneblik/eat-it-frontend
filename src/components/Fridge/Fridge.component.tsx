@@ -20,6 +20,9 @@ interface ProductsState {
   fridgeReducer: FridgeState;
 }
 type ProductsProps = {
+  /**
+   * contains the fridge of a logged in user
+   */
   productsCategories: TFridge[];
   fetchMyFridge: typeof fetchMyFridge;
   changeAmount: typeof changeAmountInFridge;
@@ -28,6 +31,12 @@ type ProductsProps = {
   saveFridge: typeof saveFridge;
 };
 
+/**
+ * This component passes the appropriate props to the Products component.
+ * The result is a fridge of the logged in user.
+ * @see ProductsHelper
+ * @author Beata Szczuka
+ */
 export class Fridge extends Component<ProductsProps> {
   componentDidMount() {
     this.props.fetchMyFridge();

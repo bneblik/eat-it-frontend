@@ -16,18 +16,37 @@ import { connect } from 'react-redux';
 import { Skeleton } from '@material-ui/lab';
 
 interface MealProps {
+  /**
+   *  @param id indicates a meal
+   */
   match: {
     params: { id: string };
   };
+  /**
+   * fetch information about meal
+   * @param {string} id
+   */
   fetchMeal: typeof fetchMeal;
+  /**
+   * contains an error message or is null
+   */
   error: any | null;
+  /**
+   * contains informations about meal if defined
+   */
   meal: TMeal | undefined;
+  /**
+   * determines whether fetching is pending
+   */
   pending: boolean;
 }
 interface MealState {
   mealReducer: MealStateType;
 }
-
+/**
+ * This component renders full information about one meal.
+ * @author Beata Szczuka
+ */
 class Meal extends Component<MealProps, MealState> {
   componentDidMount() {
     window.scrollTo(0, 0);

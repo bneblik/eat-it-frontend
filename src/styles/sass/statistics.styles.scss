@@ -1,0 +1,42 @@
+@import './global-variables.styles.scss';
+.statisticsComponent {
+  text-align: center;
+  .circle {
+    color: lightgray;
+    width: 120px;
+    height: 120px;
+    text-align: center;
+    border: 5px solid;
+    border-radius: 50%;
+    font-size: 16px;
+    padding: 10px;
+    display: inline-block;
+    margin: 10px;
+    position: relative;
+    & > span {
+      position: absolute;
+      top: 25%;
+      transform: translate(-50%);
+      width: fit-content;
+      padding: 0 10px;
+    }
+    &.proteins {
+      color: $proteins-color;
+    }
+    &.carbs {
+      color: $carbs-color;
+    }
+    &.fats {
+      color: $fats-color;
+    }
+    &.calories {
+      color: $kcal-color;
+    }
+  }
+  .nutrientName {
+    font-weight: 900;
+  }
+  .textInfo {
+    font-size: 20px;
+  }
+}
