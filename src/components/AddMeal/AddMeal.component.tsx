@@ -26,10 +26,22 @@ import { MealStateType, TMeal } from '../../types/MealTypes';
 import { bindActionCreators } from 'redux';
 
 interface AddMealProps {
+  /**
+   * contains products to display as autocomplete options
+   */
   productsList: ProductType[];
   addMeal: typeof addMeal;
+  /**
+   * contains an error message or is null
+   */
   error: any | null;
+  /**
+   * contains informations about meal if defined
+   */
   meal: TMeal | undefined;
+  /**
+   * determines whether adding is pending
+   */
   pending: boolean;
 }
 interface AddMealState {
@@ -57,7 +69,10 @@ const initialState: AddMealState = {
   productsReducer: {} as ProductsState,
   mealReducer: {} as MealStateType
 };
-
+/**
+ * This component renders a new meal adding form.
+ * @author Beata Szczuka
+ */
 export class AddMeal extends Component<AddMealProps, AddMealState> {
   state: AddMealState = initialState;
   add = () => {
@@ -217,6 +232,7 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
                 <ProductsList
                   productsList={this.state.selectedProductsList}
                   removeProduct={this.removeFromSelectedProducts}
+                  changeAmount={this.changeAmountOfSelectedProduct}
                 />
               </div>
             </div>
@@ -245,6 +261,13 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
   removeFromSelectedProducts = (product: ProductType) => {
     this.setState((prev: AddMealState) => ({
       selectedProductsList: prev.selectedProductsList.filter((p: ProductType) => p !== product)
+    }));
+  };
+  changeAmountOfSelectedProduct = (product: ProductType, amount: string) => {
+    this.setState((prev: AddMealState) => ({
+      selectedProductsList: prev.selectedProductsList.map((p: ProductType) =>
+        p === product ? { ...p, amount: amount } : p
+      )
     }));
   };
   removeRecipeStep = (step: string) => {

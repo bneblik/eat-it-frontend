@@ -40,6 +40,10 @@ interface AppProps {
 
 type AppState = ReturnType<typeof reducers>;
 
+/**
+ * This component renders the Header and a component that matches the URL
+ * @author Beata Szczuka
+ */
 class App extends Component<AppProps> {
   constructor(props: AppProps) {
     super(props);

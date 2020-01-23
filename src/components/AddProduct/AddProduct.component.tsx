@@ -23,8 +23,17 @@ type AddProductState = {
 };
 
 type AddProductProps = {
+  /**
+   * describes where the new product will be added
+   */
   buttonName: string;
+  /**
+   * contains products to display as autocomplete options
+   */
   productsList: ProductType[];
+  /**
+   * adds a product
+   */
   addProduct: (product: ProductType, category: string, amount: string) => void;
 };
 const defaultState: AddProductState = {
@@ -39,6 +48,10 @@ const defaultState: AddProductState = {
   productsReducer: {} as ProductsState
 };
 
+/**
+ * This component renders a product adding form.
+ * @author Beata Szczuka
+ */
 export class AddProduct extends Component<AddProductProps> {
   state: AddProductState = defaultState;
 

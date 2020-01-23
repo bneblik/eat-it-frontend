@@ -12,12 +12,28 @@ interface LogInState {
   password: string;
 }
 interface LogInProps {
+  /**
+   * contains an error message or is null
+   */
   error: any | null;
+  /**
+   * contains a success message
+   */
   success: any | null;
+  /**
+   * determines whether adding is pending
+   */
   pending: boolean;
+  /**
+   * login user with given @param userData
+   */
   logIn: typeof logIn;
 }
 
+/**
+ * This component is a login form
+ * @author Beata Szczuka
+ */
 class LogIn extends Component<LogInProps, LogInState> {
   constructor(props) {
     super(props);

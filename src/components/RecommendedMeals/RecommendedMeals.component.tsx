@@ -16,9 +16,20 @@ interface RecommMealsComponentState {
   recommendedMealsReducer: RecommendedMealsState;
 }
 interface RecommendedMealsProps {
-  recommendedMeals: TMeal[];
+  /**
+   * fetches 5 best rated meals
+   */
   fetchRecommendedMeals: typeof fetchRecommendedMeals;
+  /**
+   * contains fetched meals
+   */
+  recommendedMeals: TMeal[];
 }
+
+/**
+ *  This component renders a carousel with best rated meals
+ * @author Beata Szczuka
+ */
 class RecommendedMeals extends Component<RecommendedMealsProps, RecommMealsComponentState> {
   state: RecommMealsComponentState = {
     activeStep: 1,

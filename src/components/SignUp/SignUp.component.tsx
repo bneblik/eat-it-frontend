@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { TextField, Button } from '@material-ui/core';
-import { UserType, CreateUserStateType } from '../../types/CreateUserTypes';
+import { CreateUserStateType } from '../../types/CreateUserTypes';
 import { createUser, clearCreateUserError, clearCreateUserSuccess } from '../../actions/createUserAction';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -18,12 +18,29 @@ interface SignUpState {
   repeatPaswdErrorText: string;
 }
 interface SignUpProps {
+  /**
+   * contains an error message or is null
+   */
   error: any | null;
+  /**
+   * contains a success message
+   */
   success: any | null;
-  user: UserType;
+  /**
+   * determines whether adding is pending
+   */
   pending: boolean;
+  /**
+   * creates user with given @param userData
+   */
   createUser: typeof createUser;
+  /**
+   * clears @param error
+   */
   clearCreateUserError: typeof clearCreateUserError;
+  /**
+   * clears @param success
+   */
   clearCreateUserSuccess: typeof clearCreateUserSuccess;
 }
 const initialState = {
@@ -37,6 +54,10 @@ const initialState = {
   createUserReducer: {} as any
 };
 
+/**
+ * This component is a form for creating a new user
+ * @author Beata Szczuka
+ */
 class SignUp extends Component<SignUpProps, SignUpState> {
   constructor(props) {
     super(props);
@@ -140,7 +161,7 @@ class SignUp extends Component<SignUpProps, SignUpState> {
         message: this.props.error,
         onClose: () => this.props.clearCreateUserError()
       });
-    } else if (!this.props.pending && !!this.props.user) {
+    } else if (!this.props.pending && !!this.props.success) {
       return successAlert({
         isOpen: !!this.props.success,
         message: i18n._('User successfully created'),

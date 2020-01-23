@@ -30,6 +30,10 @@ interface CalendarState {
   open: boolean;
 }
 
+/**
+ * This component renders a Calendar for changing @param {Date} selectedDate
+ * @author Beata Szczuka
+ */
 class Calendar extends Component<CalendarProps, CalendarState> {
   constructor(props: CalendarProps) {
     super(props);

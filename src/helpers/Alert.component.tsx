@@ -17,11 +17,15 @@ const alert = ({ isOpen, message, onClose, severity }) => {
     </Snackbar>
   );
 };
-
+/**
+ * Displays information about action failure
+ */
 export const errorAlert = ({ isOpen, message, onClose }) => {
   return alert({ isOpen, message, onClose, severity: 'error' });
 };
-
+/**
+ * Displays information about a successful completion of the action
+ */
 export const successAlert = ({ isOpen, message, onClose }) => {
   return alert({ isOpen, message, onClose, severity: 'success' });
 };

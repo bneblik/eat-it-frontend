@@ -6,6 +6,9 @@ import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { i18n } from '../..';
 
 interface RecipeProps {
+  /**
+   * List of steps in the recipe
+   */
   steps: string[];
   removeStep: (step: string) => void;
   addStep: (step: string) => void;
@@ -15,6 +18,10 @@ interface RecipeState {
   newStep: string;
 }
 
+/**
+ *  This component is a list of recipe steps with possibility to delete and a form for adding a new step
+ * @author Beata Szczuka
+ */
 class Recipe extends Component<RecipeProps> {
   state: RecipeState = {
     newStep: ''

@@ -29,8 +29,17 @@ type TProduct = ShoppingListProduct | FridgeProduct;
 type TKind = TShoppingList | TFridge;
 
 type ProductsProps = {
+  /**
+   * it can be one of two types of component
+   */
   component: 'MyFridge' | 'ShoppingList';
+  /**
+   * this message is displayed when @param productsCategories is empty
+   */
   emptyMessage: string;
+  /**
+   * contains list of products ordered by category
+   */
   productsCategories: TKind[];
   addToBasket?: (product: TProduct, category: string) => void;
   changeAmount: (product: TProduct, category: string, amount: string) => void;
@@ -39,8 +48,19 @@ type ProductsProps = {
   addProduct: (product: TProduct, category: string, amount: number) => void;
 };
 type ProductsState = {
+  /**
+   * determines whether user has unsaved changes
+   * Changes can be saved by clicking the save button at right bottom corner
+   */
   unsaved: boolean;
 };
+
+/**
+ * This component is a helper for displaying list of products ordered by category
+ * @see Fridge
+ * @see ShoppingList
+ * @author Beata Szczuka
+ */
 class ProductsHelper extends Component<ProductsProps, ProductsState> {
   state: ProductsState = {
     unsaved: false

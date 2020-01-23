@@ -2,4 +2,18 @@
   .svg-inline--fa {
     font-size: 16px;
   }
+  .listElem {
+    display: flex;
+    & > span {
+      font-weight: 700;
+      font-size: 16px;
+      color: #615757;
+      padding-right: 10px;
+      display: inline-block;
+      line-height: 60px;
+    }
+    .amount {
+      flex: 0.9 1 10px;
+    }
+  }
 }
