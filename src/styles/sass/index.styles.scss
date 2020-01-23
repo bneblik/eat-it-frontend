@@ -43,4 +43,43 @@ body {
     align-items: center;
     justify-content: center;
   }
+
+  &.wcag {
+    background: black;
+    div {
+      background: black !important;
+    }
+    fieldset {
+      border-color: white !important;
+    }
+    button {
+      background-color: black !important;
+      border: 1px solid white !important;
+    }
+    img {
+      opacity: 0;
+    }
+    & * {
+      color: white !important;
+    }
+    .searcher {
+      border: 1px solid;
+    }
+    .headerComponent {
+      background: black;
+      button {
+        border: none !important;
+      }
+    }
+    .mealInfoComponent {
+      border: 1px solid;
+      img {
+        display: none;
+      }
+    }
+    .calendarComponent .selected {
+      background-color: white !important;
+      color: black !important;
+    }
+  }
 }

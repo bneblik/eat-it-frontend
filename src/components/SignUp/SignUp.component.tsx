@@ -61,6 +61,7 @@ class SignUp extends Component<SignUpProps, SignUpState> {
               className="emailField"
               required
               value={this.state.email}
+              variant="filled"
               type="email"
               error={this.state.emailErrorText !== ''}
               helperText={this.state.emailErrorText}
@@ -75,6 +76,7 @@ class SignUp extends Component<SignUpProps, SignUpState> {
               label={i18n._('Username')}
               className="usernameField"
               value={this.state.username}
+              variant="filled"
               fullWidth={true}
               onChange={(e) => {
                 this.setState({ username: e.target.value });
@@ -87,6 +89,7 @@ class SignUp extends Component<SignUpProps, SignUpState> {
               className="passwordField"
               value={this.state.password}
               error={this.state.paswdErrorText !== ''}
+              variant="filled"
               helperText={this.state.paswdErrorText}
               required
               type="password"
@@ -101,6 +104,7 @@ class SignUp extends Component<SignUpProps, SignUpState> {
               label={i18n._('Repeat password')}
               className="repeatPswdField"
               value={this.state.repeatPass}
+              variant="filled"
               type="password"
               required
               helperText={this.state.repeatPaswdErrorText}
