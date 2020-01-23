@@ -21,10 +21,6 @@
     }
   }
 
-  .uploadImage {
-    background: rgba(0, 128, 0, 0.7);
-  }
-
   .groupButton {
     float: right;
     margin: 5px;
@@ -48,5 +44,26 @@
       height: 60%;
       background: rgba(0, 128, 0, 0.7);
     }
+  }
+
+  [type='file'] {
+    width: 0;
+  }
+
+  [type='file'] + label {
+    background: rgba(0, 128, 0, 0.7);
+    border-radius: 5px;
+    color: #fff;
+    font-weight: 600;
+    padding: 10px;
+
+    &:hover {
+      background-color: darken(rgba(0, 128, 0, 0.7), 10);
+    }
+  }
+  .fileName {
+    font-weight: 600;
+    color: #655a5a;
+    padding-left: 10px;
   }
 }

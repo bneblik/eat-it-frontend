@@ -1,4 +1,5 @@
 import { ProductType } from './Products';
+import { CommentType } from './MealCommentsTypes';
 
 export type TMeal = {
   id: number;
@@ -14,6 +15,8 @@ export type TMeal = {
   prepareTime: string;
   category: string;
   video: string;
+  image?: any;
+  comments?: CommentType[];
 };
 
 export const FETCH_MEAL_PENDING = 'FETCH_MEAL_PENDING';

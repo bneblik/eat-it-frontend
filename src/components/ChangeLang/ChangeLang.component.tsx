@@ -13,6 +13,7 @@ import {
 } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGlobeEurope, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { defaultLang } from '../../utils/LanguageService';
 
 interface ChangeLangProps {
   /**
@@ -46,10 +47,16 @@ class ChangeLang extends Component<ChangeLangProps> {
     const prevLang = i18n.language;
     i18n.activate(lang);
     const prevPath = this.props.history.location.pathname;
-    const newPath =
-      this.props.match.url === `/${prevLang}`
-        ? prevPath.replace(`/${prevLang}/`, `/${lang}/`)
-        : `/${lang}${prevPath}`;
+    let newPath;
+    if (this.props.match.url === '' && lang !== defaultLang) {
+      newPath = `/${lang}${prevPath}`;
+    } else if (this.props.match.url === `/${prevLang}` && lang !== defaultLang) {
+      newPath = prevPath.replace(`/${prevLang}/`, `/${lang}/`);
+    } else newPath = prevPath.replace(`/${prevLang}/`, '/');
+    // const newPath =
+    //   this.props.match.url === `/${prevLang}`
+    //     ? prevPath.replace(`/${prevLang}/`, `/${lang}/`)
+    //     : `/${lang}${prevPath}`;
     this.props.history.push(newPath);
   }
 

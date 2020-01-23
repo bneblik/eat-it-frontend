@@ -14,6 +14,7 @@ import ChangeLang from '../ChangeLang/ChangeLang.component';
 import { routes } from '../App/RouteConstants';
 import { i18n } from '../..';
 import { JWT_TOKEN } from '../../utils/RequestService';
+import { defaultLang } from '../../utils/LanguageService';
 
 type HeaderProps = {
   /**
@@ -45,6 +46,12 @@ class Header extends Component<HeaderProps> {
       responsive: !prevState.responsive
     }));
   };
+  lang() {
+    if (i18n.language === defaultLang) {
+      return '';
+    }
+    return `/${i18n.language}`;
+  }
   render() {
     return (
       <nav className="headerComponent sticky ">
@@ -55,36 +62,32 @@ class Header extends Component<HeaderProps> {
           </Button>
         </div>
         <div className={this.state.responsive ? 'responsive' : 'toRight'} id="menu">
-          <Button href={`/${i18n.language}${routes.meals}`} className="menuItem" color="inherit">
+          <Button href={`${this.lang()}${routes.meals}`} className="menuItem" color="inherit">
             {i18n._('Meals')}
           </Button>
-          <Button href={`/${i18n.language}${routes.myFridge}`} className="menuItem" color="inherit">
+          <Button href={`${this.lang()}${routes.myFridge}`} className="menuItem" color="inherit">
             {i18n._('My fridge')}
           </Button>
-          <Button href={`/${i18n.language}${routes.myMealPlan}`} className="menuItem" color="inherit">
+          <Button href={`${this.lang()}${routes.myMealPlan}`} className="menuItem" color="inherit">
             {i18n._('My meal plan')}
           </Button>
           <span className="menuItem">
             <Tooltip title={i18n._('Add Meal')}>
-              <IconButton href={`/${i18n.language}${routes.addMeal}`} className="itemIcon" color="inherit">
+              <IconButton href={`${this.lang()}${routes.addMeal}`} className="itemIcon" color="inherit">
                 <FontAwesomeIcon icon={faPlus} />
               </IconButton>
             </Tooltip>
           </span>
           <span className="menuItem">
             <Tooltip title={i18n._('Shopping list')}>
-              <IconButton
-                href={`/${i18n.language}${routes.shoppingList}`}
-                className="itemIcon"
-                color="inherit"
-              >
+              <IconButton href={`${this.lang()}${routes.shoppingList}`} className="itemIcon" color="inherit">
                 <FontAwesomeIcon icon={faShoppingBasket} />
               </IconButton>
             </Tooltip>
           </span>
           <span className="menuItem">
             <Tooltip title={i18n._('User panel')}>
-              <IconButton href={`/${i18n.language}${routes.userPanel}`} className="itemIcon" color="inherit">
+              <IconButton href={`${this.lang()}${routes.userPanel}`} className="itemIcon" color="inherit">
                 <FontAwesomeIcon icon={faUser} />
               </IconButton>
             </Tooltip>
@@ -124,7 +127,7 @@ class Header extends Component<HeaderProps> {
     if (localStorage.getItem(JWT_TOKEN)) {
       return (
         <span className="menuItem">
-          <Tooltip title="Log out">
+          <Tooltip title={i18n._('Log out')}>
             <IconButton id="logOut" onClick={() => this.props.logout()} className="itemIcon" color="inherit">
               <FontAwesomeIcon icon={faSignOutAlt} />
             </IconButton>
@@ -133,7 +136,7 @@ class Header extends Component<HeaderProps> {
       );
     } else {
       return (
-        <Button id="logIn" href={`/${i18n.language}${routes.login}`} className="menuItem" color="inherit">
+        <Button id="logIn" href={`${this.lang()}${routes.login}`} className="menuItem" color="inherit">
           {i18n._('Log in')}
         </Button>
       );

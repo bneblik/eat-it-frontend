@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../../styles/css/meal.styles.css';
 import image from '../../styles/images/carbonara.jpg';
-import { MealComments } from '../MealComments/MealComments.component';
+import MealComments from '../MealComments/MealComments.component';
 import { Button, FormControlLabel, Checkbox } from '@material-ui/core';
 import { NutrientsInfo } from '../NutrientsInfo/NutrientsInfo.component';
 import { faShoppingBasket, faPlus, faFilter } from '@fortawesome/free-solid-svg-icons';
@@ -47,7 +47,7 @@ interface MealState {
  * This component renders full information about one meal.
  * @author Beata Szczuka
  */
-class Meal extends Component<MealProps, MealState> {
+export class Meal extends Component<MealProps, MealState> {
   componentDidMount() {
     window.scrollTo(0, 0);
     this.props.fetchMeal(this.props.match.params.id);
@@ -182,7 +182,7 @@ class Meal extends Component<MealProps, MealState> {
             )} */}
           </div>
           {this.renderYoutubeVideo()}
-          <MealComments></MealComments>
+          <MealComments comments={[]}></MealComments>
         </div>
       );
     }

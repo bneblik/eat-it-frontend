@@ -1,10 +1,7 @@
 import React from 'react';
-import { mount } from 'enzyme';
-import Meal from './Meal.component';
-import { Provider } from 'react-redux';
-import { MealStateType, TMeal } from '../../types/MealTypes';
-import configureStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
+import { shallow } from 'enzyme';
+import { Meal } from './Meal.component';
+import { TMeal } from '../../types/MealTypes';
 
 jest.mock('../..', () => ({
   get i18n() {
@@ -29,40 +26,38 @@ const testMeal: TMeal = {
   category: 'dinner',
   video: 'aajds'
 };
-const initialState: MealStateType = {
-  meal: undefined,
-  pending: false,
-  error: null
-};
 const id = '5';
-let store: any;
-let meal: any;
 window.scrollTo = jest.fn();
+let wrapper: any;
+let component: any;
+let mockedFetch: any;
 
 describe('Meal', () => {
   beforeEach(() => {
-    const mockStore = configureStore([thunk]);
-    store = mockStore({
-      mealReducer: initialState
-    });
-    meal = mount(
-      <Provider store={store}>
-        <Meal match={{ params: { id: id } }} />
-      </Provider>
-    );
+    mockedFetch = jest.fn();
+    const props = {
+      error: null,
+      meal: undefined,
+      pending: false,
+      match: { params: { id } },
+      fetchMeal: mockedFetch
+    };
+    wrapper = shallow(<Meal {...props} />);
+    component = wrapper.instance();
+  });
+  it('renders without crashing', () => {
+    expect(component).toBeTruthy();
   });
   it('should display text', () => {
-    expect(store.getActions()).toEqual([{ type: 'FETCH_MEAL_PENDING' }]);
-    expect(meal.text()).toContain(`Cannot find element with id = ${id}`);
+    expect(mockedFetch).toHaveBeenCalled();
+    const content = wrapper.find('div').props().children;
+    expect(content[0]).toContain(`Cannot find element with id`);
+    expect(content[2]).toContain(id);
   });
   it('should display text', () => {
-    initialState.meal = testMeal;
-
-    mount(
-      <Provider store={store}>
-        <Meal match={{ params: { id: '5' } }} />
-      </Provider>
-    );
-    expect(store.getState().mealReducer.meal).toEqual(testMeal);
+    wrapper.setProps({ meal: testMeal });
+    wrapper.update();
+    const content = wrapper.find('.about h1').props().children;
+    expect(content).toContain(testMeal.name);
   });
 });
