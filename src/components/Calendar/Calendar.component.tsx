@@ -19,16 +19,7 @@ import {
 } from 'date-fns';
 import { faCalendarAlt } from '@fortawesome/free-regular-svg-icons';
 import { i18n } from '../..';
-
-type CalendarProps = {
-  selectedDate: Date;
-  changeSelectedDate: (date: Date) => void;
-  dateLocale: Locale;
-};
-
-interface CalendarState {
-  open: boolean;
-}
+import { CalendarProps, CalendarState } from './Calendar.types';
 
 /**
  * This component renders a Calendar for changing @param {Date} selectedDate

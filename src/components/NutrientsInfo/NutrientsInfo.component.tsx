@@ -3,25 +3,7 @@ import React from 'react';
 import '../../styles/css/nutrients-info.styles.css';
 import { i18n } from '../..';
 import { Tooltip } from '@material-ui/core';
-
-interface NutrientsInfoProps {
-  /**
-   * contains the amount of calories in kcal
-   */
-  kcal: number | undefined;
-  /**
-   * contains the amount of fats in grams
-   */
-  fats: number | undefined;
-  /**
-   * contains the amount of fats in grams
-   */
-  carbs: number | undefined;
-  /**
-   * contains the amount of fats in grams
-   */
-  proteins: number | undefined;
-}
+import { NutrientsInfoProps } from './NutrientsInfo.types';
 
 /**
  * This component renders short information about calories, carbohydrates, proteins and fats.

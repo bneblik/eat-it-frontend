@@ -3,45 +3,16 @@ import '../../styles/css/my-meal-plan.styles.css';
 import { Calendar } from '../Calendar/Calendar.component';
 import { MealInfo } from '../MealInfo/MealInfo.component';
 import { i18n } from '../..';
-import { TMeal } from '../../types/MealTypes';
 import { changeSelectedDate } from '../../actions/calendarAction';
-import { DateState } from '../../types/Calendar';
 import { connect } from 'react-redux';
 import { formatRelative } from 'date-fns';
 import { pl, enGB } from 'date-fns/locale';
 import RecommendedMeals from '../RecommendedMeals/RecommendedMeals.component';
 import { fetchMealPlan, clearMealPlanError } from '../../actions/mealPlanAction';
-import { MealPlanState } from '../../types/MealPlan';
 import Statistics from '../Statistics/Statistics.component';
 import { bindActionCreators } from 'redux';
 import { errorAlert } from '../../helpers/Alert.component';
-
-interface MyMealPlanState {
-  calendarReducer: DateState;
-  mealPlanReducer: MealPlanState;
-  dateLocale: Locale;
-}
-interface MyMealPlanProps {
-  /**
-   * a date for which the meal plan is displayed
-   */
-  selectedDate: Date;
-  /**
-   * changes value of @param selectedDate
-   */
-  changeSelectedDate: typeof changeSelectedDate;
-  /**
-   * fetches meal plan and dispatches result
-   */
-  fetchMealPlan: typeof fetchMealPlan;
-  /**
-   * contains fetched meal plan of the logged in user
-   */
-  mealPlan: TMeal[];
-  error: any;
-  pending: boolean;
-  clearMealPlanError: typeof clearMealPlanError;
-}
+import { MyMealPlanProps, MyMealPlanState } from './MyMealPlan.types';
 
 /**
  * This component renders the meal plan of a logged in user

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import '../../styles/css/change-lang.styles.css';
 import { i18n } from '../..';
-import { History, LocationState } from 'history';
 import {
   Dialog,
   DialogTitle,
@@ -14,20 +13,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGlobeEurope, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { defaultLang } from '../../utils/LanguageService';
-
-interface ChangeLangProps {
-  /**
-   * contains address URL
-   */
-  history: History<LocationState>;
-  /**
-   * contains @param url with information about current language
-   */
-  match: any;
-}
-type ChangeLangState = {
-  dialogOpened: boolean;
-};
+import { ChangeLangProps, ChangeLangState } from './ChangeLang.types';
 
 /**
  * This component is a form for changing language of the application

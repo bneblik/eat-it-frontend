@@ -1,58 +1,11 @@
 import React, { Component } from 'react';
 import { TextField, Button } from '@material-ui/core';
-import { CreateUserStateType } from '../../types/CreateUserTypes';
 import { createUser, clearCreateUserError, clearCreateUserSuccess } from '../../actions/createUserAction';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { i18n } from '@lingui/core';
 import { errorAlert, successAlert } from '../../helpers/Alert.component';
-
-interface SignUpState {
-  createUserReducer: CreateUserStateType;
-  username: string;
-  email: string;
-  emailErrorText: string;
-  password: string;
-  paswdErrorText: string;
-  repeatPass: string;
-  repeatPaswdErrorText: string;
-}
-interface SignUpProps {
-  /**
-   * contains an error message or is null
-   */
-  error: any | null;
-  /**
-   * contains a success message
-   */
-  success: any | null;
-  /**
-   * determines whether adding is pending
-   */
-  pending: boolean;
-  /**
-   * creates user with given @param userData
-   */
-  createUser: typeof createUser;
-  /**
-   * clears @param error
-   */
-  clearCreateUserError: typeof clearCreateUserError;
-  /**
-   * clears @param success
-   */
-  clearCreateUserSuccess: typeof clearCreateUserSuccess;
-}
-const initialState = {
-  email: '',
-  emailErrorText: '',
-  username: '',
-  password: '',
-  paswdErrorText: '',
-  repeatPass: '',
-  repeatPaswdErrorText: '',
-  createUserReducer: {} as any
-};
+import { SignUpProps, SignUpState, initialStateSignUp } from './SignUp.types';
 
 /**
  * This component is a form for creating a new user
@@ -61,7 +14,7 @@ const initialState = {
 class SignUp extends Component<SignUpProps, SignUpState> {
   constructor(props) {
     super(props);
-    this.state = initialState;
+    this.state = initialStateSignUp;
   }
   signUp = () => {
     this.props.createUser({
@@ -69,7 +22,7 @@ class SignUp extends Component<SignUpProps, SignUpState> {
       nick: this.state.username,
       password: this.state.password
     });
-    this.setState(initialState);
+    this.setState(initialStateSignUp);
   };
   render() {
     return (

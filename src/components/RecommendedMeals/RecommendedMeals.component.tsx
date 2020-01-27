@@ -1,34 +1,14 @@
 import React, { Component } from 'react';
 import '../../styles/css/most-popular-meals.styles.css';
 import { MealInfo } from '../MealInfo/MealInfo.component';
-import { TMeal } from '../../types/MealTypes';
 import { MobileStepper, IconButton } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { i18n } from '../..';
 import { connect } from 'react-redux';
 import { fetchRecommendedMeals, clearRecommendedMealsError } from '../../actions/recommendedMeals';
-import { RecommendedMealsState } from '../../types/RecommendedMeals';
 import { bindActionCreators } from 'redux';
-
-interface RecommMealsComponentState {
-  activeStep: number;
-  maxSteps: number;
-  recommendedMealsReducer: RecommendedMealsState;
-}
-interface RecommendedMealsProps {
-  /**
-   * fetches 5 best rated meals
-   */
-  fetchRecommendedMeals: typeof fetchRecommendedMeals;
-  clearRecommendedMealsError: typeof clearRecommendedMealsError;
-  /**
-   * contains fetched meals
-   */
-  recommendedMeals: TMeal[];
-  pending: boolean;
-  error: any;
-}
+import { RecommendedMealsProps, RecommMealsComponentState } from './RecommendedMeals.types';
 
 /**
  *  This component renders a carousel with best rated meals

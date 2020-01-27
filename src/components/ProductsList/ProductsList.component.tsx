@@ -4,15 +4,8 @@ import { ProductType } from '../../types/Products';
 import '../../styles/css/products-list.styles.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { ProductsListProps } from './ProductsList.types';
 
-interface ProductsListProps {
-  removeProduct: (product: ProductType) => void;
-  changeAmount: (product: ProductType, amount: string) => void;
-  /**
-   * contains products to display
-   */
-  productsList: ProductType[];
-}
 /**
  * This component displays a list of products that can be removed
  * @author Beata Szczuka

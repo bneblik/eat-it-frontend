@@ -7,55 +7,16 @@ import { faFilter, faUtensils, faCircle, faBalanceScaleLeft } from '@fortawesome
 import { i18n } from '../..';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { ProductType, ProductsState } from '../../types/Products';
+import { ProductType } from '../../types/Products';
 import { connect } from 'react-redux';
-
-type AddProductState = {
-  product: ProductType;
-  amount: string;
-  category: string;
-  calories: string;
-  carbs: string;
-  fats: string;
-  proteins: string;
-  unit: string;
-  dialogOpened: boolean;
-  productsReducer: ProductsState;
-};
-
-type AddProductProps = {
-  /**
-   * describes where the new product will be added
-   */
-  buttonName: string;
-  /**
-   * contains products to display as autocomplete options
-   */
-  productsList: ProductType[];
-  /**
-   * adds a product
-   */
-  addProduct: (product: ProductType, category: string, amount: string) => void;
-};
-const defaultState: AddProductState = {
-  product: {} as ProductType,
-  amount: '',
-  category: '',
-  calories: '',
-  carbs: '',
-  fats: '',
-  unit: '',
-  proteins: '',
-  dialogOpened: false,
-  productsReducer: {} as ProductsState
-};
+import { AddProductProps, AddProductState, defultStateAddProduct } from './AddProduct.types';
 
 /**
  * This component renders a product adding form.
  * @author Beata Szczuka
  */
 export class AddProduct extends Component<AddProductProps> {
-  state: AddProductState = defaultState;
+  state: AddProductState = defultStateAddProduct;
 
   close() {
     this.setState({
@@ -69,7 +30,7 @@ export class AddProduct extends Component<AddProductProps> {
       this.state.category,
       this.state.amount
     );
-    this.setState(defaultState);
+    this.setState(defultStateAddProduct);
     this.close();
   }
   open() {

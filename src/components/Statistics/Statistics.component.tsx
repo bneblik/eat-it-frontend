@@ -3,37 +3,13 @@ import '../../styles/css/statistics.styles.css';
 import { connect } from 'react-redux';
 import { i18n } from '../..';
 import { fetchStatisticsForDay, clearStatisticsError } from '../../actions/statisticsAction';
-import { StatisticsType, StatisticsState } from '../../types/Statistics';
 import { bindActionCreators } from 'redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLongArrowAltDown, faLongArrowAltUp } from '@fortawesome/free-solid-svg-icons';
 import { Zoom } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
 import { errorAlert } from '../../helpers/Alert.component';
-
-interface StatisticsProps {
-  day: Date;
-  /**
-   * fetches statistick for @param day
-   */
-  fetchStatisticsForDay: typeof fetchStatisticsForDay;
-  clearStatisticsError: typeof clearStatisticsError;
-  /**
-   * contains fetched statistics
-   * value in relation to the user's daily demand calculated,
-   * based on the height and weight @see UserPanel
-   */
-  statistics: StatisticsType | undefined;
-  /**
-   * determines whether fetching is pending
-   */
-  pending: boolean;
-  error: any;
-}
-interface StatisticsComponentState {
-  statisticsReducer: StatisticsState;
-  zoom: boolean;
-}
+import { StatisticsProps, StatisticsComponentState } from './Statistics.types';
 
 /**
  * This component renders quantity information about nutrients delivered on a given @param day

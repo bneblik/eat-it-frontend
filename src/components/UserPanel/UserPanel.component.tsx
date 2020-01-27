@@ -19,26 +19,9 @@ import {
   clearAboutUserSuccess
 } from '../../actions/aboutUserAction';
 import { connect } from 'react-redux';
-import { AboutUserState } from '../../types/AboutUser';
 import { bindActionCreators } from 'redux';
 import { showAlert } from '../../helpers/Alert.component';
-
-interface UserPanelProps {
-  height: string;
-  weight: string;
-  saveAboutUser: typeof saveAboutUser;
-  fetchAboutUser: typeof fetchAboutUser;
-  setUserHeight: typeof setUserHeight;
-  setUserWeight: typeof setUserWeight;
-  clearAboutUserError: typeof clearAboutUserError;
-  clearAboutUserSuccess: typeof clearAboutUserSuccess;
-  pending: boolean;
-  error: any;
-  success: any;
-}
-interface UserPanelState {
-  aboutUserReducer: AboutUserState;
-}
+import { UserPanelProps, UserPanelState } from './UserPanel.types';
 
 /**
  * This component contains a form to enter the user's height and weight,
@@ -65,7 +48,6 @@ class UserPanel extends Component<UserPanelProps> {
   }
 
   render() {
-    console.log(this.props);
     const {
       height,
       weight,

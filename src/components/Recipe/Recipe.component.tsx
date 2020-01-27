@@ -4,19 +4,7 @@ import { TextField, IconButton } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { i18n } from '../..';
-
-interface RecipeProps {
-  /**
-   * List of steps in the recipe
-   */
-  steps: string[];
-  removeStep: (step: string) => void;
-  addStep: (step: string) => void;
-}
-
-interface RecipeState {
-  newStep: string;
-}
+import { RecipeProps, RecipeState } from './Recipe.types';
 
 /**
  *  This component is a list of recipe steps with possibility to delete and a form for adding a new step

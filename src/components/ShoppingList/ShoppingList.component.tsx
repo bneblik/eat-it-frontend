@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import '../../styles/css/products.styles.css';
-import { TShoppingList, ShoppingListState } from '../../types/ShoppingList';
 import { fetchMyShoppingList } from '../../actions/shoppingList/fetchShoppingList';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -18,27 +17,7 @@ import {
   clearShoppingListSuccess,
   clearShoppingListError
 } from '../../actions/shoppingList/clearMessageShoppingList';
-
-interface ShoppingListCompState {
-  shoppingListReducer: ShoppingListState;
-}
-type ShoppingListProps = {
-  /**
-   * contains the shopping list of a logged in user
-   */
-  productsCategories: TShoppingList[];
-  error: any;
-  success: any;
-  pending: boolean;
-  fetchMyShoppingList: typeof fetchMyShoppingList;
-  addToBasket: typeof addToBasket;
-  changeAmount: typeof changeAmountInList;
-  removeProduct: typeof removeProductFromList;
-  saveShoppingList: typeof saveShoppingList;
-  addProduct: typeof addProductToList;
-  clearShoppingListSuccess: typeof clearShoppingListSuccess;
-  clearShoppingListError: typeof clearShoppingListError;
-};
+import { ShoppingListProps, ShoppingListCompState } from './ShoppingList.types';
 
 /**
  * This component passes the appropriate props to the Products component.

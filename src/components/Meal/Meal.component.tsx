@@ -11,7 +11,6 @@ import AddToMealPlan from '../AddToMealPlan/AddToMealPlan.component';
 import { i18n } from '@lingui/core';
 import { fetchMeal } from '../../actions/mealAction';
 import { bindActionCreators } from 'redux';
-import { MealStateType, TMeal } from '../../types/MealTypes';
 import { connect } from 'react-redux';
 import { Skeleton } from '@material-ui/lab';
 import { ProductInfo } from '../ProductInfo/ProductInfo.component';
@@ -22,43 +21,8 @@ import {
   clearShoppingListSuccess
 } from '../../actions/shoppingList/clearMessageShoppingList';
 import { addIngredientsToList } from '../../actions/shoppingList/addIngredientsToShoppingList';
-import { ShoppingListState } from '../../types/ShoppingList';
+import { MealProps, MealState } from './Meal.types';
 
-interface MealProps {
-  /**
-   *  @param id indicates a meal
-   */
-  match: {
-    params: { id: string };
-  };
-  /**
-   * fetch information about meal
-   * @param {string} id
-   */
-  fetchMeal: typeof fetchMeal;
-  addIngredientsToList: typeof addIngredientsToList;
-  clearShoppingListError: typeof clearShoppingListError;
-  clearShoppingListSuccess: typeof clearShoppingListSuccess;
-  addIngredientsToListStatus: any;
-  /**
-   * contains an error message or is null
-   */
-  error: any | null;
-  /**
-   * contains informations about meal if defined
-   */
-  meal: TMeal | undefined;
-  /**
-   * determines whether fetching is pending
-   */
-  pending: boolean;
-}
-interface MealState {
-  mealReducer: MealStateType;
-  shoppingListReducer: ShoppingListState;
-  selectAllProducts: boolean;
-  selectedProducts: { id: number; amount: string }[];
-}
 /**
  * This component renders full information about one meal.
  * @author Beata Szczuka

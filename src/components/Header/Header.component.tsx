@@ -15,24 +15,8 @@ import { routes } from '../App/RouteConstants';
 import { i18n } from '../..';
 import { JWT_TOKEN } from '../../utils/RequestService';
 import { defaultLang } from '../../utils/LanguageService';
+import { HeaderProps, HeaderState } from './Header.types';
 
-type HeaderProps = {
-  /**
-   * contains address URL
-   */
-  history: any;
-  /**
-   * contains @param url with information about current language
-   */
-  match: any;
-  /**
-   * loges off the user
-   */
-  logout: () => void;
-};
-interface HeaderState {
-  responsive: boolean;
-}
 /**
  * This component is the header of the application.
  * @author Beata Szczuka

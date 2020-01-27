@@ -10,49 +10,18 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import '../../styles/css/add-to-meal-plan.styles.css';
 import { i18n } from '../..';
-import { format } from 'date-fns';
 import { addToMealPlan, clearMealPlanError, clearMealPlanSuccess } from '../../actions/mealPlanAction';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { MealPlanState } from '../../types/MealPlan';
 import { showAlert } from '../../helpers/Alert.component';
-
-type AddToMealPlanProps = {
-  /**
-   * the name of meal which should be added to the meal plan
-   */
-  mealName: string;
-  success: any;
-  error: any;
-  pending: boolean;
-  addToMealPlan: typeof addToMealPlan;
-  clearMealPlanSuccess: typeof clearMealPlanSuccess;
-  clearMealPlanError: typeof clearMealPlanError;
-};
-type AddToMealPlanState = {
-  portion: string;
-  date: string;
-  time: string;
-  dialogOpened: boolean;
-  portionOptions: string[];
-  mealPlanReducer: MealPlanState;
-};
-
-const initialState: AddToMealPlanState = {
-  portion: '1',
-  date: format(new Date(), 'yyyy-MM-dd'),
-  time: '12:00',
-  dialogOpened: false,
-  portionOptions: ['0.5', '1', '2'],
-  mealPlanReducer: {} as any
-};
+import { AddToMealPlanProps, AddToMealPlanState, initialStateAddToMealPlan } from './AddToMealPlan.types';
 
 /**
  * This component renders the form of adding a meal to the meal plan of the logged in user.
  * @author Beata Szczuka
  */
 export class AddToMealPlan extends Component<AddToMealPlanProps> {
-  state: AddToMealPlanState = initialState;
+  state: AddToMealPlanState = initialStateAddToMealPlan;
 
   close() {
     this.setState({

@@ -3,56 +3,15 @@ import '../../styles/css/all-meals.styles.css';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { fetchMeals, clearMealsErrors } from '../../actions/mealsAction';
-import { TMeal } from '../../types/MealTypes';
-import { MealsStateType } from '../../types/MealsTypes';
 import image from '../../styles/images/background-image.jpg';
 import { TextField, FormControlLabel, Switch, Snackbar } from '@material-ui/core';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Meals from '../Meals/Meals.component';
 import { i18n } from '../..';
-import { History, LocationState } from 'history';
 import { Alert } from '@material-ui/lab';
 import { JWT_TOKEN } from '../../utils/RequestService';
-
-interface AllMealsProps {
-  /**
-   * contains an error message or is null
-   */
-  error: any | null;
-  /**
-   * contains a list of meals to display
-   */
-  meals: TMeal[];
-  /**
-   * determines whether adding is pending
-   */
-  pending: boolean;
-  /**
-   * fetches meals and dispatches the result
-   */
-  fetchMeals: typeof fetchMeals;
-  /**
-   * determines whether last page was fetched
-   */
-  last: boolean;
-  /**
-   * determines the number of the last fetched page
-   */
-  page: number;
-  /**
-   * clears @param error
-   */
-  clearMealsErrors: typeof clearMealsErrors;
-  /**
-   * contains @param search
-   */
-  history: History<LocationState>;
-}
-type AllMealsState = { mealsReducer: MealsStateType; cat: string; onlyMy: boolean; searcher: string };
-const CATEGORY = 'c';
-const ONLY_MY = 'onlyMy';
-const QUERY = 'q';
+import { AllMealsProps, AllMealsState, CATEGORY, ONLY_MY, QUERY } from './AllMeals.types';
 
 /**
  * This component renders the main page of the application.

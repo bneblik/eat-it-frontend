@@ -7,15 +7,8 @@ import Rating from '@material-ui/lab/Rating';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClock } from '@fortawesome/free-regular-svg-icons';
 import { Skeleton } from '@material-ui/lab';
-import { TMeal } from '../../types/MealTypes';
 import { i18n } from '../..';
-
-interface MealInfoProps {
-  /**
-   * contains informations to display
-   */
-  meal: TMeal | undefined;
-}
+import { MealInfoProps } from './MealInfo.types';
 
 /**
  * This component renders short information about one meal

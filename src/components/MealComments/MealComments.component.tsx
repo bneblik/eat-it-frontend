@@ -11,42 +11,22 @@ import {
   clearMealCommentsErrors,
   clearMealCommentsSuccess
 } from '../../actions/mealCommentsAction';
-import { CommentType, MealCommentStateType } from '../../types/MealCommentsTypes';
+import { CommentType } from '../../types/MealCommentsTypes';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { showAlert } from '../../helpers/Alert.component';
+import { MealCommentsProps, MealCommentsState, initialStateMeal } from './MealComments.types';
 
-interface MealCommentsProps {
-  addMealComment: typeof addMealComment;
-  clearMealCommentsErrors: typeof clearMealCommentsErrors;
-  clearMealCommentsSuccess: typeof clearMealCommentsSuccess;
-  comments: CommentType[];
-  mealId: number;
-  pending: boolean;
-  error: any;
-  success: any;
-}
-interface MealCommentsState {
-  comment: string;
-  rate: number;
-  mealCommentsReducer: MealCommentStateType;
-}
-
-const initialState: MealCommentsState = {
-  comment: '',
-  rate: 0,
-  mealCommentsReducer: {} as any
-};
 /**
  * This component renders given list of comments of a meal
  * @author Beata Szczuka
  */
 export class MealComments extends Component<MealCommentsProps> {
-  state: MealCommentsState = initialState;
+  state: MealCommentsState = initialStateMeal;
 
   addComment = () => {
     this.props.addMealComment(this.state.comment, this.state.rate, this.props.mealId);
-    this.setState(initialState);
+    this.setState(initialStateMeal);
   };
   singleComment = (comment: CommentType, key: number) => (
     <div className="singleComment" key={key}>

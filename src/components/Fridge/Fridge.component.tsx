@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import '../../styles/css/products.styles.css';
-import { FridgeState, TFridge } from '../../types/Fridge';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ProductsHelper from '../../helpers/Products.component';
@@ -14,26 +13,7 @@ import {
 import { saveFridge } from '../../actions/fridge/saveFridge';
 import { clearFridgeSuccess, clearFridgeError } from '../../actions/fridge/clearMessageFridge';
 import { showAlert } from '../../helpers/Alert.component';
-
-interface ProductsState {
-  fridgeReducer: FridgeState;
-}
-type ProductsProps = {
-  /**
-   * contains the fridge of a logged in user
-   */
-  productsCategories: TFridge[];
-  error: any;
-  success: any;
-  pending: boolean;
-  fetchMyFridge: typeof fetchMyFridge;
-  changeAmount: typeof changeAmountInFridge;
-  removeProduct: typeof removeProductFromFridge;
-  addProduct: typeof addProductToFridge;
-  saveFridge: typeof saveFridge;
-  clearFridgeSuccess: typeof clearFridgeSuccess;
-  clearFridgeError: typeof clearFridgeError;
-};
+import { FridgeProps, FridgeCompState } from './Fridge.types';
 
 /**
  * This component passes the appropriate props to the Products component.
@@ -41,7 +21,7 @@ type ProductsProps = {
  * @see ProductsHelper
  * @author Beata Szczuka
  */
-export class Fridge extends Component<ProductsProps> {
+export class Fridge extends Component<FridgeProps, FridgeCompState> {
   componentDidMount() {
     this.props.fetchMyFridge();
   }
@@ -65,7 +45,7 @@ export class Fridge extends Component<ProductsProps> {
   }
 }
 
-const mapStateToProps = (state: ProductsState) => ({
+const mapStateToProps = (state: FridgeCompState) => ({
   productsCategories: state.fridgeReducer.fridge,
   error: state.fridgeReducer.error,
   success: state.fridgeReducer.success,

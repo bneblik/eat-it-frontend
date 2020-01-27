@@ -4,10 +4,8 @@ import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 import Header from '../Header/Header.component';
 import AddMeal from '../AddMeal/AddMeal.component';
 import { connect } from 'react-redux';
-import { reducers } from '../../reducers';
 import Meal from '../Meal/Meal.component';
 import Fridge from '../Fridge/Fridge.component';
-import { ProductsState } from '../../types/Products';
 import { UserAccount } from '../UserAccount/UserAccount.component';
 import ShoppingList from '../ShoppingList/ShoppingList.component';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -16,32 +14,16 @@ import MyMealPlan from '../MyMealPlan/MyMealPlan.component';
 import UserPanel from '../UserPanel/UserPanel.component';
 import { routes } from './RouteConstants';
 import { i18n } from '../..';
-import { MealsStateType } from '../../types/MealsTypes';
 import { fetchProducts } from '../../actions/productAction';
 import { logOut, clearAuthSuccess, clearAuthError } from '../../actions/authAction';
-import { AuthStateType } from '../../types/AuthTypes';
 import { bindActionCreators } from 'redux';
 import { successAlert, errorAlert } from '../../helpers/Alert.component';
 import { JWT_TOKEN } from '../../utils/RequestService';
 import { defaultLang } from '../../utils/LanguageService';
+import { AppProps } from './App.types';
+import { AppState } from '../../store/store';
 
 library.add(faEnvelope, faKey);
-
-interface AppProps {
-  meals: MealsStateType;
-  products: ProductsState;
-  fetchProducts: typeof fetchProducts;
-  auth: AuthStateType;
-  logOut: typeof logOut;
-  clearAuthSuccess: typeof clearAuthSuccess;
-  clearAuthError: typeof clearAuthError;
-  history: any;
-  location: any;
-  match: any;
-}
-
-type AppState = ReturnType<typeof reducers>;
-
 /**
  * This component renders the Header and a component that matches the URL
  * @author Beata Szczuka

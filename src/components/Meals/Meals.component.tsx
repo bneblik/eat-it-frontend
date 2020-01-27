@@ -3,30 +3,9 @@ import '../../styles/css/meals.styles.css';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { fetchMeals } from '../../actions/mealsAction';
-import { TMeal } from '../../types/MealTypes';
 import { MealInfo } from '../MealInfo/MealInfo.component';
 import { i18n } from '../..';
-import { MealsStateType } from '../../types/MealsTypes';
-
-interface MealsProps {
-  /**
-   * contains an error message or is null
-   */
-  error: any | null;
-  /**
-   * contains informations about meals to display
-   */
-  meals: TMeal[];
-  /**
-   * determines whether adding is pending
-   */
-  pending: boolean;
-  /**
-   * fetches meals and dispatches results
-   */
-  fetchMeals: typeof fetchMeals;
-}
-type MealsState = { mealsReducer: MealsStateType; page: number };
+import { MealsProps, MealsState } from './Meals.types';
 
 /**
  * This component renders short information for each meal of @param meals
