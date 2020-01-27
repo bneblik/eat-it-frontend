@@ -51,10 +51,12 @@ interface AddMealState {
   prepTime: string;
   category: string;
   video: string;
+  videoHelperText: string;
   selectedProduct: ProductType;
   productsReducer: ProductsState;
   selectedProductsList: ProductType[];
   mealReducer: MealStateType;
+  selectedFile: any;
 }
 
 const initialState: AddMealState = {
@@ -64,8 +66,10 @@ const initialState: AddMealState = {
   prepTime: '',
   category: '',
   video: '',
+  videoHelperText: '',
   selectedProduct: {} as ProductType,
   selectedProductsList: [],
+  selectedFile: null,
   productsReducer: {} as ProductsState,
   mealReducer: {} as MealStateType
 };
@@ -74,8 +78,39 @@ const initialState: AddMealState = {
  * @author Beata Szczuka
  */
 export class AddMeal extends Component<AddMealProps, AddMealState> {
-  state: AddMealState = initialState;
+  constructor(props) {
+    super(props);
+    this.state = { ...initialState, videoHelperText: i18n._('Provide url for YouTube recipe') };
+  }
+  isButtonAddDisabled = () => {
+    const {
+      name,
+      description,
+      recipeSteps,
+      prepTime,
+      category,
+      selectedProductsList,
+      videoHelperText
+    } = this.state;
+    if (
+      name === '' ||
+      description === '' ||
+      recipeSteps === [] ||
+      prepTime === '' ||
+      category === '' ||
+      selectedProductsList === [] ||
+      videoHelperText !== i18n._('Provide url for YouTube recipe')
+    )
+      return true;
+    return false;
+  };
   add = () => {
+    let video = this.state.video;
+    if (video !== '') {
+      // only id is important
+      const validPrefixLength = 'https://www.youtube.com/watch?v='.length;
+      video = video.substring(validPrefixLength);
+    }
     this.props.addMeal({
       id: 1,
       name: this.state.name,
@@ -83,10 +118,29 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
       description: this.state.description,
       prepareTime: this.state.prepTime,
       category: this.state.category,
-      video: this.state.video,
+      image: this.state.selectedFile,
+      video: video,
       ingredients: this.state.selectedProductsList
     });
     this.setState(initialState);
+  };
+
+  uploadImage() {
+    return (
+      <>
+        <input type="file" id="file" onChange={this.fileChangedHandler} />
+        <label htmlFor="file">{i18n._('Add image')}</label>
+        {this.state.selectedFile !== null ? (
+          <span className="fileName">{this.state.selectedFile.name}</span>
+        ) : (
+          <></>
+        )}
+      </>
+    );
+  }
+
+  fileChangedHandler = (event) => {
+    this.setState({ selectedFile: event.target.files[0] });
   };
 
   addProduct = () => {
@@ -131,11 +185,7 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
             </div>
             <div className="padding">
               <FontAwesomeIcon icon={faCamera} />
-              <div>
-                <Button variant="contained" className="uploadImage">
-                  {i18n._('Add image')}
-                </Button>
-              </div>
+              <div>{this.uploadImage()}</div>
             </div>
             <div className="padding">
               <FontAwesomeIcon icon={faClock} />
@@ -187,11 +237,12 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
                 variant="outlined"
                 id="video"
                 label={i18n._('YouTube video')}
-                helperText={i18n._('Provide url for YouTube recipe')}
+                helperText={this.state.videoHelperText}
+                error={this.state.videoHelperText !== i18n._('Provide url for YouTube recipe')}
                 value={this.state.video}
                 fullWidth={true}
                 onChange={(e) => {
-                  this.setState({ video: e.target.value });
+                  this.validateYouTubeVideo(e.target.value);
                 }}
               />
             </div>
@@ -238,6 +289,7 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
             </div>
             <Button
               className="groupButton save"
+              disabled={this.isButtonAddDisabled()}
               variant="contained"
               onClick={this.add}
               startIcon={<FontAwesomeIcon icon={faCheck} />}
@@ -257,6 +309,15 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
       </div>
     );
   }
+
+  validateYouTubeVideo = (value) => {
+    const validPrefix = 'https://www.youtube.com/watch?v=';
+    if (!value.startsWith(validPrefix, 0) || validPrefix.length >= value.length) {
+      this.setState({ video: value, videoHelperText: i18n._('Given URL is invalid.') });
+    } else {
+      this.setState({ video: value, videoHelperText: i18n._('Provide url for YouTube recipe') });
+    }
+  };
 
   removeFromSelectedProducts = (product: ProductType) => {
     this.setState((prev: AddMealState) => ({

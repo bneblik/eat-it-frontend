@@ -23,7 +23,7 @@ describe('LogIn', () => {
     });
     wrapper = mount(
       <Provider store={store}>
-        <LogIn />
+        <LogIn history={{} as any} location={{}} />
       </Provider>
     );
     component = wrapper.find('LogIn').instance();

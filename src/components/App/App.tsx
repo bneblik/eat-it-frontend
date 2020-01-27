@@ -22,6 +22,8 @@ import { logOut, clearAuthSuccess, clearAuthError } from '../../actions/authActi
 import { AuthStateType } from '../../types/AuthTypes';
 import { bindActionCreators } from 'redux';
 import { successAlert, errorAlert } from '../../helpers/Alert.component';
+import { JWT_TOKEN } from '../../utils/RequestService';
+import { defaultLang } from '../../utils/LanguageService';
 
 library.add(faEnvelope, faKey);
 
@@ -71,22 +73,31 @@ class App extends Component<AppProps> {
         <div className="appContent">
           <Route
             render={({ match: { url } }) => {
-              url = url === '/' ? '' : url;
               return (
                 <Switch>
                   <Route path={`${url}${routes.meal}`} render={(props) => <Meal {...props} />} />
                   <Route exact path={`${url}${routes.meals}`} render={(props) => <AllMeals {...props} />} />
-                  <Route path={`${url}${routes.addMeal}`} render={(props) => <AddMeal {...props} />} />
-                  <Route exact path={`${url}${routes.myFridge}`} render={(props) => <Fridge {...props} />} />
-                  <Route path={`${url}${routes.myMealPlan}`} render={(props) => <MyMealPlan {...props} />} />
+                  <Route
+                    path={`${url}${routes.addMeal}`}
+                    render={(props) => this.requireAuth(<AddMeal {...props} />)}
+                  />
+                  <Route
+                    exact
+                    path={`${url}${routes.myFridge}`}
+                    render={(props) => this.requireAuth(<Fridge {...props} />)}
+                  />
+                  <Route
+                    path={`${url}${routes.myMealPlan}`}
+                    render={(props) => this.requireAuth(<MyMealPlan {...props} />)}
+                  />
                   <Route
                     path={`${url}${routes.userPanel}`}
-                    render={(props) => <UserPanel {...props} username="exampleUser123" />}
+                    render={(props) => this.requireAuth(<UserPanel {...props} username="exampleUser123" />)}
                   />
                   <Route path={`${url}${routes.login}`} render={(props) => <UserAccount {...props} />} />
                   <Route
                     path={`${url}${routes.shoppingList}`}
-                    render={(props) => <ShoppingList {...props} />}
+                    render={(props) => this.requireAuth(<ShoppingList {...props} />)}
                   />
                   <Redirect exact to={`${url}${routes.meals}`} />
                 </Switch>
@@ -97,6 +108,18 @@ class App extends Component<AppProps> {
         {this.showAuthAlert()}
       </>
     );
+  }
+  requireAuth(component: any) {
+    if (localStorage.getItem(JWT_TOKEN)) return component;
+    return (
+      <Redirect to={{ pathname: `${this.lang()}${routes.login}`, state: { from: this.props.location } }} />
+    );
+  }
+  lang() {
+    let url = '';
+    const lng = this.props.match.params.lng;
+    if (!!lng && lng !== defaultLang) url = `/${lng}`;
+    return url;
   }
 
   showAuthAlert() {

@@ -1,9 +1,11 @@
 @import 'log-in.styles.scss';
 
 .userAccountComponent {
-  display: flex;
-  flex-wrap: wrap;
-  .MuiFilledInput-root {
-    background: transparent;
+  .forms {
+    display: flex;
+    flex-wrap: wrap;
+    .MuiFilledInput-root {
+      background: transparent;
+    }
   }
 }

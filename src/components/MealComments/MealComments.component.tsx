@@ -1,51 +1,72 @@
 import React, { Component } from 'react';
 import '../../styles/css/meal-comments.styles.css';
 import { TextField, Button } from '@material-ui/core';
-import { subDays, formatDistanceToNow } from 'date-fns';
+import { formatDistanceToNow } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserAlt } from '@fortawesome/free-solid-svg-icons';
 import Rating from '@material-ui/lab/Rating';
 import { i18n } from '../..';
+import {
+  addMealComment,
+  clearMealCommentsErrors,
+  clearMealCommentsSuccess
+} from '../../actions/mealCommentsAction';
+import { CommentType, MealCommentStateType } from '../../types/MealCommentsTypes';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { errorAlert, successAlert } from '../../helpers/Alert.component';
 
+interface MealCommentsProps {
+  addMealComment: typeof addMealComment;
+  clearMealCommentsErrors: typeof clearMealCommentsErrors;
+  clearMealCommentsSuccess: typeof clearMealCommentsSuccess;
+  comments: CommentType[];
+  pending: boolean;
+  error: any;
+  success: any;
+}
 interface MealCommentsState {
-  comments: string[];
+  comment: string;
+  rate: number;
+  mealCommentsReducer: MealCommentStateType;
 }
 
+const initialState: MealCommentsState = {
+  comment: '',
+  rate: 3,
+  mealCommentsReducer: {} as any
+};
 /**
  * This component renders given list of comments of a meal
  * @author Beata Szczuka
  */
-class MealComments extends Component {
-  state: MealCommentsState = {
-    comments: ['Very tasty!', 'I like it :)', 'Easy to prepare and very tasty.']
-  };
+export class MealComments extends Component<MealCommentsProps> {
+  state: MealCommentsState = initialState;
 
-  singleComment = (comment: string, key: number) => (
+  addComment = () => {
+    this.props.addMealComment(this.state.comment, this.state.rate);
+    this.setState(initialState);
+  };
+  singleComment = (comment: CommentType, key: number) => (
     <div className="singleComment" key={key}>
       <div className="center">
         <FontAwesomeIcon icon={faUserAlt} size="3x" />
       </div>
       <div className="commentInfo">
         <div>
-          <span>Abcde</span>
-          <Rating
-            value={3}
-            precision={0.5}
-            onChange={(_, newValue) => {
-              console.log(newValue);
-            }}
-          />
+          <span>{comment.author}</span>
+          <Rating value={comment.rate} precision={0.5} />
         </div>
-        <span className="date">{formatDistanceToNow(subDays(new Date(), 3), { addSuffix: true })}</span>
+        <span className="date">{formatDistanceToNow(comment.createdAt, { addSuffix: true })}</span>
 
-        <div>{comment}</div>
+        <div>{comment.content}</div>
       </div>
     </div>
   );
 
   listComments = () => {
     const list: any = [];
-    this.state.comments.forEach((comment, key) => {
+    this.props.comments.forEach((comment, key) => {
       list.push(this.singleComment(comment, key));
     });
     return list;
@@ -58,29 +79,74 @@ class MealComments extends Component {
           multiline={true}
           label="Leave a comment"
           variant="outlined"
+          value={this.state.comment}
+          onChange={(e) => this.setState({ comment: e.target.value })}
           fullWidth={true}
           rows="3"
         ></TextField>
         <div>
           <span className="rightGroup">
             <Rating
-              value={3}
+              value={this.state.rate}
               precision={0.5}
               onChange={(_, newValue) => {
-                console.log(newValue);
+                this.setState({ rate: newValue });
               }}
             />
             <span>
-              <Button className="addComment" variant="contained" color="primary">
+              <Button
+                className="addComment"
+                onClick={() => this.addComment()}
+                variant="contained"
+                color="primary"
+              >
                 {i18n._('Comment')}
               </Button>
             </span>
           </span>
         </div>
         <div>{this.listComments()}</div>
+        {this.showCommentsAlert()}
       </div>
     );
   }
+
+  showCommentsAlert() {
+    if (!this.props.pending && !!this.props.error) {
+      return errorAlert({
+        isOpen: !!this.props.error,
+        message: this.props.error,
+        onClose: () => this.props.clearMealCommentsErrors()
+      });
+    } else if (!this.props.pending && !!this.props.success) {
+      return successAlert({
+        isOpen: !!this.props.success,
+        message: this.props.success,
+        onClose: () => this.props.clearMealCommentsSuccess()
+      });
+    }
+  }
 }
 
-export { MealComments };
+const mapStateToProps = (state: MealCommentsState) => {
+  return {
+    error: state.mealCommentsReducer.error,
+    success: state.mealCommentsReducer.success,
+    pending: state.mealCommentsReducer.pending
+  };
+};
+
+const mapDispatchToProps = (dispatch: any) =>
+  bindActionCreators(
+    {
+      addMealComment,
+      clearMealCommentsSuccess,
+      clearMealCommentsErrors
+    },
+    dispatch
+  );
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MealComments);

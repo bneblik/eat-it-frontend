@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { AuthStateType } from '../../types/AuthTypes';
 import { logIn } from '../../actions/authAction';
 import { connect } from 'react-redux';
+import { History, LocationState } from 'history';
 
 interface LogInState {
   authReducer: AuthStateType;
@@ -28,6 +29,14 @@ interface LogInProps {
    * login user with given @param userData
    */
   logIn: typeof logIn;
+  /**
+   * if contains @param from user will be redirected there after logging in
+   */
+  location: any;
+  /**
+   * contains address URL
+   */
+  history: History<LocationState>;
 }
 
 /**
@@ -47,6 +56,12 @@ class LogIn extends Component<LogInProps, LogInState> {
     this.props.logIn({ email: this.state.email, password: this.state.password });
     this.setState({ email: '', password: '' });
   };
+  componentDidUpdate() {
+    if (!this.props.pending && !!this.props.success && !!this.props.location.state) {
+      this.props.history.push({ pathname: this.props.location.state.from.pathname });
+    }
+  }
+
   render() {
     return (
       <div className="panel">

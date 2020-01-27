@@ -12,6 +12,7 @@ import { reminderReducer } from './reminderReducer';
 import { createUserReducer } from './createUserReducer';
 import { authReducer } from './authReducer';
 import { statisticsReducer } from './statisticsReducer';
+import { mealCommentsReducer } from './mealCommentsReducer';
 
 export const reducers = combineReducers({
   mealsReducer: mealsReducer,
@@ -26,5 +27,6 @@ export const reducers = combineReducers({
   reminderReducer: reminderReducer,
   createUserReducer: createUserReducer,
   authReducer: authReducer,
-  statisticsReducer: statisticsReducer
+  statisticsReducer: statisticsReducer,
+  mealCommentsReducer: mealCommentsReducer
 });

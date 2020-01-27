@@ -13,6 +13,7 @@ import Meals from '../Meals/Meals.component';
 import { i18n } from '../..';
 import { History, LocationState } from 'history';
 import { Alert } from '@material-ui/lab';
+import { JWT_TOKEN } from '../../utils/RequestService';
 
 interface AllMealsProps {
   /**
@@ -73,7 +74,7 @@ export class AllMeals extends Component<AllMealsProps, AllMealsState> {
   }
 
   onlyMyMeals() {
-    if (true) {
+    if (localStorage.getItem(JWT_TOKEN)) {
       return (
         <FormControlLabel
           control={<Switch checked={this.state.onlyMy} onChange={() => this.handleOnlyMy()} />}

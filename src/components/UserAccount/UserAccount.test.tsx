@@ -10,6 +10,6 @@ jest.mock('../..', () => ({
 
 describe('UserAccount', () => {
   it('renders without crashing', () => {
-    shallow(<UserAccount />);
+    shallow(<UserAccount location={{}} history={{}} />);
   });
 });
