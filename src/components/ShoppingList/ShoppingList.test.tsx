@@ -19,7 +19,12 @@ describe('ShoppingList', () => {
       changeAmount: jest.fn(),
       removeProduct: jest.fn(),
       saveShoppingList: jest.fn(),
-      addProduct: jest.fn()
+      addProduct: jest.fn(),
+      error: null,
+      pending: false,
+      success: null,
+      clearShoppingListSuccess: jest.fn(),
+      clearShoppingListError: jest.fn()
     };
     wrapper = shallow(<ShoppingList {...props} />);
     component = wrapper.instance();

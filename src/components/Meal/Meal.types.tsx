@@ -16,8 +16,9 @@ export interface MealProps {
    *  @param id indicates a meal
    */
   match: {
-    params: { id: string };
+    params: { id: string; lng: string };
   };
+  history: any;
   /**
    * fetch information about meal
    * @param {string} id

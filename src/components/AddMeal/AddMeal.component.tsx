@@ -14,14 +14,13 @@ import {
   faListOl,
   faCheck,
   faCamera,
-  faTimes,
   faVideo
 } from '@fortawesome/free-solid-svg-icons';
 import { faClock } from '@fortawesome/free-regular-svg-icons';
 import { Recipe } from '../Recipe/Recipe.component';
 import { i18n } from '../..';
 import { Autocomplete } from '@material-ui/lab';
-import { addMeal, clearAddMealSuccess, clearAddMealError } from '../../actions/mealAction';
+import { addMeal, clearAddMealSuccess, clearAddMealError, editMeal } from '../../actions/mealAction';
 import { bindActionCreators } from 'redux';
 import { showAlert } from '../../helpers/Alert.component';
 import { AddMealProps, AddMealState, initialAddMealState as initialState } from './AddMeal.types';
@@ -34,6 +33,20 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
   constructor(props) {
     super(props);
     this.state = { ...initialState, videoHelperText: i18n._('Provide url for YouTube recipe') };
+  }
+  componentDidMount() {
+    if (!!this.props.mealToEdit) {
+      const { mealToEdit } = this.props;
+      this.setState({
+        name: mealToEdit.name,
+        description: mealToEdit.description ? mealToEdit.description : '',
+        prepTime: mealToEdit.prepareTime ? mealToEdit.prepareTime : '',
+        // recipeSteps: mealToEdit.recipe ? mealToEdit.recipe : [],
+        category: mealToEdit.category ? mealToEdit.category : '',
+        video: mealToEdit.video ? mealToEdit.video : '',
+        selectedProductsList: mealToEdit.ingredients ? mealToEdit.ingredients : []
+      });
+    }
   }
   isButtonAddDisabled = () => {
     const {
@@ -64,8 +77,7 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
       const validPrefixLength = 'https://www.youtube.com/watch?v='.length;
       video = video.substring(validPrefixLength);
     }
-    this.props.addMeal({
-      id: 1,
+    const args = {
       name: this.state.name,
       recipe: this.state.recipeSteps,
       description: this.state.description,
@@ -74,7 +86,9 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
       image: this.state.selectedFile,
       video: video,
       ingredients: this.state.selectedProductsList
-    });
+    };
+    if (!!this.props.mealToEdit) this.props.editMeal(args, this.props.mealToEdit.id);
+    else this.props.addMeal(args);
     this.setState({ ...initialState, videoHelperText: i18n._('Provide url for YouTube recipe') });
   };
 
@@ -233,7 +247,7 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
                       className="addProduct"
                       variant="contained"
                       disabled={
-                        !this.state.selectedProduct || Object.keys(this.state.selectedProduct).length == 0
+                        !this.state.selectedProduct || Object.keys(this.state.selectedProduct).length === 0
                       }
                       onClick={this.addProduct}
                       startIcon={<FontAwesomeIcon icon={faPlus} />}
@@ -253,14 +267,6 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
               startIcon={<FontAwesomeIcon icon={faCheck} />}
             >
               {i18n._('Save')}
-            </Button>
-            <Button
-              className="groupButton cancel"
-              variant="contained"
-              onClick={this.add}
-              startIcon={<FontAwesomeIcon icon={faTimes} />}
-            >
-              {i18n._('Cancel')}
             </Button>
           </form>
         </Card>
@@ -330,7 +336,8 @@ const mapDispatchToProps = (dispatch: any) =>
     {
       addMeal: addMeal,
       clearAddMealError,
-      clearAddMealSuccess
+      clearAddMealSuccess,
+      editMeal
     },
     dispatch
   );

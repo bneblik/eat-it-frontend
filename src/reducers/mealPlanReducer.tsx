@@ -5,7 +5,8 @@ import {
   MEAL_PLAN_ERROR,
   CLEAR_MEAL_PLAN_ERROR,
   ADD_TO_MEAL_PLAN_SUCCESS,
-  CLEAR_MEAL_PLAN_SUCCESS
+  CLEAR_MEAL_PLAN_SUCCESS,
+  REMOVE_FROM_MEAL_PLAN_SUCCESS
 } from '../types/MealPlan';
 
 const initialState: MealPlanState = {
@@ -29,6 +30,8 @@ export function mealPlanReducer(state = initialState, action: any) {
       return { ...state, error: null };
     case CLEAR_MEAL_PLAN_SUCCESS:
       return { ...state, success: null };
+    case REMOVE_FROM_MEAL_PLAN_SUCCESS:
+      return { ...state, pending: false, success: action.success };
     default:
       return state;
   }

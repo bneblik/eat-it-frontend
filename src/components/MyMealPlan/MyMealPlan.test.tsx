@@ -17,7 +17,7 @@ const testMeal: TMeal = {
   recipe: ['step 1', 'step 2', 'step 3', 'step 4'],
   createdAt: new Date(),
   ingredients: [
-    { id: 1, name: 'butter', calories: 12, fats: 123, carbs: 22, proteins: 2, category: 'dairy' }
+    { id: 1, name: 'butter', unit: 'g', calories: 12, fats: 123, carbs: 22, proteins: 2, category: 'dairy' }
   ],
   calories: 200,
   fats: 9,

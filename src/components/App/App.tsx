@@ -61,7 +61,7 @@ class App extends Component<AppProps> {
                   <Route exact path={`${url}${routes.meals}`} render={(props) => <AllMeals {...props} />} />
                   <Route
                     path={`${url}${routes.addMeal}`}
-                    render={(props) => this.requireAuth(<AddMeal {...props} />)}
+                    render={(props) => this.requireAuth(<AddMeal {...props} mealToEdit={undefined} />)}
                   />
                   <Route
                     exact

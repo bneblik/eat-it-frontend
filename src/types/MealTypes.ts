@@ -2,7 +2,7 @@ import { ProductType } from './Products';
 import { CommentType } from './MealCommentsTypes';
 
 export type TMeal = {
-  id: number;
+  id?: number;
   name: string;
   recipe: string[];
   description: string;
@@ -16,6 +16,7 @@ export type TMeal = {
   category: string;
   video: string;
   image?: any;
+  rate?: number;
   comments?: CommentType[];
 };
 

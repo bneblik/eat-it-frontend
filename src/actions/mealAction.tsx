@@ -79,6 +79,20 @@ export function addMeal(meal: TMeal) {
   };
 }
 
+export function editMeal(meal: TMeal, mealId: number) {
+  return (dispatch: any) => {
+    dispatch(addMealPending());
+    axiosInstanceWithAuth
+      .post(requestConsts.MEALS_URL, { ...meal, id: mealId })
+      .then(() => {
+        dispatch(addMealSuccess('The meal has been successfully updated.'));
+      })
+      .catch((error) => {
+        dispatch(addMealError(error.toString()));
+      });
+  };
+}
+
 export function clearAddMealSuccess() {
   return {
     type: CLEAR_ADD_MEAL_SUCCESS

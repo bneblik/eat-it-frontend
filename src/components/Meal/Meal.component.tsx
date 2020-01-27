@@ -22,6 +22,7 @@ import {
 } from '../../actions/shoppingList/clearMessageShoppingList';
 import { addIngredientsToList } from '../../actions/shoppingList/addIngredientsToShoppingList';
 import { MealProps, MealState } from './Meal.types';
+import EditMeal from '../EditMeal/EditMeal.component';
 
 /**
  * This component renders full information about one meal.
@@ -57,7 +58,6 @@ export class Meal extends Component<MealProps, MealState> {
                 {i18n._(`Prepare time: ${meal.prepareTime}`)}
               </span>
               <span className="divider"> | </span>
-              <span className="divider"> | </span>
               <span>
                 <FontAwesomeIcon icon={faFilter} />
                 {i18n._(`Category: ${meal.category}`)}
@@ -75,10 +75,15 @@ export class Meal extends Component<MealProps, MealState> {
         ) : (
           <AddToMealPlan mealName={meal.name} />
         )}
+        {this.displayEditButton()}
       </div>
     );
   }
 
+  displayEditButton() {
+    if (this.props.pending) return <Skeleton width="20px" height="10px" />;
+    else if (true) return <EditMeal mealToEdit={this.props.meal} />;
+  }
   renderYoutubeVideo() {
     const { meal } = this.props;
     if (this.props.pending || meal.video) {

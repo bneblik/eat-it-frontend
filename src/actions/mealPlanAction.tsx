@@ -4,7 +4,8 @@ import {
   MEAL_PLAN_ERROR,
   CLEAR_MEAL_PLAN_ERROR,
   CLEAR_MEAL_PLAN_SUCCESS,
-  ADD_TO_MEAL_PLAN_SUCCESS
+  ADD_TO_MEAL_PLAN_SUCCESS,
+  REMOVE_FROM_MEAL_PLAN_SUCCESS
 } from '../types/MealPlan';
 import { axiosInstanceWithAuth, requestConsts } from '../utils/RequestService';
 import { i18n } from '..';
@@ -64,6 +65,27 @@ export function addToMealPlan(info: any) {
       .post(`${requestConsts.MEAL_PLAN_URL}`, info)
       .then(() => {
         dispatch(addToMealPlanSuccess());
+      })
+      .catch((error) => {
+        dispatch(mealPlanError(error));
+      });
+  };
+}
+
+function removeFromMealPlanSuccess() {
+  return {
+    type: REMOVE_FROM_MEAL_PLAN_SUCCESS,
+    success: i18n._('Meal has been successfully removed.')
+  };
+}
+
+export function removeFromMealPlan(mealId: number, day: Date) {
+  return (dispatch: any) => {
+    dispatch(mealPlanPending());
+    axiosInstanceWithAuth
+      .post(`${requestConsts.MEAL_PLAN_URL}`, { mealId, day })
+      .then(() => {
+        dispatch(removeFromMealPlanSuccess());
       })
       .catch((error) => {
         dispatch(mealPlanError(error));

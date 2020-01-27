@@ -48,7 +48,7 @@ class MealInfo extends Component<MealInfoProps> {
               <span className="toRight">
                 <Rating
                   readOnly={true}
-                  value={3}
+                  value={this.props.meal.rate}
                   precision={0.5}
                   onChange={(_, newValue) => {
                     console.log(newValue);
@@ -69,9 +69,16 @@ class MealInfo extends Component<MealInfoProps> {
               fats={this.props.meal.fats}
             />
           )}
+          {this.displayDescription()}
         </div>
       </div>
     );
+  }
+
+  displayDescription() {
+    if (!!this.props.meal && !!this.props.meal.description) {
+      return <div>{this.props.meal.description}</div>;
+    }
   }
 }
 

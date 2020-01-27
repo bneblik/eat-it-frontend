@@ -8,11 +8,14 @@ import { connect } from 'react-redux';
 import { formatRelative } from 'date-fns';
 import { pl, enGB } from 'date-fns/locale';
 import RecommendedMeals from '../RecommendedMeals/RecommendedMeals.component';
-import { fetchMealPlan, clearMealPlanError } from '../../actions/mealPlanAction';
+import { fetchMealPlan, clearMealPlanError, removeFromMealPlan } from '../../actions/mealPlanAction';
 import Statistics from '../Statistics/Statistics.component';
 import { bindActionCreators } from 'redux';
 import { errorAlert } from '../../helpers/Alert.component';
 import { MyMealPlanProps, MyMealPlanState } from './MyMealPlan.types';
+import { IconButton } from '@material-ui/core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 /**
  * This component renders the meal plan of a logged in user
@@ -36,7 +39,18 @@ export class MyMealPlan extends Component<MyMealPlanProps, MyMealPlanState> {
     if (this.props.mealPlan.length === 0)
       return <div className="emptyInfo">{i18n._("You don't have any meals planned for this day yet.")}</div>;
     const mealsInfo: any[] = [];
-    this.props.mealPlan.forEach((meal, i) => mealsInfo.push(<MealInfo meal={meal} key={i}></MealInfo>));
+    this.props.mealPlan.forEach((meal, i) =>
+      mealsInfo.push(
+        <span className="mealInfoContainer">
+          <MealInfo meal={meal} key={i}></MealInfo>
+          <span>
+            <IconButton onClick={() => this.props.removeFromMealPlan(meal.id, this.props.selectedDate)}>
+              <FontAwesomeIcon icon={faTrash} />
+            </IconButton>
+          </span>
+        </span>
+      )
+    );
     return <div>{mealsInfo}</div>;
   }
 
@@ -112,7 +126,8 @@ const mapDispatchToProps = (dispatch: any) =>
     {
       changeSelectedDate,
       fetchMealPlan,
-      clearMealPlanError
+      clearMealPlanError,
+      removeFromMealPlan
     },
     dispatch
   );

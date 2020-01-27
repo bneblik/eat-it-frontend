@@ -20,7 +20,9 @@ describe('AddMeal', () => {
       clearAddMealSuccess: jest.fn(),
       error: null,
       success: null,
-      pending: false
+      pending: false,
+      mealToEdit: undefined,
+      editMeal: jest.fn()
     };
     wrapper = shallow(<AddMeal {...props} />);
     component = wrapper.instance();

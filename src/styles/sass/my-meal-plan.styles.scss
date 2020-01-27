@@ -16,4 +16,13 @@
       max-height: 130px !important;
     }
   }
+  .mealInfoContainer {
+    display: flex;
+    & > div {
+      flex: 1 1;
+    }
+    & > span button {
+      margin: 100% 0;
+    }
+  }
 }
