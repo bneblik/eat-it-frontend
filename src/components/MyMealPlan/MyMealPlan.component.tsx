@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { formatRelative } from 'date-fns';
 import { pl, enGB } from 'date-fns/locale';
 import RecommendedMeals from '../RecommendedMeals/RecommendedMeals.component';
-import { fetchMealPlan } from '../../actions/mealPlanActon';
+import { fetchMealPlan } from '../../actions/mealPlanAction';
 import { MealPlanState } from '../../types/MealPlan';
 import Statistics from '../Statistics/Statistics.component';
 

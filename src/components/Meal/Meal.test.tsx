@@ -40,7 +40,11 @@ describe('Meal', () => {
       meal: undefined,
       pending: false,
       match: { params: { id } },
-      fetchMeal: mockedFetch
+      fetchMeal: mockedFetch,
+      addIngredientsToList: jest.fn(),
+      clearShoppingListError: jest.fn(),
+      clearShoppingListSuccess: jest.fn(),
+      addIngredientsToListStatus: { error: null, success: null, pending: false }
     };
     wrapper = shallow(<Meal {...props} />);
     component = wrapper.instance();

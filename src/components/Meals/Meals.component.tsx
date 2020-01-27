@@ -26,7 +26,7 @@ interface MealsProps {
    */
   fetchMeals: typeof fetchMeals;
 }
-type MealsState = { mealsReducer: MealsStateType };
+type MealsState = { mealsReducer: MealsStateType; page: number };
 
 /**
  * This component renders short information for each meal of @param meals
@@ -34,22 +34,6 @@ type MealsState = { mealsReducer: MealsStateType };
  * @author Beata Szczuka
  */
 class Meals extends Component<MealsProps, MealsState> {
-  componentDidMount() {
-    const { fetchMeals } = this.props;
-    fetchMeals();
-    window.addEventListener('scroll', this.handleScroll);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll);
-  }
-
-  handleScroll() {
-    if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight)
-      return;
-    console.log('Fetching more...');
-  }
-
   showSkeletons() {
     const skeletons = [];
     for (let i = 0; i < 9; i++) {
@@ -64,8 +48,8 @@ class Meals extends Component<MealsProps, MealsState> {
     else {
       return (
         <div className="mealsComponent">
-          {this.props.meals.map((meal) => (
-            <MealInfo key={meal.id} meal={meal}></MealInfo>
+          {this.props.meals.map((meal, i) => (
+            <MealInfo key={i} meal={meal}></MealInfo>
           ))}
         </div>
       );

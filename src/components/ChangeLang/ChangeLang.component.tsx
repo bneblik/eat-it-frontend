@@ -53,10 +53,6 @@ class ChangeLang extends Component<ChangeLangProps> {
     } else if (this.props.match.url === `/${prevLang}` && lang !== defaultLang) {
       newPath = prevPath.replace(`/${prevLang}/`, `/${lang}/`);
     } else newPath = prevPath.replace(`/${prevLang}/`, '/');
-    // const newPath =
-    //   this.props.match.url === `/${prevLang}`
-    //     ? prevPath.replace(`/${prevLang}/`, `/${lang}/`)
-    //     : `/${lang}${prevPath}`;
     this.props.history.push(newPath);
   }
 

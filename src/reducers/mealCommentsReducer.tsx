@@ -2,7 +2,9 @@ import {
   MealCommentStateType,
   ADD_COMMENT_SUCCESS,
   CLEAR_COMMENT_SUCCESS,
-  CLEAR_COMMENT_ERRORS
+  CLEAR_COMMENT_ERRORS,
+  ADD_COMMENT_PENDING,
+  ADD_COMMENT_ERROR
 } from '../types/MealCommentsTypes';
 
 const initialState: MealCommentStateType = {
@@ -13,6 +15,10 @@ const initialState: MealCommentStateType = {
 
 export function mealCommentsReducer(state = initialState, action: any) {
   switch (action.type) {
+    case ADD_COMMENT_PENDING:
+      return { ...state, pending: true };
+    case ADD_COMMENT_ERROR:
+      return { ...state, pending: false, error: action.error };
     case ADD_COMMENT_SUCCESS:
       return { ...state, pending: false, success: action.success };
     case CLEAR_COMMENT_SUCCESS:

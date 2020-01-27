@@ -32,8 +32,8 @@ class ProductsList extends Component<ProductsListProps> {
   render() {
     return (
       <div className="productListComponent">
-        {this.props.productsList.map((product) => (
-          <div key={product.id} className="listElem">
+        {this.props.productsList.map((product, key) => (
+          <div key={key} className="listElem">
             <span>{product.name}</span>
             <TextField
               className="amount"

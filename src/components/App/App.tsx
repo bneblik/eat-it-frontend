@@ -99,7 +99,7 @@ class App extends Component<AppProps> {
                     path={`${url}${routes.shoppingList}`}
                     render={(props) => this.requireAuth(<ShoppingList {...props} />)}
                   />
-                  <Redirect exact to={`${url}${routes.meals}`} />
+                  <Redirect to={`${routes.meals}`} />
                 </Switch>
               );
             }}

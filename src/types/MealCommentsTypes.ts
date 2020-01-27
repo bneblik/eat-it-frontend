@@ -17,6 +17,8 @@ export interface ClearCommentErrorsAction {
   type: typeof CLEAR_COMMENT_ERRORS;
 }
 export const CLEAR_COMMENT_SUCCESS = 'CLEAR_COMMENT_SUCCESS';
+export const ADD_COMMENT_PENDING = 'ADD_COMMENT_PENDING';
+export const ADD_COMMENT_ERROR = 'ADD_COMMENT_ERROR';
 
 export interface ClearCommentSuccessAction {
   type: typeof CLEAR_COMMENT_SUCCESS;

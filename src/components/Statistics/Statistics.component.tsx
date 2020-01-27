@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import '../../styles/css/statistics.styles.css';
 import { connect } from 'react-redux';
 import { i18n } from '../..';
-import { fetchStatisticsForDay } from '../../actions/statisticsAction';
+import { fetchStatisticsForDay, clearStatisticsError } from '../../actions/statisticsAction';
 import { StatisticsType, StatisticsState } from '../../types/Statistics';
 import { bindActionCreators } from 'redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLongArrowAltDown, faLongArrowAltUp } from '@fortawesome/free-solid-svg-icons';
 import { Zoom } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
+import { errorAlert } from '../../helpers/Alert.component';
 
 interface StatisticsProps {
   day: Date;
@@ -16,6 +17,7 @@ interface StatisticsProps {
    * fetches statistick for @param day
    */
   fetchStatisticsForDay: typeof fetchStatisticsForDay;
+  clearStatisticsError: typeof clearStatisticsError;
   /**
    * contains fetched statistics
    * value in relation to the user's daily demand calculated,
@@ -26,6 +28,7 @@ interface StatisticsProps {
    * determines whether fetching is pending
    */
   pending: boolean;
+  error: any;
 }
 interface StatisticsComponentState {
   statisticsReducer: StatisticsState;
@@ -107,17 +110,27 @@ export class Statistics extends Component<StatisticsProps, StatisticsComponentSt
               </span>
             </div>
           </Zoom>
+          {this.showAlert()}
         </div>
       );
     } else if (this.props.pending) {
       return this.showSkeleton();
-    } else return <div className="statisticsComponent"></div>;
+    } else return <div className="statisticsComponent">{this.showAlert()}</div>;
+  }
+  showAlert() {
+    if (!this.props.pending && !!this.props.error) {
+      return errorAlert({
+        isOpen: !!this.props.error,
+        message: this.props.error,
+        onClose: () => this.props.clearStatisticsError()
+      });
+    }
   }
 
   showSkeleton() {
     const circles = [];
     for (let i = 0; i < 4; i++) {
-      circles.push(<Skeleton variant="circle" className="circle" />);
+      circles.push(<Skeleton key={i} variant="circle" className="circle" />);
     }
     return <div className="statisticsComponent">{circles}</div>;
   }
@@ -125,14 +138,16 @@ export class Statistics extends Component<StatisticsProps, StatisticsComponentSt
 const mapStateToProps = (state: StatisticsComponentState) => {
   return {
     statistics: state.statisticsReducer.statistics,
-    pending: state.statisticsReducer.pending
+    pending: state.statisticsReducer.pending,
+    error: state.statisticsReducer.error
   };
 };
 
 const mapDispatchToProps = (dispatch: any) =>
   bindActionCreators(
     {
-      fetchStatisticsForDay
+      fetchStatisticsForDay,
+      clearStatisticsError
     },
     dispatch
   );

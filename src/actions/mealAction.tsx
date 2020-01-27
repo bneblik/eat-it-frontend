@@ -1,27 +1,30 @@
-import { axiosInstance } from '../utils/RequestService';
+import { axiosInstance, requestConsts, axiosInstanceWithAuth } from '../utils/RequestService';
 import {
-  ADD_MEAL,
+  ADD_MEAL_PENDING,
+  ADD_MEAL_SUCCESS,
+  ADD_MEAL_ERROR,
+  TMeal,
+  CLEAR_ADD_MEAL_SUCCESS,
+  CLEAR_ADD_MEAL_ERROR,
   FETCH_MEAL_PENDING,
   FETCH_MEAL_SUCCESS,
-  FETCH_MEAL_ERROR,
-  TMeal,
-  AddMealAction
+  FETCH_MEAL_ERROR
 } from '../types/MealTypes';
 
-export function fetchMealPending() {
+function fetchMealPending() {
   return {
     type: FETCH_MEAL_PENDING
   };
 }
 
-export function fetchMealSuccess(meal: any) {
+function fetchMealSuccess(meal: any) {
   return {
     type: FETCH_MEAL_SUCCESS,
-    meal: meal
+    meal
   };
 }
 
-export function fetchMealError(error: any) {
+function fetchMealError(error: any) {
   return {
     type: FETCH_MEAL_ERROR,
     error: error
@@ -32,19 +35,58 @@ export function fetchMeal(id: string) {
   return (dispatch: any) => {
     dispatch(fetchMealPending());
     axiosInstance
-      .get(`meals/${id}`)
+      .get(`${requestConsts.MEALS_URL}/${id}`)
       .then((response) => {
-        dispatch(fetchMealSuccess(response.data.content.meal));
+        dispatch(fetchMealSuccess(response.data));
       })
       .catch((error) => {
         dispatch(fetchMealError(error));
       });
   };
 }
-
-export function addMeal(meal: TMeal): AddMealAction {
+function addMealPending() {
   return {
-    type: ADD_MEAL,
-    meal: meal
+    type: ADD_MEAL_PENDING
+  };
+}
+
+function addMealSuccess(successMessage: any) {
+  return {
+    type: ADD_MEAL_SUCCESS,
+    success: successMessage
+  };
+}
+
+function addMealError(error: any) {
+  return {
+    type: ADD_MEAL_ERROR,
+    error: error
+  };
+}
+
+export function addMeal(meal: TMeal) {
+  const data = { ...meal, products: meal.ingredients.map((p) => ({ id: p.id, amount: p.amount })) };
+  return (dispatch: any) => {
+    dispatch(addMealPending());
+    axiosInstanceWithAuth
+      .post(requestConsts.MEALS_URL, data)
+      .then(() => {
+        dispatch(addMealSuccess('The meal has been successfully added.'));
+      })
+      .catch((error) => {
+        dispatch(addMealError(error.toString()));
+      });
+  };
+}
+
+export function clearAddMealSuccess() {
+  return {
+    type: CLEAR_ADD_MEAL_SUCCESS
+  };
+}
+
+export function clearAddMealError() {
+  return {
+    type: CLEAR_ADD_MEAL_ERROR
   };
 }

@@ -33,6 +33,14 @@ interface AllMealsProps {
    */
   fetchMeals: typeof fetchMeals;
   /**
+   * determines whether last page was fetched
+   */
+  last: boolean;
+  /**
+   * determines the number of the last fetched page
+   */
+  page: number;
+  /**
    * clears @param error
    */
   clearMealsErrors: typeof clearMealsErrors;
@@ -69,9 +77,23 @@ export class AllMeals extends Component<AllMealsProps, AllMealsState> {
     };
   }
   componentDidMount() {
-    const { fetchMeals } = this.props;
-    fetchMeals();
+    const { fetchMeals, page } = this.props;
+    fetchMeals(page);
+
+    window.addEventListener('scroll', this.handleScroll);
   }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  handleScroll = () => {
+    if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight)
+      return;
+    const { page } = this.props;
+    if (!this.props.last && !this.props.pending) this.props.fetchMeals(page);
+    else if (this.props.last) window.removeEventListener('scroll', this.handleScroll);
+  };
 
   onlyMyMeals() {
     if (localStorage.getItem(JWT_TOKEN)) {
@@ -150,7 +172,7 @@ export class AllMeals extends Component<AllMealsProps, AllMealsState> {
     const searchParams = new URLSearchParams(this.props.history.location.search);
     searchParams.set(attr, newValue);
     this.props.history.push({ search: searchParams.toString() });
-    fetchMeals();
+    // fetchMeals();
   }
   clearErrors() {
     this.props.clearMealsErrors();
@@ -177,7 +199,9 @@ const mapStateToProps = (state: AllMealsState) => {
   return {
     error: state.mealsReducer.error,
     meals: state.mealsReducer.meals,
-    pending: state.mealsReducer.pending
+    pending: state.mealsReducer.pending,
+    last: state.mealsReducer.last,
+    page: state.mealsReducer.page
   };
 };
 

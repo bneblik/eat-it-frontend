@@ -42,8 +42,7 @@ export function logIn(userData: any) {
     axiosInstance
       .post(requestConsts.LOG_IN_URL, { user: userData })
       .then((response) => {
-        const jwtToken = response.headers.authorization;
-        localStorage.setItem(JWT_TOKEN, jwtToken.substring(7));
+        localStorage.setItem(JWT_TOKEN, response.headers.authorization);
         dispatch(logInSuccess());
       })
       .catch((error) => {

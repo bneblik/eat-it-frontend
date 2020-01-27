@@ -14,6 +14,15 @@ import { bindActionCreators } from 'redux';
 import { MealStateType, TMeal } from '../../types/MealTypes';
 import { connect } from 'react-redux';
 import { Skeleton } from '@material-ui/lab';
+import { ProductInfo } from '../ProductInfo/ProductInfo.component';
+import { showAlert } from '../../helpers/Alert.component';
+import { JWT_TOKEN } from '../../utils/RequestService';
+import {
+  clearShoppingListError,
+  clearShoppingListSuccess
+} from '../../actions/shoppingList/clearMessageShoppingList';
+import { addIngredientsToList } from '../../actions/shoppingList/addIngredientsToShoppingList';
+import { ShoppingListState } from '../../types/ShoppingList';
 
 interface MealProps {
   /**
@@ -27,6 +36,10 @@ interface MealProps {
    * @param {string} id
    */
   fetchMeal: typeof fetchMeal;
+  addIngredientsToList: typeof addIngredientsToList;
+  clearShoppingListError: typeof clearShoppingListError;
+  clearShoppingListSuccess: typeof clearShoppingListSuccess;
+  addIngredientsToListStatus: any;
   /**
    * contains an error message or is null
    */
@@ -42,21 +55,34 @@ interface MealProps {
 }
 interface MealState {
   mealReducer: MealStateType;
+  shoppingListReducer: ShoppingListState;
+  selectAllProducts: boolean;
+  selectedProducts: { id: number; amount: string }[];
 }
 /**
  * This component renders full information about one meal.
  * @author Beata Szczuka
  */
 export class Meal extends Component<MealProps, MealState> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectAllProducts: false,
+      selectedProducts: [],
+      mealReducer: {} as any,
+      shoppingListReducer: {} as any
+    };
+  }
   componentDidMount() {
     window.scrollTo(0, 0);
     this.props.fetchMeal(this.props.match.params.id);
   }
 
   renderAboutInfo() {
+    const { meal } = this.props;
     return (
       <div className="about">
-        {this.props.pending ? <Skeleton component="h1" /> : <h1>{this.props.meal.name}</h1>}
+        {this.props.pending ? <Skeleton component="h1" /> : <h1>{meal.name}</h1>}
         <p className="prepInfo">
           {this.props.pending ? (
             <Skeleton component="span" width="50%" />
@@ -64,13 +90,13 @@ export class Meal extends Component<MealProps, MealState> {
             <>
               <span>
                 <FontAwesomeIcon icon={faClock} />
-                {i18n._(`Prepare time: ${this.props.meal.prepareTime}`)}
+                {i18n._(`Prepare time: ${meal.prepareTime}`)}
               </span>
               <span className="divider"> | </span>
               <span className="divider"> | </span>
               <span>
                 <FontAwesomeIcon icon={faFilter} />
-                {i18n._(`Category: ${this.props.meal.category}`)}
+                {i18n._(`Category: ${meal.category}`)}
               </span>
             </>
           )}
@@ -78,24 +104,20 @@ export class Meal extends Component<MealProps, MealState> {
         {this.props.pending ? (
           <Skeleton component="span" width="50%" />
         ) : (
-          <NutrientsInfo
-            carbs={this.props.meal.carbs}
-            proteins={this.props.meal.proteins}
-            fats={this.props.meal.fats}
-            kcal={this.props.meal.calories}
-          />
+          <NutrientsInfo carbs={meal.carbs} proteins={meal.proteins} fats={meal.fats} kcal={meal.calories} />
         )}
         {this.props.pending ? (
           <Skeleton width="20px" height="10px" />
         ) : (
-          <AddToMealPlan mealName={this.props.meal.name} />
+          <AddToMealPlan mealName={meal.name} />
         )}
       </div>
     );
   }
 
   renderYoutubeVideo() {
-    if (this.props.pending || this.props.meal.video) {
+    const { meal } = this.props;
+    if (this.props.pending || meal.video) {
       return (
         <div className="card">
           <h3>{i18n._('Watch this recipe on YouTube')}</h3>
@@ -105,7 +127,7 @@ export class Meal extends Component<MealProps, MealState> {
             ) : (
               <iframe
                 title="recipe"
-                src={`https://www.youtube.com/embed/${this.props.meal.video}`}
+                src={`https://www.youtube.com/embed/${meal.video}`}
                 frameBorder="0"
                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
@@ -124,6 +146,12 @@ export class Meal extends Component<MealProps, MealState> {
         </div>
       );
     } else {
+      const {
+        addIngredientsToListStatus,
+        clearShoppingListSuccess,
+        clearShoppingListError,
+        meal
+      } = this.props;
       return (
         <div className="mealComponent">
           <div className="top">
@@ -141,17 +169,22 @@ export class Meal extends Component<MealProps, MealState> {
             <div className="header">
               <h3>{i18n._('Ingredients')}</h3>
             </div>
-            {/* {this.props.pending ? (
+            {this.props.pending ? (
               <>
                 <Skeleton height="50px" />
                 <Skeleton height="50px" />
                 <Skeleton height="50px" />
               </>
             ) : (
-              this.props.meal.ingredients.map((ingredient, key) => (
-                <ProductInfo key={key} product={ingredient} />
+              meal.ingredients.map((ingredient, key) => (
+                <ProductInfo
+                  key={key}
+                  product={ingredient}
+                  selected={!!this.state.selectedProducts.find((e) => e.id === ingredient.id)}
+                  markAsSelected={this.markAsSelected}
+                />
               ))
-            )} */}
+            )}
             <div className="shoppingListGroup">
               <FormControlLabel
                 className="shoppingListButton"
@@ -159,7 +192,8 @@ export class Meal extends Component<MealProps, MealState> {
                   <Checkbox
                     icon={<FontAwesomeIcon icon={faShoppingBasket} />}
                     checkedIcon={<FontAwesomeIcon className="basket" icon={faShoppingBasket} />}
-                    value="checkedH"
+                    checked={this.state.selectAllProducts}
+                    onChange={(_, checked) => this.selectAllProducts(checked)}
                   />
                 }
                 label={i18n._('Select all')}
@@ -167,7 +201,9 @@ export class Meal extends Component<MealProps, MealState> {
               <Button
                 className="shoppingListButton"
                 variant="outlined"
+                disabled={!localStorage.getItem(JWT_TOKEN)}
                 startIcon={<FontAwesomeIcon icon={faPlus} />}
+                onClick={() => this.addToShoppingList()}
               >
                 {i18n._('Add selected to your shopping list')}
               </Button>
@@ -178,29 +214,69 @@ export class Meal extends Component<MealProps, MealState> {
             {/* {this.props.pending ? (
               <Skeleton height="80px" />
             ) : (
-              this.props.meal.recipe.forEach((line, key) => <p key={key}>{line}</p>)
+              meal.recipe.forEach((line, key) => <p key={key}>{line}</p>)
             )} */}
           </div>
           {this.renderYoutubeVideo()}
-          <MealComments comments={[]}></MealComments>
+          {this.renderComments()}
+          {showAlert(
+            addIngredientsToListStatus.pending,
+            addIngredientsToListStatus.error,
+            addIngredientsToListStatus.success,
+            clearShoppingListError,
+            clearShoppingListSuccess
+          )}
         </div>
       );
     }
   }
+  renderComments() {
+    if (this.props.meal)
+      return <MealComments comments={this.props.meal.comments} mealId={this.props.meal.id}></MealComments>;
+  }
+  markAsSelected = (id: number, amount: string, selected: boolean) => {
+    if (!selected)
+      this.setState((prevState: MealState) => ({
+        selectedProducts: [...prevState.selectedProducts, { id, amount }]
+      }));
+    else
+      this.setState((prevState: MealState) => ({
+        selectedProducts: prevState.selectedProducts.filter((e) => e.id !== id)
+      }));
+  };
+  selectAllProducts(checked) {
+    if (!checked) {
+      this.setState({ selectAllProducts: false, selectedProducts: [] });
+    } else {
+      this.setState({
+        selectAllProducts: true,
+        selectedProducts: this.props.meal.ingredients.map((e) => ({ id: e.id, amount: e.amount }))
+      });
+    }
+  }
+  addToShoppingList = () => {
+    this.props.addIngredientsToList(this.state.selectedProducts);
+    this.setState({ selectAllProducts: false, selectedProducts: [] });
+  };
 }
 
 const mapStateToProps = (state: MealState) => {
+  const { error, success, pending } = state.shoppingListReducer;
   return {
     error: state.mealReducer.error,
     meal: state.mealReducer.meal,
-    pending: state.mealReducer.pending
+    pending: state.mealReducer.pending,
+    addIngredientsToListStatus: { error, success, pending }
   };
 };
 
 const mapDispatchToProps = (dispatch: any) =>
   bindActionCreators(
     {
-      fetchMeal: fetchMeal
+      fetchMeal,
+      addIngredientsToList,
+      clearShoppingListError,
+      clearShoppingListSuccess
     },
     dispatch
   );

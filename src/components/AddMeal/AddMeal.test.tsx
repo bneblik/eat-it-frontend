@@ -16,8 +16,10 @@ describe('AddMeal', () => {
       addMeal: () => {
         return {} as any;
       },
+      clearAddMealError: jest.fn(),
+      clearAddMealSuccess: jest.fn(),
       error: null,
-      meal: undefined,
+      success: null,
       pending: false
     };
     wrapper = shallow(<AddMeal {...props} />);

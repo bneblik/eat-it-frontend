@@ -14,13 +14,14 @@ import {
 import { CommentType, MealCommentStateType } from '../../types/MealCommentsTypes';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { errorAlert, successAlert } from '../../helpers/Alert.component';
+import { showAlert } from '../../helpers/Alert.component';
 
 interface MealCommentsProps {
   addMealComment: typeof addMealComment;
   clearMealCommentsErrors: typeof clearMealCommentsErrors;
   clearMealCommentsSuccess: typeof clearMealCommentsSuccess;
   comments: CommentType[];
+  mealId: number;
   pending: boolean;
   error: any;
   success: any;
@@ -33,7 +34,7 @@ interface MealCommentsState {
 
 const initialState: MealCommentsState = {
   comment: '',
-  rate: 3,
+  rate: 0,
   mealCommentsReducer: {} as any
 };
 /**
@@ -44,7 +45,7 @@ export class MealComments extends Component<MealCommentsProps> {
   state: MealCommentsState = initialState;
 
   addComment = () => {
-    this.props.addMealComment(this.state.comment, this.state.rate);
+    this.props.addMealComment(this.state.comment, this.state.rate, this.props.mealId);
     this.setState(initialState);
   };
   singleComment = (comment: CommentType, key: number) => (
@@ -73,6 +74,7 @@ export class MealComments extends Component<MealCommentsProps> {
   };
 
   render() {
+    const { pending, error, success, clearMealCommentsErrors, clearMealCommentsSuccess } = this.props;
     return (
       <div className="mealCommentsComponent">
         <TextField
@@ -87,6 +89,7 @@ export class MealComments extends Component<MealCommentsProps> {
         <div>
           <span className="rightGroup">
             <Rating
+              name="rate"
               value={this.state.rate}
               precision={0.5}
               onChange={(_, newValue) => {
@@ -100,31 +103,15 @@ export class MealComments extends Component<MealCommentsProps> {
                 variant="contained"
                 color="primary"
               >
-                {i18n._('Comment')}
+                {i18n._('Comment & rate')}
               </Button>
             </span>
           </span>
         </div>
         <div>{this.listComments()}</div>
-        {this.showCommentsAlert()}
+        {showAlert(pending, error, success, clearMealCommentsErrors, clearMealCommentsSuccess)}
       </div>
     );
-  }
-
-  showCommentsAlert() {
-    if (!this.props.pending && !!this.props.error) {
-      return errorAlert({
-        isOpen: !!this.props.error,
-        message: this.props.error,
-        onClose: () => this.props.clearMealCommentsErrors()
-      });
-    } else if (!this.props.pending && !!this.props.success) {
-      return successAlert({
-        isOpen: !!this.props.success,
-        message: this.props.success,
-        onClose: () => this.props.clearMealCommentsSuccess()
-      });
-    }
   }
 }
 

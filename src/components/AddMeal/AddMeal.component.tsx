@@ -3,7 +3,7 @@ import { Card, TextField, CardHeader, Button } from '@material-ui/core';
 import { ProductsList } from '../ProductsList/ProductsList.component';
 import '../../styles/css/add-meal.styles.css';
 import { connect } from 'react-redux';
-import { ProductsState, ProductType } from '../../types/Products';
+import { ProductType } from '../../types/Products';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faPlus,
@@ -21,58 +21,11 @@ import { faClock } from '@fortawesome/free-regular-svg-icons';
 import { Recipe } from '../Recipe/Recipe.component';
 import { i18n } from '../..';
 import { Autocomplete } from '@material-ui/lab';
-import { addMeal } from '../../actions/mealAction';
-import { MealStateType, TMeal } from '../../types/MealTypes';
+import { addMeal, clearAddMealSuccess, clearAddMealError } from '../../actions/mealAction';
 import { bindActionCreators } from 'redux';
+import { showAlert } from '../../helpers/Alert.component';
+import { AddMealProps, AddMealState, initialAddMealState as initialState } from './AddMeal.types';
 
-interface AddMealProps {
-  /**
-   * contains products to display as autocomplete options
-   */
-  productsList: ProductType[];
-  addMeal: typeof addMeal;
-  /**
-   * contains an error message or is null
-   */
-  error: any | null;
-  /**
-   * contains informations about meal if defined
-   */
-  meal: TMeal | undefined;
-  /**
-   * determines whether adding is pending
-   */
-  pending: boolean;
-}
-interface AddMealState {
-  name: string;
-  recipeSteps: string[];
-  description: string;
-  prepTime: string;
-  category: string;
-  video: string;
-  videoHelperText: string;
-  selectedProduct: ProductType;
-  productsReducer: ProductsState;
-  selectedProductsList: ProductType[];
-  mealReducer: MealStateType;
-  selectedFile: any;
-}
-
-const initialState: AddMealState = {
-  name: '',
-  recipeSteps: [],
-  description: '',
-  prepTime: '',
-  category: '',
-  video: '',
-  videoHelperText: '',
-  selectedProduct: {} as ProductType,
-  selectedProductsList: [],
-  selectedFile: null,
-  productsReducer: {} as ProductsState,
-  mealReducer: {} as MealStateType
-};
 /**
  * This component renders a new meal adding form.
  * @author Beata Szczuka
@@ -95,10 +48,11 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
     if (
       name === '' ||
       description === '' ||
-      recipeSteps === [] ||
+      recipeSteps.length === 0 ||
       prepTime === '' ||
       category === '' ||
-      selectedProductsList === [] ||
+      selectedProductsList.length === 0 ||
+      selectedProductsList.find((p) => !p.amount) ||
       videoHelperText !== i18n._('Provide url for YouTube recipe')
     )
       return true;
@@ -107,7 +61,6 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
   add = () => {
     let video = this.state.video;
     if (video !== '') {
-      // only id is important
       const validPrefixLength = 'https://www.youtube.com/watch?v='.length;
       video = video.substring(validPrefixLength);
     }
@@ -122,7 +75,7 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
       video: video,
       ingredients: this.state.selectedProductsList
     });
-    this.setState(initialState);
+    this.setState({ ...initialState, videoHelperText: i18n._('Provide url for YouTube recipe') });
   };
 
   uploadImage() {
@@ -151,6 +104,7 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
   };
 
   render() {
+    const { pending, error, success, clearAddMealError, clearAddMealSuccess } = this.props;
     return (
       <div className="addMealComponent">
         <Card>
@@ -273,6 +227,7 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
                     <Button
                       className="addProduct"
                       variant="contained"
+                      disabled={!this.state.selectedProduct.name}
                       onClick={this.addProduct}
                       startIcon={<FontAwesomeIcon icon={faPlus} />}
                     >
@@ -306,13 +261,14 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
             </Button>
           </form>
         </Card>
+        {showAlert(pending, error, success, clearAddMealError, clearAddMealSuccess)}
       </div>
     );
   }
 
   validateYouTubeVideo = (value) => {
     const validPrefix = 'https://www.youtube.com/watch?v=';
-    if (!value.startsWith(validPrefix, 0) || validPrefix.length >= value.length) {
+    if ((!value.startsWith(validPrefix, 0) || validPrefix.length >= value.length) && value.length > 0) {
       this.setState({ video: value, videoHelperText: i18n._('Given URL is invalid.') });
     } else {
       this.setState({ video: value, videoHelperText: i18n._('Provide url for YouTube recipe') });
@@ -347,7 +303,7 @@ const mapStateToProps = (state: AddMealState) => {
   return {
     productsList: state.productsReducer.productsList,
     error: state.mealReducer.error,
-    meal: state.mealReducer.meal,
+    success: state.mealReducer.success,
     pending: state.mealReducer.pending
   };
 };
@@ -355,7 +311,9 @@ const mapStateToProps = (state: AddMealState) => {
 const mapDispatchToProps = (dispatch: any) =>
   bindActionCreators(
     {
-      addMeal: addMeal
+      addMeal: addMeal,
+      clearAddMealError,
+      clearAddMealSuccess
     },
     dispatch
   );

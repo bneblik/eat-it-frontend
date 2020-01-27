@@ -9,4 +9,6 @@ export type MealsStateType = {
   pending: boolean;
   meals: TMeal[];
   error: any | null;
+  last: boolean;
+  page: number;
 };

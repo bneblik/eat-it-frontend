@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
 import '../../styles/css/products.styles.css';
-import { Snackbar } from '@material-ui/core';
-
 import { FridgeState, TFridge } from '../../types/Fridge';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Alert } from '@material-ui/lab';
 import ProductsHelper from '../../helpers/Products.component';
+import { fetchMyFridge } from '../../actions/fridge/fetchfridge';
+import { i18n } from '@lingui/core';
 import {
-  fetchMyFridge,
-  saveFridge,
   changeAmountInFridge,
   removeProductFromFridge,
   addProductToFridge
-} from '../../actions/fridgeAction';
-import { i18n } from '@lingui/core';
+} from '../../actions/fridge/changeFridge';
+import { saveFridge } from '../../actions/fridge/saveFridge';
+import { clearFridgeSuccess, clearFridgeError } from '../../actions/fridge/clearMessageFridge';
+import { showAlert } from '../../helpers/Alert.component';
 
 interface ProductsState {
   fridgeReducer: FridgeState;
@@ -24,11 +23,16 @@ type ProductsProps = {
    * contains the fridge of a logged in user
    */
   productsCategories: TFridge[];
+  error: any;
+  success: any;
+  pending: boolean;
   fetchMyFridge: typeof fetchMyFridge;
   changeAmount: typeof changeAmountInFridge;
   removeProduct: typeof removeProductFromFridge;
   addProduct: typeof addProductToFridge;
   saveFridge: typeof saveFridge;
+  clearFridgeSuccess: typeof clearFridgeSuccess;
+  clearFridgeError: typeof clearFridgeError;
 };
 
 /**
@@ -43,32 +47,29 @@ export class Fridge extends Component<ProductsProps> {
   }
 
   render() {
+    const { pending, error, success, clearFridgeError, clearFridgeSuccess } = this.props;
     return (
-      <ProductsHelper
-        emptyMessage={i18n._('Your fridge is empty.')}
-        saveChanges={this.props.saveFridge}
-        removeProduct={this.props.removeProduct}
-        changeAmount={this.props.changeAmount}
-        productsCategories={this.props.productsCategories}
-        addProduct={this.props.addProduct}
-        component="MyFridge"
-      />
+      <>
+        <ProductsHelper
+          emptyMessage={i18n._('Your fridge is empty.')}
+          saveChanges={this.props.saveFridge}
+          removeProduct={this.props.removeProduct}
+          changeAmount={this.props.changeAmount}
+          productsCategories={this.props.productsCategories}
+          addProduct={this.props.addProduct}
+          component="MyFridge"
+        />
+        {showAlert(pending, error, success, clearFridgeError, clearFridgeSuccess)}
+      </>
     );
   }
-
-  showAlert = () => {
-    return (
-      <Snackbar open={true} autoHideDuration={6000} onClose={() => {}}>
-        <Alert onClose={() => {}} severity="success">
-          This is a success message!
-        </Alert>
-      </Snackbar>
-    );
-  };
 }
 
 const mapStateToProps = (state: ProductsState) => ({
-  productsCategories: state.fridgeReducer.fridge
+  productsCategories: state.fridgeReducer.fridge,
+  error: state.fridgeReducer.error,
+  success: state.fridgeReducer.success,
+  pending: state.fridgeReducer.pending
 });
 
 const mapDispatchToProps = (dispatch: any) =>
@@ -78,7 +79,9 @@ const mapDispatchToProps = (dispatch: any) =>
       changeAmount: changeAmountInFridge,
       removeProduct: removeProductFromFridge,
       addProduct: addProductToFridge,
-      saveFridge
+      saveFridge,
+      clearFridgeError,
+      clearFridgeSuccess
     },
     dispatch
   );

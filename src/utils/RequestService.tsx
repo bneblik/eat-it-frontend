@@ -3,10 +3,15 @@ import axios from 'axios';
 export const JWT_TOKEN = 'jwt_token';
 const BASE_URL = 'http://localhost:3000/api/v1/';
 export const requestConsts = {
-  GET_MEALS_URL: 'meals',
+  MEALS_URL: 'meals',
   CREATE_USER_URL: 'users/registrations',
   LOG_IN_URL: 'users/sessions',
-  LOG_OUT_URL: 'users/logout'
+  LOG_OUT_URL: 'users/logout',
+  GET_PRODUCTS_URL: 'products',
+  FRIDGE_URL: 'fridges',
+  SHOPPING_LIST_URL: 'shopping_lists',
+  COMMENT_URL: 'comments',
+  STATISTICS_URL: 'statistics'
 };
 
 export const axiosInstance = axios.create({
@@ -18,8 +23,8 @@ export const axiosInstance = axios.create({
   }
 });
 
-export const axiosInstanceWithJwt = () => {
-  const jwtToken = localStorage.get(JWT_TOKEN);
+const createAxiosInstanceWithAuth = () => {
+  const jwtToken = localStorage.getItem(JWT_TOKEN);
   if (jwtToken) {
     return axios.create({
       baseURL: BASE_URL,
@@ -27,9 +32,11 @@ export const axiosInstanceWithJwt = () => {
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
-        Authorization: `Bearer ${jwtToken}`
+        Authorization: jwtToken
       }
     });
   }
   return axiosInstance;
 };
+
+export const axiosInstanceWithAuth = createAxiosInstanceWithAuth();

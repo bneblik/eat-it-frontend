@@ -1,11 +1,10 @@
-import { FETCH_STATISTICS_SUCC } from '../types/Statistics';
-
-const exampleStatistics = {
-  calories: 100,
-  fats: 10,
-  carbs: 0,
-  proteins: -123
-};
+import {
+  FETCH_STATISTICS_SUCC,
+  FETCH_STATISTICS_PENDING,
+  FETCH_STATISTICS_ERROR,
+  CLEAR_STATISTICS_ERROR
+} from '../types/Statistics';
+import { axiosInstanceWithAuth, requestConsts } from '../utils/RequestService';
 
 function fetchStatisticsSuccess(statistics) {
   return {
@@ -14,21 +13,35 @@ function fetchStatisticsSuccess(statistics) {
   };
 }
 
-// function fetchStatisticsPending() {
-//   return {
-//     type: FETCH_STATISTICS_PENDING
-//   };
-// }
+function fetchStatisticsPending() {
+  return {
+    type: FETCH_STATISTICS_PENDING
+  };
+}
 
-// function fetchStatisticsError() {
-//   return {
-//     type: FETCH_STATISTICS_ERROR
-//   };
-// }
+function fetchStatisticsError(error) {
+  return {
+    type: FETCH_STATISTICS_ERROR,
+    error
+  };
+}
+
+export function clearStatisticsError() {
+  return {
+    type: CLEAR_STATISTICS_ERROR
+  };
+}
 
 export function fetchStatisticsForDay(date: Date) {
   return (dispatch: any) => {
-    console.log(date);
-    dispatch(fetchStatisticsSuccess(exampleStatistics));
+    dispatch(fetchStatisticsPending());
+    axiosInstanceWithAuth
+      .get(requestConsts.STATISTICS_URL, { params: { date } })
+      .then((data) => {
+        dispatch(fetchStatisticsSuccess(data));
+      })
+      .catch((error) => {
+        dispatch(fetchStatisticsError(error));
+      });
   };
 }

@@ -54,6 +54,7 @@ class MealInfo extends Component<MealInfoProps> {
             ) : (
               <span className="toRight">
                 <Rating
+                  name={this.props.meal.name}
                   value={3}
                   precision={0.5}
                   onChange={(_, newValue) => {
@@ -69,10 +70,10 @@ class MealInfo extends Component<MealInfoProps> {
             <Skeleton variant="text" width={'100%'} />
           ) : (
             <NutrientsInfo
-              kcal={1} /*{this.props.meal.calories}*/
-              carbs={1} /*{this.props.meal.carbs}*/
-              proteins={1} /*{this.props.meal.protein}*/
-              fats={1} /*{this.props.meal.fats}*/
+              kcal={this.props.meal.calories}
+              carbs={this.props.meal.carbs}
+              proteins={this.props.meal.proteins}
+              fats={this.props.meal.fats}
             />
           )}
         </div>

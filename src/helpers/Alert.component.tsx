@@ -21,6 +21,7 @@ const alert = ({ isOpen, message, onClose, severity }) => {
  * Displays information about action failure
  */
 export const errorAlert = ({ isOpen, message, onClose }) => {
+  console.log('aler');
   return alert({ isOpen, message, onClose, severity: 'error' });
 };
 /**
@@ -28,4 +29,26 @@ export const errorAlert = ({ isOpen, message, onClose }) => {
  */
 export const successAlert = ({ isOpen, message, onClose }) => {
   return alert({ isOpen, message, onClose, severity: 'success' });
+};
+
+export const showAlert = (
+  pending: boolean,
+  error: any,
+  success: any,
+  clearError: () => any,
+  clearSuccess: () => any
+) => {
+  if (!pending && !!error) {
+    return errorAlert({
+      isOpen: !!error,
+      message: error,
+      onClose: () => clearError()
+    });
+  } else if (!pending && !!success) {
+    return successAlert({
+      isOpen: !!success,
+      message: success,
+      onClose: () => clearSuccess()
+    });
+  }
 };
