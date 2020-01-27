@@ -22,6 +22,7 @@ body {
     box-shadow: 0 3px 7px 0px rgba(0, 0, 0, 0.2);
     padding: 1em;
   }
+  // buttons
   .MuiButtonBase-root {
     text-transform: none;
   }
@@ -37,13 +38,18 @@ body {
   .svg-inline--fa.padding {
     padding-right: 10px;
   }
+  .emptyInfo {
+    padding: 15px;
+    font-style: oblique;
+    color: #634a4a;
+  }
 
   .center {
     display: flex;
     align-items: center;
     justify-content: center;
   }
-
+  // wcag
   &.wcag {
     background: black;
     div {
@@ -81,5 +87,14 @@ body {
       background-color: white !important;
       color: black !important;
     }
+  }
+
+  // alerts
+  .MuiAlert-standardError {
+    background-color: rgb(243, 211, 207);
+  }
+  .MuiAlert-standardSuccess {
+    color: rgb(10, 21, 11);
+    background-color: rgb(162, 214, 115);
   }
 }

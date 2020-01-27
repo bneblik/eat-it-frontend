@@ -4,11 +4,10 @@ import { mealsReducer } from './MealsReducer';
 import { mealReducer } from './mealReducer';
 import { calendarReducer } from './calendarReducer';
 import { mealPlanReducer } from './mealPlanReducer';
-import { recommendedMealsReducer } from './recommendedMeals';
+import { recommendedMealsReducer } from './recommendedMealsReducer';
 import { shoppingListReducer } from './shoppingListReducer';
 import { fridgeReducer } from './fridgeReducer';
 import { aboutUserReducer } from './aboutUserReducer';
-import { reminderReducer } from './reminderReducer';
 import { createUserReducer } from './createUserReducer';
 import { authReducer } from './authReducer';
 import { statisticsReducer } from './statisticsReducer';
@@ -24,7 +23,6 @@ export const reducers = combineReducers({
   shoppingListReducer: shoppingListReducer,
   fridgeReducer: fridgeReducer,
   aboutUserReducer: aboutUserReducer,
-  reminderReducer: reminderReducer,
   createUserReducer: createUserReducer,
   authReducer: authReducer,
   statisticsReducer: statisticsReducer,

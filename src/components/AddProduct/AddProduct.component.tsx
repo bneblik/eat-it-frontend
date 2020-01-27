@@ -11,13 +11,14 @@ import { ProductType, ProductsState } from '../../types/Products';
 import { connect } from 'react-redux';
 
 type AddProductState = {
-  name: string;
+  product: ProductType;
   amount: string;
   category: string;
   calories: string;
   carbs: string;
   fats: string;
   proteins: string;
+  unit: string;
   dialogOpened: boolean;
   productsReducer: ProductsState;
 };
@@ -37,12 +38,13 @@ type AddProductProps = {
   addProduct: (product: ProductType, category: string, amount: string) => void;
 };
 const defaultState: AddProductState = {
-  name: '',
+  product: {} as ProductType,
   amount: '',
   category: '',
   calories: '',
   carbs: '',
   fats: '',
+  unit: '',
   proteins: '',
   dialogOpened: false,
   productsReducer: {} as ProductsState
@@ -62,16 +64,12 @@ export class AddProduct extends Component<AddProductProps> {
   }
 
   save() {
-    const product: ProductType = {
-      id: 1,
-      name: this.state.name,
-      category: this.state.category,
-      calories: +this.state.calories,
-      carbs: +this.state.carbs,
-      fats: +this.state.fats,
-      proteins: +this.state.proteins
-    };
-    this.props.addProduct(product, this.state.category, this.state.amount);
+    this.props.addProduct(
+      { ...this.state.product, category: this.state.category },
+      this.state.category,
+      this.state.amount
+    );
+    this.setState(defaultState);
     this.close();
   }
   open() {
@@ -102,25 +100,25 @@ export class AddProduct extends Component<AddProductProps> {
                 id="name"
                 className="autocomplete"
                 options={this.props.productsList}
-                getOptionLabel={(o) => o}
-                renderOption={(option) => <span>{option.name ? option.name : ''}</span>}
+                getOptionLabel={(o) => (o.name ? o.name : '')}
                 onChange={(_, product) => {
                   this.setState({
-                    name: product ? product.name : '',
+                    product: product ? product : ({} as ProductType),
                     category: product ? product.category : '',
                     calories: product ? product.calories : '',
                     carbs: product ? product.carbs : '',
                     fats: product ? product.fats : '',
-                    proteins: product ? product.proteins : ''
+                    proteins: product ? product.proteins : '',
+                    unit: product ? product.unit : ''
                   });
                 }}
-                value={this.state.name}
+                value={this.state.product}
                 noOptionsText={i18n._('No products')}
                 renderInput={(params: any) => (
                   <TextField
                     {...params}
                     variant="filled"
-                    value={this.state.name}
+                    value={this.state.product}
                     fullWidth
                     label={i18n._('Name')}
                   />
@@ -134,6 +132,9 @@ export class AddProduct extends Component<AddProductProps> {
                 label={i18n._('Amount')}
                 value={this.state.amount}
                 variant="filled"
+                InputProps={{
+                  endAdornment: <InputAdornment position="end">{this.state.unit}</InputAdornment>
+                }}
                 onChange={(e) => {
                   this.setState({ amount: e.target.value });
                 }}
@@ -217,7 +218,12 @@ export class AddProduct extends Component<AddProductProps> {
             <Button id="cancel" onClick={this.close.bind(this)} color="primary">
               {i18n._('Cancel')}
             </Button>
-            <Button id="save" onClick={this.save.bind(this)} color="primary">
+            <Button
+              id="save"
+              onClick={this.save.bind(this)}
+              disabled={Object.keys(this.state.product).length == 0 || this.state.amount === ''}
+              color="primary"
+            >
               {i18n._('Save')}
             </Button>
           </DialogActions>

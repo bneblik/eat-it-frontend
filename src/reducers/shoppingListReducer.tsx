@@ -14,14 +14,47 @@ import {
   ADD_INGR_TO_LIST_SUCCESS,
   ADD_INGR_TO_LIST_ERROR
 } from '../types/ShoppingList';
-import { CLEAR_SHOPPING_LIST_SUCCESS, CLEAR_SHOPPING_LIST_ERROR } from '../types/Fridge';
+import { CLEAR_SHOPPING_LIST_SUCCESS, CLEAR_SHOPPING_LIST_ERROR } from '../types/ShoppingList';
 
 const initialState: ShoppingListState = {
   shoppingList: [],
   error: null,
   success: null,
-  pending: null
+  pending: false
 };
+
+function addToShoppingList(shopingList, product, category, amount) {
+  const findCategory = shopingList.find((e) => e.category === category);
+  let addedProduct = shopingList;
+  if (!!findCategory) {
+    addedProduct = shopingList.map((elem) =>
+      elem.category === category
+        ? { ...elem, products: [...elem.products, { ...product, amount: amount }] }
+        : elem
+    );
+  } else {
+    addedProduct = [...shopingList, { category: category, products: [{ ...product, amount: amount }] }];
+  }
+  return addedProduct;
+}
+
+function removeFromShoppingList(shopingList, product, category) {
+  const findCategory = shopingList.find((e) => e.category === category);
+  let newShoppingList = shopingList;
+  if (!!findCategory && findCategory.products.length > 1) {
+    newShoppingList = shopingList.map((elem) =>
+      elem.category === category
+        ? {
+            ...elem,
+            products: elem.products.filter((p) => p !== product)
+          }
+        : elem
+    );
+  } else if (!!findCategory) {
+    newShoppingList = shopingList.filter((e) => e.category !== category);
+  }
+  return newShoppingList;
+}
 
 export function shoppingListReducer(state = initialState, action: any): ShoppingListState {
   switch (action.type) {
@@ -30,7 +63,7 @@ export function shoppingListReducer(state = initialState, action: any): Shopping
       action.shoppingList.map((elem) => elem.products.forEach((p) => (p.inBasket = false)));
       return { ...state, shoppingList: action.shoppingList, pending: false };
     case FETCH_SHOPPING_LIST_ERROR:
-      return { ...state, error: action.error };
+      return { ...state, error: action.error, pending: false };
     case FETCH_SHOPPING_LIST_PENDING:
       return { ...state, pending: true };
     // change shopping list
@@ -55,29 +88,22 @@ export function shoppingListReducer(state = initialState, action: any): Shopping
       );
       return { ...state, shoppingList: amountChanged };
     case REMOVE_PRODUCT_FROM_LIST:
-      const withoutRemoved = state.shoppingList.map((elem) =>
-        elem.category === action.category
-          ? {
-              ...elem,
-              products: elem.products.filter((p) => p !== action.product)
-            }
-          : elem
-      );
-      return { ...state, shoppingList: withoutRemoved };
+      return {
+        ...state,
+        shoppingList: removeFromShoppingList(state.shoppingList, action.product, action.category)
+      };
     case ADD_PRODUCT_TO_LIST:
-      const addedProduct = state.shoppingList.map((elem) =>
-        elem.category === action.category
-          ? { ...elem, products: [...elem.products, { ...action.product, amount: action.amount }] }
-          : elem
-      );
-      return { ...state, shoppingList: addedProduct };
+      return {
+        ...state,
+        shoppingList: addToShoppingList(state.shoppingList, action.product, action.category, action.amount)
+      };
     // save shopping list
     case SAVE_SHOPPING_LIST_SUCCESS:
       return { ...state, success: action.success, pending: false };
     case SAVE_SHOPPING_LIST_PENDING:
       return { ...state, pending: true };
     case SAVE_SHOPPING_LIST_ERROR:
-      return { ...state, error: action.error };
+      return { ...state, error: action.error, pending: false };
     // add ingredients to shopping list
     case ADD_INGR_TO_LIST_PENDING:
       return { ...state, pending: true };

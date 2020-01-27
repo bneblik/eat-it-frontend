@@ -7,7 +7,7 @@ import { NutrientsInfo } from '../NutrientsInfo/NutrientsInfo.component';
 import { faShoppingBasket, faPlus, faFilter } from '@fortawesome/free-solid-svg-icons';
 import { faClock } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { AddToMealPlan } from '../AddToMealPlan/AddToMealPlan.component';
+import AddToMealPlan from '../AddToMealPlan/AddToMealPlan.component';
 import { i18n } from '@lingui/core';
 import { fetchMeal } from '../../actions/mealAction';
 import { bindActionCreators } from 'redux';
@@ -146,12 +146,7 @@ export class Meal extends Component<MealProps, MealState> {
         </div>
       );
     } else {
-      const {
-        addIngredientsToListStatus,
-        clearShoppingListSuccess,
-        clearShoppingListError,
-        meal
-      } = this.props;
+      const { addIngredientsToListStatus, clearShoppingListSuccess, clearShoppingListError } = this.props;
       return (
         <div className="mealComponent">
           <div className="top">
@@ -165,58 +160,9 @@ export class Meal extends Component<MealProps, MealState> {
 
             {this.renderAboutInfo()}
           </div>
-          <div className="ingredients card">
-            <div className="header">
-              <h3>{i18n._('Ingredients')}</h3>
-            </div>
-            {this.props.pending ? (
-              <>
-                <Skeleton height="50px" />
-                <Skeleton height="50px" />
-                <Skeleton height="50px" />
-              </>
-            ) : (
-              meal.ingredients.map((ingredient, key) => (
-                <ProductInfo
-                  key={key}
-                  product={ingredient}
-                  selected={!!this.state.selectedProducts.find((e) => e.id === ingredient.id)}
-                  markAsSelected={this.markAsSelected}
-                />
-              ))
-            )}
-            <div className="shoppingListGroup">
-              <FormControlLabel
-                className="shoppingListButton"
-                control={
-                  <Checkbox
-                    icon={<FontAwesomeIcon icon={faShoppingBasket} />}
-                    checkedIcon={<FontAwesomeIcon className="basket" icon={faShoppingBasket} />}
-                    checked={this.state.selectAllProducts}
-                    onChange={(_, checked) => this.selectAllProducts(checked)}
-                  />
-                }
-                label={i18n._('Select all')}
-              />
-              <Button
-                className="shoppingListButton"
-                variant="outlined"
-                disabled={!localStorage.getItem(JWT_TOKEN)}
-                startIcon={<FontAwesomeIcon icon={faPlus} />}
-                onClick={() => this.addToShoppingList()}
-              >
-                {i18n._('Add selected to your shopping list')}
-              </Button>
-            </div>
-          </div>
-          <div className="card">
-            <h3>Recipe</h3>
-            {/* {this.props.pending ? (
-              <Skeleton height="80px" />
-            ) : (
-              meal.recipe.forEach((line, key) => <p key={key}>{line}</p>)
-            )} */}
-          </div>
+          {this.displayIngredients()}
+
+          {this.displayRecipe()}
           {this.renderYoutubeVideo()}
           {this.renderComments()}
           {showAlert(
@@ -229,6 +175,75 @@ export class Meal extends Component<MealProps, MealState> {
         </div>
       );
     }
+  }
+  displayRecipe() {
+    let recipe: any = <></>;
+    const { meal } = this.props;
+    if (this.props.pending) {
+      recipe = <Skeleton height="80px" />;
+    } else if (meal.recipe && meal.recipe.length > 0) {
+      // recipe = meal.recipe.forEach((line, key) => <p key={key}>{line}</p>);
+    } else return;
+    return (
+      <div className="card">
+        <h3>Recipe</h3>
+        {recipe}
+      </div>
+    );
+  }
+
+  displayIngredients() {
+    const { meal } = this.props;
+    let list: any = <></>;
+    if (this.props.pending)
+      list = (
+        <>
+          <Skeleton height="50px" />
+          <Skeleton height="50px" />
+          <Skeleton height="50px" />
+        </>
+      );
+    else if (meal.ingredients && meal.ingredients.length > 0)
+      list = meal.ingredients.map((ingredient, key) => (
+        <ProductInfo
+          key={key}
+          product={ingredient}
+          selected={!!this.state.selectedProducts.find((e) => e.id === ingredient.id)}
+          markAsSelected={this.markAsSelected}
+        />
+      ));
+    else return;
+    return (
+      <div className="ingredients card">
+        <div className="header">
+          <h3>{i18n._('Ingredients')}</h3>
+        </div>
+        {list}
+        <div className="shoppingListGroup">
+          <FormControlLabel
+            className="shoppingListButton"
+            control={
+              <Checkbox
+                icon={<FontAwesomeIcon icon={faShoppingBasket} />}
+                checkedIcon={<FontAwesomeIcon className="basket" icon={faShoppingBasket} />}
+                checked={this.state.selectAllProducts}
+                onChange={(_, checked) => this.selectAllProducts(checked)}
+              />
+            }
+            label={i18n._('Select all')}
+          />
+          <Button
+            className="shoppingListButton"
+            variant="outlined"
+            disabled={!localStorage.getItem(JWT_TOKEN) || this.state.selectedProducts.length === 0}
+            startIcon={<FontAwesomeIcon icon={faPlus} />}
+            onClick={() => this.addToShoppingList()}
+          >
+            {i18n._('Add selected to your shopping list')}
+          </Button>
+        </div>
+      </div>
+    );
   }
   renderComments() {
     if (this.props.meal)

@@ -21,7 +21,6 @@ const alert = ({ isOpen, message, onClose, severity }) => {
  * Displays information about action failure
  */
 export const errorAlert = ({ isOpen, message, onClose }) => {
-  console.log('aler');
   return alert({ isOpen, message, onClose, severity: 'error' });
 };
 /**

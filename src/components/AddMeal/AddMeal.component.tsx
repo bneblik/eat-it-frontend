@@ -98,9 +98,9 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
 
   addProduct = () => {
     this.setState((prev: AddMealState) => ({
-      selectedProductsList: [...prev.selectedProductsList, prev.selectedProduct]
+      selectedProductsList: [...prev.selectedProductsList, prev.selectedProduct],
+      selectedProduct: {} as ProductType
     }));
-    this.setState({ selectedProduct: {} as ProductType });
   };
 
   render() {
@@ -115,6 +115,7 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
               <TextField
                 variant="outlined"
                 label={i18n._('Name')}
+                required
                 id="name"
                 autoFocus={true}
                 value={this.state.name}
@@ -130,6 +131,7 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
                 variant="outlined"
                 label={i18n._('Description')}
                 id="description"
+                required
                 value={this.state.description}
                 fullWidth={true}
                 onChange={(e) => {
@@ -146,6 +148,7 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
               <TextField
                 variant="outlined"
                 id="prepTime"
+                required
                 label={i18n._('Preparation time')}
                 value={this.state.prepTime}
                 fullWidth={true}
@@ -161,7 +164,7 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
                 className="autocomplete"
                 id="category"
                 getOptionLabel={(o) => o}
-                onChange={(e, v) => {
+                onChange={(_, v) => {
                   this.setState({ category: v });
                 }}
                 value={this.state.category}
@@ -170,6 +173,7 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
                   <TextField
                     {...params}
                     variant="outlined"
+                    required
                     value={this.state.category}
                     fullWidth
                     label={i18n._('Category')}
@@ -217,6 +221,7 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
                       <TextField
                         {...params}
                         variant="outlined"
+                        required
                         value={this.state.selectedProduct}
                         fullWidth
                         label={i18n._('Ingredient')}
@@ -227,7 +232,9 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
                     <Button
                       className="addProduct"
                       variant="contained"
-                      disabled={!this.state.selectedProduct.name}
+                      disabled={
+                        !this.state.selectedProduct || Object.keys(this.state.selectedProduct).length == 0
+                      }
                       onClick={this.addProduct}
                       startIcon={<FontAwesomeIcon icon={faPlus} />}
                     >
@@ -235,11 +242,7 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
                     </Button>
                   </span>
                 </div>
-                <ProductsList
-                  productsList={this.state.selectedProductsList}
-                  removeProduct={this.removeFromSelectedProducts}
-                  changeAmount={this.changeAmountOfSelectedProduct}
-                />
+                {this.displaySelectedProducts()}
               </div>
             </div>
             <Button
@@ -264,6 +267,20 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
         {showAlert(pending, error, success, clearAddMealError, clearAddMealSuccess)}
       </div>
     );
+  }
+
+  displaySelectedProducts() {
+    if (this.state.selectedProductsList.length > 0) {
+      return (
+        <ProductsList
+          productsList={this.state.selectedProductsList}
+          removeProduct={this.removeFromSelectedProducts}
+          changeAmount={this.changeAmountOfSelectedProduct}
+        />
+      );
+    } else {
+      return <div className="emptyInfo">{i18n._('You have not added any product yet')}</div>;
+    }
   }
 
   validateYouTubeVideo = (value) => {

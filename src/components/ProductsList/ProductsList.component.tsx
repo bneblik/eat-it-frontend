@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { IconButton, TextField } from '@material-ui/core';
+import { IconButton, TextField, InputAdornment } from '@material-ui/core';
 import { ProductType } from '../../types/Products';
 import '../../styles/css/products-list.styles.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -38,6 +38,9 @@ class ProductsList extends Component<ProductsListProps> {
             <TextField
               className="amount"
               label="amount"
+              InputProps={{
+                endAdornment: <InputAdornment position="end">{product.unit}</InputAdornment>
+              }}
               value={product.amount}
               onChange={(e: any) => this.changeAmount(product, e.target.value)}
             />

@@ -11,7 +11,10 @@ export const requestConsts = {
   FRIDGE_URL: 'fridges',
   SHOPPING_LIST_URL: 'shopping_lists',
   COMMENT_URL: 'comments',
-  STATISTICS_URL: 'statistics'
+  STATISTICS_URL: 'statistics',
+  MEAL_PLAN_URL: 'meal_plan',
+  RECOMMENDED_MEALS: 'recommended',
+  ABOUT_USER_URL: 'about_user'
 };
 
 export const axiosInstance = axios.create({

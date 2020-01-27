@@ -14,16 +14,16 @@ const initialState: ProductsState = {
 
 export function productsReducer(state = initialState, action: any): ProductsState {
   switch (action.type) {
-    case FETCH_PRODUCTS_PENDING:
-      return {
-        ...state,
-        pending: true
-      };
     case FETCH_PRODUCTS_SUCCESS:
       return {
         ...state,
         pending: false,
         productsList: action.products.map((e) => ({ id: e.id, ...e.attributes }))
+      };
+    case FETCH_PRODUCTS_PENDING:
+      return {
+        ...state,
+        pending: true
       };
     case FETCH_PRODUCTS_ERROR:
       return {

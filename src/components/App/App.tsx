@@ -92,7 +92,7 @@ class App extends Component<AppProps> {
                   />
                   <Route
                     path={`${url}${routes.userPanel}`}
-                    render={(props) => this.requireAuth(<UserPanel {...props} username="exampleUser123" />)}
+                    render={(props) => this.requireAuth(<UserPanel {...props} />)}
                   />
                   <Route path={`${url}${routes.login}`} render={(props) => <UserAccount {...props} />} />
                   <Route

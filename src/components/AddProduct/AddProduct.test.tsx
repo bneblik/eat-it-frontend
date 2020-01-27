@@ -17,6 +17,7 @@ const product1: ProductType = {
   name: 'product1',
   calories: 1,
   proteins: 2,
+  unit: 'g',
   carbs: 3,
   fats: 4,
   category: 'x'
@@ -24,6 +25,7 @@ const product1: ProductType = {
 const product2: ProductType = {
   id: 2,
   name: 'product2',
+  unit: 'g',
   calories: 155,
   proteins: 78,
   carbs: 83,
@@ -63,7 +65,7 @@ describe('AddProduct', () => {
     const carbs = wrapper.find('#carbs').props().value;
     const fats = wrapper.find('#fats').props().value;
     // then
-    expect(select).toEqual(product1.name);
+    expect(select.name).toEqual(product1.name);
     expect(kcal).toEqual(product1.calories);
     expect(prot).toEqual(product1.proteins);
     expect(carbs).toEqual(product1.carbs);

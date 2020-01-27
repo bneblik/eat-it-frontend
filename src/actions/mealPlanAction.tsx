@@ -1,34 +1,72 @@
-import { TMeal } from '../types/MealTypes';
+import {
+  FETCH_MEAL_PLAN_SUCCESS,
+  MEAL_PLAN_PENDING,
+  MEAL_PLAN_ERROR,
+  CLEAR_MEAL_PLAN_ERROR,
+  CLEAR_MEAL_PLAN_SUCCESS,
+  ADD_TO_MEAL_PLAN_SUCCESS
+} from '../types/MealPlan';
+import { axiosInstanceWithAuth, requestConsts } from '../utils/RequestService';
+import { i18n } from '..';
 
-import { FetchMealPlanAction, FETCH_MEAL_PLAN_SUCCESS } from '../types/MealPlan';
-
-const meal: TMeal = {
-  id: 1,
-  name: 'Spaghetti carbonara',
-  description: 'It is a short description',
-  recipe: ['Heat pasta water: Put a large pot of salted water on to boil (1 Tbsp salt for every 2 '],
-  createdAt: new Date(),
-  ingredients: [
-    { id: 1, name: 'butter', calories: 12, fats: 123, carbs: 22, proteins: 2, category: 'dairy' }
-  ],
-  calories: 200,
-  fats: 9,
-  proteins: 16.5,
-  carbs: 16,
-  prepareTime: '30 min',
-  category: 'dinner',
-  video: 'aajds'
-};
-const mealsList = [1, 2, 3, 4, 5].map((i) => {
-  const temp = Object.assign({}, meal);
-  temp.id = i;
-  temp.name += i;
-  return temp;
-});
-
-export function fetchMealPlan(): FetchMealPlanAction {
+function fetchMealPlanSuccess(data: any) {
   return {
     type: FETCH_MEAL_PLAN_SUCCESS,
-    mealPlan: mealsList
+    mealPlan: data
+  };
+}
+
+function mealPlanPending() {
+  return {
+    type: MEAL_PLAN_PENDING
+  };
+}
+
+function mealPlanError(error: any) {
+  return {
+    type: MEAL_PLAN_ERROR,
+    error: error
+  };
+}
+
+export function fetchMealPlan(day: Date) {
+  return (dispatch: any) => {
+    dispatch(mealPlanPending());
+    axiosInstanceWithAuth
+      .get(`${requestConsts.MEAL_PLAN_URL}`, { params: { day } })
+      .then((data) => {
+        dispatch(fetchMealPlanSuccess(data));
+      })
+      .catch((error) => {
+        dispatch(mealPlanError(error));
+      });
+  };
+}
+
+export function clearMealPlanError() {
+  return { type: CLEAR_MEAL_PLAN_ERROR };
+}
+export function clearMealPlanSuccess() {
+  return { type: CLEAR_MEAL_PLAN_SUCCESS };
+}
+
+function addToMealPlanSuccess() {
+  return {
+    type: ADD_TO_MEAL_PLAN_SUCCESS,
+    success: i18n._('The meal was successfully added to your plan.')
+  };
+}
+
+export function addToMealPlan(info: any) {
+  return (dispatch: any) => {
+    dispatch(mealPlanPending());
+    axiosInstanceWithAuth
+      .post(`${requestConsts.MEAL_PLAN_URL}`, info)
+      .then(() => {
+        dispatch(addToMealPlanSuccess());
+      })
+      .catch((error) => {
+        dispatch(mealPlanError(error));
+      });
   };
 }

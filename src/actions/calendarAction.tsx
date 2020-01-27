@@ -1,8 +1,16 @@
-import { CHANGE_DATE, ChangeDateAction } from '../types/Calendar';
+import { CHANGE_DATE } from '../types/Calendar';
+import { fetchMealPlan } from './mealPlanAction';
 
-export function changeSelectedDate(date: Date): ChangeDateAction {
+function newSelectedDate(date: Date) {
   return {
     type: CHANGE_DATE,
     date
+  };
+}
+
+export function changeSelectedDate(date: Date) {
+  return (dispatch: any) => {
+    dispatch(fetchMealPlan(date));
+    dispatch(newSelectedDate(date));
   };
 }

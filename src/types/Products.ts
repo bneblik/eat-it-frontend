@@ -11,13 +11,14 @@ export interface FetchProductsAction {
 export type ProductsActionType = FetchProductsAction;
 
 export type ProductType = {
-  id: number;
+  id?: number;
   name: string;
   calories: number;
   fats: number;
   proteins: number;
   carbs: number;
   category: string;
+  unit: string;
   amount?: string;
 };
 

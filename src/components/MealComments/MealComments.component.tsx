@@ -101,6 +101,7 @@ export class MealComments extends Component<MealCommentsProps> {
                 className="addComment"
                 onClick={() => this.addComment()}
                 variant="contained"
+                disabled={this.state.comment === ''}
                 color="primary"
               >
                 {i18n._('Comment & rate')}

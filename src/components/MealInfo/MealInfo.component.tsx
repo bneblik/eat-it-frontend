@@ -54,7 +54,7 @@ class MealInfo extends Component<MealInfoProps> {
             ) : (
               <span className="toRight">
                 <Rating
-                  name={this.props.meal.name}
+                  readOnly={true}
                   value={3}
                   precision={0.5}
                   onChange={(_, newValue) => {

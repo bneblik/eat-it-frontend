@@ -1,4 +1,4 @@
-import { CLEAR_SHOPPING_LIST_SUCCESS, CLEAR_SHOPPING_LIST_ERROR } from '../../types/Fridge';
+import { CLEAR_SHOPPING_LIST_SUCCESS, CLEAR_SHOPPING_LIST_ERROR } from '../../types/ShoppingList';
 
 export function clearShoppingListSuccess() {
   return {
