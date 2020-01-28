@@ -30,7 +30,8 @@ export function saveFridge(fridge) {
         dispatch(saveFridgeSuccess());
       })
       .catch((error) => {
-        dispatch(saveFridgeError(error));
+        if (!error.response) dispatch(saveFridgeError(error.toString()));
+        else if (error.response.status !== '403') dispatch(saveFridgeError(error.response.statusText));
       });
   };
 }

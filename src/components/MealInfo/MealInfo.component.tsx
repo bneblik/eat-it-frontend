@@ -21,8 +21,10 @@ class MealInfo extends Component<MealInfoProps> {
         <div className="image">
           {!this.props.meal ? (
             <Skeleton variant="rect" width={'100%'} height={'330px'} />
-          ) : (
+          ) : !this.props.meal.image ? (
             <img src={image} alt="Meal" />
+          ) : (
+            <img src={this.props.meal.image} alt="Meal" />
           )}
         </div>
         <div className="info">

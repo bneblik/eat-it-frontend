@@ -39,7 +39,8 @@ export function fetchMealPlan(day: Date) {
         dispatch(fetchMealPlanSuccess(data));
       })
       .catch((error) => {
-        dispatch(mealPlanError(error));
+        if (!error.response) dispatch(mealPlanError(error.toString()));
+        else dispatch(mealPlanError(error.response.statusText));
       });
   };
 }
@@ -67,7 +68,8 @@ export function addToMealPlan(info: any) {
         dispatch(addToMealPlanSuccess());
       })
       .catch((error) => {
-        dispatch(mealPlanError(error));
+        if (!error.response) dispatch(mealPlanError(error.toString()));
+        else dispatch(mealPlanError(error.response.statusText));
       });
   };
 }
@@ -88,7 +90,8 @@ export function removeFromMealPlan(mealId: number, day: Date) {
         dispatch(removeFromMealPlanSuccess());
       })
       .catch((error) => {
-        dispatch(mealPlanError(error));
+        if (!error.response) dispatch(mealPlanError(error.toString()));
+        else dispatch(mealPlanError(error.response.statusText));
       });
   };
 }

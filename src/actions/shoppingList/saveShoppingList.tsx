@@ -34,7 +34,8 @@ export function saveShoppingList(shoppingList) {
         dispatch(saveShoppingListSuccess());
       })
       .catch((error) => {
-        dispatch(saveShoppingListError(error));
+        if (!error.response) dispatch(saveShoppingListError(error.toString()));
+        else if (error.response.status !== '403') dispatch(saveShoppingListError(error.response.statusText));
       });
   };
 }

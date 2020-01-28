@@ -41,7 +41,8 @@ export function fetchMeal(id: string) {
         dispatch(fetchMealSuccess(response.data));
       })
       .catch((error) => {
-        dispatch(fetchMealError(error));
+        if (!error.response) dispatch(fetchMealError(error.toString()));
+        else dispatch(fetchMealError(error.response.statusText));
       });
   };
 }
@@ -81,7 +82,8 @@ export function addMeal(meal: TMeal) {
         dispatch(addMealSuccess(i18n._('The meal has been successfully added.')));
       })
       .catch((error) => {
-        dispatch(addMealError(error.toString()));
+        if (!error.response) dispatch(addMealError(error.toString()));
+        else dispatch(addMealError(error.response.statusText));
       });
   };
 }
@@ -95,7 +97,8 @@ export function editMeal(meal: TMeal, mealId: number) {
         dispatch(addMealSuccess(i18n._('The meal has been successfully updated.')));
       })
       .catch((error) => {
-        dispatch(addMealError(error.toString()));
+        if (!error.response) dispatch(addMealError(error.toString()));
+        else dispatch(addMealError(error.response.statusText));
       });
   };
 }

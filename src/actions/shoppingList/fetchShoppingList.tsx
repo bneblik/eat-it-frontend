@@ -36,7 +36,8 @@ export function fetchMyShoppingList() {
         dispatch(fetchMyShoppingListSuccess(response.data.data));
       })
       .catch((error) => {
-        dispatch(fetchShoppingListError(error));
+        if (!error.response) dispatch(fetchShoppingListError(error.toString()));
+        else if (error.response.status !== '403') dispatch(fetchShoppingListError(error.response.statusText));
       });
   };
 }

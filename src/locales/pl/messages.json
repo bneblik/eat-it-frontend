@@ -293,6 +293,15 @@
       ]
     ]
   },
+  "Enter your height and weight to control your nutrient requirements.": {
+    "translation": "Podaj swój wzrost i wagę, żeby kontrolować, czy spełnione jest zapotrzebowanie na składniki odżywcze.",
+    "origin": [
+      [
+        "src/components/Statistics/Statistics.component.tsx",
+        92
+      ]
+    ]
+  },
   "F": {
     "translation": "T",
     "origin": [
@@ -419,7 +428,7 @@
     "origin": [
       [
         "src/actions/mealPlanAction.tsx",
-        62
+        68
       ]
     ]
   },
@@ -808,7 +817,7 @@
     "origin": [
       [
         "src/actions/mealPlanAction.tsx",
-        43
+        46
       ]
     ]
   },
@@ -817,7 +826,7 @@
     "origin": [
       [
         "src/actions/mealAction.tsx",
-        58
+        61
       ]
     ]
   },
@@ -826,7 +835,7 @@
     "origin": [
       [
         "src/actions/mealAction.tsx",
-        71
+        78
       ]
     ]
   },

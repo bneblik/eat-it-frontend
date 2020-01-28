@@ -1,4 +1,4 @@
-import { axiosInstanceWithAuth, requestConsts } from '../utils/RequestService';
+import { requestConsts, axiosInstance } from '../utils/RequestService';
 import {
   CREATE_USER_PENDING,
   CREATE_USER_SUCCESS,
@@ -32,14 +32,14 @@ function createUserError(error: any) {
 export function createUser(userData: any) {
   return (dispatch: any) => {
     dispatch(createUserPending());
-    axiosInstanceWithAuth
+    axiosInstance
       .post(requestConsts.CREATE_USER_URL, { user: userData })
       .then((response) => {
         dispatch(createUserSuccess(response.data.content.user));
       })
       .catch((error) => {
-        const errorObject = JSON.parse(JSON.stringify(error)).message;
-        dispatch(createUserError(errorObject));
+        if (!error.response) dispatch(createUserError(error.toString()));
+        else dispatch(createUserError(error.response.statusText));
       });
   };
 }

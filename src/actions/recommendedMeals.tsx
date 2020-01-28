@@ -36,7 +36,8 @@ export function fetchRecommendedMeals() {
         dispatch(fetchRecommendedMealsSuccess(response.data.data));
       })
       .catch((error) => {
-        dispatch(fetchRecommendedMealsError(error.toString()));
+        if (!error.response) dispatch(fetchRecommendedMealsError(error.toString()));
+        else dispatch(fetchRecommendedMealsError(error.toString()));
       });
   };
 }

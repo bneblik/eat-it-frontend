@@ -50,6 +50,13 @@ class App extends Component<AppProps> {
     this.props.logOut();
   };
 
+  langUrl() {
+    let url = '';
+    const lng = this.props.match.params.lng;
+    if (!!lng && lng !== defaultLang) url = `/${lng}`;
+    return url;
+  }
+
   render() {
     return (
       <>
@@ -96,14 +103,13 @@ class App extends Component<AppProps> {
   requireAuth(component: any) {
     if (localStorage.getItem(JWT_TOKEN)) return component;
     return (
-      <Redirect to={{ pathname: `${this.lang()}${routes.login}`, state: { from: this.props.location } }} />
+      <Redirect
+        to={{
+          pathname: `${this.langUrl()}${routes.login}`,
+          state: { from: this.props.location }
+        }}
+      />
     );
-  }
-  lang() {
-    let url = '';
-    const lng = this.props.match.params.lng;
-    if (!!lng && lng !== defaultLang) url = `/${lng}`;
-    return url;
   }
 
   showAuthAlert() {

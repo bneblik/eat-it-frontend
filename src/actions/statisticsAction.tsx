@@ -41,7 +41,8 @@ export function fetchStatisticsForDay(date: Date) {
         dispatch(fetchStatisticsSuccess(data));
       })
       .catch((error) => {
-        dispatch(fetchStatisticsError(error));
+        if (!error.response) dispatch(fetchStatisticsError(error.toString()));
+        else dispatch(fetchStatisticsError(error.response.statusText));
       });
   };
 }

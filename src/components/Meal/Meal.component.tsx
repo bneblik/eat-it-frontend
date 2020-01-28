@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../../styles/css/meal.styles.css';
-import image from '../../styles/images/carbonara.jpg';
+import image from '../../styles/images/placeholder.png';
 import MealComments from '../MealComments/MealComments.component';
 import { Button, FormControlLabel, Checkbox } from '@material-ui/core';
 import { NutrientsInfo } from '../NutrientsInfo/NutrientsInfo.component';
@@ -110,7 +110,7 @@ export class Meal extends Component<MealProps, MealState> {
   render() {
     if (!this.props.pending && !this.props.meal) {
       return (
-        <div>
+        <div className="emptyInfo">
           {i18n._('Cannot find element with id')} = {this.props.match.params.id}
         </div>
       );
@@ -121,9 +121,13 @@ export class Meal extends Component<MealProps, MealState> {
           <div className="top">
             {this.props.pending ? (
               <Skeleton className="image" component="div" variant="rect" height="150px" />
+            ) : !this.props.meal.image ? (
+              <div className="image placeholder">
+                <img src={image} alt="Meal" />
+              </div>
             ) : (
               <div className="image">
-                <img src={image} alt="Meal" />
+                <img src={this.props.meal.image} alt="Meal" />
               </div>
             )}
 

@@ -1,8 +1,10 @@
 export type CommentType = {
+  id: number;
   content: string;
   rate: number;
   author: string;
   createdAt: Date;
+  myComment?: boolean;
 };
 
 export const ADD_COMMENT_SUCCESS = 'ADD_COMMENT_SUCCESS';
@@ -20,6 +22,7 @@ export const CLEAR_COMMENT_SUCCESS = 'CLEAR_COMMENT_SUCCESS';
 export const ADD_COMMENT_PENDING = 'ADD_COMMENT_PENDING';
 export const ADD_COMMENT_ERROR = 'ADD_COMMENT_ERROR';
 export const FETCH_COMMENT_SUCCESS = 'FETCH_COMMENT_SUCCESS';
+export const REMOVE_COMMENT_SUCCESS = 'REMOVE_COMMENT_SUCCESS';
 
 export interface ClearCommentSuccessAction {
   type: typeof CLEAR_COMMENT_SUCCESS;

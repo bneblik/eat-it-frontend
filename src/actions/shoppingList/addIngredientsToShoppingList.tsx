@@ -33,7 +33,8 @@ export function addIngredientsToList(ingredients: { id: number; amount: string }
         dispatch(addIngredientsToListSuccess());
       })
       .catch((error) => {
-        dispatch(addIngredientsToListError(error));
+        if (!error.response) dispatch(addIngredientsToListError(error.toString()));
+        else dispatch(addIngredientsToListError(error.response.statusText));
       });
   };
 }

@@ -1,12 +1,14 @@
 import {
   addMealComment,
   clearMealCommentsErrors,
-  clearMealCommentsSuccess
+  clearMealCommentsSuccess,
+  removeComment
 } from '../../actions/mealCommentsAction';
 import { CommentType, MealCommentStateType } from '../../types/MealCommentsTypes';
 
 export interface MealCommentsProps {
   addMealComment: typeof addMealComment;
+  removeComment: typeof removeComment;
   clearMealCommentsErrors: typeof clearMealCommentsErrors;
   clearMealCommentsSuccess: typeof clearMealCommentsSuccess;
   comments: CommentType[];

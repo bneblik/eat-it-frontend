@@ -18,7 +18,6 @@ export type AddToMealPlanProps = {
 export type AddToMealPlanState = {
   portion: string;
   date: string;
-  time: string;
   dialogOpened: boolean;
   portionOptions: string[];
   mealPlanReducer: MealPlanState;
@@ -27,7 +26,6 @@ export type AddToMealPlanState = {
 export const initialStateAddToMealPlan: AddToMealPlanState = {
   portion: '1',
   date: format(new Date(), 'yyyy-MM-dd'),
-  time: '12:00',
   dialogOpened: false,
   portionOptions: ['0.5', '1', '2'],
   mealPlanReducer: {} as any

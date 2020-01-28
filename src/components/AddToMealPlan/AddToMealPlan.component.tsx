@@ -33,8 +33,7 @@ export class AddToMealPlan extends Component<AddToMealPlanProps> {
     const data = {
       name: this.props.mealName,
       portion: this.state.portion,
-      date: this.state.date,
-      time: +this.state.time
+      date: this.state.date
     };
     this.props.addToMealPlan(data);
     this.close();
@@ -97,18 +96,6 @@ export class AddToMealPlan extends Component<AddToMealPlanProps> {
                 value={this.state.date}
                 onChange={(e) => {
                   this.setState({ date: e.target.value });
-                }}
-              />
-            </div>
-            <div className="inputContainer">
-              <FontAwesomeIcon icon={faClock} />
-              <TextField
-                label={i18n._('Time')}
-                variant="outlined"
-                type="time"
-                value={this.state.time}
-                onChange={(e) => {
-                  this.setState({ time: e.target.value });
                 }}
               />
             </div>

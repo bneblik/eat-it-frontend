@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import '../../styles/css/meal-comments.styles.css';
-import { TextField, Button } from '@material-ui/core';
+import { TextField, Button, IconButton } from '@material-ui/core';
 import { formatDistanceToNow } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserAlt } from '@fortawesome/free-solid-svg-icons';
+import { faUserAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
 import Rating from '@material-ui/lab/Rating';
 import { i18n } from '../..';
 import {
   addMealComment,
   clearMealCommentsErrors,
-  clearMealCommentsSuccess
+  clearMealCommentsSuccess,
+  removeComment
 } from '../../actions/mealCommentsAction';
 import { CommentType } from '../../types/MealCommentsTypes';
 import { bindActionCreators } from 'redux';
@@ -39,16 +40,27 @@ export class MealComments extends Component<MealCommentsProps> {
       <div className="commentInfo">
         <div>
           <span className="author">{comment.author}</span>
-          <Rating value={comment.rate} precision={0.5} />
+          {this.removeButtonIfAuthor(comment.myComment, comment.id)}
+          <Rating value={comment.rate} precision={0.5} readOnly={true} />
         </div>
         <span className="date">{formatDistanceToNow(comment.createdAt, { addSuffix: true })}</span>
-
         <div>{comment.content}</div>
       </div>
     </div>
   );
 
+  removeButtonIfAuthor(isOwner: boolean, commentId: number) {
+    if (isOwner)
+      return (
+        <IconButton className="trash" onClick={() => this.props.removeComment(commentId)}>
+          <FontAwesomeIcon icon={faTrash} />
+        </IconButton>
+      );
+  }
+
   listComments = () => {
+    if (this.props.comments.length === 0)
+      return <div className="emptyInfo">{i18n._('There are no comments yet.')}</div>;
     const list: any = [];
     this.props.comments.forEach((comment, key) => {
       list.push(this.singleComment(comment, key));
@@ -107,7 +119,7 @@ export class MealComments extends Component<MealCommentsProps> {
             </span>
           </span>
         </div>
-        <div>{this.listComments()}</div>
+        <div className="marginBottom">{this.listComments()}</div>
         {showAlert(pending, error, success, clearMealCommentsErrors, clearMealCommentsSuccess)}
       </div>
     );
@@ -127,7 +139,8 @@ const mapDispatchToProps = (dispatch: any) =>
     {
       addMealComment,
       clearMealCommentsSuccess,
-      clearMealCommentsErrors
+      clearMealCommentsErrors,
+      removeComment
     },
     dispatch
   );

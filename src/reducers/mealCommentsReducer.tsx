@@ -4,7 +4,8 @@ import {
   CLEAR_COMMENT_SUCCESS,
   CLEAR_COMMENT_ERRORS,
   ADD_COMMENT_PENDING,
-  ADD_COMMENT_ERROR
+  ADD_COMMENT_ERROR,
+  REMOVE_COMMENT_SUCCESS
 } from '../types/MealCommentsTypes';
 
 const initialState: MealCommentStateType = {
@@ -25,6 +26,8 @@ export function mealCommentsReducer(state = initialState, action: any) {
       return { ...state, success: null };
     case CLEAR_COMMENT_ERRORS:
       return { ...state, error: null };
+    case REMOVE_COMMENT_SUCCESS:
+      return { ...state, success: action.success, pending: false };
     default:
       return state;
   }

@@ -36,7 +36,8 @@ export function fetchMyFridge() {
         dispatch(fetchMyFridgeSuccess(response.data.data));
       })
       .catch((error) => {
-        dispatch(fetchMyFridgeError(error));
+        if (!error.response) dispatch(fetchMyFridgeError(error.toString()));
+        else if (error.response.status !== '403') dispatch(fetchMyFridgeError(error.response.statusText));
       });
   };
 }

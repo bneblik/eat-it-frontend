@@ -4,7 +4,7 @@ import {
   FETCH_CATEGORIES_ERROR,
   Category
 } from '../types/Categories';
-import { axiosInstanceWithAuth, requestConsts } from '../utils/RequestService';
+import { axiosInstance, requestConsts } from '../utils/RequestService';
 
 function fetchCategoriesPending() {
   return {
@@ -29,13 +29,14 @@ function fetchCategoriesError(error: any) {
 export function fetchCategories() {
   return (dispatch: any) => {
     dispatch(fetchCategoriesPending());
-    axiosInstanceWithAuth
+    axiosInstance
       .get(requestConsts.CATEGORIES_URL)
       .then((response) => {
         dispatch(fetchCategoriesSuccess(response.data.data.map((e) => ({ id: e.id, ...e.attributes }))));
       })
       .catch((error) => {
-        dispatch(fetchCategoriesError(error.toString()));
+        if (!error.response) dispatch(fetchCategoriesError(error.toString()));
+        else dispatch(fetchCategoriesError(error.toString()));
       });
   };
 }

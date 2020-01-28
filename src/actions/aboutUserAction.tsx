@@ -49,7 +49,8 @@ export function saveAboutUser(height: string, weight: string) {
         dispatch(saveAboutUserSuccess());
       })
       .catch((error) => {
-        dispatch(aboutUserError(error));
+        if (!error.response) dispatch(aboutUserError(error.toString()));
+        else dispatch(aboutUserError(error.response.statusText));
       });
   };
 }
@@ -77,7 +78,8 @@ export function fetchAboutUser() {
         dispatch(fetchAboutUserSuccess(content));
       })
       .catch((error) => {
-        dispatch(aboutUserError(error));
+        if (!error.response) dispatch(aboutUserError(error.toString()));
+        else dispatch(aboutUserError(error.response.statusText));
       });
   };
 }

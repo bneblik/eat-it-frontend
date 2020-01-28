@@ -5,11 +5,12 @@ import { i18n } from '../..';
 import { fetchStatisticsForDay, clearStatisticsError } from '../../actions/statisticsAction';
 import { bindActionCreators } from 'redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLongArrowAltDown, faLongArrowAltUp } from '@fortawesome/free-solid-svg-icons';
-import { Zoom } from '@material-ui/core';
-import { Skeleton } from '@material-ui/lab';
+import { faLongArrowAltDown, faLongArrowAltUp, faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
+import { Zoom, Button } from '@material-ui/core';
+import { Skeleton, Alert } from '@material-ui/lab';
 import { errorAlert } from '../../helpers/Alert.component';
 import { StatisticsProps, StatisticsComponentState } from './Statistics.types';
+import { routes, lang } from '../App/RouteConstants';
 
 /**
  * This component renders quantity information about nutrients delivered on a given @param day
@@ -50,6 +51,7 @@ export class Statistics extends Component<StatisticsProps, StatisticsComponentSt
       );
     return <div className="textInfo">{i18n._('Perfect amount!')}</div>;
   }
+
   render() {
     if (this.props.statistics) {
       return (
@@ -91,8 +93,24 @@ export class Statistics extends Component<StatisticsProps, StatisticsComponentSt
       );
     } else if (this.props.pending) {
       return this.showSkeleton();
-    } else return <div className="statisticsComponent">{this.showAlert()}</div>;
+    } else
+      return (
+        <div className="statisticsComponent empty">
+          <Alert severity="info">
+            <span>
+              {i18n._('Enter your height and weight to control your nutrient requirements.')}
+              <Button href={`${lang()}${routes.userPanel}`} onClick={(e) => this.fun(e.target)}>
+                <FontAwesomeIcon icon={faAngleDoubleRight} />
+              </Button>
+            </span>
+          </Alert>
+        </div>
+      );
   }
+  fun(anchor) {
+    anchor.href = `${lang()}${routes.userPanel}`;
+  }
+
   showAlert() {
     if (!this.props.pending && !!this.props.error) {
       return errorAlert({

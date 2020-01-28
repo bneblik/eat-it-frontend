@@ -35,7 +35,8 @@ export function fetchMeals(page: number) {
         dispatch(fetchMealsSuccess(response.data.data));
       })
       .catch((error) => {
-        dispatch(fetchMealsError(error.toString()));
+        if (!error.response) dispatch(fetchMealsError(error.toString()));
+        else dispatch(fetchMealsError(error.response.statusText));
       });
   };
 }

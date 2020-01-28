@@ -11,10 +11,9 @@ import {
   faAdjust
 } from '@fortawesome/free-solid-svg-icons';
 import ChangeLang from '../ChangeLang/ChangeLang.component';
-import { routes } from '../App/RouteConstants';
+import { routes, lang } from '../App/RouteConstants';
 import { i18n } from '../..';
 import { JWT_TOKEN } from '../../utils/RequestService';
-import { defaultLang } from '../../utils/LanguageService';
 import { HeaderProps, HeaderState } from './Header.types';
 
 /**
@@ -30,12 +29,6 @@ class Header extends Component<HeaderProps> {
       responsive: !prevState.responsive
     }));
   };
-  lang() {
-    if (i18n.language === defaultLang) {
-      return '';
-    }
-    return `/${i18n.language}`;
-  }
   render() {
     return (
       <nav className="headerComponent sticky ">
@@ -46,32 +39,32 @@ class Header extends Component<HeaderProps> {
           </Button>
         </div>
         <div className={this.state.responsive ? 'responsive' : 'toRight'} id="menu">
-          <Button href={`${this.lang()}${routes.meals}`} className="menuItem" color="inherit">
+          <Button href={`${lang()}${routes.meals}`} className="menuItem" color="inherit">
             {i18n._('Meals')}
           </Button>
-          <Button href={`${this.lang()}${routes.myFridge}`} className="menuItem" color="inherit">
+          <Button href={`${lang()}${routes.myFridge}`} className="menuItem" color="inherit">
             {i18n._('My fridge')}
           </Button>
-          <Button href={`${this.lang()}${routes.myMealPlan}`} className="menuItem" color="inherit">
+          <Button href={`${lang()}${routes.myMealPlan}`} className="menuItem" color="inherit">
             {i18n._('My meal plan')}
           </Button>
           <span className="menuItem">
             <Tooltip title={i18n._('Add Meal')}>
-              <IconButton href={`${this.lang()}${routes.addMeal}`} className="itemIcon" color="inherit">
+              <IconButton href={`${lang()}${routes.addMeal}`} className="itemIcon" color="inherit">
                 <FontAwesomeIcon icon={faPlus} />
               </IconButton>
             </Tooltip>
           </span>
           <span className="menuItem">
             <Tooltip title={i18n._('Shopping list')}>
-              <IconButton href={`${this.lang()}${routes.shoppingList}`} className="itemIcon" color="inherit">
+              <IconButton href={`${lang()}${routes.shoppingList}`} className="itemIcon" color="inherit">
                 <FontAwesomeIcon icon={faShoppingBasket} />
               </IconButton>
             </Tooltip>
           </span>
           <span className="menuItem">
             <Tooltip title={i18n._('User panel')}>
-              <IconButton href={`${this.lang()}${routes.userPanel}`} className="itemIcon" color="inherit">
+              <IconButton href={`${lang()}${routes.userPanel}`} className="itemIcon" color="inherit">
                 <FontAwesomeIcon icon={faUser} />
               </IconButton>
             </Tooltip>
@@ -120,7 +113,7 @@ class Header extends Component<HeaderProps> {
       );
     } else {
       return (
-        <Button id="logIn" href={`${this.lang()}${routes.login}`} className="menuItem" color="inherit">
+        <Button id="logIn" href={`${lang()}${routes.login}`} className="menuItem" color="inherit">
           {i18n._('Log in')}
         </Button>
       );

@@ -27,6 +27,8 @@ export const axiosInstance = axios.create({
   }
 });
 
+axiosInstance.interceptors.request.use((response) => response, (error) => Promise.reject(error));
+
 const createAxiosInstanceWithAuth = () => {
   const jwtToken = localStorage.getItem(JWT_TOKEN);
   if (jwtToken) {
@@ -44,3 +46,5 @@ const createAxiosInstanceWithAuth = () => {
 };
 
 export const axiosInstanceWithAuth = createAxiosInstanceWithAuth();
+
+axiosInstanceWithAuth.interceptors.request.use((response) => response, (error) => Promise.reject(error));
