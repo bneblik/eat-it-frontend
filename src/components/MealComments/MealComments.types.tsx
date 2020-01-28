@@ -16,6 +16,8 @@ export interface MealCommentsProps {
   success: any;
 }
 export interface MealCommentsState {
+  page: number;
+  comments: CommentType[];
   comment: string;
   rate: number;
   mealCommentsReducer: MealCommentStateType;
@@ -23,6 +25,8 @@ export interface MealCommentsState {
 
 export const initialStateMeal: MealCommentsState = {
   comment: '',
+  comments: [],
+  page: 1,
   rate: 0,
   mealCommentsReducer: {} as any
 };

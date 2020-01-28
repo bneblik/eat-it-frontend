@@ -3,7 +3,7 @@
     "origin": [
       [
         "src/components/Header/Header.component.tsx",
-        31
+        54
       ]
     ]
   },
@@ -11,7 +11,7 @@
     "origin": [
       [
         "src/components/Header/Header.component.tsx",
-        34
+        57
       ]
     ]
   },
@@ -19,7 +19,63 @@
     "origin": [
       [
         "src/components/Header/Header.component.tsx",
-        37
+        60
+      ]
+    ]
+  },
+  "Add Meal": {
+    "origin": [
+      [
+        "src/components/Header/Header.component.tsx",
+        63
+      ]
+    ]
+  },
+  "Shopping list": {
+    "origin": [
+      [
+        "src/components/Header/Header.component.tsx",
+        70
+      ]
+    ]
+  },
+  "User panel": {
+    "origin": [
+      [
+        "src/components/Header/Header.component.tsx",
+        77
+      ]
+    ]
+  },
+  "Change lang": {
+    "origin": [
+      [
+        "src/components/Header/Header.component.tsx",
+        84
+      ]
+    ]
+  },
+  "Change contrast": {
+    "origin": [
+      [
+        "src/components/Header/Header.component.tsx",
+        91
+      ]
+    ]
+  },
+  "Log out": {
+    "origin": [
+      [
+        "src/components/Header/Header.component.tsx",
+        104
+      ]
+    ]
+  },
+  "Log in": {
+    "origin": [
+      [
+        "src/components/Header/Header.component.tsx",
+        113
       ]
     ]
   }

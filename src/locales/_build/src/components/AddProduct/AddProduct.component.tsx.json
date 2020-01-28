@@ -3,7 +3,15 @@
     "origin": [
       [
         "src/components/AddProduct/AddProduct.component.tsx",
-        31
+        42
+      ]
+    ]
+  },
+  "No products": {
+    "origin": [
+      [
+        "src/components/AddProduct/AddProduct.component.tsx",
+        56
       ]
     ]
   },
@@ -11,7 +19,15 @@
     "origin": [
       [
         "src/components/AddProduct/AddProduct.component.tsx",
-        35
+        56
+      ]
+    ]
+  },
+  "Amount": {
+    "origin": [
+      [
+        "src/components/AddProduct/AddProduct.component.tsx",
+        60
       ]
     ]
   },
@@ -19,15 +35,7 @@
     "origin": [
       [
         "src/components/AddProduct/AddProduct.component.tsx",
-        41
-      ]
-    ]
-  },
-  "Add image": {
-    "origin": [
-      [
-        "src/components/AddProduct/AddProduct.component.tsx",
-        49
+        68
       ]
     ]
   },
@@ -35,7 +43,7 @@
     "origin": [
       [
         "src/components/AddProduct/AddProduct.component.tsx",
-        54
+        71
       ]
     ]
   },
@@ -43,7 +51,7 @@
     "origin": [
       [
         "src/components/AddProduct/AddProduct.component.tsx",
-        57
+        74
       ]
     ]
   },
@@ -51,7 +59,7 @@
     "origin": [
       [
         "src/components/AddProduct/AddProduct.component.tsx",
-        66
+        81
       ]
     ]
   },
@@ -59,7 +67,7 @@
     "origin": [
       [
         "src/components/AddProduct/AddProduct.component.tsx",
-        75
+        88
       ]
     ]
   },
@@ -67,7 +75,7 @@
     "origin": [
       [
         "src/components/AddProduct/AddProduct.component.tsx",
-        84
+        95
       ]
     ]
   },
@@ -75,7 +83,7 @@
     "origin": [
       [
         "src/components/AddProduct/AddProduct.component.tsx",
-        94
+        103
       ]
     ]
   },
@@ -83,7 +91,7 @@
     "origin": [
       [
         "src/components/AddProduct/AddProduct.component.tsx",
-        97
+        106
       ]
     ]
   }

@@ -1,4 +1,4 @@
-import { axiosInstance, requestConsts, axiosInstanceWithAuth } from '../utils/RequestService';
+import { requestConsts, axiosInstance, axiosInstanceWithAuth } from '../utils/RequestService';
 import {
   ADD_MEAL_PENDING,
   ADD_MEAL_SUCCESS,
@@ -10,6 +10,7 @@ import {
   FETCH_MEAL_SUCCESS,
   FETCH_MEAL_ERROR
 } from '../types/MealTypes';
+import { i18n } from '..';
 
 function fetchMealPending() {
   return {
@@ -65,13 +66,19 @@ function addMealError(error: any) {
 }
 
 export function addMeal(meal: TMeal) {
-  const data = { ...meal, products: meal.ingredients.map((p) => ({ id: p.id, amount: p.amount })) };
+  const data = {
+    ...meal,
+    time: '11',
+    servings: '1',
+    category: meal.category.id,
+    products: meal.ingredients.map((p) => ({ id: p.id, quantity: p.amount }))
+  };
   return (dispatch: any) => {
     dispatch(addMealPending());
     axiosInstanceWithAuth
       .post(requestConsts.MEALS_URL, data)
       .then(() => {
-        dispatch(addMealSuccess('The meal has been successfully added.'));
+        dispatch(addMealSuccess(i18n._('The meal has been successfully added.')));
       })
       .catch((error) => {
         dispatch(addMealError(error.toString()));
@@ -85,7 +92,7 @@ export function editMeal(meal: TMeal, mealId: number) {
     axiosInstanceWithAuth
       .post(requestConsts.MEALS_URL, { ...meal, id: mealId })
       .then(() => {
-        dispatch(addMealSuccess('The meal has been successfully updated.'));
+        dispatch(addMealSuccess(i18n._('The meal has been successfully updated.')));
       })
       .catch((error) => {
         dispatch(addMealError(error.toString()));

@@ -1,9 +1,17 @@
 {
+  "Your recipe is still empty. Add a step.": {
+    "origin": [
+      [
+        "src/components/Recipe/Recipe.component.tsx",
+        30
+      ]
+    ]
+  },
   "Recipe": {
     "origin": [
       [
         "src/components/Recipe/Recipe.component.tsx",
-        29
+        44
       ]
     ]
   },
@@ -11,7 +19,7 @@
     "origin": [
       [
         "src/components/Recipe/Recipe.component.tsx",
-        33
+        48
       ]
     ]
   }

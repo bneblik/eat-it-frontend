@@ -16,13 +16,16 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { showAlert } from '../../helpers/Alert.component';
 import { MealCommentsProps, MealCommentsState, initialStateMeal } from './MealComments.types';
-
+import { requestConsts, JWT_TOKEN, axiosInstance } from '../../utils/RequestService';
 /**
  * This component renders given list of comments of a meal
  * @author Beata Szczuka
  */
 export class MealComments extends Component<MealCommentsProps> {
   state: MealCommentsState = initialStateMeal;
+  componentDidMount() {
+    this.fetchComments();
+  }
 
   addComment = () => {
     this.props.addMealComment(this.state.comment, this.state.rate, this.props.mealId);
@@ -35,7 +38,7 @@ export class MealComments extends Component<MealCommentsProps> {
       </div>
       <div className="commentInfo">
         <div>
-          <span>{comment.author}</span>
+          <span className="author">{comment.author}</span>
           <Rating value={comment.rate} precision={0.5} />
         </div>
         <span className="date">{formatDistanceToNow(comment.createdAt, { addSuffix: true })}</span>
@@ -52,6 +55,21 @@ export class MealComments extends Component<MealCommentsProps> {
     });
     return list;
   };
+
+  fetchComments() {
+    axiosInstance
+      .get(requestConsts.COMMENT_URL, { params: { page: this.state.page, id: this.props.mealId } })
+      .then((response) => {
+        console.log(response);
+        this.setState((p: MealCommentsState) => ({
+          comments: [...p.comments, response.data],
+          page: p.page + 1
+        }));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   render() {
     const { pending, error, success, clearMealCommentsErrors, clearMealCommentsSuccess } = this.props;
@@ -81,7 +99,7 @@ export class MealComments extends Component<MealCommentsProps> {
                 className="addComment"
                 onClick={() => this.addComment()}
                 variant="contained"
-                disabled={this.state.comment === ''}
+                disabled={this.state.comment === '' || !localStorage.getItem(JWT_TOKEN)}
                 color="primary"
               >
                 {i18n._('Comment & rate')}

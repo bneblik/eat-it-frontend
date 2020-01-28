@@ -1,5 +1,5 @@
 import { FETCH_PRODUCTS_PENDING, FETCH_PRODUCTS_SUCCESS, FETCH_PRODUCTS_ERROR } from '../types/Products';
-import { axiosInstance, requestConsts } from '../utils/RequestService';
+import { axiosInstanceWithAuth, requestConsts } from '../utils/RequestService';
 
 function fetchProductsPending() {
   return {
@@ -24,7 +24,7 @@ function fetchProductsError(error: any) {
 export function fetchProducts() {
   return (dispatch: any) => {
     dispatch(fetchProductsPending());
-    axiosInstance
+    axiosInstanceWithAuth
       .get(requestConsts.GET_PRODUCTS_URL)
       .then((response) => {
         dispatch(fetchProductsSuccess(response.data));

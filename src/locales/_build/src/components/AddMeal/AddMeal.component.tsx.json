@@ -1,25 +1,33 @@
 {
-  "Add a new meal": {
+  "Provide url for YouTube recipe": {
     "origin": [
       [
         "src/components/AddMeal/AddMeal.component.tsx",
-        50
+        32
+      ],
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        56
+      ],
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        73
+      ],
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        96
+      ],
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        159
       ]
     ]
   },
-  "Name": {
+  "Given URL is invalid.": {
     "origin": [
       [
         "src/components/AddMeal/AddMeal.component.tsx",
-        54
-      ]
-    ]
-  },
-  "Description": {
-    "origin": [
-      [
-        "src/components/AddMeal/AddMeal.component.tsx",
-        60
+        70
       ]
     ]
   },
@@ -27,7 +35,31 @@
     "origin": [
       [
         "src/components/AddMeal/AddMeal.component.tsx",
-        68
+        115
+      ]
+    ]
+  },
+  "Add a new meal": {
+    "origin": [
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        123
+      ]
+    ]
+  },
+  "Name": {
+    "origin": [
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        127
+      ]
+    ]
+  },
+  "Description": {
+    "origin": [
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        133
       ]
     ]
   },
@@ -35,15 +67,15 @@
     "origin": [
       [
         "src/components/AddMeal/AddMeal.component.tsx",
-        74
+        143
       ]
     ]
   },
-  "Servings": {
+  "No categories": {
     "origin": [
       [
         "src/components/AddMeal/AddMeal.component.tsx",
-        80
+        151
       ]
     ]
   },
@@ -51,7 +83,7 @@
     "origin": [
       [
         "src/components/AddMeal/AddMeal.component.tsx",
-        86
+        151
       ]
     ]
   },
@@ -59,15 +91,15 @@
     "origin": [
       [
         "src/components/AddMeal/AddMeal.component.tsx",
-        96
+        159
       ]
     ]
   },
-  "Provide url for YouTube recipe": {
+  "No products": {
     "origin": [
       [
         "src/components/AddMeal/AddMeal.component.tsx",
-        96
+        169
       ]
     ]
   },
@@ -75,7 +107,7 @@
     "origin": [
       [
         "src/components/AddMeal/AddMeal.component.tsx",
-        104
+        169
       ]
     ]
   },
@@ -83,15 +115,7 @@
     "origin": [
       [
         "src/components/AddMeal/AddMeal.component.tsx",
-        115
-      ]
-    ]
-  },
-  "Create new": {
-    "origin": [
-      [
-        "src/components/AddMeal/AddMeal.component.tsx",
-        117
+        172
       ]
     ]
   },
@@ -99,15 +123,15 @@
     "origin": [
       [
         "src/components/AddMeal/AddMeal.component.tsx",
-        124
+        180
       ]
     ]
   },
-  "Cancel": {
+  "You have not added any product yet": {
     "origin": [
       [
         "src/components/AddMeal/AddMeal.component.tsx",
-        127
+        192
       ]
     ]
   }

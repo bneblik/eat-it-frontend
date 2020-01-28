@@ -14,7 +14,8 @@ export const requestConsts = {
   STATISTICS_URL: 'statistics',
   MEAL_PLAN_URL: 'meal_plan',
   RECOMMENDED_MEALS: 'recommended',
-  ABOUT_USER_URL: 'about_user'
+  ABOUT_USER_URL: 'about_user',
+  CATEGORIES_URL: 'meal_categories'
 };
 
 export const axiosInstance = axios.create({

@@ -1,33 +1,25 @@
 {
+  "Prepare time": {
+    "origin": [
+      [
+        "src/components/Meal/Meal.component.tsx",
+        62
+      ]
+    ]
+  },
+  "Category": {
+    "origin": [
+      [
+        "src/components/Meal/Meal.component.tsx",
+        67
+      ]
+    ]
+  },
   "Watch this recipe on YouTube": {
     "origin": [
       [
         "src/components/Meal/Meal.component.tsx",
-        59
-      ]
-    ]
-  },
-  "Ingredients": {
-    "origin": [
-      [
-        "src/components/Meal/Meal.component.tsx",
-        76
-      ]
-    ]
-  },
-  "Select all": {
-    "origin": [
-      [
-        "src/components/Meal/Meal.component.tsx",
-        80
-      ]
-    ]
-  },
-  "Add selected to your shopping list": {
-    "origin": [
-      [
-        "src/components/Meal/Meal.component.tsx",
-        82
+        86
       ]
     ]
   },
@@ -36,6 +28,30 @@
       [
         "src/components/Meal/Meal.component.tsx",
         96
+      ]
+    ]
+  },
+  "Ingredients": {
+    "origin": [
+      [
+        "src/components/Meal/Meal.component.tsx",
+        149
+      ]
+    ]
+  },
+  "Select all": {
+    "origin": [
+      [
+        "src/components/Meal/Meal.component.tsx",
+        153
+      ]
+    ]
+  },
+  "Add selected to your shopping list": {
+    "origin": [
+      [
+        "src/components/Meal/Meal.component.tsx",
+        155
       ]
     ]
   }

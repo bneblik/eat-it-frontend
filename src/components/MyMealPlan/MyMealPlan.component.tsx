@@ -41,8 +41,8 @@ export class MyMealPlan extends Component<MyMealPlanProps, MyMealPlanState> {
     const mealsInfo: any[] = [];
     this.props.mealPlan.forEach((meal, i) =>
       mealsInfo.push(
-        <span className="mealInfoContainer">
-          <MealInfo meal={meal} key={i}></MealInfo>
+        <span key={i} className="mealInfoContainer">
+          <MealInfo meal={meal}></MealInfo>
           <span>
             <IconButton onClick={() => this.props.removeFromMealPlan(meal.id, this.props.selectedDate)}>
               <FontAwesomeIcon icon={faTrash} />

@@ -59,23 +59,15 @@
     "origin": [
       [
         "src/components/Calendar/Calendar.component.tsx",
-        116
+        117
       ]
     ]
   },
-  "Cancel": {
+  "Close": {
     "origin": [
       [
         "src/components/Calendar/Calendar.component.tsx",
-        128
-      ]
-    ]
-  },
-  "Ok": {
-    "origin": [
-      [
-        "src/components/Calendar/Calendar.component.tsx",
-        131
+        129
       ]
     ]
   }

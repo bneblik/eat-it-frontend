@@ -23,7 +23,8 @@ describe('AllMeals', () => {
       clearMealsErrors: jest.fn(),
       history: { location: {} } as any,
       last: false,
-      page: 1
+      page: 1,
+      categoriesList: []
     };
     wrapper = shallow(<AllMeals {...props} />);
     component = wrapper.instance();

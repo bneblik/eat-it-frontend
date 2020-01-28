@@ -1,5 +1,6 @@
 import { ProductType } from './Products';
 import { CommentType } from './MealCommentsTypes';
+import { Category } from './Categories';
 
 export type TMeal = {
   id?: number;
@@ -13,11 +14,12 @@ export type TMeal = {
   proteins?: number;
   carbs?: number;
   prepareTime: string;
-  category: string;
+  category: Category;
   video: string;
   image?: any;
   rate?: number;
   comments?: CommentType[];
+  your_meal?: boolean;
 };
 
 export const FETCH_MEAL_PENDING = 'FETCH_MEAL_PENDING';

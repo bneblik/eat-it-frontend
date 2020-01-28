@@ -32,13 +32,13 @@ export class AllMeals extends Component<AllMealsProps, AllMealsState> {
       cat: category,
       onlyMy: onlyMy === 'true' ? true : false,
       searcher: query,
-      mealsReducer: {} as any
+      mealsReducer: {} as any,
+      categoriesReducer: {} as any
     };
   }
   componentDidMount() {
     const { fetchMeals, page } = this.props;
     fetchMeals(page);
-
     window.addEventListener('scroll', this.handleScroll);
   }
 
@@ -66,7 +66,6 @@ export class AllMeals extends Component<AllMealsProps, AllMealsState> {
   }
 
   selectCategory() {
-    const options = ['all categories', 'breakfast', 'dinner'];
     return (
       <TextField
         className="selectCategory"
@@ -76,9 +75,9 @@ export class AllMeals extends Component<AllMealsProps, AllMealsState> {
         onChange={(e: any) => this.handleCategory(e)}
         SelectProps={{ native: true }}
       >
-        {options.map((option, key) => (
-          <option key={key} value={option} className="categoryOption">
-            {option}
+        {this.props.categoriesList.map((option, key) => (
+          <option key={key} value={option.name} className="categoryOption">
+            {option.name}
           </option>
         ))}
       </TextField>
@@ -160,7 +159,8 @@ const mapStateToProps = (state: AllMealsState) => {
     meals: state.mealsReducer.meals,
     pending: state.mealsReducer.pending,
     last: state.mealsReducer.last,
-    page: state.mealsReducer.page
+    page: state.mealsReducer.page,
+    categoriesList: state.categoriesReducer.categoriesList
   };
 };
 

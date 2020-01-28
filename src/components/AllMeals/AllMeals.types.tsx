@@ -5,6 +5,7 @@ import { fetchMeals, clearMealsErrors } from '../../actions/mealsAction';
 import { MealsStateType } from '../../types/MealsTypes';
 
 import { History, LocationState } from 'history';
+import { Category, CategoriesState } from '../../types/Categories';
 
 export interface AllMealsProps {
   /**
@@ -15,6 +16,7 @@ export interface AllMealsProps {
    * contains a list of meals to display
    */
   meals: TMeal[];
+  categoriesList: Category[];
   /**
    * determines whether adding is pending
    */
@@ -41,7 +43,13 @@ export interface AllMealsProps {
   history: History<LocationState>;
 }
 
-export type AllMealsState = { mealsReducer: MealsStateType; cat: string; onlyMy: boolean; searcher: string };
+export type AllMealsState = {
+  categoriesReducer: CategoriesState;
+  mealsReducer: MealsStateType;
+  cat: string;
+  onlyMy: boolean;
+  searcher: string;
+};
 
 export const CATEGORY = 'c';
 export const ONLY_MY = 'onlyMy';

@@ -3,7 +3,7 @@
     "origin": [
       [
         "src/components/UserPanel/UserPanel.component.tsx",
-        78
+        38
       ]
     ]
   },
@@ -11,7 +11,7 @@
     "origin": [
       [
         "src/components/UserPanel/UserPanel.component.tsx",
-        83
+        45
       ]
     ]
   },
@@ -19,55 +19,15 @@
     "origin": [
       [
         "src/components/UserPanel/UserPanel.component.tsx",
-        88
+        50
       ]
     ]
   },
-  "Set reminders about meal time": {
+  "Save": {
     "origin": [
       [
         "src/components/UserPanel/UserPanel.component.tsx",
-        96
-      ]
-    ]
-  },
-  "Time": {
-    "origin": [
-      [
-        "src/components/UserPanel/UserPanel.component.tsx",
-        103
-      ]
-    ]
-  },
-  "Repeat": {
-    "origin": [
-      [
-        "src/components/UserPanel/UserPanel.component.tsx",
-        107
-      ]
-    ]
-  },
-  "Daily": {
-    "origin": [
-      [
-        "src/components/UserPanel/UserPanel.component.tsx",
-        109
-      ]
-    ]
-  },
-  "Other": {
-    "origin": [
-      [
-        "src/components/UserPanel/UserPanel.component.tsx",
-        110
-      ]
-    ]
-  },
-  "Add": {
-    "origin": [
-      [
-        "src/components/UserPanel/UserPanel.component.tsx",
-        115
+        55
       ]
     ]
   }

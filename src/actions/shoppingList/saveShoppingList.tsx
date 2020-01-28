@@ -4,6 +4,7 @@ import {
   SAVE_SHOPPING_LIST_PENDING,
   SAVE_SHOPPING_LIST_SUCCESS
 } from '../../types/ShoppingList';
+import { i18n } from '../..';
 
 function saveShoppingListPending() {
   return {
@@ -19,7 +20,8 @@ function saveShoppingListError(error: any) {
 }
 function saveShoppingListSuccess() {
   return {
-    type: SAVE_SHOPPING_LIST_SUCCESS
+    type: SAVE_SHOPPING_LIST_SUCCESS,
+    success: i18n._('Your shopping list was successfully changed.')
   };
 }
 

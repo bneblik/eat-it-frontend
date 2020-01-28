@@ -3,7 +3,7 @@
     "origin": [
       [
         "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
-        9
+        13
       ]
     ]
   },
@@ -11,7 +11,7 @@
     "origin": [
       [
         "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
-        12
+        16
       ]
     ]
   },
@@ -19,7 +19,7 @@
     "origin": [
       [
         "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
-        14
+        18
       ]
     ]
   },
@@ -27,7 +27,7 @@
     "origin": [
       [
         "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
-        18
+        22
       ]
     ]
   },
@@ -35,7 +35,7 @@
     "origin": [
       [
         "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
-        20
+        24
       ]
     ]
   },
@@ -43,7 +43,7 @@
     "origin": [
       [
         "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
-        24
+        28
       ]
     ]
   },
@@ -51,7 +51,7 @@
     "origin": [
       [
         "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
-        26
+        30
       ]
     ]
   }

@@ -33,7 +33,7 @@ export function fetchMyShoppingList() {
     axiosInstanceWithAuth
       .get(requestConsts.SHOPPING_LIST_URL)
       .then((response) => {
-        dispatch(fetchMyShoppingListSuccess(response.data));
+        dispatch(fetchMyShoppingListSuccess(response.data.data));
       })
       .catch((error) => {
         dispatch(fetchShoppingListError(error));

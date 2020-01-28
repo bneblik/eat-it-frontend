@@ -1,5 +1,6 @@
 import { SAVE_FRIDGE_PENDING, SAVE_FRIDGE_ERROR, SAVE_FRIDGE_SUCCESS } from '../../types/Fridge';
 import { axiosInstanceWithAuth, requestConsts } from '../../utils/RequestService';
+import { i18n } from '../..';
 
 function saveFridgePending() {
   return {
@@ -16,7 +17,7 @@ function saveFridgeError(error: any) {
 function saveFridgeSuccess() {
   return {
     type: SAVE_FRIDGE_SUCCESS,
-    success: 'Your fridge was successfully changed.'
+    success: i18n._('Your fridge was successfully changed.')
   };
 }
 

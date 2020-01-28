@@ -55,12 +55,12 @@ export class Meal extends Component<MealProps, MealState> {
             <>
               <span>
                 <FontAwesomeIcon icon={faClock} />
-                {i18n._(`Prepare time: ${meal.prepareTime}`)}
+                {`${i18n._('Prepare time')}: ${meal.prepareTime}`}
               </span>
               <span className="divider"> | </span>
               <span>
                 <FontAwesomeIcon icon={faFilter} />
-                {i18n._(`Category: ${meal.category}`)}
+                {`${i18n._('Category')}: ${meal.category}`}
               </span>
             </>
           )}
@@ -82,7 +82,7 @@ export class Meal extends Component<MealProps, MealState> {
 
   displayEditButton() {
     if (this.props.pending) return <Skeleton width="20px" height="10px" />;
-    else if (true) return <EditMeal mealToEdit={this.props.meal} />;
+    else if (this.props.meal.your_meal) return <EditMeal mealToEdit={this.props.meal} />;
   }
   renderYoutubeVideo() {
     const { meal } = this.props;

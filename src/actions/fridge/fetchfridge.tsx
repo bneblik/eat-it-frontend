@@ -33,7 +33,7 @@ export function fetchMyFridge() {
     axiosInstanceWithAuth
       .get(requestConsts.FRIDGE_URL)
       .then((response) => {
-        dispatch(fetchMyFridgeSuccess(response.data));
+        dispatch(fetchMyFridgeSuccess(response.data.data));
       })
       .catch((error) => {
         dispatch(fetchMyFridgeError(error));

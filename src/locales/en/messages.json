@@ -2,344 +2,1196 @@
   "Add": {
     "translation": "",
     "origin": [
-      ["src/components/AddMeal/AddMeal.component.tsx", 115],
-      ["src/components/AddToMealPlan/AddToMealPlan.component.tsx", 60],
-      ["src/components/UserPanel/UserPanel.component.tsx", 115]
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        172
+      ],
+      [
+        "src/components/AddToMealPlan/AddToMealPlan.component.tsx",
+        83
+      ]
+    ]
+  },
+  "Add Meal": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/Header/Header.component.tsx",
+        63
+      ]
     ]
   },
   "Add a new meal": {
     "translation": "",
-    "origin": [["src/components/AddMeal/AddMeal.component.tsx", 50]]
+    "origin": [
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        123
+      ]
+    ]
   },
   "Add image": {
     "translation": "",
     "origin": [
-      ["src/components/AddMeal/AddMeal.component.tsx", 68],
-      ["src/components/AddProduct/AddProduct.component.tsx", 49]
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        115
+      ]
     ]
   },
   "Add product": {
     "translation": "",
     "origin": [
-      ["src/components/AddProduct/AddProduct.component.tsx", 31],
-      ["src/components/Products/Products.component.tsx", 131]
+      [
+        "src/components/AddProduct/AddProduct.component.tsx",
+        42
+      ],
+      [
+        "src/helpers/Products.component.tsx",
+        83
+      ]
     ]
   },
   "Add selected to your shopping list": {
     "translation": "",
-    "origin": [["src/components/Meal/Meal.component.tsx", 82]]
+    "origin": [
+      [
+        "src/components/Meal/Meal.component.tsx",
+        155
+      ]
+    ]
   },
   "Add step": {
     "translation": "",
-    "origin": [["src/components/Recipe/Recipe.component.tsx", 33]]
+    "origin": [
+      [
+        "src/components/Recipe/Recipe.component.tsx",
+        48
+      ]
+    ]
   },
   "Add to your meal plan": {
     "translation": "",
     "origin": [
-      ["src/components/AddToMealPlan/AddToMealPlan.component.tsx", 28],
-      ["src/components/AddToMealPlan/AddToMealPlan.component.tsx", 31]
+      [
+        "src/components/AddToMealPlan/AddToMealPlan.component.tsx",
+        46
+      ],
+      [
+        "src/components/AddToMealPlan/AddToMealPlan.component.tsx",
+        49
+      ]
+    ]
+  },
+  "Amount": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/AddProduct/AddProduct.component.tsx",
+        60
+      ]
     ]
   },
   "C": {
     "translation": "",
-    "origin": [["src/components/NutrientsInfo/NutrientsInfo.component.tsx", 14]]
+    "origin": [
+      [
+        "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
+        18
+      ]
+    ]
   },
   "Calories": {
     "translation": "",
     "origin": [
-      ["src/components/AddProduct/AddProduct.component.tsx", 57],
-      ["src/components/NutrientsInfo/NutrientsInfo.component.tsx", 9]
+      [
+        "src/components/AddProduct/AddProduct.component.tsx",
+        74
+      ],
+      [
+        "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
+        13
+      ]
     ]
   },
   "Cancel": {
     "translation": "",
     "origin": [
-      ["src/components/AddMeal/AddMeal.component.tsx", 127],
-      ["src/components/AddProduct/AddProduct.component.tsx", 94],
-      ["src/components/AddToMealPlan/AddToMealPlan.component.tsx", 57],
-      ["src/components/Calendar/Calendar.component.tsx", 128]
+      [
+        "src/components/AddProduct/AddProduct.component.tsx",
+        103
+      ],
+      [
+        "src/components/AddToMealPlan/AddToMealPlan.component.tsx",
+        80
+      ]
     ]
   },
   "Cannot find element with id": {
     "translation": "",
-    "origin": [["src/components/Meal/Meal.component.tsx", 96]]
+    "origin": [
+      [
+        "src/components/Meal/Meal.component.tsx",
+        96
+      ]
+    ]
   },
   "Carbohydrates": {
     "translation": "",
     "origin": [
-      ["src/components/AddProduct/AddProduct.component.tsx", 66],
-      ["src/components/NutrientsInfo/NutrientsInfo.component.tsx", 12]
+      [
+        "src/components/AddProduct/AddProduct.component.tsx",
+        81
+      ],
+      [
+        "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
+        16
+      ]
     ]
   },
   "Category": {
     "translation": "",
     "origin": [
-      ["src/components/AddMeal/AddMeal.component.tsx", 86],
-      ["src/components/AddProduct/AddProduct.component.tsx", 41]
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        151
+      ],
+      [
+        "src/components/AddProduct/AddProduct.component.tsx",
+        68
+      ],
+      [
+        "src/components/Meal/Meal.component.tsx",
+        67
+      ]
+    ]
+  },
+  "Change contrast": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/Header/Header.component.tsx",
+        91
+      ]
+    ]
+  },
+  "Change lang": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/Header/Header.component.tsx",
+        84
+      ]
     ]
   },
   "Change language": {
     "translation": "",
-    "origin": [["src/components/Header/ChangeLang.tsx", 42]]
+    "origin": [
+      [
+        "src/components/ChangeLang/ChangeLang.component.tsx",
+        53
+      ]
+    ]
+  },
+  "Close": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/Calendar/Calendar.component.tsx",
+        129
+      ]
+    ]
   },
   "Comment": {
     "translation": "",
-    "origin": [["src/components/MealComments/MealComments.component.tsx", 45]]
+    "origin": [
+      [
+        "src/components/MealComments/MealComments.component.tsx",
+        45
+      ]
+    ],
+    "obsolete": true
+  },
+  "Comment & rate": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/MealComments/MealComments.component.tsx",
+        77
+      ]
+    ]
+  },
+  "Comment successfully created": {
+    "translation": "",
+    "origin": [
+      [
+        "src/actions/mealCommentsAction.tsx",
+        28
+      ]
+    ]
   },
   "Create new": {
     "translation": "",
-    "origin": [["src/components/AddMeal/AddMeal.component.tsx", 117]]
+    "origin": [
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        117
+      ]
+    ],
+    "obsolete": true
   },
   "Daily": {
     "translation": "",
-    "origin": [["src/components/UserPanel/UserPanel.component.tsx", 109]]
+    "origin": [
+      [
+        "src/components/UserPanel/UserPanel.component.tsx",
+        109
+      ]
+    ],
+    "obsolete": true
   },
   "Date": {
     "translation": "",
-    "origin": [["src/components/AddToMealPlan/AddToMealPlan.component.tsx", 41]]
+    "origin": [
+      [
+        "src/components/AddToMealPlan/AddToMealPlan.component.tsx",
+        67
+      ]
+    ]
   },
   "Description": {
     "translation": "",
-    "origin": [["src/components/AddMeal/AddMeal.component.tsx", 60]]
+    "origin": [
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        133
+      ]
+    ]
+  },
+  "Don't have an account yet? Join us!": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/SignUp/SignUp.component.tsx",
+        28
+      ]
+    ]
+  },
+  "Edit meal": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/EditMeal/EditMeal.component.tsx",
+        31
+      ],
+      [
+        "src/components/EditMeal/EditMeal.component.tsx",
+        34
+      ]
+    ]
+  },
+  "Email": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/LogIn/LogIn.component.tsx",
+        34
+      ],
+      [
+        "src/components/SignUp/SignUp.component.tsx",
+        31
+      ]
+    ]
   },
   "F": {
     "translation": "",
-    "origin": [["src/components/NutrientsInfo/NutrientsInfo.component.tsx", 26]]
+    "origin": [
+      [
+        "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
+        30
+      ]
+    ]
   },
   "Fats": {
     "translation": "",
     "origin": [
-      ["src/components/AddProduct/AddProduct.component.tsx", 75],
-      ["src/components/NutrientsInfo/NutrientsInfo.component.tsx", 24]
+      [
+        "src/components/AddProduct/AddProduct.component.tsx",
+        88
+      ],
+      [
+        "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
+        28
+      ]
+    ]
+  },
+  "Given URL is invalid.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        70
+      ]
     ]
   },
   "Height (in cm)": {
     "translation": "",
-    "origin": [["src/components/UserPanel/UserPanel.component.tsx", 83]]
+    "origin": [
+      [
+        "src/components/UserPanel/UserPanel.component.tsx",
+        45
+      ]
+    ]
   },
   "Hello": {
     "translation": "",
-    "origin": [["src/components/Header/Header.component.tsx", 60]],
+    "origin": [
+      [
+        "src/components/Header/Header.component.tsx",
+        60
+      ]
+    ],
     "obsolete": true
   },
   "Hello World": {
     "translation": "",
     "origin": [
-      ["src/components/AllMeals/AllMeals.component.tsx", 39],
-      ["src/components/MyFridge/MyFridge.component.tsx", 40],
-      ["src/components/Meals/Meals.component.tsx", 15]
+      [
+        "src/components/AllMeals/AllMeals.component.tsx",
+        39
+      ],
+      [
+        "src/components/MyFridge/MyFridge.component.tsx",
+        40
+      ],
+      [
+        "src/components/Meals/Meals.component.tsx",
+        15
+      ]
     ],
     "obsolete": true
   },
+  "Information has been saved": {
+    "translation": "",
+    "origin": [
+      [
+        "src/actions/aboutUserAction.tsx",
+        14
+      ]
+    ]
+  },
   "Ingredient": {
     "translation": "",
-    "origin": [["src/components/AddMeal/AddMeal.component.tsx", 104]]
+    "origin": [
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        169
+      ]
+    ]
   },
   "Ingredients": {
     "translation": "",
-    "origin": [["src/components/Meal/Meal.component.tsx", 76]]
+    "origin": [
+      [
+        "src/components/Meal/Meal.component.tsx",
+        149
+      ]
+    ]
   },
   "Log in": {
     "translation": "",
     "origin": [
-      ["src/components/LogIn/LogIn.component.tsx", 15],
-      ["src/components/LogIn/LogIn.component.tsx", 29]
+      [
+        "src/components/Header/Header.component.tsx",
+        113
+      ],
+      [
+        "src/components/LogIn/LogIn.component.tsx",
+        31
+      ],
+      [
+        "src/components/LogIn/LogIn.component.tsx",
+        45
+      ]
+    ]
+  },
+  "Log out": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/Header/Header.component.tsx",
+        104
+      ]
+    ]
+  },
+  "Meal has been successfully removed.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/actions/mealPlanAction.tsx",
+        62
+      ]
     ]
   },
   "Meal name": {
     "translation": "",
-    "origin": [["src/components/AddToMealPlan/AddToMealPlan.component.tsx", 35]]
+    "origin": [
+      [
+        "src/components/AddToMealPlan/AddToMealPlan.component.tsx",
+        53
+      ]
+    ]
   },
   "Meals": {
     "translation": "",
-    "origin": [["src/components/Header/Header.component.tsx", 31]]
+    "origin": [
+      [
+        "src/components/Header/Header.component.tsx",
+        54
+      ]
+    ]
   },
   "My fridge": {
     "translation": "",
-    "origin": [["src/components/Header/Header.component.tsx", 34]]
+    "origin": [
+      [
+        "src/components/Header/Header.component.tsx",
+        57
+      ]
+    ]
   },
   "My meal plan": {
     "translation": "",
-    "origin": [["src/components/Header/Header.component.tsx", 37]]
+    "origin": [
+      [
+        "src/components/Header/Header.component.tsx",
+        60
+      ]
+    ]
+  },
+  "My meal plan for ": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/MyMealPlan/MyMealPlan.component.tsx",
+        75
+      ]
+    ]
   },
   "My meal plan for today": {
     "translation": "",
-    "origin": [["src/components/MyMealPlan/MyMealPlan.component.tsx", 42]]
+    "origin": [
+      [
+        "src/components/MyMealPlan/MyMealPlan.component.tsx",
+        42
+      ]
+    ],
+    "obsolete": true
   },
   "Name": {
     "translation": "",
     "origin": [
-      ["src/components/AddMeal/AddMeal.component.tsx", 54],
-      ["src/components/AddProduct/AddProduct.component.tsx", 35]
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        127
+      ],
+      [
+        "src/components/AddProduct/AddProduct.component.tsx",
+        56
+      ]
+    ]
+  },
+  "No categories": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        151
+      ]
+    ]
+  },
+  "No products": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        169
+      ],
+      [
+        "src/components/AddProduct/AddProduct.component.tsx",
+        56
+      ]
     ]
   },
   "Nothing to display": {
     "translation": "",
-    "origin": [["src/components/Meals/Meals.component.tsx", 15]]
+    "origin": [
+      [
+        "src/components/Meals/Meals.component.tsx",
+        23
+      ]
+    ]
   },
   "Nutritents info": {
     "translation": "",
-    "origin": [["src/components/AddProduct/AddProduct.component.tsx", 54]]
+    "origin": [
+      [
+        "src/components/AddProduct/AddProduct.component.tsx",
+        71
+      ]
+    ]
   },
   "Ok": {
     "translation": "",
-    "origin": [["src/components/Calendar/Calendar.component.tsx", 131]]
+    "origin": [
+      [
+        "src/components/Calendar/Calendar.component.tsx",
+        131
+      ]
+    ],
+    "obsolete": true
   },
   "Other": {
     "translation": "",
-    "origin": [["src/components/UserPanel/UserPanel.component.tsx", 110]]
+    "origin": [
+      [
+        "src/components/UserPanel/UserPanel.component.tsx",
+        110
+      ]
+    ],
+    "obsolete": true
   },
   "P": {
     "translation": "",
-    "origin": [["src/components/NutrientsInfo/NutrientsInfo.component.tsx", 20]]
+    "origin": [
+      [
+        "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
+        24
+      ]
+    ]
   },
   "Password": {
     "translation": "",
-    "origin": [["src/components/LogIn/LogIn.component.tsx", 23]]
+    "origin": [
+      [
+        "src/components/LogIn/LogIn.component.tsx",
+        39
+      ],
+      [
+        "src/components/SignUp/SignUp.component.tsx",
+        41
+      ]
+    ]
+  },
+  "Perfect amount!": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/Statistics/Statistics.component.tsx",
+        47
+      ]
+    ]
+  },
+  "Portion": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/AddToMealPlan/AddToMealPlan.component.tsx",
+        57
+      ]
+    ]
   },
   "Preparation time": {
     "translation": "",
-    "origin": [["src/components/AddMeal/AddMeal.component.tsx", 74]]
+    "origin": [
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        143
+      ]
+    ]
+  },
+  "Prepare time": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/Meal/Meal.component.tsx",
+        62
+      ]
+    ]
   },
   "Proteins": {
     "translation": "",
     "origin": [
-      ["src/components/AddProduct/AddProduct.component.tsx", 84],
-      ["src/components/NutrientsInfo/NutrientsInfo.component.tsx", 18]
+      [
+        "src/components/AddProduct/AddProduct.component.tsx",
+        95
+      ],
+      [
+        "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
+        22
+      ]
     ]
   },
   "Provide url for YouTube recipe": {
     "translation": "",
-    "origin": [["src/components/AddMeal/AddMeal.component.tsx", 96]]
+    "origin": [
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        32
+      ],
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        56
+      ],
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        73
+      ],
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        96
+      ],
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        159
+      ]
+    ]
   },
   "Recipe": {
     "translation": "",
-    "origin": [["src/components/Recipe/Recipe.component.tsx", 29]]
+    "origin": [
+      [
+        "src/components/Recipe/Recipe.component.tsx",
+        44
+      ]
+    ]
+  },
+  "Recommended by users": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/RecommendedMeals/RecommendedMeals.component.tsx",
+        45
+      ]
+    ]
   },
   "Repeat": {
     "translation": "",
-    "origin": [["src/components/UserPanel/UserPanel.component.tsx", 107]]
+    "origin": [
+      [
+        "src/components/UserPanel/UserPanel.component.tsx",
+        107
+      ]
+    ],
+    "obsolete": true
+  },
+  "Repeat password": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/SignUp/SignUp.component.tsx",
+        46
+      ]
+    ]
   },
   "Save": {
     "translation": "",
     "origin": [
-      ["src/components/AddMeal/AddMeal.component.tsx", 124],
-      ["src/components/AddProduct/AddProduct.component.tsx", 97]
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        180
+      ],
+      [
+        "src/components/AddProduct/AddProduct.component.tsx",
+        106
+      ],
+      [
+        "src/components/UserPanel/UserPanel.component.tsx",
+        55
+      ]
+    ]
+  },
+  "Save changes": {
+    "translation": "",
+    "origin": [
+      [
+        "src/helpers/Products.component.tsx",
+        98
+      ]
     ]
   },
   "Search for a meal...": {
     "translation": "",
-    "origin": [["src/components/AllMeals/AllMeals.component.tsx", 48]]
+    "origin": [
+      [
+        "src/components/AllMeals/AllMeals.component.tsx",
+        86
+      ]
+    ]
   },
   "Select all": {
     "translation": "",
-    "origin": [["src/components/Meal/Meal.component.tsx", 80]]
+    "origin": [
+      [
+        "src/components/Meal/Meal.component.tsx",
+        153
+      ]
+    ]
   },
   "Select day": {
     "translation": "",
-    "origin": [["src/components/Calendar/Calendar.component.tsx", 116]]
+    "origin": [
+      [
+        "src/components/Calendar/Calendar.component.tsx",
+        117
+      ]
+    ]
   },
   "Servings": {
     "translation": "",
-    "origin": [["src/components/AddMeal/AddMeal.component.tsx", 80]]
+    "origin": [
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        80
+      ]
+    ],
+    "obsolete": true
   },
   "Set information about you": {
     "translation": "",
-    "origin": [["src/components/UserPanel/UserPanel.component.tsx", 78]]
+    "origin": [
+      [
+        "src/components/UserPanel/UserPanel.component.tsx",
+        38
+      ]
+    ]
   },
   "Set reminder": {
     "translation": "",
-    "origin": [["src/components/AddToMealPlan/AddToMealPlan.component.tsx", 52]]
+    "origin": [
+      [
+        "src/components/AddToMealPlan/AddToMealPlan.component.tsx",
+        52
+      ]
+    ],
+    "obsolete": true
   },
   "Set reminders about meal time": {
     "translation": "",
-    "origin": [["src/components/UserPanel/UserPanel.component.tsx", 96]]
+    "origin": [
+      [
+        "src/components/UserPanel/UserPanel.component.tsx",
+        96
+      ]
+    ],
+    "obsolete": true
   },
   "Shopping List": {
     "translation": "",
-    "origin": [["src/components/Products/Products.component.tsx", 128]]
+    "origin": [
+      [
+        "src/helpers/Products.component.tsx",
+        80
+      ]
+    ]
+  },
+  "Shopping list": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/Header/Header.component.tsx",
+        70
+      ]
+    ]
+  },
+  "Sign up": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/SignUp/SignUp.component.tsx",
+        52
+      ]
+    ]
+  },
+  "The meal has been successfully added to your plan.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/actions/mealPlanAction.tsx",
+        43
+      ]
+    ]
+  },
+  "The meal has been successfully added.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/actions/mealAction.tsx",
+        58
+      ]
+    ]
+  },
+  "The meal has been successfully updated.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/actions/mealAction.tsx",
+        71
+      ]
+    ]
   },
   "Time": {
     "translation": "",
     "origin": [
-      ["src/components/AddToMealPlan/AddToMealPlan.component.tsx", 47],
-      ["src/components/UserPanel/UserPanel.component.tsx", 103]
+      [
+        "src/components/AddToMealPlan/AddToMealPlan.component.tsx",
+        73
+      ]
+    ]
+  },
+  "User panel": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/Header/Header.component.tsx",
+        77
+      ]
+    ]
+  },
+  "User successfully created": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/SignUp/SignUp.component.tsx",
+        70
+      ]
+    ]
+  },
+  "User successfully created.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/actions/createUserAction.tsx",
+        13
+      ]
+    ]
+  },
+  "User successfully logged in": {
+    "translation": "",
+    "origin": [
+      [
+        "src/actions/authAction.tsx",
+        12
+      ]
+    ]
+  },
+  "User successfully logged out": {
+    "translation": "",
+    "origin": [
+      [
+        "src/actions/authAction.tsx",
+        24
+      ]
     ]
   },
   "Username": {
     "translation": "",
-    "origin": [["src/components/LogIn/LogIn.component.tsx", 18]]
+    "origin": [
+      [
+        "src/components/SignUp/SignUp.component.tsx",
+        36
+      ]
+    ]
   },
   "Watch this recipe on YouTube": {
     "translation": "",
-    "origin": [["src/components/Meal/Meal.component.tsx", 59]]
+    "origin": [
+      [
+        "src/components/Meal/Meal.component.tsx",
+        86
+      ]
+    ]
   },
   "Weight (in kg)": {
     "translation": "",
-    "origin": [["src/components/UserPanel/UserPanel.component.tsx", 88]]
+    "origin": [
+      [
+        "src/components/UserPanel/UserPanel.component.tsx",
+        50
+      ]
+    ]
   },
   "What do I have in my fridge?": {
     "translation": "",
-    "origin": [["src/components/Products/Products.component.tsx", 129]]
+    "origin": [
+      [
+        "src/helpers/Products.component.tsx",
+        81
+      ]
+    ]
+  },
+  "You don't have any meals planned for this day yet.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/MyMealPlan/MyMealPlan.component.tsx",
+        41
+      ]
+    ]
+  },
+  "You have not added any product yet": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        192
+      ]
+    ]
+  },
+  "You have unsaved changes": {
+    "translation": "",
+    "origin": [
+      [
+        "src/helpers/Products.component.tsx",
+        26
+      ]
+    ]
   },
   "YouTube video": {
     "translation": "",
-    "origin": [["src/components/AddMeal/AddMeal.component.tsx", 96]]
+    "origin": [
+      [
+        "src/components/AddMeal/AddMeal.component.tsx",
+        159
+      ]
+    ]
+  },
+  "Your fridge is empty.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/Fridge/Fridge.component.tsx",
+        25
+      ]
+    ]
+  },
+  "Your fridge was successfully changed.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/actions/fridge/saveFridge.tsx",
+        18
+      ]
+    ]
+  },
+  "Your recipe is still empty. Add a step.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/Recipe/Recipe.component.tsx",
+        30
+      ]
+    ]
+  },
+  "Your shopping list is empty": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/ShoppingList/ShoppingList.component.tsx",
+        25
+      ]
+    ]
+  },
+  "Your shopping list was successfully changed.": {
+    "translation": "",
+    "origin": [
+      [
+        "src/actions/shoppingList/saveShoppingList.tsx",
+        18
+      ]
+    ]
   },
   "amount": {
     "translation": "",
-    "origin": [["src/components/ProductInfo/ProductInfo.component.tsx", 14]]
+    "origin": [
+      [
+        "src/components/ProductInfo/ProductInfo.component.tsx",
+        20
+      ]
+    ]
   },
   "carbs": {
     "translation": "",
-    "origin": [["src/components/NutrientsInfo/NutrientsInfo.component.tsx", 12]],
+    "origin": [
+      [
+        "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
+        12
+      ]
+    ],
     "obsolete": true
   },
   "fats": {
     "translation": "",
-    "origin": [["src/components/NutrientsInfo/NutrientsInfo.component.tsx", 20]],
+    "origin": [
+      [
+        "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
+        20
+      ]
+    ],
     "obsolete": true
   },
   "fri": {
     "translation": "",
-    "origin": [["src/components/Calendar/Calendar.component.tsx", 61]]
+    "origin": [
+      [
+        "src/components/Calendar/Calendar.component.tsx",
+        61
+      ]
+    ]
+  },
+  "invalid email address": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/SignUp/SignUp.component.tsx",
+        102
+      ]
+    ]
   },
   "kcal": {
     "translation": "",
-    "origin": [["src/components/NutrientsInfo/NutrientsInfo.component.tsx", 24]],
+    "origin": [
+      [
+        "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
+        24
+      ]
+    ],
     "obsolete": true
   },
   "mon": {
     "translation": "",
-    "origin": [["src/components/Calendar/Calendar.component.tsx", 57]]
+    "origin": [
+      [
+        "src/components/Calendar/Calendar.component.tsx",
+        57
+      ]
+    ]
   },
   "only my meals": {
     "translation": "",
-    "origin": [["src/components/AllMeals/AllMeals.component.tsx", 51]]
+    "origin": [
+      [
+        "src/components/AllMeals/AllMeals.component.tsx",
+        69
+      ]
+    ]
+  },
+  "password should have minimum 6 characters": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/SignUp/SignUp.component.tsx",
+        81
+      ]
+    ]
+  },
+  "passwords should match": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/SignUp/SignUp.component.tsx",
+        91
+      ]
+    ]
   },
   "proteins": {
     "translation": "",
-    "origin": [["src/components/NutrientsInfo/NutrientsInfo.component.tsx", 16]],
+    "origin": [
+      [
+        "src/components/NutrientsInfo/NutrientsInfo.component.tsx",
+        16
+      ]
+    ],
     "obsolete": true
   },
   "sat": {
     "translation": "",
-    "origin": [["src/components/Calendar/Calendar.component.tsx", 62]]
+    "origin": [
+      [
+        "src/components/Calendar/Calendar.component.tsx",
+        62
+      ]
+    ]
   },
   "sun": {
     "translation": "",
-    "origin": [["src/components/Calendar/Calendar.component.tsx", 63]]
+    "origin": [
+      [
+        "src/components/Calendar/Calendar.component.tsx",
+        63
+      ]
+    ]
+  },
+  "this field cannot be empty": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/SignUp/SignUp.component.tsx",
+        78
+      ],
+      [
+        "src/components/SignUp/SignUp.component.tsx",
+        88
+      ],
+      [
+        "src/components/SignUp/SignUp.component.tsx",
+        99
+      ]
+    ]
   },
   "thu": {
     "translation": "",
-    "origin": [["src/components/Calendar/Calendar.component.tsx", 60]]
+    "origin": [
+      [
+        "src/components/Calendar/Calendar.component.tsx",
+        60
+      ]
+    ]
+  },
+  "too little": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/Statistics/Statistics.component.tsx",
+        45
+      ]
+    ]
+  },
+  "too many": {
+    "translation": "",
+    "origin": [
+      [
+        "src/components/Statistics/Statistics.component.tsx",
+        41
+      ]
+    ]
   },
   "tue": {
     "translation": "",
-    "origin": [["src/components/Calendar/Calendar.component.tsx", 58]]
+    "origin": [
+      [
+        "src/components/Calendar/Calendar.component.tsx",
+        58
+      ]
+    ]
   },
   "wed": {
     "translation": "",
-    "origin": [["src/components/Calendar/Calendar.component.tsx", 59]]
+    "origin": [
+      [
+        "src/components/Calendar/Calendar.component.tsx",
+        59
+      ]
+    ]
   }
 }

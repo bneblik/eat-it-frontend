@@ -1,4 +1,4 @@
-import { axiosInstance, requestConsts, JWT_TOKEN } from '../utils/RequestService';
+import { axiosInstanceWithAuth, requestConsts, JWT_TOKEN } from '../utils/RequestService';
 import {
   AUTH_PENDING,
   LOG_IN_SUCCESS,
@@ -39,7 +39,7 @@ function logOutSuccess() {
 export function logIn(userData: any) {
   return (dispatch: any) => {
     dispatch(authPending());
-    axiosInstance
+    axiosInstanceWithAuth
       .post(requestConsts.LOG_IN_URL, { user: userData })
       .then((response) => {
         localStorage.setItem(JWT_TOKEN, response.headers.authorization);
@@ -56,7 +56,7 @@ export function logIn(userData: any) {
 export function logOut() {
   return (dispatch: any) => {
     dispatch(authPending());
-    axiosInstance
+    axiosInstanceWithAuth
       .delete(requestConsts.LOG_OUT_URL)
       .then(() => {
         localStorage.removeItem(JWT_TOKEN);

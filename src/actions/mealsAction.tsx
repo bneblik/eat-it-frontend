@@ -1,4 +1,4 @@
-import { axiosInstance, requestConsts } from '../utils/RequestService';
+import { requestConsts, axiosInstance } from '../utils/RequestService';
 import {
   FETCH_MEALS_PENDING,
   CLEAR_MEALS_ERRORS,

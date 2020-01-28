@@ -54,7 +54,7 @@ export function clearMealPlanSuccess() {
 function addToMealPlanSuccess() {
   return {
     type: ADD_TO_MEAL_PLAN_SUCCESS,
-    success: i18n._('The meal was successfully added to your plan.')
+    success: i18n._('The meal has been successfully added to your plan.')
   };
 }
 

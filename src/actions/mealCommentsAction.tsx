@@ -6,6 +6,7 @@ import {
   CLEAR_COMMENT_SUCCESS
 } from '../types/MealCommentsTypes';
 import { requestConsts, axiosInstanceWithAuth } from '../utils/RequestService';
+import { i18n } from '..';
 
 function addMealCommentSuccess(success: any) {
   return {
@@ -14,13 +15,13 @@ function addMealCommentSuccess(success: any) {
   };
 }
 
-function addMealCommentPending() {
+export function addMealCommentPending() {
   return {
     type: ADD_COMMENT_PENDING
   };
 }
 
-function addMealCommentError(error: any) {
+export function addMealCommentError(error: any) {
   return {
     type: ADD_COMMENT_ERROR,
     error: error
@@ -31,9 +32,10 @@ export function addMealComment(content: string, rate: number, mealId: number) {
   return (dispatch: any) => {
     dispatch(addMealCommentPending());
     axiosInstanceWithAuth
-      .post(`${requestConsts.COMMENT_URL}`, { content, rate, meal: mealId })
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      .post(`${requestConsts.COMMENT_URL}`, { text: content, rate, meal_id: mealId })
       .then(() => {
-        dispatch(addMealCommentSuccess('Comment successfully created'));
+        dispatch(addMealCommentSuccess(i18n._('Comment successfully created')));
       })
       .catch((error) => {
         dispatch(addMealCommentError(error));

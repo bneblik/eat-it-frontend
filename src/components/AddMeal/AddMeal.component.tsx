@@ -24,6 +24,7 @@ import { addMeal, clearAddMealSuccess, clearAddMealError, editMeal } from '../..
 import { bindActionCreators } from 'redux';
 import { showAlert } from '../../helpers/Alert.component';
 import { AddMealProps, AddMealState, initialAddMealState as initialState } from './AddMeal.types';
+import { Category } from '../../types/Categories';
 
 /**
  * This component renders a new meal adding form.
@@ -42,7 +43,7 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
         description: mealToEdit.description ? mealToEdit.description : '',
         prepTime: mealToEdit.prepareTime ? mealToEdit.prepareTime : '',
         // recipeSteps: mealToEdit.recipe ? mealToEdit.recipe : [],
-        category: mealToEdit.category ? mealToEdit.category : '',
+        category: mealToEdit.category ? mealToEdit.category : ({} as Category),
         video: mealToEdit.video ? mealToEdit.video : '',
         selectedProductsList: mealToEdit.ingredients ? mealToEdit.ingredients : []
       });
@@ -63,7 +64,7 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
       description === '' ||
       recipeSteps.length === 0 ||
       prepTime === '' ||
-      category === '' ||
+      Object.keys(category).length === 0 ||
       selectedProductsList.length === 0 ||
       selectedProductsList.find((p) => !p.amount) ||
       videoHelperText !== i18n._('Provide url for YouTube recipe')
@@ -174,10 +175,10 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
             <div className="padding">
               <FontAwesomeIcon icon={faFilter} />
               <Autocomplete
-                options={['dinner', 'breakfast']}
+                options={this.props.categoriesList}
                 className="autocomplete"
                 id="category"
-                getOptionLabel={(o) => o}
+                getOptionLabel={(o) => (o.name ? o.name : '')}
                 onChange={(_, v) => {
                   this.setState({ category: v });
                 }}
@@ -327,7 +328,8 @@ const mapStateToProps = (state: AddMealState) => {
     productsList: state.productsReducer.productsList,
     error: state.mealReducer.error,
     success: state.mealReducer.success,
-    pending: state.mealReducer.pending
+    pending: state.mealReducer.pending,
+    categoriesList: state.categoriesReducer.categoriesList
   };
 };
 
