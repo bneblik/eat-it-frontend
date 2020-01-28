@@ -7,15 +7,8 @@ import Rating from '@material-ui/lab/Rating';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClock } from '@fortawesome/free-regular-svg-icons';
 import { Skeleton } from '@material-ui/lab';
-import { TMeal } from '../../types/MealTypes';
 import { i18n } from '../..';
-
-interface MealInfoProps {
-  /**
-   * contains informations to display
-   */
-  meal: TMeal | undefined;
-}
+import { MealInfoProps } from './MealInfo.types';
 
 /**
  * This component renders short information about one meal
@@ -28,8 +21,10 @@ class MealInfo extends Component<MealInfoProps> {
         <div className="image">
           {!this.props.meal ? (
             <Skeleton variant="rect" width={'100%'} height={'330px'} />
-          ) : (
+          ) : !this.props.meal.image ? (
             <img src={image} alt="Meal" />
+          ) : (
+            <img src={this.props.meal.image} alt="Meal" />
           )}
         </div>
         <div className="info">
@@ -54,7 +49,8 @@ class MealInfo extends Component<MealInfoProps> {
             ) : (
               <span className="toRight">
                 <Rating
-                  value={3}
+                  readOnly={true}
+                  value={this.props.meal.rate}
                   precision={0.5}
                   onChange={(_, newValue) => {
                     console.log(newValue);
@@ -69,15 +65,22 @@ class MealInfo extends Component<MealInfoProps> {
             <Skeleton variant="text" width={'100%'} />
           ) : (
             <NutrientsInfo
-              kcal={1} /*{this.props.meal.calories}*/
-              carbs={1} /*{this.props.meal.carbs}*/
-              proteins={1} /*{this.props.meal.protein}*/
-              fats={1} /*{this.props.meal.fats}*/
+              kcal={this.props.meal.calories}
+              carbs={this.props.meal.carbs}
+              proteins={this.props.meal.proteins}
+              fats={this.props.meal.fats}
             />
           )}
+          {this.displayDescription()}
         </div>
       </div>
     );
+  }
+
+  displayDescription() {
+    if (!!this.props.meal && !!this.props.meal.description) {
+      return <div>{this.props.meal.description}</div>;
+    }
   }
 }
 

@@ -1,4 +1,4 @@
-import { axiosInstance, requestConsts } from '../utils/RequestService';
+import { requestConsts, axiosInstance } from '../utils/RequestService';
 import {
   CREATE_USER_PENDING,
   CREATE_USER_SUCCESS,
@@ -6,6 +6,7 @@ import {
   CREATE_USER_ERROR,
   CLEAR_CREATE_USER_SUCCESS
 } from '../types/CreateUserTypes';
+import { i18n } from '..';
 
 function createUserPending() {
   return {
@@ -13,11 +14,11 @@ function createUserPending() {
   };
 }
 
-function createUserSuccess(user: any, successInfo) {
+function createUserSuccess(user: any) {
   return {
     type: CREATE_USER_SUCCESS,
     user: user,
-    success: successInfo
+    success: i18n._('User successfully created.')
   };
 }
 
@@ -34,11 +35,11 @@ export function createUser(userData: any) {
     axiosInstance
       .post(requestConsts.CREATE_USER_URL, { user: userData })
       .then((response) => {
-        dispatch(createUserSuccess(response.data.content.user, 'a'));
+        dispatch(createUserSuccess(response.data.content.user));
       })
       .catch((error) => {
-        const errorObject = JSON.parse(JSON.stringify(error)).message;
-        dispatch(createUserError(errorObject));
+        if (!error.response) dispatch(createUserError(error.toString()));
+        else dispatch(createUserError(error.response.statusText));
       });
   };
 }

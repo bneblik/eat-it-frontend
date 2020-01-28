@@ -4,10 +4,8 @@ import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 import Header from '../Header/Header.component';
 import AddMeal from '../AddMeal/AddMeal.component';
 import { connect } from 'react-redux';
-import { reducers } from '../../reducers';
 import Meal from '../Meal/Meal.component';
 import Fridge from '../Fridge/Fridge.component';
-import { ProductsState } from '../../types/Products';
 import { UserAccount } from '../UserAccount/UserAccount.component';
 import ShoppingList from '../ShoppingList/ShoppingList.component';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -16,32 +14,17 @@ import MyMealPlan from '../MyMealPlan/MyMealPlan.component';
 import UserPanel from '../UserPanel/UserPanel.component';
 import { routes } from './RouteConstants';
 import { i18n } from '../..';
-import { MealsStateType } from '../../types/MealsTypes';
 import { fetchProducts } from '../../actions/productAction';
+import { fetchCategories } from '../../actions/categoriesAction';
 import { logOut, clearAuthSuccess, clearAuthError } from '../../actions/authAction';
-import { AuthStateType } from '../../types/AuthTypes';
 import { bindActionCreators } from 'redux';
 import { successAlert, errorAlert } from '../../helpers/Alert.component';
 import { JWT_TOKEN } from '../../utils/RequestService';
 import { defaultLang } from '../../utils/LanguageService';
+import { AppProps } from './App.types';
+import { AppState } from '../../store/store';
 
 library.add(faEnvelope, faKey);
-
-interface AppProps {
-  meals: MealsStateType;
-  products: ProductsState;
-  fetchProducts: typeof fetchProducts;
-  auth: AuthStateType;
-  logOut: typeof logOut;
-  clearAuthSuccess: typeof clearAuthSuccess;
-  clearAuthError: typeof clearAuthError;
-  history: any;
-  location: any;
-  match: any;
-}
-
-type AppState = ReturnType<typeof reducers>;
-
 /**
  * This component renders the Header and a component that matches the URL
  * @author Beata Szczuka
@@ -57,6 +40,7 @@ class App extends Component<AppProps> {
 
   componentDidMount() {
     this.props.fetchProducts();
+    this.props.fetchCategories();
     if (localStorage.getItem('wcag')) {
       document.body.classList.add('wcag');
     }
@@ -65,6 +49,13 @@ class App extends Component<AppProps> {
   logout = () => {
     this.props.logOut();
   };
+
+  langUrl() {
+    let url = '';
+    const lng = this.props.match.params.lng;
+    if (!!lng && lng !== defaultLang) url = `/${lng}`;
+    return url;
+  }
 
   render() {
     return (
@@ -79,7 +70,7 @@ class App extends Component<AppProps> {
                   <Route exact path={`${url}${routes.meals}`} render={(props) => <AllMeals {...props} />} />
                   <Route
                     path={`${url}${routes.addMeal}`}
-                    render={(props) => this.requireAuth(<AddMeal {...props} />)}
+                    render={(props) => this.requireAuth(<AddMeal {...props} mealToEdit={undefined} />)}
                   />
                   <Route
                     exact
@@ -92,14 +83,14 @@ class App extends Component<AppProps> {
                   />
                   <Route
                     path={`${url}${routes.userPanel}`}
-                    render={(props) => this.requireAuth(<UserPanel {...props} username="exampleUser123" />)}
+                    render={(props) => this.requireAuth(<UserPanel {...props} />)}
                   />
                   <Route path={`${url}${routes.login}`} render={(props) => <UserAccount {...props} />} />
                   <Route
                     path={`${url}${routes.shoppingList}`}
                     render={(props) => this.requireAuth(<ShoppingList {...props} />)}
                   />
-                  <Redirect exact to={`${url}${routes.meals}`} />
+                  <Redirect to={`${routes.meals}`} />
                 </Switch>
               );
             }}
@@ -112,14 +103,13 @@ class App extends Component<AppProps> {
   requireAuth(component: any) {
     if (localStorage.getItem(JWT_TOKEN)) return component;
     return (
-      <Redirect to={{ pathname: `${this.lang()}${routes.login}`, state: { from: this.props.location } }} />
+      <Redirect
+        to={{
+          pathname: `${this.langUrl()}${routes.login}`,
+          state: { from: this.props.location }
+        }}
+      />
     );
-  }
-  lang() {
-    let url = '';
-    const lng = this.props.match.params.lng;
-    if (!!lng && lng !== defaultLang) url = `/${lng}`;
-    return url;
   }
 
   showAuthAlert() {
@@ -143,7 +133,8 @@ const mapStateToProps = (state: AppState) => {
   return {
     meals: state.mealsReducer,
     products: state.productsReducer,
-    auth: state.authReducer
+    auth: state.authReducer,
+    categories: state.categoriesReducer
   };
 };
 
@@ -153,7 +144,8 @@ const mapDispatchToProps = (dispatch: any) =>
       logOut,
       fetchProducts,
       clearAuthSuccess,
-      clearAuthError
+      clearAuthError,
+      fetchCategories
     },
     dispatch
   );

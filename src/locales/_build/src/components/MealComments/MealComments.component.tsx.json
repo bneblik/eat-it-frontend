@@ -1,9 +1,9 @@
 {
-  "Comment": {
+  "Comment & rate": {
     "origin": [
       [
         "src/components/MealComments/MealComments.component.tsx",
-        45
+        77
       ]
     ]
   }

@@ -3,40 +3,19 @@ import '../../styles/css/my-meal-plan.styles.css';
 import { Calendar } from '../Calendar/Calendar.component';
 import { MealInfo } from '../MealInfo/MealInfo.component';
 import { i18n } from '../..';
-import { TMeal } from '../../types/MealTypes';
 import { changeSelectedDate } from '../../actions/calendarAction';
-import { DateState } from '../../types/Calendar';
 import { connect } from 'react-redux';
 import { formatRelative } from 'date-fns';
 import { pl, enGB } from 'date-fns/locale';
 import RecommendedMeals from '../RecommendedMeals/RecommendedMeals.component';
-import { fetchMealPlan } from '../../actions/mealPlanActon';
-import { MealPlanState } from '../../types/MealPlan';
+import { fetchMealPlan, clearMealPlanError, removeFromMealPlan } from '../../actions/mealPlanAction';
 import Statistics from '../Statistics/Statistics.component';
-
-interface MyMealPlanState {
-  calendarReducer: DateState;
-  mealPlanReducer: MealPlanState;
-  dateLocale: Locale;
-}
-interface MyMealPlanProps {
-  /**
-   * a date for which the meal plan is displayed
-   */
-  selectedDate: Date;
-  /**
-   * changes value of @param selectedDate
-   */
-  changeSelectedDate: typeof changeSelectedDate;
-  /**
-   * fetches meal plan and dispatches result
-   */
-  fetchMealPlan: typeof fetchMealPlan;
-  /**
-   * contains fetched meal plan of the logged in user
-   */
-  mealPlan: TMeal[];
-}
+import { bindActionCreators } from 'redux';
+import { errorAlert } from '../../helpers/Alert.component';
+import { MyMealPlanProps, MyMealPlanState } from './MyMealPlan.types';
+import { IconButton } from '@material-ui/core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 /**
  * This component renders the meal plan of a logged in user
@@ -54,12 +33,24 @@ export class MyMealPlan extends Component<MyMealPlanProps, MyMealPlanState> {
     };
   }
   componentDidMount() {
-    this.props.fetchMealPlan();
+    this.props.fetchMealPlan(this.props.selectedDate);
   }
   renderMealsForTheDay() {
-    if (this.props.mealPlan === []) return <div>Nothing to display</div>;
+    if (this.props.mealPlan.length === 0)
+      return <div className="emptyInfo">{i18n._("You don't have any meals planned for this day yet.")}</div>;
     const mealsInfo: any[] = [];
-    this.props.mealPlan.forEach((meal, i) => mealsInfo.push(<MealInfo meal={meal} key={i}></MealInfo>));
+    this.props.mealPlan.forEach((meal, i) =>
+      mealsInfo.push(
+        <span key={i} className="mealInfoContainer">
+          <MealInfo meal={meal}></MealInfo>
+          <span>
+            <IconButton onClick={() => this.props.removeFromMealPlan(meal.id, this.props.selectedDate)}>
+              <FontAwesomeIcon icon={faTrash} />
+            </IconButton>
+          </span>
+        </span>
+      )
+    );
     return <div>{mealsInfo}</div>;
   }
 
@@ -108,17 +99,40 @@ export class MyMealPlan extends Component<MyMealPlanProps, MyMealPlanState> {
           <Statistics day={this.props.selectedDate} />
         </div>
         <RecommendedMeals />
+        {this.showAlert()}
       </>
     );
+  }
+  showAlert() {
+    if (!this.props.pending && !!this.props.error) {
+      return errorAlert({
+        isOpen: !!this.props.error,
+        message: this.props.error,
+        onClose: () => this.props.clearMealPlanError()
+      });
+    }
   }
 }
 
 const mapStateToProps = (state: MyMealPlanState) => ({
   selectedDate: state.calendarReducer.selectedDate,
-  mealPlan: state.mealPlanReducer.mealPlan
+  mealPlan: state.mealPlanReducer.mealPlan,
+  error: state.mealPlanReducer.error,
+  pending: state.mealPlanReducer.pending
 });
+
+const mapDispatchToProps = (dispatch: any) =>
+  bindActionCreators(
+    {
+      changeSelectedDate,
+      fetchMealPlan,
+      clearMealPlanError,
+      removeFromMealPlan
+    },
+    dispatch
+  );
 
 export default connect(
   mapStateToProps,
-  { changeSelectedDate, fetchMealPlan }
+  mapDispatchToProps
 )(MyMealPlan);

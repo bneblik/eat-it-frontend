@@ -16,7 +16,7 @@ const testMeal: TMeal = {
   recipe: ['Heat pasta water: Put a large pot of salted water on to boil (1 Tbsp salt for every 2 '],
   createdAt: new Date(),
   ingredients: [
-    { id: 1, name: 'butter', calories: 12, fats: 123, carbs: 22, proteins: 2, category: 'dairy' }
+    { id: 1, name: 'butter', unit: 'g', calories: 12, fats: 123, carbs: 22, proteins: 2, category: 'dairy' }
   ],
   calories: 200,
   fats: 9,
@@ -40,7 +40,11 @@ describe('Meal', () => {
       meal: undefined,
       pending: false,
       match: { params: { id } },
-      fetchMeal: mockedFetch
+      fetchMeal: mockedFetch,
+      addIngredientsToList: jest.fn(),
+      clearShoppingListError: jest.fn(),
+      clearShoppingListSuccess: jest.fn(),
+      addIngredientsToListStatus: { error: null, success: null, pending: false }
     };
     wrapper = shallow(<Meal {...props} />);
     component = wrapper.instance();

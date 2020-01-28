@@ -16,9 +16,14 @@ describe('AddMeal', () => {
       addMeal: () => {
         return {} as any;
       },
+      clearAddMealError: jest.fn(),
+      clearAddMealSuccess: jest.fn(),
       error: null,
-      meal: undefined,
-      pending: false
+      success: null,
+      pending: false,
+      mealToEdit: undefined,
+      editMeal: jest.fn(),
+      categoriesList: []
     };
     wrapper = shallow(<AddMeal {...props} />);
     component = wrapper.instance();
@@ -39,7 +44,7 @@ describe('AddMeal', () => {
     expect(name).toEqual('');
     expect(description).toEqual('');
     expect(prepTime).toEqual('');
-    expect(category).toEqual('');
+    expect(category).toEqual({});
     expect(video).toEqual('');
   });
 

@@ -9,7 +9,9 @@ import {
 const initialState: MealsStateType = {
   pending: false,
   meals: [],
-  error: null
+  error: null,
+  last: false,
+  page: 1
 };
 
 export function mealsReducer(state: MealsStateType = initialState, action: any): MealsStateType {
@@ -23,7 +25,17 @@ export function mealsReducer(state: MealsStateType = initialState, action: any):
       return {
         ...state,
         pending: false,
-        meals: action.meals
+        meals: [
+          ...state.meals,
+          ...action.meals.map((e) => ({
+            id: e.id,
+            ...e.attributes,
+            comments: e.relationships.comments.data,
+            ingredients: e.relationships.products.data
+          }))
+        ],
+        last: action.meals.length === 0,
+        page: state.page + 1
       };
     case FETCH_MEALS_ERROR:
       return {

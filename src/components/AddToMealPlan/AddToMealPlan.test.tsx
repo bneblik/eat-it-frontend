@@ -7,9 +7,24 @@ jest.mock('../..', () => ({
     return { _: (data: string) => data };
   }
 }));
+let wrapper: any;
+let component: any;
 
 describe('AddToMealPlan', () => {
+  beforeEach(() => {
+    const props = {
+      mealName: 'meal',
+      success: null,
+      error: null,
+      pending: false,
+      addToMealPlan: jest.fn(),
+      clearMealPlanSuccess: jest.fn(),
+      clearMealPlanError: jest.fn()
+    };
+    wrapper = shallow(<AddToMealPlan {...props} />);
+    component = wrapper.instance();
+  });
   it('renders without crashing', () => {
-    shallow(<AddToMealPlan mealName="meal" />);
+    expect(component).toBeTruthy();
   });
 });

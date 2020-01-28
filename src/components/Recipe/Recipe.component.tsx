@@ -4,19 +4,7 @@ import { TextField, IconButton } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { i18n } from '../..';
-
-interface RecipeProps {
-  /**
-   * List of steps in the recipe
-   */
-  steps: string[];
-  removeStep: (step: string) => void;
-  addStep: (step: string) => void;
-}
-
-interface RecipeState {
-  newStep: string;
-}
+import { RecipeProps, RecipeState } from './Recipe.types';
 
 /**
  *  This component is a list of recipe steps with possibility to delete and a form for adding a new step
@@ -29,9 +17,12 @@ class Recipe extends Component<RecipeProps> {
 
   displaySteps() {
     const stepsList: any[] = [];
+    if (this.props.steps.length === 0)
+      return <div className="emptyInfo">{i18n._('Your recipe is still empty. Add a step.')}</div>;
     this.props.steps.forEach((step, i) =>
       stepsList.push(
         <div key={i} className="step">
+          <span className="stepNumber">{i + 1}.</span>
           <TextField
             variant="outlined"
             value={step}
@@ -70,6 +61,7 @@ class Recipe extends Component<RecipeProps> {
           <div className="step">
             <TextField
               variant="outlined"
+              required
               label={i18n._('Add step')}
               value={this.state.newStep}
               multiline={true}
@@ -78,7 +70,7 @@ class Recipe extends Component<RecipeProps> {
                 this.setState({ newStep: e.target.value });
               }}
             />
-            <IconButton className="add" onClick={this.addStep}>
+            <IconButton className="add" disabled={this.state.newStep === ''} onClick={this.addStep}>
               <FontAwesomeIcon icon={faPlus} />
             </IconButton>
           </div>

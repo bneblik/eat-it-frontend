@@ -2,35 +2,15 @@ import React, { Component } from 'react';
 import '../../styles/css/statistics.styles.css';
 import { connect } from 'react-redux';
 import { i18n } from '../..';
-import { fetchStatisticsForDay } from '../../actions/statisticsAction';
-import { StatisticsType, StatisticsState } from '../../types/Statistics';
+import { fetchStatisticsForDay, clearStatisticsError } from '../../actions/statisticsAction';
 import { bindActionCreators } from 'redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLongArrowAltDown, faLongArrowAltUp } from '@fortawesome/free-solid-svg-icons';
-import { Zoom } from '@material-ui/core';
-import { Skeleton } from '@material-ui/lab';
-
-interface StatisticsProps {
-  day: Date;
-  /**
-   * fetches statistick for @param day
-   */
-  fetchStatisticsForDay: typeof fetchStatisticsForDay;
-  /**
-   * contains fetched statistics
-   * value in relation to the user's daily demand calculated,
-   * based on the height and weight @see UserPanel
-   */
-  statistics: StatisticsType | undefined;
-  /**
-   * determines whether fetching is pending
-   */
-  pending: boolean;
-}
-interface StatisticsComponentState {
-  statisticsReducer: StatisticsState;
-  zoom: boolean;
-}
+import { faLongArrowAltDown, faLongArrowAltUp, faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
+import { Zoom, Button } from '@material-ui/core';
+import { Skeleton, Alert } from '@material-ui/lab';
+import { errorAlert } from '../../helpers/Alert.component';
+import { StatisticsProps, StatisticsComponentState } from './Statistics.types';
+import { routes, lang } from '../App/RouteConstants';
 
 /**
  * This component renders quantity information about nutrients delivered on a given @param day
@@ -71,6 +51,7 @@ export class Statistics extends Component<StatisticsProps, StatisticsComponentSt
       );
     return <div className="textInfo">{i18n._('Perfect amount!')}</div>;
   }
+
   render() {
     if (this.props.statistics) {
       return (
@@ -107,17 +88,43 @@ export class Statistics extends Component<StatisticsProps, StatisticsComponentSt
               </span>
             </div>
           </Zoom>
+          {this.showAlert()}
         </div>
       );
     } else if (this.props.pending) {
       return this.showSkeleton();
-    } else return <div className="statisticsComponent"></div>;
+    } else
+      return (
+        <div className="statisticsComponent empty">
+          <Alert severity="info">
+            <span>
+              {i18n._('Enter your height and weight to control your nutrient requirements.')}
+              <Button href={`${lang()}${routes.userPanel}`} onClick={(e) => this.fun(e.target)}>
+                <FontAwesomeIcon icon={faAngleDoubleRight} />
+              </Button>
+            </span>
+          </Alert>
+        </div>
+      );
+  }
+  fun(anchor) {
+    anchor.href = `${lang()}${routes.userPanel}`;
+  }
+
+  showAlert() {
+    if (!this.props.pending && !!this.props.error) {
+      return errorAlert({
+        isOpen: !!this.props.error,
+        message: this.props.error,
+        onClose: () => this.props.clearStatisticsError()
+      });
+    }
   }
 
   showSkeleton() {
     const circles = [];
     for (let i = 0; i < 4; i++) {
-      circles.push(<Skeleton variant="circle" className="circle" />);
+      circles.push(<Skeleton key={i} variant="circle" className="circle" />);
     }
     return <div className="statisticsComponent">{circles}</div>;
   }
@@ -125,14 +132,16 @@ export class Statistics extends Component<StatisticsProps, StatisticsComponentSt
 const mapStateToProps = (state: StatisticsComponentState) => {
   return {
     statistics: state.statisticsReducer.statistics,
-    pending: state.statisticsReducer.pending
+    pending: state.statisticsReducer.pending,
+    error: state.statisticsReducer.error
   };
 };
 
 const mapDispatchToProps = (dispatch: any) =>
   bindActionCreators(
     {
-      fetchStatisticsForDay
+      fetchStatisticsForDay,
+      clearStatisticsError
     },
     dispatch
   );

@@ -1,57 +1,26 @@
 import React, { Component } from 'react';
-import {
-  TextField,
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  FormControlLabel,
-  Checkbox
-} from '@material-ui/core';
+import { TextField, Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClock, faBell as faBellRegular } from '@fortawesome/free-regular-svg-icons';
 import {
   faUtensils,
   faClipboardList,
   faCalendarDay,
-  faBell as faBellSolid,
   faBalanceScaleRight
 } from '@fortawesome/free-solid-svg-icons';
 import '../../styles/css/add-to-meal-plan.styles.css';
 import { i18n } from '../..';
-import { format } from 'date-fns';
-
-type AddToMealPlanProps = {
-  /**
-   * the name of meal which should be added to the meal plan
-   */
-  mealName: string;
-};
-type AddToMealPlanState = {
-  portion: string;
-  date: string;
-  time: string;
-  reminder: boolean;
-  dialogOpened: boolean;
-  portionOptions: string[];
-};
-
-const initialState: AddToMealPlanState = {
-  portion: '1',
-  date: format(new Date(), 'yyyy-MM-dd'),
-  time: '12:00',
-  reminder: false,
-  dialogOpened: false,
-  portionOptions: ['0.5', '1', '2']
-};
+import { addToMealPlan, clearMealPlanError, clearMealPlanSuccess } from '../../actions/mealPlanAction';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { showAlert } from '../../helpers/Alert.component';
+import { AddToMealPlanProps, AddToMealPlanState, initialStateAddToMealPlan } from './AddToMealPlan.types';
 
 /**
  * This component renders the form of adding a meal to the meal plan of the logged in user.
  * @author Beata Szczuka
  */
-class AddToMealPlan extends Component<AddToMealPlanProps> {
-  state: AddToMealPlanState = initialState;
+export class AddToMealPlan extends Component<AddToMealPlanProps> {
+  state: AddToMealPlanState = initialStateAddToMealPlan;
 
   close() {
     this.setState({
@@ -60,15 +29,12 @@ class AddToMealPlan extends Component<AddToMealPlanProps> {
   }
 
   save() {
-    // const data = {
-    //   id: 1,
-    //   name: this.props.mealName,
-    //   portion: this.state.portion,
-    //   date: +this.state.date,
-    //   time: +this.state.time,
-    //   reminder: +this.state.reminder
-    // };
-    // this.props.addToMealPlan(data);
+    const data = {
+      name: this.props.mealName,
+      portion: this.state.portion,
+      date: this.state.date
+    };
+    this.props.addToMealPlan(data);
     this.close();
   }
   open() {
@@ -78,6 +44,7 @@ class AddToMealPlan extends Component<AddToMealPlanProps> {
   }
 
   render() {
+    const { pending, error, success, clearMealPlanError, clearMealPlanSuccess } = this.props;
     return (
       <>
         <Button
@@ -131,33 +98,6 @@ class AddToMealPlan extends Component<AddToMealPlanProps> {
                 }}
               />
             </div>
-            <div className="inputContainer">
-              <FontAwesomeIcon icon={faClock} />
-              <TextField
-                label={i18n._('Time')}
-                variant="outlined"
-                type="time"
-                value={this.state.time}
-                onChange={(e) => {
-                  this.setState({ time: e.target.value });
-                }}
-              />
-            </div>
-            <div className="inputContainer">
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    icon={<FontAwesomeIcon icon={faBellRegular} />}
-                    checkedIcon={<FontAwesomeIcon icon={faBellSolid} />}
-                    value={this.state.reminder}
-                    onChange={() =>
-                      this.setState((prev: AddToMealPlanState) => ({ reminder: !prev.reminder }))
-                    }
-                  />
-                }
-                label={i18n._('Set reminder')}
-              />
-            </div>
           </DialogContent>
           <DialogActions>
             <Button onClick={this.close.bind(this)} color="primary">
@@ -168,9 +108,30 @@ class AddToMealPlan extends Component<AddToMealPlanProps> {
             </Button>
           </DialogActions>
         </Dialog>
+        {showAlert(pending, error, success, clearMealPlanError, clearMealPlanSuccess)}
       </>
     );
   }
 }
+const mapStateToProps = (state: AddToMealPlanState) => {
+  return {
+    error: state.mealPlanReducer.error,
+    success: state.mealPlanReducer.success,
+    pending: state.mealPlanReducer.pending
+  };
+};
 
-export { AddToMealPlan };
+const mapDispatchToProps = (dispatch: any) =>
+  bindActionCreators(
+    {
+      addToMealPlan,
+      clearMealPlanError,
+      clearMealPlanSuccess
+    },
+    dispatch
+  );
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AddToMealPlan);

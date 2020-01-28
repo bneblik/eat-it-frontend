@@ -47,6 +47,18 @@ export interface SaveShoppingListAction {
   category: string;
 }
 
+export const SAVE_SHOPPING_LIST_SUCCESS = 'SAVE_SHOPPING_LIST_SUCCESS';
+export const SAVE_SHOPPING_LIST_PENDING = 'SAVE_SHOPPING_LIST_PENDING';
+export const SAVE_SHOPPING_LIST_ERROR = 'SAVE_SHOPPING_LIST_ERROR';
+export const FETCH_SHOPPING_LIST_PENDING = 'FETCH_SHOPPING_LIST_PENDING';
+export const FETCH_SHOPPING_LIST_ERROR = 'FETCH_SHOPPING_LIST_ERROR';
+export const FETCH_SHOPPING_LIST_SUCCESS = 'FETCH_SHOPPING_LIST_SUCCESS';
+export const ADD_INGR_TO_LIST_ERROR = 'ADD_INGR_TO_LIST_ERROR';
+export const ADD_INGR_TO_LIST_PENDING = 'ADD_INGR_TO_LIST_PENDING';
+export const ADD_INGR_TO_LIST_SUCCESS = 'ADD_INGR_TO_LIST_SUCCESS';
+export const CLEAR_SHOPPING_LIST_ERROR = 'CLEAR_SHOPPING_LIST_ERROR';
+export const CLEAR_SHOPPING_LIST_SUCCESS = 'CLEAR_SHOPPING_LIST_SUCCESS';
+
 export type ShoppingListActionType =
   | FetchShoppingListSuccAction
   | AddToBasketAction
@@ -57,6 +69,9 @@ export type ShoppingListActionType =
 
 export interface ShoppingListState {
   shoppingList: TShoppingList[];
+  error: any;
+  success: any;
+  pending: any;
 }
 
 export type ShoppingListProduct = {

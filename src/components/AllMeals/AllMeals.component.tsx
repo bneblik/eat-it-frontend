@@ -3,48 +3,15 @@ import '../../styles/css/all-meals.styles.css';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { fetchMeals, clearMealsErrors } from '../../actions/mealsAction';
-import { TMeal } from '../../types/MealTypes';
-import { MealsStateType } from '../../types/MealsTypes';
 import image from '../../styles/images/background-image.jpg';
 import { TextField, FormControlLabel, Switch, Snackbar } from '@material-ui/core';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Meals from '../Meals/Meals.component';
 import { i18n } from '../..';
-import { History, LocationState } from 'history';
 import { Alert } from '@material-ui/lab';
 import { JWT_TOKEN } from '../../utils/RequestService';
-
-interface AllMealsProps {
-  /**
-   * contains an error message or is null
-   */
-  error: any | null;
-  /**
-   * contains a list of meals to display
-   */
-  meals: TMeal[];
-  /**
-   * determines whether adding is pending
-   */
-  pending: boolean;
-  /**
-   * fetches meals and dispatches the result
-   */
-  fetchMeals: typeof fetchMeals;
-  /**
-   * clears @param error
-   */
-  clearMealsErrors: typeof clearMealsErrors;
-  /**
-   * contains @param search
-   */
-  history: History<LocationState>;
-}
-type AllMealsState = { mealsReducer: MealsStateType; cat: string; onlyMy: boolean; searcher: string };
-const CATEGORY = 'c';
-const ONLY_MY = 'onlyMy';
-const QUERY = 'q';
+import { AllMealsProps, AllMealsState, CATEGORY, ONLY_MY, QUERY } from './AllMeals.types';
 
 /**
  * This component renders the main page of the application.
@@ -65,13 +32,27 @@ export class AllMeals extends Component<AllMealsProps, AllMealsState> {
       cat: category,
       onlyMy: onlyMy === 'true' ? true : false,
       searcher: query,
-      mealsReducer: {} as any
+      mealsReducer: {} as any,
+      categoriesReducer: {} as any
     };
   }
   componentDidMount() {
-    const { fetchMeals } = this.props;
-    fetchMeals();
+    const { fetchMeals, page } = this.props;
+    fetchMeals(page);
+    window.addEventListener('scroll', this.handleScroll);
   }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  handleScroll = () => {
+    if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight)
+      return;
+    const { page } = this.props;
+    if (!this.props.last && !this.props.pending) this.props.fetchMeals(page);
+    else if (this.props.last) window.removeEventListener('scroll', this.handleScroll);
+  };
 
   onlyMyMeals() {
     if (localStorage.getItem(JWT_TOKEN)) {
@@ -85,7 +66,6 @@ export class AllMeals extends Component<AllMealsProps, AllMealsState> {
   }
 
   selectCategory() {
-    const options = ['all categories', 'breakfast', 'dinner'];
     return (
       <TextField
         className="selectCategory"
@@ -95,9 +75,9 @@ export class AllMeals extends Component<AllMealsProps, AllMealsState> {
         onChange={(e: any) => this.handleCategory(e)}
         SelectProps={{ native: true }}
       >
-        {options.map((option, key) => (
-          <option key={key} value={option} className="categoryOption">
-            {option}
+        {this.props.categoriesList.map((option, key) => (
+          <option key={key} value={option.name} className="categoryOption">
+            {option.name}
           </option>
         ))}
       </TextField>
@@ -150,7 +130,7 @@ export class AllMeals extends Component<AllMealsProps, AllMealsState> {
     const searchParams = new URLSearchParams(this.props.history.location.search);
     searchParams.set(attr, newValue);
     this.props.history.push({ search: searchParams.toString() });
-    fetchMeals();
+    // fetchMeals();
   }
   clearErrors() {
     this.props.clearMealsErrors();
@@ -177,7 +157,10 @@ const mapStateToProps = (state: AllMealsState) => {
   return {
     error: state.mealsReducer.error,
     meals: state.mealsReducer.meals,
-    pending: state.mealsReducer.pending
+    pending: state.mealsReducer.pending,
+    last: state.mealsReducer.last,
+    page: state.mealsReducer.page,
+    categoriesList: state.categoriesReducer.categoriesList
   };
 };
 

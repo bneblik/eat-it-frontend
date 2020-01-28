@@ -2,7 +2,8 @@ import {
   FETCH_STATISTICS_SUCC,
   StatisticsState,
   FETCH_STATISTICS_PENDING,
-  FETCH_STATISTICS_ERROR
+  FETCH_STATISTICS_ERROR,
+  CLEAR_STATISTICS_ERROR
 } from '../types/Statistics';
 
 const initialState: StatisticsState = {
@@ -19,6 +20,8 @@ export function statisticsReducer(state = initialState, action: any): Statistics
       return { ...state, pending: false, statistics: action.statistics };
     case FETCH_STATISTICS_ERROR:
       return { ...state, pending: false, error: action.error };
+    case CLEAR_STATISTICS_ERROR:
+      return { ...state, error: null };
     default:
       return state;
   }

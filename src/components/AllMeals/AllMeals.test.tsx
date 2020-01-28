@@ -21,7 +21,10 @@ describe('AllMeals', () => {
       pending: false,
       fetchMeals: mockFetch,
       clearMealsErrors: jest.fn(),
-      history: { location: {} } as any
+      history: { location: {} } as any,
+      last: false,
+      page: 1,
+      categoriesList: []
     };
     wrapper = shallow(<AllMeals {...props} />);
     component = wrapper.instance();

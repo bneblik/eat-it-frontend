@@ -1,4 +1,4 @@
-import { axiosInstance, requestConsts, JWT_TOKEN } from '../utils/RequestService';
+import { axiosInstanceWithAuth, requestConsts, JWT_TOKEN } from '../utils/RequestService';
 import {
   AUTH_PENDING,
   LOG_IN_SUCCESS,
@@ -39,17 +39,15 @@ function logOutSuccess() {
 export function logIn(userData: any) {
   return (dispatch: any) => {
     dispatch(authPending());
-    axiosInstance
+    axiosInstanceWithAuth
       .post(requestConsts.LOG_IN_URL, { user: userData })
       .then((response) => {
-        const jwtToken = response.headers.authorization;
-        localStorage.setItem(JWT_TOKEN, jwtToken.substring(7));
+        localStorage.setItem(JWT_TOKEN, response.headers.authorization);
         dispatch(logInSuccess());
       })
       .catch((error) => {
-        let errorMessage = error;
-        if (error.response) errorMessage = error.response.data.error;
-        dispatch(authError(errorMessage));
+        if (!error.response) dispatch(authError(error.toString()));
+        else dispatch(authError(error.response.statusText));
       });
   };
 }
@@ -57,14 +55,15 @@ export function logIn(userData: any) {
 export function logOut() {
   return (dispatch: any) => {
     dispatch(authPending());
-    axiosInstance
+    axiosInstanceWithAuth
       .delete(requestConsts.LOG_OUT_URL)
       .then(() => {
         localStorage.removeItem(JWT_TOKEN);
         dispatch(logOutSuccess());
       })
       .catch((error) => {
-        dispatch(authError(error));
+        if (!error.response) dispatch(authError(error.toString()));
+        else dispatch(authError(error.response.statusText));
       });
   };
 }

@@ -44,7 +44,7 @@ type ProductsProps = {
   addToBasket?: (product: TProduct, category: string) => void;
   changeAmount: (product: TProduct, category: string, amount: string) => void;
   removeProduct: (product: TProduct, category: string) => void;
-  saveChanges: () => void;
+  saveChanges: (changed: TKind[]) => void;
   addProduct: (product: TProduct, category: string, amount: number) => void;
 };
 type ProductsState = {
@@ -182,7 +182,7 @@ class ProductsHelper extends Component<ProductsProps, ProductsState> {
     this.markAsUnsaved();
   };
   handleSaveChanges = () => {
-    this.props.saveChanges();
+    this.props.saveChanges(this.props.productsCategories);
     this.setState({ unsaved: false });
   };
 }

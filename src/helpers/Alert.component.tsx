@@ -29,3 +29,37 @@ export const errorAlert = ({ isOpen, message, onClose }) => {
 export const successAlert = ({ isOpen, message, onClose }) => {
   return alert({ isOpen, message, onClose, severity: 'success' });
 };
+
+// eslint-disable-next-line react/prop-types
+export const pendingAlert = ({ isOpen }) => {
+  return (
+    <Snackbar open={isOpen}>
+      <Alert severity="warning">Loading...</Alert>
+    </Snackbar>
+  );
+};
+
+export const showAlert = (
+  pending: boolean,
+  error: any,
+  success: any,
+  clearError: () => any,
+  clearSuccess: () => any
+) => {
+  if (!pending && !!error) {
+    return errorAlert({
+      isOpen: !!error,
+      message: error,
+      onClose: () => clearError()
+    });
+  } else if (!pending && !!success) {
+    return successAlert({
+      isOpen: true,
+      message: success,
+      onClose: () => clearSuccess()
+    });
+  } else if (pending)
+    return pendingAlert({
+      isOpen: pending
+    });
+};

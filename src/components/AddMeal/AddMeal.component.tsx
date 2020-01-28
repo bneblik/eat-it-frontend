@@ -3,7 +3,7 @@ import { Card, TextField, CardHeader, Button } from '@material-ui/core';
 import { ProductsList } from '../ProductsList/ProductsList.component';
 import '../../styles/css/add-meal.styles.css';
 import { connect } from 'react-redux';
-import { ProductsState, ProductType } from '../../types/Products';
+import { ProductType } from '../../types/Products';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faPlus,
@@ -14,65 +14,18 @@ import {
   faListOl,
   faCheck,
   faCamera,
-  faTimes,
   faVideo
 } from '@fortawesome/free-solid-svg-icons';
 import { faClock } from '@fortawesome/free-regular-svg-icons';
 import { Recipe } from '../Recipe/Recipe.component';
 import { i18n } from '../..';
 import { Autocomplete } from '@material-ui/lab';
-import { addMeal } from '../../actions/mealAction';
-import { MealStateType, TMeal } from '../../types/MealTypes';
+import { addMeal, clearAddMealSuccess, clearAddMealError, editMeal } from '../../actions/mealAction';
 import { bindActionCreators } from 'redux';
+import { showAlert } from '../../helpers/Alert.component';
+import { AddMealProps, AddMealState, initialAddMealState as initialState } from './AddMeal.types';
+import { Category } from '../../types/Categories';
 
-interface AddMealProps {
-  /**
-   * contains products to display as autocomplete options
-   */
-  productsList: ProductType[];
-  addMeal: typeof addMeal;
-  /**
-   * contains an error message or is null
-   */
-  error: any | null;
-  /**
-   * contains informations about meal if defined
-   */
-  meal: TMeal | undefined;
-  /**
-   * determines whether adding is pending
-   */
-  pending: boolean;
-}
-interface AddMealState {
-  name: string;
-  recipeSteps: string[];
-  description: string;
-  prepTime: string;
-  category: string;
-  video: string;
-  videoHelperText: string;
-  selectedProduct: ProductType;
-  productsReducer: ProductsState;
-  selectedProductsList: ProductType[];
-  mealReducer: MealStateType;
-  selectedFile: any;
-}
-
-const initialState: AddMealState = {
-  name: '',
-  recipeSteps: [],
-  description: '',
-  prepTime: '',
-  category: '',
-  video: '',
-  videoHelperText: '',
-  selectedProduct: {} as ProductType,
-  selectedProductsList: [],
-  selectedFile: null,
-  productsReducer: {} as ProductsState,
-  mealReducer: {} as MealStateType
-};
 /**
  * This component renders a new meal adding form.
  * @author Beata Szczuka
@@ -81,6 +34,20 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
   constructor(props) {
     super(props);
     this.state = { ...initialState, videoHelperText: i18n._('Provide url for YouTube recipe') };
+  }
+  componentDidMount() {
+    if (!!this.props.mealToEdit) {
+      const { mealToEdit } = this.props;
+      this.setState({
+        name: mealToEdit.name,
+        description: mealToEdit.description ? mealToEdit.description : '',
+        prepTime: mealToEdit.prepareTime ? mealToEdit.prepareTime : '',
+        // recipeSteps: mealToEdit.recipe ? mealToEdit.recipe : [],
+        category: mealToEdit.category ? mealToEdit.category : ({} as Category),
+        video: mealToEdit.video ? mealToEdit.video : '',
+        selectedProductsList: mealToEdit.ingredients ? mealToEdit.ingredients : []
+      });
+    }
   }
   isButtonAddDisabled = () => {
     const {
@@ -95,10 +62,11 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
     if (
       name === '' ||
       description === '' ||
-      recipeSteps === [] ||
+      recipeSteps.length === 0 ||
       prepTime === '' ||
-      category === '' ||
-      selectedProductsList === [] ||
+      Object.keys(category).length === 0 ||
+      selectedProductsList.length === 0 ||
+      selectedProductsList.find((p) => !p.amount) ||
       videoHelperText !== i18n._('Provide url for YouTube recipe')
     )
       return true;
@@ -107,12 +75,10 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
   add = () => {
     let video = this.state.video;
     if (video !== '') {
-      // only id is important
       const validPrefixLength = 'https://www.youtube.com/watch?v='.length;
       video = video.substring(validPrefixLength);
     }
-    this.props.addMeal({
-      id: 1,
+    const args = {
       name: this.state.name,
       recipe: this.state.recipeSteps,
       description: this.state.description,
@@ -121,8 +87,10 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
       image: this.state.selectedFile,
       video: video,
       ingredients: this.state.selectedProductsList
-    });
-    this.setState(initialState);
+    };
+    if (!!this.props.mealToEdit) this.props.editMeal(args, this.props.mealToEdit.id);
+    else this.props.addMeal(args);
+    this.setState({ ...initialState, videoHelperText: i18n._('Provide url for YouTube recipe') });
   };
 
   uploadImage() {
@@ -145,12 +113,13 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
 
   addProduct = () => {
     this.setState((prev: AddMealState) => ({
-      selectedProductsList: [...prev.selectedProductsList, prev.selectedProduct]
+      selectedProductsList: [...prev.selectedProductsList, prev.selectedProduct],
+      selectedProduct: {} as ProductType
     }));
-    this.setState({ selectedProduct: {} as ProductType });
   };
 
   render() {
+    const { pending, error, success, clearAddMealError, clearAddMealSuccess } = this.props;
     return (
       <div className="addMealComponent">
         <Card>
@@ -161,6 +130,7 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
               <TextField
                 variant="outlined"
                 label={i18n._('Name')}
+                required
                 id="name"
                 autoFocus={true}
                 value={this.state.name}
@@ -176,6 +146,7 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
                 variant="outlined"
                 label={i18n._('Description')}
                 id="description"
+                required
                 value={this.state.description}
                 fullWidth={true}
                 onChange={(e) => {
@@ -192,6 +163,7 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
               <TextField
                 variant="outlined"
                 id="prepTime"
+                required
                 label={i18n._('Preparation time')}
                 value={this.state.prepTime}
                 fullWidth={true}
@@ -203,11 +175,11 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
             <div className="padding">
               <FontAwesomeIcon icon={faFilter} />
               <Autocomplete
-                options={['dinner', 'breakfast']}
+                options={this.props.categoriesList}
                 className="autocomplete"
                 id="category"
-                getOptionLabel={(o) => o}
-                onChange={(e, v) => {
+                getOptionLabel={(o) => (o.name ? o.name : '')}
+                onChange={(_, v) => {
                   this.setState({ category: v });
                 }}
                 value={this.state.category}
@@ -216,6 +188,7 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
                   <TextField
                     {...params}
                     variant="outlined"
+                    required
                     value={this.state.category}
                     fullWidth
                     label={i18n._('Category')}
@@ -263,6 +236,7 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
                       <TextField
                         {...params}
                         variant="outlined"
+                        required
                         value={this.state.selectedProduct}
                         fullWidth
                         label={i18n._('Ingredient')}
@@ -273,6 +247,9 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
                     <Button
                       className="addProduct"
                       variant="contained"
+                      disabled={
+                        !this.state.selectedProduct || Object.keys(this.state.selectedProduct).length === 0
+                      }
                       onClick={this.addProduct}
                       startIcon={<FontAwesomeIcon icon={faPlus} />}
                     >
@@ -280,11 +257,7 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
                     </Button>
                   </span>
                 </div>
-                <ProductsList
-                  productsList={this.state.selectedProductsList}
-                  removeProduct={this.removeFromSelectedProducts}
-                  changeAmount={this.changeAmountOfSelectedProduct}
-                />
+                {this.displaySelectedProducts()}
               </div>
             </div>
             <Button
@@ -296,23 +269,30 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
             >
               {i18n._('Save')}
             </Button>
-            <Button
-              className="groupButton cancel"
-              variant="contained"
-              onClick={this.add}
-              startIcon={<FontAwesomeIcon icon={faTimes} />}
-            >
-              {i18n._('Cancel')}
-            </Button>
           </form>
         </Card>
+        {showAlert(pending, error, success, clearAddMealError, clearAddMealSuccess)}
       </div>
     );
   }
 
+  displaySelectedProducts() {
+    if (this.state.selectedProductsList.length > 0) {
+      return (
+        <ProductsList
+          productsList={this.state.selectedProductsList}
+          removeProduct={this.removeFromSelectedProducts}
+          changeAmount={this.changeAmountOfSelectedProduct}
+        />
+      );
+    } else {
+      return <div className="emptyInfo">{i18n._('You have not added any product yet')}</div>;
+    }
+  }
+
   validateYouTubeVideo = (value) => {
     const validPrefix = 'https://www.youtube.com/watch?v=';
-    if (!value.startsWith(validPrefix, 0) || validPrefix.length >= value.length) {
+    if ((!value.startsWith(validPrefix, 0) || validPrefix.length >= value.length) && value.length > 0) {
       this.setState({ video: value, videoHelperText: i18n._('Given URL is invalid.') });
     } else {
       this.setState({ video: value, videoHelperText: i18n._('Provide url for YouTube recipe') });
@@ -347,15 +327,19 @@ const mapStateToProps = (state: AddMealState) => {
   return {
     productsList: state.productsReducer.productsList,
     error: state.mealReducer.error,
-    meal: state.mealReducer.meal,
-    pending: state.mealReducer.pending
+    success: state.mealReducer.success,
+    pending: state.mealReducer.pending,
+    categoriesList: state.categoriesReducer.categoriesList
   };
 };
 
 const mapDispatchToProps = (dispatch: any) =>
   bindActionCreators(
     {
-      addMeal: addMeal
+      addMeal: addMeal,
+      clearAddMealError,
+      clearAddMealSuccess,
+      editMeal
     },
     dispatch
   );

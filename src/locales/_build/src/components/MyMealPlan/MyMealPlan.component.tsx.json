@@ -1,9 +1,17 @@
 {
-  "My meal plan for today": {
+  "You don't have any meals planned for this day yet.": {
     "origin": [
       [
         "src/components/MyMealPlan/MyMealPlan.component.tsx",
-        42
+        41
+      ]
+    ]
+  },
+  "My meal plan for ": {
+    "origin": [
+      [
+        "src/components/MyMealPlan/MyMealPlan.component.tsx",
+        75
       ]
     ]
   }

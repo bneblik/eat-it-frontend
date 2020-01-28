@@ -7,53 +7,16 @@ import { faFilter, faUtensils, faCircle, faBalanceScaleLeft } from '@fortawesome
 import { i18n } from '../..';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { ProductType, ProductsState } from '../../types/Products';
+import { ProductType } from '../../types/Products';
 import { connect } from 'react-redux';
-
-type AddProductState = {
-  name: string;
-  amount: string;
-  category: string;
-  calories: string;
-  carbs: string;
-  fats: string;
-  proteins: string;
-  dialogOpened: boolean;
-  productsReducer: ProductsState;
-};
-
-type AddProductProps = {
-  /**
-   * describes where the new product will be added
-   */
-  buttonName: string;
-  /**
-   * contains products to display as autocomplete options
-   */
-  productsList: ProductType[];
-  /**
-   * adds a product
-   */
-  addProduct: (product: ProductType, category: string, amount: string) => void;
-};
-const defaultState: AddProductState = {
-  name: '',
-  amount: '',
-  category: '',
-  calories: '',
-  carbs: '',
-  fats: '',
-  proteins: '',
-  dialogOpened: false,
-  productsReducer: {} as ProductsState
-};
+import { AddProductProps, AddProductState, defultStateAddProduct } from './AddProduct.types';
 
 /**
  * This component renders a product adding form.
  * @author Beata Szczuka
  */
 export class AddProduct extends Component<AddProductProps> {
-  state: AddProductState = defaultState;
+  state: AddProductState = defultStateAddProduct;
 
   close() {
     this.setState({
@@ -62,16 +25,12 @@ export class AddProduct extends Component<AddProductProps> {
   }
 
   save() {
-    const product: ProductType = {
-      id: 1,
-      name: this.state.name,
-      category: this.state.category,
-      calories: +this.state.calories,
-      carbs: +this.state.carbs,
-      fats: +this.state.fats,
-      proteins: +this.state.proteins
-    };
-    this.props.addProduct(product, this.state.category, this.state.amount);
+    this.props.addProduct(
+      { ...this.state.product, category: this.state.category },
+      this.state.category,
+      this.state.amount
+    );
+    this.setState(defultStateAddProduct);
     this.close();
   }
   open() {
@@ -102,25 +61,25 @@ export class AddProduct extends Component<AddProductProps> {
                 id="name"
                 className="autocomplete"
                 options={this.props.productsList}
-                getOptionLabel={(o) => o}
-                renderOption={(option) => <span>{option.name ? option.name : ''}</span>}
+                getOptionLabel={(o) => (o.name ? o.name : '')}
                 onChange={(_, product) => {
                   this.setState({
-                    name: product ? product.name : '',
+                    product: product ? product : ({} as ProductType),
                     category: product ? product.category : '',
                     calories: product ? product.calories : '',
                     carbs: product ? product.carbs : '',
                     fats: product ? product.fats : '',
-                    proteins: product ? product.proteins : ''
+                    proteins: product ? product.proteins : '',
+                    unit: product ? product.unit : ''
                   });
                 }}
-                value={this.state.name}
+                value={this.state.product}
                 noOptionsText={i18n._('No products')}
                 renderInput={(params: any) => (
                   <TextField
                     {...params}
                     variant="filled"
-                    value={this.state.name}
+                    value={this.state.product}
                     fullWidth
                     label={i18n._('Name')}
                   />
@@ -134,6 +93,9 @@ export class AddProduct extends Component<AddProductProps> {
                 label={i18n._('Amount')}
                 value={this.state.amount}
                 variant="filled"
+                InputProps={{
+                  endAdornment: <InputAdornment position="end">{this.state.unit}</InputAdornment>
+                }}
                 onChange={(e) => {
                   this.setState({ amount: e.target.value });
                 }}
@@ -217,7 +179,12 @@ export class AddProduct extends Component<AddProductProps> {
             <Button id="cancel" onClick={this.close.bind(this)} color="primary">
               {i18n._('Cancel')}
             </Button>
-            <Button id="save" onClick={this.save.bind(this)} color="primary">
+            <Button
+              id="save"
+              onClick={this.save.bind(this)}
+              disabled={Object.keys(this.state.product).length === 0 || this.state.amount === ''}
+              color="primary"
+            >
               {i18n._('Save')}
             </Button>
           </DialogActions>

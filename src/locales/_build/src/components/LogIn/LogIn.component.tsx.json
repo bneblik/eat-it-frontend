@@ -3,19 +3,19 @@
     "origin": [
       [
         "src/components/LogIn/LogIn.component.tsx",
-        15
+        31
       ],
       [
         "src/components/LogIn/LogIn.component.tsx",
-        29
+        45
       ]
     ]
   },
-  "Username": {
+  "Email": {
     "origin": [
       [
         "src/components/LogIn/LogIn.component.tsx",
-        18
+        34
       ]
     ]
   },
@@ -23,7 +23,7 @@
     "origin": [
       [
         "src/components/LogIn/LogIn.component.tsx",
-        23
+        39
       ]
     ]
   }

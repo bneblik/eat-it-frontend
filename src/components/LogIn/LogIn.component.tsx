@@ -2,42 +2,9 @@ import React, { Component } from 'react';
 import { TextField, Button } from '@material-ui/core';
 import { i18n } from '@lingui/core';
 import { bindActionCreators } from 'redux';
-import { AuthStateType } from '../../types/AuthTypes';
 import { logIn } from '../../actions/authAction';
 import { connect } from 'react-redux';
-import { History, LocationState } from 'history';
-
-interface LogInState {
-  authReducer: AuthStateType;
-  email: string;
-  password: string;
-}
-interface LogInProps {
-  /**
-   * contains an error message or is null
-   */
-  error: any | null;
-  /**
-   * contains a success message
-   */
-  success: any | null;
-  /**
-   * determines whether adding is pending
-   */
-  pending: boolean;
-  /**
-   * login user with given @param userData
-   */
-  logIn: typeof logIn;
-  /**
-   * if contains @param from user will be redirected there after logging in
-   */
-  location: any;
-  /**
-   * contains address URL
-   */
-  history: History<LocationState>;
-}
+import { LogInProps, LogInState } from './LogIn.types';
 
 /**
  * This component is a login form

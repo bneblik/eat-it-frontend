@@ -1,4 +1,4 @@
-import { axiosInstance, requestConsts } from '../utils/RequestService';
+import { requestConsts, axiosInstance } from '../utils/RequestService';
 import {
   FETCH_MEALS_PENDING,
   CLEAR_MEALS_ERRORS,
@@ -26,16 +26,17 @@ function fetchMealsError(error: any) {
   };
 }
 
-export function fetchMeals() {
+export function fetchMeals(page: number) {
   return (dispatch: any) => {
     dispatch(fetchMealsPending());
     axiosInstance
-      .get(requestConsts.GET_MEALS_URL)
+      .get(requestConsts.MEALS_URL, { params: { page } })
       .then((response) => {
-        dispatch(fetchMealsSuccess(response.data.content.meals));
+        dispatch(fetchMealsSuccess(response.data.data));
       })
       .catch((error) => {
-        dispatch(fetchMealsError(error.toString()));
+        if (!error.response) dispatch(fetchMealsError(error.toString()));
+        else dispatch(fetchMealsError(error.response.statusText));
       });
   };
 }

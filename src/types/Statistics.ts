@@ -18,6 +18,7 @@ export interface StatisticsPendingAction {
   type: typeof FETCH_STATISTICS_PENDING;
   pending: boolean;
 }
+export const CLEAR_STATISTICS_ERROR = 'CLEAR_STATISTICS_ERROR';
 
 export type ShoppingListActionType = StatisticsSuccAction | StatisticsErrAction | StatisticsPendingAction;
 

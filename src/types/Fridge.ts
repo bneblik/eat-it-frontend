@@ -31,13 +31,19 @@ export interface AddProductFridgeAction {
   amount: number;
 }
 
-export const SAVE_FRIDGE = 'SAVE_FRIDGE';
+export const SAVE_FRIDGE_SUCCESS = 'SAVE_FRIDGE_SUCCESS';
 
 export interface SaveFridgeAction {
-  type: typeof SAVE_FRIDGE;
+  type: typeof SAVE_FRIDGE_SUCCESS;
   product: FridgeProduct;
   category: string;
 }
+export const FETCH_FRIDGE_PENDING = 'FETCH_FRIDGE_PENDING';
+export const FETCH_FRIDGE_ERROR = 'FETCH_FRIDGE_ERROR';
+export const SAVE_FRIDGE_ERROR = 'SAVE_FRIDGE_ERROR';
+export const SAVE_FRIDGE_PENDING = 'SAVE_FRIDGE_PENDING';
+export const CLEAR_FRIDGE_SUCCESS = 'CLEAR_FRIDGE_SUCCESS';
+export const CLEAR_FRIDGE_ERROR = 'CLEAR_FRIDGE_ERROR';
 
 export type FridgeActionType =
   | FetchFridgeSuccAction
@@ -48,6 +54,9 @@ export type FridgeActionType =
 
 export interface FridgeState {
   fridge: TFridge[];
+  error: any;
+  success: any;
+  pending: any;
 }
 
 export type FridgeProduct = {

@@ -3,11 +3,7 @@ import '../../styles/css/user-account.styles.css';
 import LogIn from '../LogIn/LogIn.component';
 import SignUp from '../SignUp/SignUp.component';
 import { Alert } from '@material-ui/lab';
-
-interface UserAccountProps {
-  location: any;
-  history: any;
-}
+import { UserAccountProps } from './UserAccount.types';
 
 /**
  * This component renders forms for an unlogged user
