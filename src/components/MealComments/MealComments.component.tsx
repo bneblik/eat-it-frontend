@@ -10,12 +10,13 @@ import {
   addMealComment,
   clearMealCommentsErrors,
   clearMealCommentsSuccess,
-  removeComment
+  removeComment,
+  addMealCommentError
 } from '../../actions/mealCommentsAction';
 import { CommentType } from '../../types/MealCommentsTypes';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { showAlert } from '../../helpers/Alert.component';
+import { showAlert, errorAlert } from '../../helpers/Alert.component';
 import { MealCommentsProps, MealCommentsState, initialStateMeal } from './MealComments.types';
 import { requestConsts, JWT_TOKEN, axiosInstance } from '../../utils/RequestService';
 /**
@@ -25,8 +26,21 @@ import { requestConsts, JWT_TOKEN, axiosInstance } from '../../utils/RequestServ
 export class MealComments extends Component<MealCommentsProps> {
   state: MealCommentsState = initialStateMeal;
   componentDidMount() {
-    this.fetchComments();
+    this.fetchComments(this.state.page);
+    window.addEventListener('scroll', this.handleScroll);
   }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  handleScroll = () => {
+    if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight)
+      return;
+    const { page, last } = this.state;
+    if (!last && !this.props.pending) this.fetchComments(page);
+    else if (last) window.removeEventListener('scroll', this.handleScroll);
+  };
 
   addComment = () => {
     this.props.addMealComment(this.state.comment, this.state.rate, this.props.mealId);
@@ -43,8 +57,8 @@ export class MealComments extends Component<MealCommentsProps> {
           {this.removeButtonIfAuthor(comment.myComment, comment.id)}
           <Rating value={comment.rate} precision={0.5} readOnly={true} />
         </div>
-        <span className="date">{formatDistanceToNow(comment.createdAt, { addSuffix: true })}</span>
-        <div>{comment.content}</div>
+        <span className="date">{formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true })}</span>
+        <div>{comment.text}</div>
       </div>
     </div>
   );
@@ -68,18 +82,19 @@ export class MealComments extends Component<MealCommentsProps> {
     return list;
   };
 
-  fetchComments() {
+  fetchComments(page: number) {
+    this.setState({ pending: true });
     axiosInstance
-      .get(requestConsts.COMMENT_URL, { params: { page: this.state.page, id: this.props.mealId } })
+      .get(requestConsts.COMMENT_URL, { params: { page: page, id: this.props.mealId } })
       .then((response) => {
-        console.log(response);
         this.setState((p: MealCommentsState) => ({
           comments: [...p.comments, response.data],
-          page: p.page + 1
+          page: p.page + 1,
+          pending: false
         }));
       })
       .catch((error) => {
-        console.log(error);
+        this.setState({ error: error, pending: false });
       });
   }
 
@@ -121,11 +136,21 @@ export class MealComments extends Component<MealCommentsProps> {
         </div>
         <div className="marginBottom">{this.listComments()}</div>
         {showAlert(pending, error, success, clearMealCommentsErrors, clearMealCommentsSuccess)}
+        {this.showErrorAlert()}
       </div>
     );
   }
-}
 
+  showErrorAlert() {
+    if (!this.state.pending && !!this.state.error) {
+      return errorAlert({
+        isOpen: !!this.state.error,
+        message: this.state.error,
+        onClose: () => this.setState({ error: null })
+      });
+    }
+  }
+}
 const mapStateToProps = (state: MealCommentsState) => {
   return {
     error: state.mealCommentsReducer.error,

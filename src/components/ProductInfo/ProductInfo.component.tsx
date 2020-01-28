@@ -20,7 +20,7 @@ class ProductInfo extends Component<ProductInfoProps> {
         <img src={apple} alt="product"></img>
         <span>{product.name}</span>
         <div>
-          {i18n._('amount')}: {product.amount}
+          {i18n._('amount')}: {product.amount} {product.unit}
         </div>
         <NutrientsInfo
           kcal={product.calories}

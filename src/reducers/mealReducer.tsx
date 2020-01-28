@@ -25,24 +25,7 @@ export function mealReducer(state: MealStateType = initialState, action: any): M
         pending: true
       };
     case FETCH_MEAL_SUCCESS:
-      return {
-        ...state,
-        pending: false,
-        meal: objectToCamelCase({
-          id: action.meal.data.id,
-          ...action.meal.data.attributes,
-          comments: listToCamelCase(
-            action.meal.data.attributes.comments.map((c) => ({
-              ...c,
-              // eslint-disable-next-line @typescript-eslint/camelcase
-              created_at: new Date(c.created_at),
-              author: 'AUTHOR',
-              content: c.text
-            }))
-          ),
-          ingredients: action.meal.included.map((e) => ({ id: e.id, ...e.attributes }))
-        })
-      };
+      return { ...state, pending: false, meal: action.meal };
     case FETCH_MEAL_ERROR:
       return {
         ...state,

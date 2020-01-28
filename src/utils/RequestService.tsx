@@ -1,8 +1,9 @@
 import axios from 'axios';
 
 export const JWT_TOKEN = 'jwt_token';
-// const LOCAL_BASE_URL = 'http://localhost:3000/api/v1/';
-const BASE_URL = 'https://damp-chamber-97402.herokuapp.com/api/v1/';
+export const USER_ID = 'user_id';
+const BASE_URL = 'http://localhost:3000/api/v1/';
+// const BASE_URL = 'https://damp-chamber-97402.herokuapp.com/api/v1/';
 
 export const requestConsts = {
   MEALS_URL: 'meals',
@@ -17,7 +18,8 @@ export const requestConsts = {
   MEAL_PLAN_URL: 'meal_plan',
   RECOMMENDED_MEALS: 'recommended',
   ABOUT_USER_URL: 'about_user',
-  CATEGORIES_URL: 'meal_categories'
+  CATEGORIES_URL: 'meal_categories',
+  FIND_MEALS_URL: 'meals/find'
 };
 
 export const axiosInstance = axios.create({

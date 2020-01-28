@@ -19,16 +19,24 @@ export interface MealCommentsProps {
 }
 export interface MealCommentsState {
   page: number;
+  last: boolean;
   comments: CommentType[];
   comment: string;
   rate: number;
   mealCommentsReducer: MealCommentStateType;
+  pending: boolean;
+  error: any;
+  success: any;
 }
 
 export const initialStateMeal: MealCommentsState = {
   comment: '',
   comments: [],
   page: 1,
+  last: false,
   rate: 0,
-  mealCommentsReducer: {} as any
+  mealCommentsReducer: {} as any,
+  pending: false,
+  error: null,
+  success: null
 };

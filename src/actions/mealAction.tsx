@@ -1,14 +1,15 @@
-import { requestConsts, axiosInstance, axiosInstanceWithAuth } from '../utils/RequestService';
+/* eslint-disable @typescript-eslint/camelcase */
+import { requestConsts, axiosInstance, axiosInstanceWithAuth, USER_ID } from '../utils/RequestService';
 import {
   ADD_MEAL_PENDING,
   ADD_MEAL_SUCCESS,
   ADD_MEAL_ERROR,
-  TMeal,
   CLEAR_ADD_MEAL_SUCCESS,
   CLEAR_ADD_MEAL_ERROR,
   FETCH_MEAL_PENDING,
   FETCH_MEAL_SUCCESS,
-  FETCH_MEAL_ERROR
+  FETCH_MEAL_ERROR,
+  TMeal
 } from '../types/MealTypes';
 import { i18n } from '..';
 
@@ -18,7 +19,7 @@ function fetchMealPending() {
   };
 }
 
-function fetchMealSuccess(meal: any) {
+function fetchMealSuccess(meal: TMeal) {
   return {
     type: FETCH_MEAL_SUCCESS,
     meal
@@ -32,13 +33,37 @@ function fetchMealError(error: any) {
   };
 }
 
+function mapDataToMeal(data): TMeal {
+  const response = data.data;
+  return {
+    id: response.id,
+    name: response.attributes.name,
+    recipe: response.attributes.recipes.map((o: any) => o.instruction),
+    description: response.attributes.description,
+    // createdAt: null,
+    calories: response.attributes.calories,
+    fats: response.attributes.fats,
+    proteins: response.attributes.proteins,
+    carbs: response.attributes.carbs,
+    prepareTime: response.attributes.time,
+    category: response.attributes.category,
+    video: response.attributes.video,
+    // image: null,
+    // rate: null,
+    yourMeal: response.attributes.your_meal,
+    servings: response.attributes.servings,
+    ingredients: data.included.map((e) => ({ ...e.attributes, id: e.attributes.product_id }))
+  };
+}
+
 export function fetchMeal(id: string) {
   return (dispatch: any) => {
     dispatch(fetchMealPending());
     axiosInstance
       .get(`${requestConsts.MEALS_URL}/${id}`)
       .then((response) => {
-        dispatch(fetchMealSuccess(response.data));
+        const data = mapDataToMeal(response.data);
+        dispatch(fetchMealSuccess(data));
       })
       .catch((error) => {
         if (!error.response) dispatch(fetchMealError(error.toString()));
@@ -66,18 +91,11 @@ function addMealError(error: any) {
   };
 }
 
-export function addMeal(meal: TMeal) {
-  const data = {
-    ...meal,
-    time: '11',
-    servings: '1',
-    category: meal.category.id,
-    products: meal.ingredients.map((p) => ({ id: p.id, quantity: p.amount }))
-  };
+export function addMeal(meal: any) {
   return (dispatch: any) => {
     dispatch(addMealPending());
     axiosInstanceWithAuth
-      .post(requestConsts.MEALS_URL, data)
+      .post(requestConsts.MEALS_URL, meal)
       .then(() => {
         dispatch(addMealSuccess(i18n._('The meal has been successfully added.')));
       })
@@ -88,11 +106,11 @@ export function addMeal(meal: TMeal) {
   };
 }
 
-export function editMeal(meal: TMeal, mealId: number) {
+export function editMeal(meal: any, mealId: number) {
   return (dispatch: any) => {
     dispatch(addMealPending());
     axiosInstanceWithAuth
-      .post(requestConsts.MEALS_URL, { ...meal, id: mealId })
+      .post(requestConsts.MEALS_URL, { ...meal, meal_id: mealId, user_id: localStorage.getItem(USER_ID) })
       .then(() => {
         dispatch(addMealSuccess(i18n._('The meal has been successfully updated.')));
       })

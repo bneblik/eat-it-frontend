@@ -33,6 +33,7 @@ export interface AddMealState {
   description: string;
   prepTime: string;
   category: Category;
+  servings: string;
   video: string;
   videoHelperText: string;
   selectedProduct: ProductType;
@@ -49,6 +50,7 @@ export const initialAddMealState: AddMealState = {
   description: '',
   prepTime: '',
   category: {} as Category,
+  servings: '1',
   video: '',
   videoHelperText: '',
   selectedProduct: {} as ProductType,

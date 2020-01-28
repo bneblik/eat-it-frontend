@@ -82,7 +82,7 @@ export class Meal extends Component<MealProps, MealState> {
 
   displayEditButton() {
     if (this.props.pending) return <Skeleton width="20px" height="10px" />;
-    else if (this.props.meal.your_meal) return <EditMeal mealToEdit={this.props.meal} />;
+    else if (this.props.meal.yourMeal) return <EditMeal mealToEdit={this.props.meal} />;
   }
   renderYoutubeVideo() {
     const { meal } = this.props;
@@ -137,7 +137,7 @@ export class Meal extends Component<MealProps, MealState> {
 
           {this.displayRecipe()}
           {this.renderYoutubeVideo()}
-          {this.renderComments()}
+          {/* {this.renderComments()} */}
           {showAlert(
             addIngredientsToListStatus.pending,
             addIngredientsToListStatus.error,
@@ -150,12 +150,12 @@ export class Meal extends Component<MealProps, MealState> {
     }
   }
   displayRecipe() {
-    let recipe: any = <></>;
+    const recipe: any = [];
     const { meal } = this.props;
     if (this.props.pending) {
-      recipe = <Skeleton height="80px" />;
+      recipe.push(<Skeleton height="80px" />);
     } else if (meal.recipe && meal.recipe.length > 0) {
-      // recipe = meal.recipe.forEach((line, key) => <p key={key}>{line}</p>);
+      meal.recipe.forEach((line, key) => recipe.push(<p key={key}>{line}</p>));
     } else return;
     return (
       <div className="card">

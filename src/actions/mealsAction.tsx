@@ -1,10 +1,12 @@
-import { requestConsts, axiosInstance } from '../utils/RequestService';
+/* eslint-disable @typescript-eslint/camelcase */
+import { requestConsts, axiosInstance, USER_ID } from '../utils/RequestService';
 import {
   FETCH_MEALS_PENDING,
   CLEAR_MEALS_ERRORS,
   FETCH_MEALS_SUCCESS,
   FETCH_MEALS_ERROR
 } from '../types/MealsTypes';
+import { TMeal } from '../types/MealTypes';
 
 function fetchMealsPending() {
   return {
@@ -12,10 +14,11 @@ function fetchMealsPending() {
   };
 }
 
-function fetchMealsSuccess(meals: any) {
+function fetchMealsSuccess(meals: any, page: number) {
   return {
     type: FETCH_MEALS_SUCCESS,
-    meals: meals
+    meals,
+    page
   };
 }
 
@@ -25,14 +28,35 @@ function fetchMealsError(error: any) {
     error: error
   };
 }
-
-export function fetchMeals(page: number) {
+function mapResponseToMeals(data): TMeal[] {
+  return data.map((meal) => ({
+    id: meal.id,
+    name: meal.attributes.name,
+    calories: meal.attributes.calories,
+    fats: meal.attributes.fats,
+    carbs: meal.attributes.carbs,
+    proteins: meal.attributes.proteins,
+    description: meal.attributes.description,
+    prepareTime: meal.attributes.time,
+    rate: meal.attributes.rate
+  }));
+}
+export function fetchMeals(page: number, check?: string, categId?: number, onlyMy?: boolean) {
   return (dispatch: any) => {
     dispatch(fetchMealsPending());
     axiosInstance
-      .get(requestConsts.MEALS_URL, { params: { page } })
+      .get(requestConsts.MEALS_URL, {
+        params: {
+          page,
+          check,
+          meal_category_id: categId,
+          my_meal: onlyMy,
+          user_id: localStorage.getItem(USER_ID)
+        }
+      })
       .then((response) => {
-        dispatch(fetchMealsSuccess(response.data.data));
+        const meals = mapResponseToMeals(response.data.data);
+        dispatch(fetchMealsSuccess(meals, page));
       })
       .catch((error) => {
         if (!error.response) dispatch(fetchMealsError(error.toString()));

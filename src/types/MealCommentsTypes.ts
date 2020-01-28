@@ -1,9 +1,10 @@
 export type CommentType = {
   id: number;
-  content: string;
+  text: string;
   rate: number;
   author: string;
   createdAt: Date;
+  mealId?: number;
   myComment?: boolean;
 };
 
