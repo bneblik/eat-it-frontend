@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { TextField, Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClock } from '@fortawesome/free-regular-svg-icons';
 import {
   faUtensils,
   faClipboardList,

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const JWT_TOKEN = 'jwt_token';
-const LOCAL_BASE_URL = 'http://localhost:3000/api/v1/';
+// const LOCAL_BASE_URL = 'http://localhost:3000/api/v1/';
 const BASE_URL = 'https://damp-chamber-97402.herokuapp.com/api/v1/';
 
 export const requestConsts = {
