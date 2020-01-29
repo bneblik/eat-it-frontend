@@ -86,7 +86,7 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
       servings: this.state.servings,
       // eslint-disable-next-line @typescript-eslint/camelcase
       meal_category_id: this.state.category.id,
-      image: this.state.selectedFile,
+      // image: this.state.selectedFile,
       video: video,
       products: this.state.selectedProductsList.map((p) => ({ id: p.id, amount: p.amount }))
     };
