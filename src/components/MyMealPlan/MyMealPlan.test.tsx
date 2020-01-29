@@ -24,7 +24,7 @@ const testMeal: TMeal = {
   proteins: 16.5,
   carbs: 16,
   prepareTime: '30 min',
-  category: 'dinner',
+  category: { name: 'dinner', id: 1 },
   video: 'aajds'
 };
 

@@ -9,6 +9,7 @@ body {
   .appContent > div {
     padding: 1em;
     padding-top: 70px;
+    padding-bottom: 70px;
     max-width: 1000px;
     margin: auto;
   }
@@ -94,7 +95,6 @@ body {
     background-color: rgb(243, 211, 207);
   }
   .MuiAlert-standardSuccess {
-    color: rgb(10, 21, 11);
-    background-color: rgb(162, 214, 115);
+    background-color: rgb(198, 228, 198);
   }
 }

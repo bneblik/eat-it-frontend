@@ -16,14 +16,14 @@ const testMeal: TMeal = {
   recipe: ['step 1', 'step 2', 'step 3', 'step 4'],
   createdAt: new Date(),
   ingredients: [
-    { id: 1, name: 'butter', calories: 12, fats: 123, carbs: 22, proteins: 2, category: 'dairy' }
+    { id: 1, name: 'butter', unit: 'g', calories: 12, fats: 123, carbs: 22, proteins: 2, category: 'dairy' }
   ],
   calories: 200,
   fats: 9,
   proteins: 16.5,
   carbs: 16,
-  prepareTime: '30 min',
-  category: 'dinner',
+  prepareTime: '30',
+  category: { id: 1, name: 'dinner' },
   video: 'aajds'
 };
 let wrapper: any;
@@ -44,6 +44,6 @@ describe('MealInfo', () => {
     // when
     // then
     expect(name.props().children).toEqual(testMeal.name);
-    expect(prepTime.props().children).toEqual(testMeal.prepareTime);
+    expect(prepTime.props().children[0]).toEqual(testMeal.prepareTime);
   });
 });

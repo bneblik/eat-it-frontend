@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { logIn } from '../../actions/authAction';
 import { connect } from 'react-redux';
 import { LogInProps, LogInState } from './LogIn.types';
+import { JWT_TOKEN } from '../../utils/RequestService';
 
 /**
  * This component is a login form
@@ -65,6 +66,9 @@ class LogIn extends Component<LogInProps, LogInState> {
               variant="contained"
               color="inherit"
               size="small"
+              disabled={
+                !!localStorage.getItem(JWT_TOKEN) || this.state.password === '' || this.state.email === ''
+              }
               onClick={this.logIn}
             >
               {i18n._('Log in')}

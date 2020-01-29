@@ -55,10 +55,10 @@ export class Meal extends Component<MealProps, MealState> {
             <>
               <span>
                 <FontAwesomeIcon icon={faClock} />
-                {`${i18n._('Prepare time')}: ${meal.prepareTime}`}
+                {`${i18n._('Prepare time')}: ${meal.prepareTime}`} min
               </span>
               <span className="divider"> | </span>
-              <span>
+              <span className="category">
                 <FontAwesomeIcon icon={faFilter} />
                 {`${i18n._('Category')}: ${meal.category}`}
               </span>
@@ -82,7 +82,7 @@ export class Meal extends Component<MealProps, MealState> {
 
   displayEditButton() {
     if (this.props.pending) return <Skeleton width="20px" height="10px" />;
-    else if (this.props.meal.your_meal) return <EditMeal mealToEdit={this.props.meal} />;
+    else if (this.props.meal.yourMeal) return <EditMeal mealToEdit={this.props.meal} />;
   }
   renderYoutubeVideo() {
     const { meal } = this.props;
@@ -150,12 +150,12 @@ export class Meal extends Component<MealProps, MealState> {
     }
   }
   displayRecipe() {
-    let recipe: any = <></>;
+    const recipe: any = [];
     const { meal } = this.props;
     if (this.props.pending) {
-      recipe = <Skeleton height="80px" />;
+      recipe.push(<Skeleton key={1} height="80px" />);
     } else if (meal.recipe && meal.recipe.length > 0) {
-      // recipe = meal.recipe.forEach((line, key) => <p key={key}>{line}</p>);
+      meal.recipe.forEach((line, key) => recipe.push(<p key={key}>{line}</p>));
     } else return;
     return (
       <div className="card">
@@ -205,22 +205,23 @@ export class Meal extends Component<MealProps, MealState> {
             }
             label={i18n._('Select all')}
           />
-          <Button
-            className="shoppingListButton"
-            variant="outlined"
-            disabled={!localStorage.getItem(JWT_TOKEN) || this.state.selectedProducts.length === 0}
-            startIcon={<FontAwesomeIcon icon={faPlus} />}
-            onClick={() => this.addToShoppingList()}
-          >
-            {i18n._('Add selected to your shopping list')}
-          </Button>
+          <span title={!localStorage.getItem(JWT_TOKEN) ? i18n._('You must be logged in') : ''}>
+            <Button
+              className="shoppingListButton"
+              variant="outlined"
+              disabled={!localStorage.getItem(JWT_TOKEN) || this.state.selectedProducts.length === 0}
+              startIcon={<FontAwesomeIcon icon={faPlus} />}
+              onClick={() => this.addToShoppingList()}
+            >
+              {i18n._('Add selected to your shopping list')}
+            </Button>
+          </span>
         </div>
       </div>
     );
   }
   renderComments() {
-    if (this.props.meal)
-      return <MealComments comments={this.props.meal.comments} mealId={this.props.meal.id}></MealComments>;
+    if (this.props.meal) return <MealComments mealId={this.props.meal.id}></MealComments>;
   }
   markAsSelected = (id: number, amount: string, selected: boolean) => {
     if (!selected)

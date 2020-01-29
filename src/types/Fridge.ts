@@ -67,6 +67,7 @@ export type FridgeProduct = {
   proteins: number;
   carbs: number;
   amount: number;
+  unit?: string;
 };
 
 export type TFridge = {

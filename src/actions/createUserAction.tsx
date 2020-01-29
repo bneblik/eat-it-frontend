@@ -38,8 +38,10 @@ export function createUser(userData: any) {
         dispatch(createUserSuccess(response.data.content.user));
       })
       .catch((error) => {
-        if (!error.response) dispatch(createUserError(error.toString()));
-        else dispatch(createUserError(error.response.statusText));
+        if (error.response && error.response.data && error.response.data.content.email)
+          dispatch(createUserError(`Email ${error.response.data.content.email[0]}`));
+        else if (error.response.data.error) dispatch(createUserError(error.response.data.error));
+        dispatch(createUserError(error.toString()));
       });
   };
 }

@@ -48,16 +48,9 @@ class MealInfo extends Component<MealInfoProps> {
               </div>
             ) : (
               <span className="toRight">
-                <Rating
-                  readOnly={true}
-                  value={this.props.meal.rate}
-                  precision={0.5}
-                  onChange={(_, newValue) => {
-                    console.log(newValue);
-                  }}
-                />
+                <Rating readOnly={true} value={this.props.meal.rate} precision={0.5} />
                 <FontAwesomeIcon icon={faClock} className="paddingIcon" />
-                <span id="prepTime">{this.props.meal.prepareTime}</span>
+                <span id="prepTime">{this.props.meal.prepareTime} min</span>
               </span>
             )}
           </div>

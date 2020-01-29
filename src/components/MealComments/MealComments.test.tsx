@@ -17,7 +17,12 @@ describe('MealComments', () => {
       success: null,
       pending: false,
       comments: [],
+      last: false,
+      mealId: 1,
+      page: 1,
       addMealComment: jest.fn(),
+      fetchComments: jest.fn(),
+      removeComment: jest.fn(),
       clearMealCommentsErrors: jest.fn(),
       clearMealCommentsSuccess: jest.fn()
     };

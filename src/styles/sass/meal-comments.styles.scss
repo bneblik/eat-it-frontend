@@ -10,7 +10,12 @@
     padding-top: 0;
     margin: 0.3em 0;
     display: flex;
-
+    .center {
+      padding-top: 10px;
+    }
+    &.skeleton {
+      padding-top: 10px;
+    }
     .commentInfo {
       padding-left: 1em;
       width: 100%;

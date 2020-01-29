@@ -75,7 +75,7 @@ export function fetchAboutUser() {
     axiosInstanceWithAuth
       .get(`${requestConsts.ABOUT_USER_URL}`)
       .then((content) => {
-        dispatch(fetchAboutUserSuccess(content));
+        dispatch(fetchAboutUserSuccess(content.data.data.attributes));
       })
       .catch((error) => {
         if (!error.response) dispatch(aboutUserError(error.toString()));

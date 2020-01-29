@@ -10,6 +10,6 @@ jest.mock('../..', () => ({
 
 describe('ProductInfo', () => {
   it('renders without crashing', () => {
-    shallow(<ProductInfo product={{} as any} />);
+    shallow(<ProductInfo selected={true} markAsSelected={() => {}} product={{} as any} />);
   });
 });

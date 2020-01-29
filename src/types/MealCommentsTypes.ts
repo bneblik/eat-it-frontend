@@ -1,10 +1,11 @@
 export type CommentType = {
   id: number;
-  content: string;
+  text: string;
   rate: number;
   author: string;
-  createdAt: Date;
-  myComment?: boolean;
+  createdAt?: Date;
+  authorId?: number;
+  yourComment?: boolean;
 };
 
 export const ADD_COMMENT_SUCCESS = 'ADD_COMMENT_SUCCESS';
@@ -32,6 +33,9 @@ export type MealCommentStateType = {
   pending: boolean;
   success: any | null;
   error: any | null;
+  page: number;
+  last: boolean;
+  comments: CommentType[];
 };
 
 export type MealCommentsActionType = AddCommentAction | ClearCommentErrorsAction | ClearCommentSuccessAction;

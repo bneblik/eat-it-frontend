@@ -14,6 +14,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { showAlert } from '../../helpers/Alert.component';
 import { AddToMealPlanProps, AddToMealPlanState, initialStateAddToMealPlan } from './AddToMealPlan.types';
+import { JWT_TOKEN } from '../../utils/RequestService';
 
 /**
  * This component renders the form of adding a meal to the meal plan of the logged in user.
@@ -47,14 +48,17 @@ export class AddToMealPlan extends Component<AddToMealPlanProps> {
     const { pending, error, success, clearMealPlanError, clearMealPlanSuccess } = this.props;
     return (
       <>
-        <Button
-          className="addButton"
-          variant="contained"
-          onClick={this.open.bind(this)}
-          startIcon={<FontAwesomeIcon icon={faClipboardList} />}
-        >
-          {i18n._('Add to your meal plan')}
-        </Button>
+        <span title={!localStorage.getItem(JWT_TOKEN) ? i18n._('You must be logged in') : ''}>
+          <Button
+            className="addButton"
+            variant="contained"
+            disabled={!localStorage.getItem(JWT_TOKEN)}
+            onClick={this.open.bind(this)}
+            startIcon={<FontAwesomeIcon icon={faClipboardList} />}
+          >
+            {i18n._('Add to your meal plan')}
+          </Button>
+        </span>
         <Dialog open={this.state.dialogOpened} className="addToMealPlanComponent">
           <DialogTitle>{i18n._('Add to your meal plan')}</DialogTitle>
           <DialogContent>

@@ -46,7 +46,7 @@ export interface AllMealsProps {
 export type AllMealsState = {
   categoriesReducer: CategoriesState;
   mealsReducer: MealsStateType;
-  cat: string;
+  cat: Category;
   onlyMy: boolean;
   searcher: string;
 };

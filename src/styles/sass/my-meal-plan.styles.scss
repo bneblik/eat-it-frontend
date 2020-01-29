@@ -18,11 +18,14 @@
   }
   .mealInfoContainer {
     display: flex;
-    & > div {
+    & > .mealInfoComponent {
       flex: 1 1;
     }
-    & > span button {
-      margin: 100% 0;
+    & > .buttons button {
+      display: block;
     }
+  }
+  .eaten > div {
+    background: rgba(1, 1, 1, 0.2);
   }
 }

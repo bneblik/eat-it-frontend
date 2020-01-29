@@ -23,7 +23,7 @@ const testMeal: TMeal = {
   proteins: 16.5,
   carbs: 16,
   prepareTime: '30 min',
-  category: 'dinner',
+  category: { id: 1, name: 'dinner' },
   video: 'aajds'
 };
 const id = '5';
@@ -39,12 +39,13 @@ describe('Meal', () => {
       error: null,
       meal: undefined,
       pending: false,
-      match: { params: { id } },
+      match: { params: { id, lng: '' } },
       fetchMeal: mockedFetch,
       addIngredientsToList: jest.fn(),
       clearShoppingListError: jest.fn(),
       clearShoppingListSuccess: jest.fn(),
-      addIngredientsToListStatus: { error: null, success: null, pending: false }
+      addIngredientsToListStatus: { error: null, success: null, pending: false },
+      history: {} as any
     };
     wrapper = shallow(<Meal {...props} />);
     component = wrapper.instance();

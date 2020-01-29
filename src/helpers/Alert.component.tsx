@@ -5,7 +5,13 @@ import { Alert } from '@material-ui/lab';
 // eslint-disable-next-line react/prop-types
 const alert = ({ isOpen, message, onClose, severity }) => {
   return (
-    <Snackbar open={isOpen}>
+    <Snackbar
+      open={isOpen}
+      anchorOrigin={{
+        vertical: 'top',
+        horizontal: 'center'
+      }}
+    >
       <Alert
         onClose={() => {
           onClose();
@@ -33,8 +39,14 @@ export const successAlert = ({ isOpen, message, onClose }) => {
 // eslint-disable-next-line react/prop-types
 export const pendingAlert = ({ isOpen }) => {
   return (
-    <Snackbar open={isOpen}>
-      <Alert severity="warning">Loading...</Alert>
+    <Snackbar
+      open={isOpen}
+      anchorOrigin={{
+        vertical: 'top',
+        horizontal: 'center'
+      }}
+    >
+      <Alert severity="info">Loading...</Alert>
     </Snackbar>
   );
 };

@@ -12,6 +12,9 @@
       .prepInfo {
         color: gray;
         margin: 0;
+        .category {
+          white-space: nowrap;
+        }
         svg {
           font-size: 20px;
         }
@@ -27,8 +30,8 @@
   .image {
     text-align: center;
     img {
-      height: 100%;
-      width: 100%;
+      max-height: 100%;
+      max-width: 100%;
     }
   }
   .shoppingListGroup {

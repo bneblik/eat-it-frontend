@@ -66,7 +66,7 @@ describe('AddMeal', () => {
       recipe: ['step', 'step 2'],
       description: 'example description',
       prepareTime: '1 hour',
-      category: 'breakfast',
+      category: { id: 1, name: 'breakfast' },
       video: 'asdfghj',
       ingredients: []
     };

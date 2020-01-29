@@ -2,33 +2,39 @@ import {
   addMealComment,
   clearMealCommentsErrors,
   clearMealCommentsSuccess,
-  removeComment
+  removeComment,
+  fetchComments
 } from '../../actions/mealCommentsAction';
 import { CommentType, MealCommentStateType } from '../../types/MealCommentsTypes';
 
 export interface MealCommentsProps {
   addMealComment: typeof addMealComment;
   removeComment: typeof removeComment;
+  fetchComments: typeof fetchComments;
   clearMealCommentsErrors: typeof clearMealCommentsErrors;
   clearMealCommentsSuccess: typeof clearMealCommentsSuccess;
-  comments: CommentType[];
   mealId: number;
   pending: boolean;
   error: any;
   success: any;
+  page: number;
+  last: boolean;
+  comments: CommentType[];
 }
 export interface MealCommentsState {
-  page: number;
-  comments: CommentType[];
   comment: string;
   rate: number;
   mealCommentsReducer: MealCommentStateType;
+  pending: boolean;
+  error: any;
+  success: any;
 }
 
 export const initialStateMeal: MealCommentsState = {
   comment: '',
-  comments: [],
-  page: 1,
   rate: 0,
-  mealCommentsReducer: {} as any
+  mealCommentsReducer: {} as any,
+  pending: false,
+  error: null,
+  success: null
 };

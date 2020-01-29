@@ -22,20 +22,15 @@ export function mealsReducer(state: MealsStateType = initialState, action: any):
         pending: true
       };
     case FETCH_MEALS_SUCCESS:
+      let mealsList = [];
+      if (action.page > 1) mealsList = [...state.meals, ...action.meals];
+      else mealsList = action.meals;
       return {
         ...state,
         pending: false,
-        meals: [
-          ...state.meals,
-          ...action.meals.map((e) => ({
-            id: e.id,
-            ...e.attributes,
-            comments: e.relationships.comments.data,
-            ingredients: e.relationships.products.data
-          }))
-        ],
+        meals: mealsList,
         last: action.meals.length === 0,
-        page: state.page + 1
+        page: action.page + 1
       };
     case FETCH_MEALS_ERROR:
       return {

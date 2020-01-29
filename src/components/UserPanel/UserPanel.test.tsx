@@ -14,7 +14,7 @@ describe('UserPanel', () => {
   it('renders without crashing', () => {
     shallow(
       <Provider store={store}>
-        <UserPanel username="username1" />
+        <UserPanel />
       </Provider>
     );
   });

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, TextField, CardHeader, Button } from '@material-ui/core';
+import { Card, TextField, CardHeader, Button, InputAdornment } from '@material-ui/core';
 import { ProductsList } from '../ProductsList/ProductsList.component';
 import '../../styles/css/add-meal.styles.css';
 import { connect } from 'react-redux';
@@ -42,7 +42,7 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
         name: mealToEdit.name,
         description: mealToEdit.description ? mealToEdit.description : '',
         prepTime: mealToEdit.prepareTime ? mealToEdit.prepareTime : '',
-        // recipeSteps: mealToEdit.recipe ? mealToEdit.recipe : [],
+        recipeSteps: mealToEdit.recipe ? mealToEdit.recipe : [],
         category: mealToEdit.category ? mealToEdit.category : ({} as Category),
         video: mealToEdit.video ? mealToEdit.video : '',
         selectedProductsList: mealToEdit.ingredients ? mealToEdit.ingredients : []
@@ -80,13 +80,15 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
     }
     const args = {
       name: this.state.name,
-      recipe: this.state.recipeSteps,
+      recipes: this.state.recipeSteps.map((step) => ({ instruction: step })),
       description: this.state.description,
-      prepareTime: this.state.prepTime,
-      category: this.state.category,
+      time: this.state.prepTime,
+      servings: this.state.servings,
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      meal_category_id: this.state.category.id,
       image: this.state.selectedFile,
       video: video,
-      ingredients: this.state.selectedProductsList
+      products: this.state.selectedProductsList.map((p) => ({ id: p.id, amount: p.amount }))
     };
     if (!!this.props.mealToEdit) this.props.editMeal(args, this.props.mealToEdit.id);
     else this.props.addMeal(args);
@@ -163,10 +165,14 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
               <TextField
                 variant="outlined"
                 id="prepTime"
+                type="number"
                 required
                 label={i18n._('Preparation time')}
                 value={this.state.prepTime}
                 fullWidth={true}
+                InputProps={{
+                  startAdornment: <InputAdornment position="end">min</InputAdornment>
+                }}
                 onChange={(e) => {
                   this.setState({ prepTime: e.target.value });
                 }}
@@ -220,6 +226,25 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
               />
             </div>
             <div className="padding">
+              <FontAwesomeIcon icon={faVideo} />
+              <TextField
+                label={i18n._('Servings')}
+                variant="outlined"
+                select
+                SelectProps={{ native: true }}
+                value={this.state.servings}
+                onChange={(e) => {
+                  this.setState({ servings: e.target.value });
+                }}
+              >
+                {['0.5', '1', '2'].map((option, key) => (
+                  <option key={key} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </TextField>
+            </div>
+            <div className="padding">
               <FontAwesomeIcon icon={faClipboardList} />
               <div>
                 <div className="addProductGroup">
@@ -248,7 +273,9 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
                       className="addProduct"
                       variant="contained"
                       disabled={
-                        !this.state.selectedProduct || Object.keys(this.state.selectedProduct).length === 0
+                        !this.state.selectedProduct ||
+                        Object.keys(this.state.selectedProduct).length === 0 ||
+                        !!this.state.selectedProductsList.find((e) => e.id === this.state.selectedProduct.id)
                       }
                       onClick={this.addProduct}
                       startIcon={<FontAwesomeIcon icon={faPlus} />}

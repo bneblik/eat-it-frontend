@@ -22,14 +22,12 @@ export class AllMeals extends Component<AllMealsProps, AllMealsState> {
   constructor(props: AllMealsProps) {
     super(props);
     const searchParams = new URLSearchParams(this.props.history.location.search);
-    let category = searchParams.get(CATEGORY);
-    if (category === null) category = 'all';
     let onlyMy = searchParams.get(ONLY_MY);
     if (onlyMy === null) onlyMy = 'false';
     let query = searchParams.get(QUERY);
     if (query === null) query = '';
     this.state = {
-      cat: category,
+      cat: { id: -1, name: 'all' },
       onlyMy: onlyMy === 'true' ? true : false,
       searcher: query,
       mealsReducer: {} as any,
@@ -37,8 +35,8 @@ export class AllMeals extends Component<AllMealsProps, AllMealsState> {
     };
   }
   componentDidMount() {
-    const { fetchMeals, page } = this.props;
-    fetchMeals(page);
+    const { searcher, cat, onlyMy } = this.state;
+    this.setFetchParams(1, searcher, cat.id, onlyMy);
     window.addEventListener('scroll', this.handleScroll);
   }
 
@@ -50,8 +48,11 @@ export class AllMeals extends Component<AllMealsProps, AllMealsState> {
     if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight)
       return;
     const { page } = this.props;
-    if (!this.props.last && !this.props.pending) this.props.fetchMeals(page);
-    else if (this.props.last) window.removeEventListener('scroll', this.handleScroll);
+    if (!this.props.last && !this.props.pending) {
+      window.scrollTo(0, 50);
+      const { searcher, cat, onlyMy } = this.state;
+      this.setFetchParams(page, searcher, cat.id, onlyMy);
+    } else if (this.props.last) window.removeEventListener('scroll', this.handleScroll);
   };
 
   onlyMyMeals() {
@@ -66,17 +67,20 @@ export class AllMeals extends Component<AllMealsProps, AllMealsState> {
   }
 
   selectCategory() {
+    const categories = [{ id: -1, name: 'all' }, ...this.props.categoriesList];
     return (
       <TextField
         className="selectCategory"
         variant="outlined"
         select
-        value={this.state.cat}
-        onChange={(e: any) => this.handleCategory(e)}
+        value={JSON.stringify(this.state.cat)}
+        onChange={(e: any) => {
+          this.handleCategory(e);
+        }}
         SelectProps={{ native: true }}
       >
-        {this.props.categoriesList.map((option, key) => (
-          <option key={key} value={option.name} className="categoryOption">
+        {categories.map((option, key) => (
+          <option key={key} value={JSON.stringify(option)} className="categoryOption">
             {option.name}
           </option>
         ))}
@@ -115,25 +119,33 @@ export class AllMeals extends Component<AllMealsProps, AllMealsState> {
     const newValue = !this.state.onlyMy;
     this.setState({ onlyMy: newValue });
     this.setUrlParams(newValue, ONLY_MY);
+    const { searcher, cat } = this.state;
+    this.setFetchParams(1, searcher, cat.id, newValue);
   }
   handleCategory(event: React.ChangeEvent<HTMLInputElement>) {
-    const selected = (event.target as HTMLInputElement).value;
+    const selected = JSON.parse((event.target as HTMLInputElement).value);
     this.setState({ cat: selected });
-    this.setUrlParams(selected, CATEGORY);
+    this.setUrlParams(selected.id, CATEGORY);
+    const { searcher, onlyMy } = this.state;
+    this.setFetchParams(1, searcher, selected.id, onlyMy);
   }
   handleSearcher(event: React.ChangeEvent<HTMLInputElement>) {
     const selected = (event.target as HTMLInputElement).value;
     this.setState({ searcher: selected });
     this.setUrlParams(selected, QUERY);
+    const { cat, onlyMy } = this.state;
+    this.setFetchParams(1, selected, cat.id, onlyMy);
   }
   setUrlParams(newValue: any, attr: string) {
     const searchParams = new URLSearchParams(this.props.history.location.search);
-    searchParams.set(attr, newValue);
+    if (newValue === -1 || newValue === false) searchParams.delete(attr);
+    else searchParams.set(attr, newValue);
     this.props.history.push({ search: searchParams.toString() });
-    // fetchMeals();
   }
-  clearErrors() {
-    this.props.clearMealsErrors();
+  setFetchParams(page, searcher, catId, onlyMy) {
+    window.removeEventListener('scroll', this.handleScroll);
+    this.props.fetchMeals(page, searcher, catId === -1 ? null : catId, onlyMy === true ? onlyMy : null);
+    window.addEventListener('scroll', this.handleScroll);
   }
 
   showAlert = () => {

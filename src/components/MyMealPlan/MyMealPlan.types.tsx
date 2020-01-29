@@ -4,7 +4,12 @@ import { MealPlanState } from '../../types/MealPlan';
 
 import { changeSelectedDate } from '../../actions/calendarAction';
 
-import { fetchMealPlan, clearMealPlanError, removeFromMealPlan } from '../../actions/mealPlanAction';
+import {
+  fetchMealPlan,
+  markAsEaten,
+  clearMealPlanError,
+  removeFromMealPlan
+} from '../../actions/mealPlanAction';
 
 import { TMeal } from '../../types/MealTypes';
 
@@ -34,4 +39,5 @@ export interface MyMealPlanProps {
   pending: boolean;
   clearMealPlanError: typeof clearMealPlanError;
   removeFromMealPlan: typeof removeFromMealPlan;
+  markAsEaten: typeof markAsEaten;
 }

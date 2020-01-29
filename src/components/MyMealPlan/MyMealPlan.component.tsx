@@ -8,14 +8,19 @@ import { connect } from 'react-redux';
 import { formatRelative } from 'date-fns';
 import { pl, enGB } from 'date-fns/locale';
 import RecommendedMeals from '../RecommendedMeals/RecommendedMeals.component';
-import { fetchMealPlan, clearMealPlanError, removeFromMealPlan } from '../../actions/mealPlanAction';
+import {
+  fetchMealPlan,
+  clearMealPlanError,
+  markAsEaten,
+  removeFromMealPlan
+} from '../../actions/mealPlanAction';
 import Statistics from '../Statistics/Statistics.component';
 import { bindActionCreators } from 'redux';
 import { errorAlert } from '../../helpers/Alert.component';
 import { MyMealPlanProps, MyMealPlanState } from './MyMealPlan.types';
-import { IconButton } from '@material-ui/core';
+import { IconButton, Tooltip } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faCheck } from '@fortawesome/free-solid-svg-icons';
 
 /**
  * This component renders the meal plan of a logged in user
@@ -39,18 +44,31 @@ export class MyMealPlan extends Component<MyMealPlanProps, MyMealPlanState> {
     if (this.props.mealPlan.length === 0)
       return <div className="emptyInfo">{i18n._("You don't have any meals planned for this day yet.")}</div>;
     const mealsInfo: any[] = [];
-    this.props.mealPlan.forEach((meal, i) =>
+    this.props.mealPlan.forEach((meal, i) => {
+      let buttons: any = <></>;
+      if (!meal.eaten) {
+        buttons = (
+          <div className="buttons">
+            <Tooltip title={i18n._('Mark as eaten')}>
+              <IconButton onClick={() => this.props.markAsEaten(meal.id, this.props.selectedDate)}>
+                <FontAwesomeIcon icon={faCheck} />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title={i18n._('Remove')}>
+              <IconButton onClick={() => this.props.removeFromMealPlan(meal.id, this.props.selectedDate)}>
+                <FontAwesomeIcon icon={faTrash} />
+              </IconButton>
+            </Tooltip>
+          </div>
+        );
+      }
       mealsInfo.push(
-        <span key={i} className="mealInfoContainer">
+        <span key={i} className={`mealInfoContainer ${meal.eaten ? 'eaten' : ''}`}>
           <MealInfo meal={meal}></MealInfo>
-          <span>
-            <IconButton onClick={() => this.props.removeFromMealPlan(meal.id, this.props.selectedDate)}>
-              <FontAwesomeIcon icon={faTrash} />
-            </IconButton>
-          </span>
+          {buttons}
         </span>
-      )
-    );
+      );
+    });
     return <div>{mealsInfo}</div>;
   }
 
@@ -127,7 +145,8 @@ const mapDispatchToProps = (dispatch: any) =>
       changeSelectedDate,
       fetchMealPlan,
       clearMealPlanError,
-      removeFromMealPlan
+      removeFromMealPlan,
+      markAsEaten
     },
     dispatch
   );

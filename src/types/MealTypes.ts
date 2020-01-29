@@ -19,7 +19,9 @@ export type TMeal = {
   image?: any;
   rate?: number;
   comments?: CommentType[];
-  your_meal?: boolean;
+  yourMeal?: boolean;
+  servings?: string;
+  eaten?: boolean;
 };
 
 export const FETCH_MEAL_PENDING = 'FETCH_MEAL_PENDING';
