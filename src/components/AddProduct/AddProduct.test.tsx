@@ -20,7 +20,7 @@ const product1: ProductType = {
   unit: 'g',
   carbs: 3,
   fats: 4,
-  category: 'x'
+  category: { id: 1, name: 'meat' }
 };
 const product2: ProductType = {
   id: 2,
@@ -30,7 +30,7 @@ const product2: ProductType = {
   proteins: 78,
   carbs: 83,
   fats: 34,
-  category: 'y'
+  category: 'meat'
 };
 
 describe('AddProduct', () => {

@@ -87,7 +87,7 @@ class ProductsHelper extends Component<ProductsProps, ProductsState> {
             value={product.amount}
             type="number"
             onChange={(e) => this.handleChangeAmount(product, category, e.target.value)}
-            endAdornment={<InputAdornment position="end">g</InputAdornment>}
+            endAdornment={<InputAdornment position="end">{product.unit}</InputAdornment>}
           ></Input>
         </span>
         <span className="trashButton">
@@ -153,7 +153,12 @@ class ProductsHelper extends Component<ProductsProps, ProductsState> {
       return products.map((product, key) => (
         <div className="productItem" key={key}>
           {this.renderProduct(product, category)}
-          <NutrientsInfo kcal={1} proteins={23} carbs={1221} fats={0} />
+          <NutrientsInfo
+            kcal={product.calories}
+            proteins={product.proteins}
+            carbs={product.carbs}
+            fats={product.fats}
+          />
         </div>
       ));
     }

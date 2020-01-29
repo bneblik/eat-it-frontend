@@ -74,11 +74,6 @@ export function fetchComments(page: number, mealId: number) {
           ...objectToCamelCase(c.attributes)
         }));
         dispatch(fetchMealCommentsSuccess(comments));
-        // this.setState((p: MealCommentsState) => ({
-        //   comments: [...p.comments, ...comments],
-        //   page: p.page + 1,
-        //   pending: false
-        // }));
       })
       .catch((error) => {
         if (!error.response) dispatch(addMealCommentError(error.toString()));
@@ -99,10 +94,11 @@ export function clearMealCommentsErrors() {
   };
 }
 
-function removeCommentSuccess(success: any) {
+function removeCommentSuccess(success: any, commentId: number) {
   return {
     type: REMOVE_COMMENT_SUCCESS,
-    success
+    success,
+    commentId
   };
 }
 
@@ -111,9 +107,9 @@ export function removeComment(commentId: number) {
     dispatch(addMealCommentPending());
     axiosInstanceWithAuth
       // eslint-disable-next-line @typescript-eslint/camelcase
-      .delete(`${requestConsts.COMMENT_URL}`, { params: { comment_id: commentId } })
+      .delete(`${requestConsts.COMMENT_URL}/${commentId}`)
       .then(() => {
-        dispatch(removeCommentSuccess(i18n._('The comment has been successfully deleted.')));
+        dispatch(removeCommentSuccess(i18n._('The comment has been successfully deleted.'), commentId));
       })
       .catch((error) => {
         if (!error.response) dispatch(addMealCommentError(error.toString()));

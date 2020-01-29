@@ -28,7 +28,7 @@ export function mealCommentsReducer(state = initialState, action: any) {
       return {
         ...state,
         pending: false,
-        comments: [action.comment, ...state.comments],
+        comments: [{ ...action.comment, yourComment: true }, ...state.comments],
         success: action.success
       };
     case CLEAR_COMMENT_SUCCESS:
@@ -36,7 +36,12 @@ export function mealCommentsReducer(state = initialState, action: any) {
     case CLEAR_COMMENT_ERRORS:
       return { ...state, error: null };
     case REMOVE_COMMENT_SUCCESS:
-      return { ...state, success: action.success, pending: false };
+      return {
+        ...state,
+        success: action.success,
+        pending: false,
+        comments: state.comments.filter((c) => c.id !== action.commentId)
+      };
     case FETCH_COMMENT_SUCCESS:
       return {
         ...state,

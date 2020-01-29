@@ -20,6 +20,7 @@ export type ProductType = {
   category: string;
   unit: string;
   amount?: string;
+  image?: any;
 };
 
 export interface ProductsState {

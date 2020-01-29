@@ -55,10 +55,10 @@ export class Meal extends Component<MealProps, MealState> {
             <>
               <span>
                 <FontAwesomeIcon icon={faClock} />
-                {`${i18n._('Prepare time')}: ${meal.prepareTime}`}
+                {`${i18n._('Prepare time')}: ${meal.prepareTime}`} min
               </span>
               <span className="divider"> | </span>
-              <span>
+              <span className="category">
                 <FontAwesomeIcon icon={faFilter} />
                 {`${i18n._('Category')}: ${meal.category}`}
               </span>
@@ -153,7 +153,7 @@ export class Meal extends Component<MealProps, MealState> {
     const recipe: any = [];
     const { meal } = this.props;
     if (this.props.pending) {
-      recipe.push(<Skeleton height="80px" />);
+      recipe.push(<Skeleton key={1} height="80px" />);
     } else if (meal.recipe && meal.recipe.length > 0) {
       meal.recipe.forEach((line, key) => recipe.push(<p key={key}>{line}</p>));
     } else return;
@@ -205,15 +205,17 @@ export class Meal extends Component<MealProps, MealState> {
             }
             label={i18n._('Select all')}
           />
-          <Button
-            className="shoppingListButton"
-            variant="outlined"
-            disabled={!localStorage.getItem(JWT_TOKEN) || this.state.selectedProducts.length === 0}
-            startIcon={<FontAwesomeIcon icon={faPlus} />}
-            onClick={() => this.addToShoppingList()}
-          >
-            {i18n._('Add selected to your shopping list')}
-          </Button>
+          <span title={!localStorage.getItem(JWT_TOKEN) ? i18n._('You must be logged in') : ''}>
+            <Button
+              className="shoppingListButton"
+              variant="outlined"
+              disabled={!localStorage.getItem(JWT_TOKEN) || this.state.selectedProducts.length === 0}
+              startIcon={<FontAwesomeIcon icon={faPlus} />}
+              onClick={() => this.addToShoppingList()}
+            >
+              {i18n._('Add selected to your shopping list')}
+            </Button>
+          </span>
         </div>
       </div>
     );

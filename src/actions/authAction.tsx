@@ -47,8 +47,8 @@ export function logIn(userData: any) {
         dispatch(logInSuccess());
       })
       .catch((error) => {
-        if (!error.response) dispatch(authError(error.toString()));
-        else dispatch(authError(error.response.statusText));
+        if (error.response && error.response.data.error) dispatch(authError(error.response.data.error));
+        else dispatch(authError(error.toString()));
       });
   };
 }
@@ -65,7 +65,7 @@ export function logOut() {
       })
       .catch((error) => {
         if (!error.response) dispatch(authError(error.toString()));
-        else dispatch(authError(error.response.statusText));
+        else dispatch(authError(error.response.data.error));
       });
   };
 }

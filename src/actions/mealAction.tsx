@@ -92,8 +92,23 @@ function addMealError(error: any) {
 export function addMeal(meal: any) {
   return (dispatch: any) => {
     dispatch(addMealPending());
+    const formData = new FormData();
+    if (meal.image) formData.append('image', meal.image, meal.image.name);
+    formData.append('name', meal.name);
+    formData.append('description', meal.description);
+    formData.append('recipes', JSON.stringify(meal.recipes));
+    formData.append('time', meal.time);
+    formData.append('servings', meal.servings);
+    formData.append('meal_category_id', meal.meal_category_id);
+    formData.append('video', meal.video);
+    formData.append('products', JSON.stringify(meal.products));
+    formData.append('user_id', localStorage.getItem(USER_ID));
     axiosInstanceWithAuth
-      .post(requestConsts.MEALS_URL, meal)
+      .post(requestConsts.MEALS_URL, formData, {
+        headers: {
+          'content-type': 'multipart/form-data'
+        }
+      })
       .then(() => {
         dispatch(addMealSuccess(i18n._('The meal has been successfully added.')));
       })

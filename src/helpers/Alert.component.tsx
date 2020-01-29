@@ -46,7 +46,7 @@ export const pendingAlert = ({ isOpen }) => {
         horizontal: 'center'
       }}
     >
-      <Alert severity="warning">Loading...</Alert>
+      <Alert severity="info">Loading...</Alert>
     </Snackbar>
   );
 };

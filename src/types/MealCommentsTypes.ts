@@ -5,7 +5,7 @@ export type CommentType = {
   author: string;
   createdAt?: Date;
   authorId?: number;
-  myComment?: boolean;
+  yourComment?: boolean;
 };
 
 export const ADD_COMMENT_SUCCESS = 'ADD_COMMENT_SUCCESS';

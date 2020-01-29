@@ -185,7 +185,7 @@ export class AddProduct extends Component<AddProductProps> {
               disabled={Object.keys(this.state.product).length === 0 || this.state.amount === ''}
               color="primary"
             >
-              {i18n._('Save')}
+              {i18n._('Add')}
             </Button>
           </DialogActions>
         </Dialog>

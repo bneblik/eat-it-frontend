@@ -83,6 +83,7 @@ export type ShoppingListProduct = {
   carbs: number;
   amount: number;
   inBasket?: boolean;
+  unit?: string;
 };
 
 export type TShoppingList = {

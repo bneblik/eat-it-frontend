@@ -54,7 +54,7 @@ export class MealComments extends Component<MealCommentsProps> {
       <div className="commentInfo">
         <div>
           <span className="author">{comment.author}</span>
-          {this.removeButtonIfAuthor(comment.myComment, comment.id)}
+          {this.removeButtonIfAuthor(comment.yourComment, comment.id)}
           <Rating value={comment.rate} precision={0.5} readOnly={true} />
         </div>
         {/* <span className="date">{formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true })}</span> */}
@@ -64,9 +64,13 @@ export class MealComments extends Component<MealCommentsProps> {
   );
 
   removeButtonIfAuthor(isOwner: boolean, commentId: number) {
-    if (true)
+    if (isOwner)
       return (
-        <IconButton className="trash" onClick={() => this.props.removeComment(commentId)}>
+        <IconButton
+          title="Remove your comment"
+          className="trash"
+          onClick={() => this.props.removeComment(commentId)}
+        >
           <FontAwesomeIcon icon={faTrash} />
         </IconButton>
       );
@@ -87,7 +91,7 @@ export class MealComments extends Component<MealCommentsProps> {
       const skeletons: any = [];
       for (let i = 0; i < 5; i++) {
         skeletons.push(
-          <div className="singleComment skeleton">
+          <div key={i} className="singleComment skeleton">
             <div className="center">
               <Skeleton variant="circle" width="40px" height="40px"></Skeleton>
             </div>
@@ -127,7 +131,7 @@ export class MealComments extends Component<MealCommentsProps> {
                 this.setState({ rate: newValue });
               }}
             />
-            <span>
+            <span title={!localStorage.getItem(JWT_TOKEN) ? i18n._('You must be logged in') : ''}>
               <Button
                 className="addComment"
                 onClick={() => this.addComment()}
