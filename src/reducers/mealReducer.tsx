@@ -9,7 +9,7 @@ import {
   CLEAR_ADD_MEAL_ERROR,
   CLEAR_ADD_MEAL_SUCCESS
 } from '../types/MealTypes';
-import { objectToCamelCase, listToCamelCase } from '../helpers/Mapper';
+
 const initialState: MealStateType = {
   pending: false,
   meal: undefined,

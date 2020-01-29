@@ -3,8 +3,8 @@ export type CommentType = {
   text: string;
   rate: number;
   author: string;
-  createdAt: Date;
-  mealId?: number;
+  createdAt?: Date;
+  authorId?: number;
   myComment?: boolean;
 };
 
@@ -33,6 +33,9 @@ export type MealCommentStateType = {
   pending: boolean;
   success: any | null;
   error: any | null;
+  page: number;
+  last: boolean;
+  comments: CommentType[];
 };
 
 export type MealCommentsActionType = AddCommentAction | ClearCommentErrorsAction | ClearCommentSuccessAction;

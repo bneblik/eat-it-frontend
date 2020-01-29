@@ -40,7 +40,6 @@ function mapDataToMeal(data): TMeal {
     name: response.attributes.name,
     recipe: response.attributes.recipes.map((o: any) => o.instruction),
     description: response.attributes.description,
-    // createdAt: null,
     calories: response.attributes.calories,
     fats: response.attributes.fats,
     proteins: response.attributes.proteins,
@@ -49,7 +48,6 @@ function mapDataToMeal(data): TMeal {
     category: response.attributes.category,
     video: response.attributes.video,
     // image: null,
-    // rate: null,
     yourMeal: response.attributes.your_meal,
     servings: response.attributes.servings,
     ingredients: data.included.map((e) => ({ ...e.attributes, id: e.attributes.product_id }))

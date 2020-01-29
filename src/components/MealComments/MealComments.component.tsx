@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import '../../styles/css/meal-comments.styles.css';
 import { TextField, Button, IconButton } from '@material-ui/core';
-import { formatDistanceToNow } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
 import Rating from '@material-ui/lab/Rating';
@@ -11,14 +10,15 @@ import {
   clearMealCommentsErrors,
   clearMealCommentsSuccess,
   removeComment,
-  addMealCommentError
+  fetchComments
 } from '../../actions/mealCommentsAction';
 import { CommentType } from '../../types/MealCommentsTypes';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { showAlert, errorAlert } from '../../helpers/Alert.component';
 import { MealCommentsProps, MealCommentsState, initialStateMeal } from './MealComments.types';
-import { requestConsts, JWT_TOKEN, axiosInstance } from '../../utils/RequestService';
+import { JWT_TOKEN } from '../../utils/RequestService';
+import { Skeleton } from '@material-ui/lab';
 /**
  * This component renders given list of comments of a meal
  * @author Beata Szczuka
@@ -26,7 +26,7 @@ import { requestConsts, JWT_TOKEN, axiosInstance } from '../../utils/RequestServ
 export class MealComments extends Component<MealCommentsProps> {
   state: MealCommentsState = initialStateMeal;
   componentDidMount() {
-    this.fetchComments(this.state.page);
+    this.props.fetchComments(this.props.page, this.props.mealId);
     window.addEventListener('scroll', this.handleScroll);
   }
 
@@ -37,8 +37,8 @@ export class MealComments extends Component<MealCommentsProps> {
   handleScroll = () => {
     if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight)
       return;
-    const { page, last } = this.state;
-    if (!last && !this.props.pending) this.fetchComments(page);
+    const { page, last, fetchComments } = this.props;
+    if (!last && !this.props.pending) fetchComments(page, this.props.mealId);
     else if (last) window.removeEventListener('scroll', this.handleScroll);
   };
 
@@ -57,14 +57,14 @@ export class MealComments extends Component<MealCommentsProps> {
           {this.removeButtonIfAuthor(comment.myComment, comment.id)}
           <Rating value={comment.rate} precision={0.5} readOnly={true} />
         </div>
-        <span className="date">{formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true })}</span>
+        {/* <span className="date">{formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true })}</span> */}
         <div>{comment.text}</div>
       </div>
     </div>
   );
 
   removeButtonIfAuthor(isOwner: boolean, commentId: number) {
-    if (isOwner)
+    if (true)
       return (
         <IconButton className="trash" onClick={() => this.props.removeComment(commentId)}>
           <FontAwesomeIcon icon={faTrash} />
@@ -82,21 +82,27 @@ export class MealComments extends Component<MealCommentsProps> {
     return list;
   };
 
-  fetchComments(page: number) {
-    this.setState({ pending: true });
-    axiosInstance
-      .get(requestConsts.COMMENT_URL, { params: { page: page, id: this.props.mealId } })
-      .then((response) => {
-        this.setState((p: MealCommentsState) => ({
-          comments: [...p.comments, response.data],
-          page: p.page + 1,
-          pending: false
-        }));
-      })
-      .catch((error) => {
-        this.setState({ error: error, pending: false });
-      });
-  }
+  displaySkeletons = () => {
+    if (this.props.pending) {
+      const skeletons: any = [];
+      for (let i = 0; i < 5; i++) {
+        skeletons.push(
+          <div className="singleComment skeleton">
+            <div className="center">
+              <Skeleton variant="circle" width="40px" height="40px"></Skeleton>
+            </div>
+            <div className="commentInfo">
+              <div>
+                <Skeleton variant="text" width="50%"></Skeleton>
+              </div>
+              <Skeleton variant="text" component="div"></Skeleton>
+            </div>
+          </div>
+        );
+      }
+      return skeletons;
+    }
+  };
 
   render() {
     const { pending, error, success, clearMealCommentsErrors, clearMealCommentsSuccess } = this.props;
@@ -134,7 +140,10 @@ export class MealComments extends Component<MealCommentsProps> {
             </span>
           </span>
         </div>
-        <div className="marginBottom">{this.listComments()}</div>
+        <div className="marginBottom">
+          {this.listComments()}
+          {this.displaySkeletons()}
+        </div>
         {showAlert(pending, error, success, clearMealCommentsErrors, clearMealCommentsSuccess)}
         {this.showErrorAlert()}
       </div>
@@ -155,7 +164,10 @@ const mapStateToProps = (state: MealCommentsState) => {
   return {
     error: state.mealCommentsReducer.error,
     success: state.mealCommentsReducer.success,
-    pending: state.mealCommentsReducer.pending
+    pending: state.mealCommentsReducer.pending,
+    comments: state.mealCommentsReducer.comments,
+    page: state.mealCommentsReducer.page,
+    last: state.mealCommentsReducer.last
   };
 };
 
@@ -165,7 +177,8 @@ const mapDispatchToProps = (dispatch: any) =>
       addMealComment,
       clearMealCommentsSuccess,
       clearMealCommentsErrors,
-      removeComment
+      removeComment,
+      fetchComments
     },
     dispatch
   );

@@ -137,7 +137,7 @@ export class Meal extends Component<MealProps, MealState> {
 
           {this.displayRecipe()}
           {this.renderYoutubeVideo()}
-          {/* {this.renderComments()} */}
+          {this.renderComments()}
           {showAlert(
             addIngredientsToListStatus.pending,
             addIngredientsToListStatus.error,
@@ -219,8 +219,7 @@ export class Meal extends Component<MealProps, MealState> {
     );
   }
   renderComments() {
-    if (this.props.meal)
-      return <MealComments comments={this.props.meal.comments} mealId={this.props.meal.id}></MealComments>;
+    if (this.props.meal) return <MealComments mealId={this.props.meal.id}></MealComments>;
   }
   markAsSelected = (id: number, amount: string, selected: boolean) => {
     if (!selected)
