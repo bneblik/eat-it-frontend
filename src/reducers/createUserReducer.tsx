@@ -28,13 +28,15 @@ export function createUserReducer(
         ...state,
         pending: false,
         user: action.user,
-        success: action.success
+        success: action.success,
+        error: null
       };
     case CREATE_USER_ERROR:
       return {
         ...state,
         pending: false,
-        error: action.error
+        error: action.error,
+        success: null
       };
     case CLEAR_CREATE_USER_ERROR:
       return {

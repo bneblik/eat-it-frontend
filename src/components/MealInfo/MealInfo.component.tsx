@@ -34,6 +34,9 @@ class MealInfo extends Component<MealInfoProps> {
               <Skeleton variant="rect" width={'30%'} height={'30px'} />
             ) : (
               <Link
+                onClick={(e) => {
+                  if (!this.props.meal) e.preventDefault();
+                }}
                 to={{
                   pathname: `/${i18n.language}/meals/${this.props.meal.id}`
                 }}

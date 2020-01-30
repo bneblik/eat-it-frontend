@@ -17,7 +17,8 @@ import { RecommendedMealsProps, RecommMealsComponentState } from './RecommendedM
 class RecommendedMeals extends Component<RecommendedMealsProps, RecommMealsComponentState> {
   state: RecommMealsComponentState = {
     activeStep: 1,
-    maxSteps: 4,
+    maxSteps: 5,
+    diff: 0,
     recommendedMealsReducer: {} as any
   };
 
@@ -33,35 +34,57 @@ class RecommendedMeals extends Component<RecommendedMealsProps, RecommMealsCompo
     this.setState((prevState: RecommMealsComponentState) => ({ activeStep: prevState.activeStep - 1 }));
   };
 
+  showElement(meal, key) {
+    if (meal >= 0 && meal < this.state.maxSteps) {
+      return <MealInfo meal={this.props.recommendedMeals[meal]} key={key} />;
+    } else return <div className="mealInfoComponent"></div>;
+  }
+
   carousel = () => {
-    const firstMeal = this.state.activeStep === 0 ? 4 : this.state.activeStep - 1;
-    const lastMeal = this.state.activeStep === 4 ? 0 : this.state.activeStep + 1;
+    const firstMeal = this.state.activeStep - 1;
+    const lastMeal = this.state.activeStep + 1;
     return (
       <>
-        <MealInfo meal={this.props.recommendedMeals[firstMeal]} key={1} />
+        {this.showElement(firstMeal, 1)}
         <MealInfo meal={this.props.recommendedMeals[this.state.activeStep]} key={2} />
-        <MealInfo meal={this.props.recommendedMeals[lastMeal]} key={3} />
+        {this.showElement(lastMeal, 3)}
       </>
     );
   };
 
   render() {
+    const { diff } = this.state;
     if (this.props.pending || this.props.recommendedMeals.length > 0)
       return (
-        <div className="recommendedMealsComponent">
+        <div
+          className="recommendedMealsComponent"
+          ref={(el) => {
+            if (!el) return;
+            const width = el.getBoundingClientRect().width;
+            if (width > 360 && diff === 0) this.setState({ diff: 1 });
+          }}
+        >
           <h3>{i18n._('Recommended by users')}</h3>
           <div className="carousel">{this.carousel()}</div>
           <MobileStepper
-            steps={5}
+            steps={this.state.maxSteps}
             position="static"
             activeStep={this.state.activeStep}
             nextButton={
-              <IconButton size="small" onClick={this.handleNext} disabled={this.state.activeStep === 5 - 1}>
+              <IconButton
+                size="small"
+                onClick={this.handleNext}
+                disabled={this.state.activeStep === this.state.maxSteps - 1 - diff}
+              >
                 <FontAwesomeIcon icon={faChevronRight} />
               </IconButton>
             }
             backButton={
-              <IconButton size="small" onClick={this.handleBack} disabled={this.state.activeStep === 0}>
+              <IconButton
+                size="small"
+                onClick={this.handleBack}
+                disabled={this.state.activeStep === 0 + diff}
+              >
                 <FontAwesomeIcon icon={faChevronLeft} />
               </IconButton>
             }

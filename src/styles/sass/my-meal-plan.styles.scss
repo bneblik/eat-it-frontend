@@ -1,13 +1,20 @@
 .myMealPlanComponent {
   & > span {
     display: flex;
-    .calendarButton {
-      flex: 1 1 200px;
-      button {
-        float: right;
-      }
+    flex-wrap: wrap;
+    & > h2 {
+      flex: 1 1 280px;
     }
   }
+  .calendarButton {
+    min-width: 100px;
+    margin-bottom: 20px;
+    flex: 1 1 200px;
+    button {
+      float: right;
+    }
+  }
+
   .mealInfoComponent {
     margin: 0.5em 0;
     display: flex;

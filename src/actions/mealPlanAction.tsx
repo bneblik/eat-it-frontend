@@ -9,9 +9,10 @@ import {
   REMOVE_FROM_MEAL_PLAN_SUCCESS,
   MARK_AS_EATEN_SUCCESS
 } from '../types/MealPlan';
-import { axiosInstanceWithAuth, requestConsts, USER_ID } from '../utils/RequestService';
+import { axiosInstanceWithAuth, requestConsts } from '../utils/RequestService';
 import { i18n } from '..';
 import { TMeal } from '../types/MealTypes';
+import { format } from 'date-fns';
 
 function fetchMealPlanSuccess(data: any) {
   return {
@@ -36,18 +37,18 @@ function mealPlanError(error: any) {
 function mapDataToMealPlan(data) {
   return data.map((e) => ({
     id: e.attributes.meal_id,
-    category: { id: e.attributes.categoryId, name: e.attributes.categoryName },
+    category: { id: e.attributes.category_id, name: e.attributes.category_name },
     ...e.attributes
   }));
 }
 
-export function fetchMealPlan(day: Date) {
+export function fetchMealPlan(date: Date) {
   return (dispatch: any) => {
     dispatch(mealPlanPending());
+    const day = format(date, 'yyyy-MM-dd');
     axiosInstanceWithAuth
-      .get(`${requestConsts.MEAL_PLAN_URL}`, { params: { day } })
+      .get(`${requestConsts.MEAL_PLAN_URL}`, { params: { date: day } })
       .then((response) => {
-        console.log(response);
         const mealPlan = mapDataToMealPlan(response.data.data);
         dispatch(fetchMealPlanSuccess(mealPlan));
       })
@@ -100,17 +101,18 @@ export function markAsEaten(mealId: number, date: Date) {
   return (dispatch: any) => {
     dispatch(mealPlanPending());
     axiosInstanceWithAuth
-      .post(`${requestConsts.MEAL_PLAN_EATEN_URL}`, {
-        meal_id: mealId,
-        date,
-        user_id: localStorage.getItem(USER_ID)
+      .get(`${requestConsts.MEAL_PLAN_EATEN_URL}`, {
+        params: {
+          meal_id: mealId,
+          date: format(date, 'yyyy-MM-dd')
+        }
       })
-      .then((response) => {
-        dispatch(markAsEatenSuccess(response.data.data.id));
+      .then(() => {
+        dispatch(markAsEatenSuccess(mealId));
       })
       .catch((error) => {
-        if (!error.response) dispatch(mealPlanError(error.toString()));
-        else dispatch(mealPlanError(error.response.statusText));
+        if (error.response && error.response.data) dispatch(mealPlanError(error.response.data.content));
+        else if (error.response.status !== '403') dispatch(mealPlanError(error.toString()));
       });
   };
 }
@@ -126,10 +128,11 @@ function removeFromMealPlanSuccess(mealId: number) {
 export function removeFromMealPlan(mealId: number, day: Date) {
   return (dispatch: any) => {
     dispatch(mealPlanPending());
+    const date = format(day, 'yyyy-MM-dd');
     axiosInstanceWithAuth
-      .post(`${requestConsts.MEAL_PLAN_URL}`, { mealId, day })
-      .then((response) => {
-        dispatch(removeFromMealPlanSuccess(response.data.data.id));
+      .delete(`${requestConsts.MEAL_PLAN_URL}/1`, { params: { meal_id: mealId, date } })
+      .then(() => {
+        dispatch(removeFromMealPlanSuccess(mealId));
       })
       .catch((error) => {
         if (!error.response) dispatch(mealPlanError(error.toString()));

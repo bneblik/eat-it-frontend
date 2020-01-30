@@ -16,13 +16,13 @@ export const requestConsts = {
   FRIDGE_URL: 'fridges',
   SHOPPING_LIST_URL: 'shopping_lists',
   COMMENT_URL: 'comments',
-  STATISTICS_URL: 'statistics',
   MEAL_PLAN_URL: 'meal_plans',
-  RECOMMENDED_MEALS: 'recommended',
-  ABOUT_USER_URL: 'about_user',
+  STATISTICS_URL: 'meal_plans/day_statistic',
+  RECOMMENDED_MEALS: 'meals/recommended_meals',
+  ABOUT_USER_URL: 'users',
   CATEGORIES_URL: 'meal_categories',
   FIND_MEALS_URL: 'meals/find',
-  MEAL_PLAN_EATEN_URL: 'meal_plan/eaten'
+  MEAL_PLAN_EATEN_URL: 'meal_plans/meal_eaten'
 };
 
 export const axiosInstance = axios.create({

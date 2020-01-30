@@ -8,7 +8,9 @@ import {
   ABOUT_USER_PENDING,
   ABOUT_USER_ERROR,
   CLEAR_ABOUT_USER_SUCCESS,
-  CLEAR_ABOUT_USER_ERROR
+  CLEAR_ABOUT_USER_ERROR,
+  SET_USER_GENDER,
+  SET_USER_AGE
 } from '../types/AboutUser';
 import { axiosInstanceWithAuth, requestConsts } from '../utils/RequestService';
 import { i18n } from '..';
@@ -17,7 +19,9 @@ function fetchAboutUserSuccess(data: any) {
   return {
     type: FETCH_ABOUT_USER_SUCCESS,
     height: data.height,
-    weight: data.weight
+    weight: data.weight,
+    age: data.age,
+    gender: data.gender
   };
 }
 function saveAboutUserSuccess() {
@@ -40,11 +44,11 @@ function aboutUserError(error: any) {
   };
 }
 
-export function saveAboutUser(height: string, weight: string) {
+export function saveAboutUser(height: string, weight: string, gender: string, age: string) {
   return (dispatch: any) => {
     dispatch(aboutUserPending());
     axiosInstanceWithAuth
-      .post(`${requestConsts.ABOUT_USER_URL}`, { height, weight })
+      .put(`${requestConsts.ABOUT_USER_URL}/1`, { height, weight, gender, age })
       .then(() => {
         dispatch(saveAboutUserSuccess());
       })
@@ -69,17 +73,31 @@ export function setUserWeight(weight: string): SetUserWeightAction {
   };
 }
 
+export function setUserGender(gender: string) {
+  return {
+    type: SET_USER_GENDER,
+    gender
+  };
+}
+
+export function setUserAge(age: string) {
+  return {
+    type: SET_USER_AGE,
+    age
+  };
+}
+
 export function fetchAboutUser() {
   return (dispatch: any) => {
     dispatch(aboutUserPending());
     axiosInstanceWithAuth
-      .get(`${requestConsts.ABOUT_USER_URL}`)
+      .get(`${requestConsts.ABOUT_USER_URL}/1`)
       .then((content) => {
         dispatch(fetchAboutUserSuccess(content.data.data.attributes));
       })
       .catch((error) => {
         if (!error.response) dispatch(aboutUserError(error.toString()));
-        else dispatch(aboutUserError(error.response.statusText));
+        else if (error.response.status !== '403') dispatch(aboutUserError(error.response.statusText));
       });
   };
 }

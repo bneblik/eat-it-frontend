@@ -30,6 +30,8 @@ export const ABOUT_USER_PENDING = 'ABOUT_USER_PENDING';
 export const ABOUT_USER_ERROR = 'ABOUT_USER_ERROR';
 export const CLEAR_ABOUT_USER_ERROR = 'CLEAR_ABOUT_USER_ERROR';
 export const CLEAR_ABOUT_USER_SUCCESS = 'CLEAR_ABOUT_USER_SUCCESS';
+export const SET_USER_GENDER = 'SET_USER_GENDER';
+export const SET_USER_AGE = 'SET_USER_AGE';
 
 export type AboutUserActionType =
   | FetchAboutUserAction
@@ -40,6 +42,8 @@ export type AboutUserActionType =
 export interface AboutUserState {
   weight: string;
   height: string;
+  age: string;
+  gender: string;
   error: any;
   success: any;
   pending: boolean;
