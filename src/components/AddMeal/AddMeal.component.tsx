@@ -3,7 +3,6 @@ import { Card, TextField, CardHeader, Button, InputAdornment } from '@material-u
 import { ProductsList } from '../ProductsList/ProductsList.component';
 import '../../styles/css/add-meal.styles.css';
 import { connect } from 'react-redux';
-import { ProductType } from '../../types/Products';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faPlus,
@@ -19,11 +18,13 @@ import {
 import { faClock } from '@fortawesome/free-regular-svg-icons';
 import { Recipe } from '../Recipe/Recipe.component';
 import { i18n } from '../..';
-import { Autocomplete } from '@material-ui/lab';
+import { Autocomplete as MaterialAutocomplete } from '@material-ui/lab';
 import { addMeal, clearAddMealSuccess, clearAddMealError, editMeal } from '../../actions/mealAction';
 import { bindActionCreators } from 'redux';
 import { showAlert } from '../../helpers/Alert.component';
 import { AddMealProps, AddMealState, initialAddMealState as initialState } from './AddMeal.types';
+import Autocomplete from '../Autocomplete/Autocomplete.component';
+import { ProductType } from '../../types/Products';
 import { Category } from '../../types/Categories';
 
 /**
@@ -180,7 +181,7 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
             </div>
             <div className="padding">
               <FontAwesomeIcon icon={faFilter} />
-              <Autocomplete
+              <MaterialAutocomplete
                 options={this.props.categoriesList}
                 className="autocomplete"
                 id="category"
@@ -246,27 +247,14 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
             </div>
             <div className="padding">
               <FontAwesomeIcon icon={faClipboardList} />
+
               <div>
                 <div className="addProductGroup">
                   <Autocomplete
-                    options={this.props.productsList}
-                    className="autocomplete"
-                    getOptionLabel={(o) => (o.name ? o.name : '')}
-                    onChange={(e, v) => {
+                    product={this.state.selectedProduct}
+                    handleChangeProduct={(v) => {
                       this.setState({ selectedProduct: v });
                     }}
-                    value={this.state.selectedProduct}
-                    noOptionsText={i18n._('No products')}
-                    renderInput={(params: any) => (
-                      <TextField
-                        {...params}
-                        variant="outlined"
-                        required
-                        value={this.state.selectedProduct}
-                        fullWidth
-                        label={i18n._('Ingredient')}
-                      />
-                    )}
                   />
                   <span>
                     <Button
@@ -352,7 +340,6 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
 
 const mapStateToProps = (state: AddMealState) => {
   return {
-    productsList: state.productsReducer.productsList,
     error: state.mealReducer.error,
     success: state.mealReducer.success,
     pending: state.mealReducer.pending,

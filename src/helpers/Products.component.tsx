@@ -16,13 +16,14 @@ import {
 } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faChevronDown, faCheck } from '@fortawesome/free-solid-svg-icons';
-import apple from '../styles/images/apple.jpg';
+import placeholder from '../styles/images/placeholder.png';
 import { Alert } from '@material-ui/lab';
 import { ShoppingListProduct, TShoppingList } from '../types/ShoppingList';
 import { NutrientsInfo } from '../components/NutrientsInfo/NutrientsInfo.component';
 import AddProduct from '../components/AddProduct/AddProduct.component';
 import { TFridge, FridgeProduct } from '../types/Fridge';
 import { i18n } from '..';
+import { API_URL } from '../utils/RequestService';
 
 const ShoppingList = 'ShoppingList';
 type TProduct = ShoppingListProduct | FridgeProduct;
@@ -79,10 +80,16 @@ class ProductsHelper extends Component<ProductsProps, ProductsState> {
       </FormControl>
     );
   }
+  displayImage(product) {
+    if (!!product.image) {
+      return <img src={`${API_URL}${product.image}`} alt="product"></img>;
+    } else return <img src={placeholder} alt="product"></img>;
+  }
+
   renderProduct(product: TProduct, categoryId: number) {
     return (
       <span className="listItem">
-        <img src={apple} alt="product"></img>
+        {this.displayImage(product)}
         <div className="productName">{product.name}</div>
         <span className="amountInput">
           <Input

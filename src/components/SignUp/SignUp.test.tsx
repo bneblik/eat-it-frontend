@@ -13,7 +13,6 @@ jest.mock('../..', () => ({
 let wrapper: any;
 let component: any;
 let store: any;
-
 describe('SignUp', () => {
   beforeEach(() => {
     const mockStore = configureStore([thunk]);
@@ -95,7 +94,8 @@ describe('SignUp', () => {
 
   it('should new user create', () => {
     // given
-    const spy = jest.spyOn(component, 'signUp');
+    const mock = jest.fn(() => {});
+    component.signUp = mock;
     const emailInput = wrapper.find('.emailField input');
     const pswdInput = wrapper.find('.passwordField input');
     const repeatPswdInput = wrapper.find('.repeatPswdField input');
@@ -106,6 +106,6 @@ describe('SignUp', () => {
     repeatPswdInput.simulate('change', { target: { value: 'password' } });
     confirmButton.simulate('click');
     // then
-    expect(spy).toHaveBeenCalled();
+    expect(mock).toHaveBeenCalled();
   });
 });

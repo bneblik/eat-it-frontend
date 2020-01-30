@@ -34,6 +34,11 @@ describe('MyMealPlan', () => {
   beforeEach(() => {
     const props = {
       selectedDate: new Date(),
+      error: null,
+      pending: false,
+      clearMealPlanError: jest.fn(),
+      removeFromMealPlan: jest.fn(),
+      markAsEaten: jest.fn(),
       changeSelectedDate: () => {
         return {} as any;
       },

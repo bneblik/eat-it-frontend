@@ -82,7 +82,7 @@ export class Meal extends Component<MealProps, MealState> {
 
   displayEditButton() {
     if (this.props.pending) return <Skeleton width="20px" height="10px" />;
-    else if (this.props.meal.yourMeal) return <EditMeal mealToEdit={this.props.meal} />;
+    else if (!this.props.meal.yourMeal) return <EditMeal mealToEdit={this.props.meal} />;
   }
   renderYoutubeVideo() {
     const { meal } = this.props;
@@ -159,7 +159,7 @@ export class Meal extends Component<MealProps, MealState> {
     } else return;
     return (
       <div className="card">
-        <h3>Recipe</h3>
+        <h3>{i18n._('Recipe')}</h3>
         {recipe}
       </div>
     );

@@ -1,4 +1,4 @@
-import { ProductType, ProductsState } from '../../types/Products';
+import { ProductType } from '../../types/Products';
 
 export type AddProductState = {
   product: ProductType;
@@ -11,7 +11,6 @@ export type AddProductState = {
   proteins: string;
   unit: string;
   dialogOpened: boolean;
-  productsReducer: ProductsState;
 };
 
 export type AddProductProps = {
@@ -19,10 +18,6 @@ export type AddProductProps = {
    * describes where the new product will be added
    */
   buttonName: string;
-  /**
-   * contains products to display as autocomplete options
-   */
-  productsList: ProductType[];
   /**
    * adds a product
    */
@@ -38,6 +33,5 @@ export const defultStateAddProduct: AddProductState = {
   fats: '',
   unit: '',
   proteins: '',
-  dialogOpened: false,
-  productsReducer: {} as ProductsState
+  dialogOpened: false
 };
