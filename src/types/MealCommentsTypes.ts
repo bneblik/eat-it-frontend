@@ -3,7 +3,6 @@ export type CommentType = {
   text: string;
   rate: number;
   author: string;
-  createdAt?: Date;
   authorId?: number;
   yourComment?: boolean;
 };

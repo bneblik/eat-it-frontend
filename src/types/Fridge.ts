@@ -71,6 +71,7 @@ export type FridgeProduct = {
 };
 
 export type TFridge = {
-  category: string;
+  categoryName: string;
+  categoryId: number;
   products: FridgeProduct[];
 };

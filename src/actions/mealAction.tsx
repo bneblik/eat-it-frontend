@@ -47,7 +47,7 @@ function mapDataToMeal(data): TMeal {
     prepareTime: response.attributes.time,
     category: response.attributes.category,
     video: response.attributes.video,
-    // image: null,
+    image: response.attributes.image,
     yourMeal: response.attributes.your_meal,
     servings: response.attributes.servings,
     ingredients: data.included.map((e) => ({ ...e.attributes, id: e.attributes.product_id }))

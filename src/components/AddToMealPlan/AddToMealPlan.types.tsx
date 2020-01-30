@@ -8,6 +8,7 @@ export type AddToMealPlanProps = {
    * the name of meal which should be added to the meal plan
    */
   mealName: string;
+  mealId: number;
   success: any;
   error: any;
   pending: boolean;

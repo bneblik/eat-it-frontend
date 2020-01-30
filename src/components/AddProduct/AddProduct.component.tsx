@@ -26,8 +26,9 @@ export class AddProduct extends Component<AddProductProps> {
 
   save() {
     this.props.addProduct(
-      { ...this.state.product, category: this.state.category },
-      this.state.category,
+      { ...this.state.product, category: { name: this.state.categoryName, id: this.state.categoryId } },
+      this.state.categoryId,
+      this.state.categoryName,
       this.state.amount
     );
     this.setState(defultStateAddProduct);
@@ -65,7 +66,8 @@ export class AddProduct extends Component<AddProductProps> {
                 onChange={(_, product) => {
                   this.setState({
                     product: product ? product : ({} as ProductType),
-                    category: product ? product.category : '',
+                    categoryName: product ? product.categoryName : '',
+                    categoryId: product ? product.categoryId : '',
                     calories: product ? product.calories : '',
                     carbs: product ? product.carbs : '',
                     fats: product ? product.fats : '',
@@ -106,7 +108,7 @@ export class AddProduct extends Component<AddProductProps> {
               <TextField
                 id="category"
                 label={i18n._('Category')}
-                value={this.state.category}
+                value={this.state.categoryName}
                 disabled={true}
                 variant="filled"
                 className="disabled"

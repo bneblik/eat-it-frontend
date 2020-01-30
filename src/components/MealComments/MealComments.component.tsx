@@ -57,7 +57,6 @@ export class MealComments extends Component<MealCommentsProps> {
           {this.removeButtonIfAuthor(comment.yourComment, comment.id)}
           <Rating value={comment.rate} precision={0.5} readOnly={true} />
         </div>
-        {/* <span className="date">{formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true })}</span> */}
         <div>{comment.text}</div>
       </div>
     </div>

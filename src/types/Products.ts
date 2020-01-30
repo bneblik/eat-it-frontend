@@ -1,3 +1,5 @@
+import { Category } from './Categories';
+
 export const FETCH_PRODUCTS_PENDING = 'FETCH_PRODUCTS_PENDING';
 export const FETCH_PRODUCTS_SUCCESS = 'FETCH_PRODUCTS_SUCCESS';
 export const FETCH_PRODUCTS_ERROR = 'FETCH_PRODUCTS_ERROR';
@@ -17,7 +19,7 @@ export type ProductType = {
   fats: number;
   proteins: number;
   carbs: number;
-  category: string;
+  category: Category;
   unit: string;
   amount?: string;
   image?: any;

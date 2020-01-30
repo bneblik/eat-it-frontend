@@ -7,7 +7,6 @@ export type TMeal = {
   name: string;
   recipe: string[];
   description: string;
-  createdAt?: Date;
   ingredients?: ProductType[];
   calories?: number;
   fats?: number;

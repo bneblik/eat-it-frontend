@@ -5,28 +5,34 @@ import {
   ADD_PRODUCT_TO_FRIDGE
 } from '../../types/Fridge';
 
-export function changeAmountInFridge(product: FridgeProduct, category: string, amount: string) {
+export function changeAmountInFridge(product: FridgeProduct, categoryId: number, amount: string) {
   return {
     type: CHANGE_AMOUNT_IN_FRIDGE,
     product,
-    category,
+    categoryId,
     amount
   };
 }
 
-export function removeProductFromFridge(product: FridgeProduct, category: string) {
+export function removeProductFromFridge(product: FridgeProduct, categoryId: number) {
   return {
     type: REMOVE_PRODUCT_FROM_FRIDGE,
     product,
-    category
+    categoryId
   };
 }
 
-export function addProductToFridge(product: FridgeProduct, category: string, amount: number) {
+export function addProductToFridge(
+  product: FridgeProduct,
+  categoryId: number,
+  categoryName: string,
+  amount: number
+) {
   return {
     type: ADD_PRODUCT_TO_FRIDGE,
     product,
-    category,
+    categoryId,
+    categoryName,
     amount
   };
 }

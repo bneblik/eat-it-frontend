@@ -20,27 +20,30 @@ const initialState: FridgeState = {
   pending: false
 };
 
-function addToFridge(fridge, product, category, amount) {
-  const findCategory = fridge.find((e) => e.category === category);
+function addToFridge(fridge, product, categoryId, categoryName, amount) {
+  const findCategory = fridge.find((e) => e.categoryId === categoryId);
   let addedProduct = fridge;
   if (!!findCategory) {
     addedProduct = fridge.map((elem) =>
-      elem.category === category
+      elem.categoryId === categoryId
         ? { ...elem, products: [...elem.products, { ...product, amount: amount }] }
         : elem
     );
   } else {
-    addedProduct = [...fridge, { category: category, products: [{ ...product, amount: amount }] }];
+    addedProduct = [
+      ...fridge,
+      { categoryId: categoryId, categoryName, products: [{ ...product, amount: amount }] }
+    ];
   }
   return addedProduct;
 }
 
-function removeFromFridge(fridge, product, category) {
-  const findCategory = fridge.find((e) => e.category === category);
+function removeFromFridge(fridge, product, categoryId) {
+  const findCategory = fridge.find((e) => e.categoryId === categoryId);
   let newFridge = fridge;
   if (!!findCategory && findCategory.products.length > 1) {
     newFridge = fridge.map((elem) =>
-      elem.category === category
+      elem.categoryId === categoryId
         ? {
             ...elem,
             products: elem.products.filter((p) => p !== product)
@@ -48,7 +51,7 @@ function removeFromFridge(fridge, product, category) {
         : elem
     );
   } else if (!!findCategory) {
-    newFridge = fridge.filter((e) => e.category !== category);
+    newFridge = fridge.filter((e) => e.categoryId !== categoryId);
   }
   return newFridge;
 }
@@ -65,18 +68,29 @@ export function fridgeReducer(state = initialState, action: any): FridgeState {
     // change fridge
     case CHANGE_AMOUNT_IN_FRIDGE:
       const amountChanged = state.fridge.map((elem) =>
-        elem.category === action.category
+        elem.categoryId === action.categoryId
           ? {
               ...elem,
-              products: elem.products.map((p) => (p === action.product ? { ...p, amount: action.amount } : p))
+              products: elem.products.map((p) => {
+                return p.id === action.product.id ? { ...p, amount: action.amount } : p;
+              })
             }
           : elem
       );
       return { ...state, fridge: amountChanged };
     case REMOVE_PRODUCT_FROM_FRIDGE:
-      return { ...state, fridge: removeFromFridge(state.fridge, action.product, action.category) };
+      return { ...state, fridge: removeFromFridge(state.fridge, action.product, action.categoryId) };
     case ADD_PRODUCT_TO_FRIDGE:
-      return { ...state, fridge: addToFridge(state.fridge, action.product, action.category, action.amount) };
+      return {
+        ...state,
+        fridge: addToFridge(
+          state.fridge,
+          action.product,
+          action.categoryId,
+          action.categoryName,
+          action.amount
+        )
+      };
     // save fridge
     case SAVE_FRIDGE_SUCCESS:
       return { ...state, success: action.success, pending: false };

@@ -15,7 +15,7 @@ import { connect } from 'react-redux';
 import { Skeleton } from '@material-ui/lab';
 import { ProductInfo } from '../ProductInfo/ProductInfo.component';
 import { showAlert } from '../../helpers/Alert.component';
-import { JWT_TOKEN } from '../../utils/RequestService';
+import { JWT_TOKEN, API_URL } from '../../utils/RequestService';
 import {
   clearShoppingListError,
   clearShoppingListSuccess
@@ -73,7 +73,7 @@ export class Meal extends Component<MealProps, MealState> {
         {this.props.pending ? (
           <Skeleton width="20px" height="10px" />
         ) : (
-          <AddToMealPlan mealName={meal.name} />
+          <AddToMealPlan mealId={meal.id} mealName={meal.name} />
         )}
         {this.displayEditButton()}
       </div>
@@ -127,7 +127,7 @@ export class Meal extends Component<MealProps, MealState> {
               </div>
             ) : (
               <div className="image">
-                <img src={this.props.meal.image} alt="Meal" />
+                <img src={`${API_URL}${this.props.meal.image}`} alt="Meal" />
               </div>
             )}
 

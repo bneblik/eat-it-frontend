@@ -3,7 +3,8 @@ import { ProductType, ProductsState } from '../../types/Products';
 export type AddProductState = {
   product: ProductType;
   amount: string;
-  category: string;
+  categoryName: string;
+  categoryId: number;
   calories: string;
   carbs: string;
   fats: string;
@@ -25,12 +26,13 @@ export type AddProductProps = {
   /**
    * adds a product
    */
-  addProduct: (product: ProductType, category: string, amount: string) => void;
+  addProduct: (product: ProductType, categoryId: number, categoryName: string, amount: string) => void;
 };
 export const defultStateAddProduct: AddProductState = {
   product: {} as ProductType,
   amount: '',
-  category: '',
+  categoryName: '',
+  categoryId: null,
   calories: '',
   carbs: '',
   fats: '',

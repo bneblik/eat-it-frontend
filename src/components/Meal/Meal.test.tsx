@@ -14,7 +14,6 @@ const testMeal: TMeal = {
   name: 'Spaghetti carbonara',
   description: 'It is a short description',
   recipe: ['Heat pasta water: Put a large pot of salted water on to boil (1 Tbsp salt for every 2 '],
-  createdAt: new Date(),
   ingredients: [
     { id: 1, name: 'butter', unit: 'g', calories: 12, fats: 123, carbs: 22, proteins: 2, category: 'dairy' }
   ],

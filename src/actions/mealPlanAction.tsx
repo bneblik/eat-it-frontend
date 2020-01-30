@@ -33,13 +33,23 @@ function mealPlanError(error: any) {
   };
 }
 
+function mapDataToMealPlan(data) {
+  return data.map((e) => ({
+    id: e.attributes.meal_id,
+    category: { id: e.attributes.categoryId, name: e.attributes.categoryName },
+    ...e.attributes
+  }));
+}
+
 export function fetchMealPlan(day: Date) {
   return (dispatch: any) => {
     dispatch(mealPlanPending());
     axiosInstanceWithAuth
       .get(`${requestConsts.MEAL_PLAN_URL}`, { params: { day } })
-      .then((data) => {
-        dispatch(fetchMealPlanSuccess(data));
+      .then((response) => {
+        console.log(response);
+        const mealPlan = mapDataToMealPlan(response.data.data);
+        dispatch(fetchMealPlanSuccess(mealPlan));
       })
       .catch((error) => {
         if (!error.response) dispatch(mealPlanError(error.toString()));
@@ -67,7 +77,7 @@ export function addToMealPlan(info: any) {
   return (dispatch: any) => {
     dispatch(mealPlanPending());
     axiosInstanceWithAuth
-      .post(`${requestConsts.MEAL_PLAN_URL}`, { ...info, user_id: localStorage.getItem(USER_ID) })
+      .post(`${requestConsts.MEAL_PLAN_URL}`, info)
       .then((response) => {
         dispatch(addToMealPlanSuccess(response.data.data));
       })

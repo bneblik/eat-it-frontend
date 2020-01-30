@@ -27,13 +27,32 @@ function fetchMyFridgePending() {
   };
 }
 
+function mapDataToFridge(data) {
+  let fridge = [];
+  data.forEach((p) => {
+    const catId = p.attributes.category_id;
+    const product = { id: p.attributes.product_id, ...p.attributes };
+    if (fridge.find((e) => e.categoryId === catId)) {
+      fridge = fridge.map((f) => (f.categoryId === catId ? { ...f, products: [...f.products, product] } : f));
+    } else {
+      fridge.push({
+        categoryName: p.attributes.category_name,
+        categoryId: catId,
+        products: [product]
+      });
+    }
+  });
+  return fridge;
+}
+
 export function fetchMyFridge() {
   return (dispatch: any) => {
     dispatch(fetchMyFridgePending());
     axiosInstanceWithAuth
       .get(requestConsts.FRIDGE_URL)
       .then((response) => {
-        dispatch(fetchMyFridgeSuccess(response.data.data));
+        const fridge = mapDataToFridge(response.data.data);
+        dispatch(fetchMyFridgeSuccess(fridge));
       })
       .catch((error) => {
         if (!error.response) dispatch(fetchMyFridgeError(error.toString()));

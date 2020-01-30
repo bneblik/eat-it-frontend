@@ -5,7 +5,7 @@ import {
   FETCH_PRODUCTS_SUCCESS,
   FETCH_PRODUCTS_ERROR
 } from '../types/Products';
-
+import { objectToCamelCase } from '../helpers/Mapper';
 const initialState: ProductsState = {
   productsList: [],
   pending: false,
@@ -18,7 +18,11 @@ export function productsReducer(state = initialState, action: any): ProductsStat
       return {
         ...state,
         pending: false,
-        productsList: action.products.map((e) => ({ id: e.id, ...e.attributes }))
+        productsList: action.products.map((e) => ({
+          id: e.id,
+          ...objectToCamelCase(e.attributes),
+          categoryName: e.attributes.category
+        }))
       };
     case FETCH_PRODUCTS_PENDING:
       return {

@@ -27,13 +27,34 @@ function fetchShoppingListPending() {
   };
 }
 
+function mapDataToShoppingList(data) {
+  let shoppingList = [];
+  data.forEach((p) => {
+    const catId = p.attributes.category_id;
+    const product = { id: p.attributes.product_id, ...p.attributes };
+    if (shoppingList.find((e) => e.categoryId === catId)) {
+      shoppingList = shoppingList.map((f) =>
+        f.categoryId === catId ? { ...f, products: [...f.products, product] } : f
+      );
+    } else {
+      shoppingList.push({
+        categoryName: p.attributes.category_name,
+        categoryId: catId,
+        products: [product]
+      });
+    }
+  });
+  return shoppingList;
+}
+
 export function fetchMyShoppingList() {
   return (dispatch: any) => {
     dispatch(fetchShoppingListPending());
     axiosInstanceWithAuth
       .get(requestConsts.SHOPPING_LIST_URL)
       .then((response) => {
-        dispatch(fetchMyShoppingListSuccess(response.data.data));
+        const shoppingList = mapDataToShoppingList(response.data.data);
+        dispatch(fetchMyShoppingListSuccess(shoppingList));
       })
       .catch((error) => {
         if (!error.response) dispatch(fetchShoppingListError(error.toString()));

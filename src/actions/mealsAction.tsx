@@ -34,6 +34,7 @@ function mapResponseToMeals(data): TMeal[] {
     name: meal.attributes.name,
     calories: meal.attributes.calories,
     fats: meal.attributes.fats,
+    image: meal.attributes.image,
     carbs: meal.attributes.carbs,
     proteins: meal.attributes.proteins,
     description: meal.attributes.description,

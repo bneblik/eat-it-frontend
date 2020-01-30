@@ -30,7 +30,8 @@ const product2: ProductType = {
   proteins: 78,
   carbs: 83,
   fats: 34,
-  category: 'meat'
+  categoryName: 'meat',
+  categoryId: 1
 };
 
 describe('AddProduct', () => {
