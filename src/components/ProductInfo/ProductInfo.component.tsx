@@ -26,8 +26,8 @@ class ProductInfo extends Component<ProductInfoProps> {
     return (
       <div className="productInfoComponent">
         {this.displayImage()}
-        <span>{product.name}</span>
-        <div>
+        <span className="productName">{product.name}</span>
+        <div className="amount">
           {i18n._('amount')}: {product.amount} {product.unit}
         </div>
         <NutrientsInfo

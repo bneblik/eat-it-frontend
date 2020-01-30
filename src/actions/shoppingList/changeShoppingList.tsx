@@ -6,36 +6,42 @@ import {
   ADD_PRODUCT_TO_LIST
 } from '../../types/ShoppingList';
 
-export function addToBasket(product: ShoppingListProduct, category: string) {
+export function addToBasket(product: ShoppingListProduct, categoryId: number) {
   return {
     type: ADD_TO_BASKET,
     product,
-    category
+    categoryId
   };
 }
 
-export function changeAmountInList(product: ShoppingListProduct, category: string, amount: string) {
+export function changeAmountInList(product: ShoppingListProduct, categoryId: number, amount: string) {
   return {
     type: CHANGE_AMOUNT_IN_LIST,
     product,
-    category,
+    categoryId,
     amount
   };
 }
 
-export function removeProductFromList(product: ShoppingListProduct, category: string) {
+export function removeProductFromList(product: ShoppingListProduct, categoryId: number) {
   return {
     type: REMOVE_PRODUCT_FROM_LIST,
     product,
-    category
+    categoryId
   };
 }
 
-export function addProductToList(product: ShoppingListProduct, category: string, amount: number) {
+export function addProductToList(
+  product: ShoppingListProduct,
+  categoryId: number,
+  categoryName: string,
+  amount: number
+) {
   return {
     type: ADD_PRODUCT_TO_LIST,
     product,
-    category,
+    categoryId,
+    categoryName,
     amount
   };
 }

@@ -15,7 +15,6 @@ const testMeal: TMeal = {
   name: 'Spaghetti carbonara',
   description: 'It is a short description',
   recipe: ['step 1', 'step 2', 'step 3', 'step 4'],
-  createdAt: new Date(),
   ingredients: [
     { id: 1, name: 'butter', unit: 'g', calories: 12, fats: 123, carbs: 22, proteins: 2, category: 'dairy' }
   ],
@@ -35,6 +34,11 @@ describe('MyMealPlan', () => {
   beforeEach(() => {
     const props = {
       selectedDate: new Date(),
+      error: null,
+      pending: false,
+      clearMealPlanError: jest.fn(),
+      removeFromMealPlan: jest.fn(),
+      markAsEaten: jest.fn(),
       changeSelectedDate: () => {
         return {} as any;
       },

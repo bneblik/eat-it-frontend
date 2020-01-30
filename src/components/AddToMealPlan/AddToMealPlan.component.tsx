@@ -30,9 +30,14 @@ export class AddToMealPlan extends Component<AddToMealPlanProps> {
   }
 
   save() {
+    let portion;
+    if (this.state.portion === '1') portion = 'normal';
+    else if (this.state.portion === '2') portion = 'double';
+    else portion = 'half';
     const data = {
-      name: this.props.mealName,
-      portion: this.state.portion,
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      meal_id: this.props.mealId,
+      portion: portion,
       date: this.state.date
     };
     this.props.addToMealPlan(data);

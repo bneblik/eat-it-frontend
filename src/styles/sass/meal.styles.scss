@@ -2,6 +2,7 @@
   .top {
     display: flex;
     flex-wrap: wrap;
+    overflow: hidden;
     & > div {
       padding: 1em;
       flex: 1 1 250px;

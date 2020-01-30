@@ -9,6 +9,7 @@ import { faClock } from '@fortawesome/free-regular-svg-icons';
 import { Skeleton } from '@material-ui/lab';
 import { i18n } from '../..';
 import { MealInfoProps } from './MealInfo.types';
+import { API_URL } from '../../utils/RequestService';
 
 /**
  * This component renders short information about one meal
@@ -24,7 +25,7 @@ class MealInfo extends Component<MealInfoProps> {
           ) : !this.props.meal.image ? (
             <img src={image} alt="Meal" />
           ) : (
-            <img src={this.props.meal.image} alt="Meal" />
+            <img src={`${API_URL}${this.props.meal.image}`} alt="Meal" />
           )}
         </div>
         <div className="info">
@@ -33,6 +34,9 @@ class MealInfo extends Component<MealInfoProps> {
               <Skeleton variant="rect" width={'30%'} height={'30px'} />
             ) : (
               <Link
+                onClick={(e) => {
+                  if (!this.props.meal) e.preventDefault();
+                }}
                 to={{
                   pathname: `/${i18n.language}/meals/${this.props.meal.id}`
                 }}

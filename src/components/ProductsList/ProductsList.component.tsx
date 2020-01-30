@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { IconButton, TextField, InputAdornment } from '@material-ui/core';
-import { ProductType } from '../../types/Products';
 import '../../styles/css/products-list.styles.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { ProductsListProps } from './ProductsList.types';
+import { ProductType } from '../../types/Products';
 
 /**
  * This component displays a list of products that can be removed
@@ -30,6 +30,7 @@ class ProductsList extends Component<ProductsListProps> {
             <span>{product.name}</span>
             <TextField
               className="amount"
+              type="number"
               label="amount"
               InputProps={{
                 endAdornment: <InputAdornment position="end">{product.unit}</InputAdornment>

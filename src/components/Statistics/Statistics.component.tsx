@@ -19,22 +19,11 @@ import { routes, lang } from '../App/RouteConstants';
 export class Statistics extends Component<StatisticsProps, StatisticsComponentState> {
   state: StatisticsComponentState = {
     statisticsReducer: {} as any,
-    zoom: false
+    zoom: true
   };
   componentDidMount() {
     this.props.fetchStatisticsForDay(this.props.day);
-    document.addEventListener('scroll', this.handleScroll);
   }
-  componentWillUnmount() {
-    document.removeEventListener('scroll', this.handleScroll);
-  }
-
-  handleScroll = () => {
-    const wrappedElement = document.getElementsByClassName('statisticsComponent');
-    if (document.documentElement.scrollTop < wrappedElement[0].scrollHeight) return;
-    this.setState({ zoom: true });
-    document.removeEventListener('scroll', this.handleScroll);
-  };
 
   renderNutrientInfo(value, unit) {
     if (value > 0)

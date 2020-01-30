@@ -7,6 +7,7 @@ describe('ProductsList', () => {
     shallow(
       <ProductsList
         productsList={[]}
+        changeAmount={() => {}}
         removeProduct={(id) => {
           return { type: 'REMOVE_PRODUCT', productId: id };
         }}

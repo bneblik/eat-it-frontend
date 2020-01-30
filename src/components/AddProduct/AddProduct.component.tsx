@@ -6,10 +6,8 @@ import '../../styles/css/add-product.styles.css';
 import { faFilter, faUtensils, faCircle, faBalanceScaleLeft } from '@fortawesome/free-solid-svg-icons';
 import { i18n } from '../..';
 import TextField from '@material-ui/core/TextField';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import { ProductType } from '../../types/Products';
-import { connect } from 'react-redux';
 import { AddProductProps, AddProductState, defultStateAddProduct } from './AddProduct.types';
+import Autocomplete from '../Autocomplete/Autocomplete.component';
 
 /**
  * This component renders a product adding form.
@@ -26,8 +24,9 @@ export class AddProduct extends Component<AddProductProps> {
 
   save() {
     this.props.addProduct(
-      { ...this.state.product, category: this.state.category },
-      this.state.category,
+      { ...this.state.product, category: { name: this.state.categoryName, id: this.state.categoryId } },
+      this.state.categoryId,
+      this.state.categoryName,
       this.state.amount
     );
     this.setState(defultStateAddProduct);
@@ -38,6 +37,19 @@ export class AddProduct extends Component<AddProductProps> {
       dialogOpened: true
     });
   }
+
+  handleSelectProduct = (product) => {
+    this.setState({
+      product: product ? product : ({} as any),
+      categoryName: product ? product.categoryName : '',
+      categoryId: product ? product.categoryId : '',
+      calories: product ? product.calories : '',
+      carbs: product ? product.carbs : '',
+      fats: product ? product.fats : '',
+      proteins: product ? product.proteins : '',
+      unit: product ? product.unit : ''
+    });
+  };
 
   render() {
     return (
@@ -57,34 +69,7 @@ export class AddProduct extends Component<AddProductProps> {
           <DialogContent>
             <div className="inputContainer">
               <FontAwesomeIcon icon={faUtensils} />
-              <Autocomplete
-                id="name"
-                className="autocomplete"
-                options={this.props.productsList}
-                getOptionLabel={(o) => (o.name ? o.name : '')}
-                onChange={(_, product) => {
-                  this.setState({
-                    product: product ? product : ({} as ProductType),
-                    category: product ? product.category : '',
-                    calories: product ? product.calories : '',
-                    carbs: product ? product.carbs : '',
-                    fats: product ? product.fats : '',
-                    proteins: product ? product.proteins : '',
-                    unit: product ? product.unit : ''
-                  });
-                }}
-                value={this.state.product}
-                noOptionsText={i18n._('No products')}
-                renderInput={(params: any) => (
-                  <TextField
-                    {...params}
-                    variant="filled"
-                    value={this.state.product}
-                    fullWidth
-                    label={i18n._('Name')}
-                  />
-                )}
-              />
+              <Autocomplete product={this.state.product} handleChangeProduct={this.handleSelectProduct} />
             </div>
             <div className="inputContainer">
               <FontAwesomeIcon icon={faBalanceScaleLeft} />
@@ -92,6 +77,7 @@ export class AddProduct extends Component<AddProductProps> {
                 id="amount"
                 label={i18n._('Amount')}
                 value={this.state.amount}
+                type="number"
                 variant="filled"
                 InputProps={{
                   endAdornment: <InputAdornment position="end">{this.state.unit}</InputAdornment>
@@ -106,7 +92,7 @@ export class AddProduct extends Component<AddProductProps> {
               <TextField
                 id="category"
                 label={i18n._('Category')}
-                value={this.state.category}
+                value={this.state.categoryName}
                 disabled={true}
                 variant="filled"
                 className="disabled"
@@ -194,10 +180,4 @@ export class AddProduct extends Component<AddProductProps> {
   }
 }
 
-const mapStateToProps = (state: AddProductState) => {
-  return {
-    productsList: state.productsReducer.productsList
-  };
-};
-
-export default connect(mapStateToProps)(AddProduct);
+export default AddProduct;

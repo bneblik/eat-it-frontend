@@ -15,7 +15,7 @@ import { connect } from 'react-redux';
 import { Skeleton } from '@material-ui/lab';
 import { ProductInfo } from '../ProductInfo/ProductInfo.component';
 import { showAlert } from '../../helpers/Alert.component';
-import { JWT_TOKEN } from '../../utils/RequestService';
+import { JWT_TOKEN, API_URL } from '../../utils/RequestService';
 import {
   clearShoppingListError,
   clearShoppingListSuccess
@@ -73,7 +73,7 @@ export class Meal extends Component<MealProps, MealState> {
         {this.props.pending ? (
           <Skeleton width="20px" height="10px" />
         ) : (
-          <AddToMealPlan mealName={meal.name} />
+          <AddToMealPlan mealId={meal.id} mealName={meal.name} />
         )}
         {this.displayEditButton()}
       </div>
@@ -82,7 +82,7 @@ export class Meal extends Component<MealProps, MealState> {
 
   displayEditButton() {
     if (this.props.pending) return <Skeleton width="20px" height="10px" />;
-    else if (this.props.meal.yourMeal) return <EditMeal mealToEdit={this.props.meal} />;
+    else if (!this.props.meal.yourMeal) return <EditMeal mealToEdit={this.props.meal} />;
   }
   renderYoutubeVideo() {
     const { meal } = this.props;
@@ -127,7 +127,7 @@ export class Meal extends Component<MealProps, MealState> {
               </div>
             ) : (
               <div className="image">
-                <img src={this.props.meal.image} alt="Meal" />
+                <img src={`${API_URL}${this.props.meal.image}`} alt="Meal" />
               </div>
             )}
 
@@ -159,7 +159,7 @@ export class Meal extends Component<MealProps, MealState> {
     } else return;
     return (
       <div className="card">
-        <h3>Recipe</h3>
+        <h3>{i18n._('Recipe')}</h3>
         {recipe}
       </div>
     );

@@ -87,6 +87,7 @@ export type ShoppingListProduct = {
 };
 
 export type TShoppingList = {
-  category: string;
+  categoryName: string;
+  categoryId: number;
   products: ShoppingListProduct[];
 };

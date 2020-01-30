@@ -25,11 +25,20 @@ function saveShoppingListSuccess() {
   };
 }
 
+function mapShoppingListToData(shoppingList) {
+  let data = [];
+  shoppingList.forEach((e) => {
+    data = [...data, ...e.products];
+  });
+  return data.map((p) => ({ id: p.id, amount: p.amount, bought: p.inBasket }));
+}
+
 export function saveShoppingList(shoppingList) {
   return (dispatch: any) => {
     dispatch(saveShoppingListPending());
+    const data = mapShoppingListToData(shoppingList);
     axiosInstanceWithAuth
-      .post(requestConsts.SHOPPING_LIST_URL, { params: shoppingList })
+      .post(requestConsts.SHOPPING_LIST_URL, { products: data })
       .then(() => {
         dispatch(saveShoppingListSuccess());
       })

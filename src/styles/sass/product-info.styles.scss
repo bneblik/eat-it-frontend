@@ -7,10 +7,17 @@
   align-items: center;
   text-align: center;
   & > * {
-    flex: 1 30px;
+    flex: 1 80px;
+  }
+  .productName {
+    font-weight: 800;
+    color: #564949;
+  }
+  .amount {
+    color: #564949;
   }
   & > .nutrientsInfoComponent {
-    flex: 1 200px;
+    flex: 1 100px;
   }
   img {
     max-height: 50px;

@@ -30,7 +30,7 @@ const product2: ProductType = {
   proteins: 78,
   carbs: 83,
   fats: 34,
-  category: 'meat'
+  category: { name: 'meat', id: 1 }
 };
 
 describe('AddProduct', () => {
@@ -48,24 +48,16 @@ describe('AddProduct', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should display options', () => {
-    const options = wrapper.find('#name').props().options;
-    expect(options).toEqual([product1, product2]);
-  });
-
   it('should display info about selected product', () => {
     // given
-    let select = wrapper.find('#name');
-    // when
-    select.simulate('change', {}, product1);
+    component.handleSelectProduct(product1);
     wrapper.update();
-    select = wrapper.find('#name').props().value;
+    // when
     const kcal = wrapper.find('#calories').props().value;
     const prot = wrapper.find('#proteins').props().value;
     const carbs = wrapper.find('#carbs').props().value;
     const fats = wrapper.find('#fats').props().value;
     // then
-    expect(select.name).toEqual(product1.name);
     expect(kcal).toEqual(product1.calories);
     expect(prot).toEqual(product1.proteins);
     expect(carbs).toEqual(product1.carbs);

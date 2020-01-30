@@ -7,6 +7,7 @@ import { TMeal } from '../../types/MealTypes';
 export interface RecommMealsComponentState {
   activeStep: number;
   maxSteps: number;
+  diff: number;
   recommendedMealsReducer: RecommendedMealsState;
 }
 export interface RecommendedMealsProps {

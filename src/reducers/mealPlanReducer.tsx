@@ -37,17 +37,18 @@ export function mealPlanReducer(state = initialState, action: any) {
     case CLEAR_MEAL_PLAN_SUCCESS:
       return { ...state, success: null };
     case REMOVE_FROM_MEAL_PLAN_SUCCESS:
+      const id = state.mealPlan.findIndex((m) => m.id !== action.mealId);
       return {
         ...state,
         pending: false,
         success: action.success,
-        mealPlan: state.mealPlan.filter((m) => m.id !== action.mealId)
+        mealPlan: state.mealPlan.slice(id)
       };
     case MARK_AS_EATEN_SUCCESS:
       return {
         ...state,
         pending: false,
-        succesS: action.success,
+        success: action.success,
         mealPlan: state.mealPlan.map((m) => (m.id === action.mealId ? { ...m, eaten: true } : m))
       };
     default:

@@ -14,7 +14,6 @@ import MyMealPlan from '../MyMealPlan/MyMealPlan.component';
 import UserPanel from '../UserPanel/UserPanel.component';
 import { routes } from './RouteConstants';
 import { i18n } from '../..';
-import { fetchProducts } from '../../actions/productAction';
 import { fetchCategories } from '../../actions/categoriesAction';
 import { logOut, clearAuthSuccess, clearAuthError } from '../../actions/authAction';
 import { bindActionCreators } from 'redux';
@@ -39,7 +38,6 @@ class App extends Component<AppProps> {
   }
 
   componentDidMount() {
-    this.props.fetchProducts();
     this.props.fetchCategories();
     if (localStorage.getItem('wcag')) {
       document.body.classList.add('wcag');
@@ -132,7 +130,6 @@ class App extends Component<AppProps> {
 const mapStateToProps = (state: AppState) => {
   return {
     meals: state.mealsReducer,
-    products: state.productsReducer,
     auth: state.authReducer,
     categories: state.categoriesReducer
   };
@@ -142,7 +139,6 @@ const mapDispatchToProps = (dispatch: any) =>
   bindActionCreators(
     {
       logOut,
-      fetchProducts,
       clearAuthSuccess,
       clearAuthError,
       fetchCategories

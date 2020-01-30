@@ -23,27 +23,27 @@ const initialState: ShoppingListState = {
   pending: false
 };
 
-function addToShoppingList(shopingList, product, category, amount) {
-  const findCategory = shopingList.find((e) => e.category === category);
+function addToShoppingList(shopingList, product, categoryId, categoryName, amount) {
+  const findCategory = shopingList.find((e) => e.categoryId === categoryId);
   let addedProduct = shopingList;
   if (!!findCategory) {
     addedProduct = shopingList.map((elem) =>
-      elem.category === category
+      elem.categoryId === categoryId
         ? { ...elem, products: [...elem.products, { ...product, amount: amount }] }
         : elem
     );
   } else {
-    addedProduct = [...shopingList, { category: category, products: [{ ...product, amount: amount }] }];
+    addedProduct = [...shopingList, { categoryId, categoryName, products: [{ ...product, amount: amount }] }];
   }
   return addedProduct;
 }
 
-function removeFromShoppingList(shopingList, product, category) {
-  const findCategory = shopingList.find((e) => e.category === category);
+function removeFromShoppingList(shopingList, product, categoryId) {
+  const findCategory = shopingList.find((e) => e.categoryId === categoryId);
   let newShoppingList = shopingList;
   if (!!findCategory && findCategory.products.length > 1) {
     newShoppingList = shopingList.map((elem) =>
-      elem.category === category
+      elem.categoryId === categoryId
         ? {
             ...elem,
             products: elem.products.filter((p) => p !== product)
@@ -51,7 +51,7 @@ function removeFromShoppingList(shopingList, product, category) {
         : elem
     );
   } else if (!!findCategory) {
-    newShoppingList = shopingList.filter((e) => e.category !== category);
+    newShoppingList = shopingList.filter((e) => e.categoryId !== categoryId);
   }
   return newShoppingList;
 }
@@ -69,7 +69,7 @@ export function shoppingListReducer(state = initialState, action: any): Shopping
     // change shopping list
     case ADD_TO_BASKET:
       const updatedList = state.shoppingList.map((elem) =>
-        elem.category === action.category
+        elem.categoryId === action.categoryId
           ? {
               ...elem,
               products: elem.products.map((p) => (p === action.product ? { ...p, inBasket: !p.inBasket } : p))
@@ -79,7 +79,7 @@ export function shoppingListReducer(state = initialState, action: any): Shopping
       return { ...state, shoppingList: updatedList };
     case CHANGE_AMOUNT_IN_LIST:
       const amountChanged = state.shoppingList.map((elem) =>
-        elem.category === action.category
+        elem.categoryId === action.categoryId
           ? {
               ...elem,
               products: elem.products.map((p) => (p === action.product ? { ...p, amount: action.amount } : p))
@@ -90,12 +90,18 @@ export function shoppingListReducer(state = initialState, action: any): Shopping
     case REMOVE_PRODUCT_FROM_LIST:
       return {
         ...state,
-        shoppingList: removeFromShoppingList(state.shoppingList, action.product, action.category)
+        shoppingList: removeFromShoppingList(state.shoppingList, action.product, action.categoryId)
       };
     case ADD_PRODUCT_TO_LIST:
       return {
         ...state,
-        shoppingList: addToShoppingList(state.shoppingList, action.product, action.category, action.amount)
+        shoppingList: addToShoppingList(
+          state.shoppingList,
+          action.product,
+          action.categoryId,
+          action.categoryName,
+          action.amount
+        )
       };
     // save shopping list
     case SAVE_SHOPPING_LIST_SUCCESS:

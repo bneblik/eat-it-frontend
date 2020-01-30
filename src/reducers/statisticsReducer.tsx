@@ -17,7 +17,17 @@ export function statisticsReducer(state = initialState, action: any): Statistics
     case FETCH_STATISTICS_PENDING:
       return { ...state, pending: true };
     case FETCH_STATISTICS_SUCC:
-      return { ...state, pending: false, statistics: action.statistics };
+      const s = action.statistics;
+      return {
+        ...state,
+        pending: false,
+        statistics: {
+          calories: s.calories.toFixed(),
+          carbs: s.carbs.toFixed(),
+          proteins: s.proteins.toFixed(),
+          fats: s.fats.toFixed()
+        }
+      };
     case FETCH_STATISTICS_ERROR:
       return { ...state, pending: false, error: action.error };
     case CLEAR_STATISTICS_ERROR:

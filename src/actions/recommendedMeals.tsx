@@ -6,7 +6,8 @@ import {
   FETCH_RECOMMENDED_PENDING,
   CLEAR_RECOMMENDED_ERRORS
 } from '../types/RecommendedMeals';
-import { axiosInstanceWithAuth, requestConsts } from '../utils/RequestService';
+import { axiosInstance, requestConsts } from '../utils/RequestService';
+import { objectToCamelCase } from '../helpers/Mapper';
 
 function fetchRecommendedMealsSuccess(mealsList: TMeal[]) {
   return {
@@ -27,13 +28,18 @@ function fetchRecommendedMealsError(error: any) {
   };
 }
 
+function mapDataToMeals(data) {
+  return data.map((e) => ({ id: e.id, prepareTime: e.attributes.time, ...objectToCamelCase(e.attributes) }));
+}
+
 export function fetchRecommendedMeals() {
   return (dispatch: any) => {
     dispatch(fetchRecommendedMealsPending());
-    axiosInstanceWithAuth
+    axiosInstance
       .get(requestConsts.RECOMMENDED_MEALS)
       .then((response) => {
-        dispatch(fetchRecommendedMealsSuccess(response.data.data));
+        const data = mapDataToMeals(response.data.data);
+        dispatch(fetchRecommendedMealsSuccess(data));
       })
       .catch((error) => {
         if (!error.response) dispatch(fetchRecommendedMealsError(error.toString()));

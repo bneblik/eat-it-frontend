@@ -80,7 +80,8 @@ br {
 .aboutUser {
   display: grid;
   width: 100%;
-  & > span > * {
+  & > div > * {
     margin: 10px !important;
+    display: block;
   }
 }

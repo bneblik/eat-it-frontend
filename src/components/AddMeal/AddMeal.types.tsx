@@ -1,13 +1,12 @@
 import { MealStateType, TMeal } from '../../types/MealTypes';
 import { addMeal, clearAddMealSuccess, clearAddMealError, editMeal } from '../../actions/mealAction';
-import { ProductsState, ProductType } from '../../types/Products';
+import { ProductType } from '../../types/Products';
 import { Category, CategoriesState } from '../../types/Categories';
 
 export type AddMealProps = {
   /**
    * contains products to display as autocomplete options
    */
-  productsList: ProductType[];
   categoriesList: Category[];
   addMeal: typeof addMeal;
   editMeal: typeof editMeal;
@@ -37,7 +36,6 @@ export interface AddMealState {
   video: string;
   videoHelperText: string;
   selectedProduct: ProductType;
-  productsReducer: ProductsState;
   selectedProductsList: ProductType[];
   mealReducer: MealStateType;
   selectedFile: any;
@@ -56,7 +54,6 @@ export const initialAddMealState: AddMealState = {
   selectedProduct: {} as ProductType,
   selectedProductsList: [],
   selectedFile: null,
-  productsReducer: {} as ProductsState,
   mealReducer: {} as MealStateType,
   categoriesReducer: {} as CategoriesState
 };

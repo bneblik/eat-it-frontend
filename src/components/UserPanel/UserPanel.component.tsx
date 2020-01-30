@@ -16,7 +16,9 @@ import {
   setUserWeight,
   setUserHeight,
   clearAboutUserError,
-  clearAboutUserSuccess
+  clearAboutUserSuccess,
+  setUserAge,
+  setUserGender
 } from '../../actions/aboutUserAction';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -51,6 +53,8 @@ class UserPanel extends Component<UserPanelProps> {
     const {
       height,
       weight,
+      gender,
+      age,
       pending,
       error,
       success,
@@ -65,7 +69,7 @@ class UserPanel extends Component<UserPanelProps> {
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
             <div className="aboutUser">
-              <span>
+              <div>
                 <TextField
                   InputLabelProps={{
                     shrink: true
@@ -90,11 +94,42 @@ class UserPanel extends Component<UserPanelProps> {
                     this.props.setUserWeight(e.target.value);
                   }}
                 />
-              </span>
+                <TextField
+                  InputLabelProps={{
+                    shrink: true
+                  }}
+                  select
+                  SelectProps={{ native: true }}
+                  variant="outlined"
+                  value={gender}
+                  label={i18n._('Gender')}
+                  onChange={(e) => {
+                    this.props.setUserGender(e.target.value);
+                  }}
+                >
+                  {['', 'man', 'woman'].map((option, key) => (
+                    <option key={key} value={option}>
+                      {i18n._(option)}
+                    </option>
+                  ))}
+                </TextField>
+                <TextField
+                  InputLabelProps={{
+                    shrink: true
+                  }}
+                  variant="outlined"
+                  value={age}
+                  label={i18n._('Age')}
+                  type="number"
+                  onChange={(e) => {
+                    this.props.setUserAge(e.target.value);
+                  }}
+                />
+              </div>
               <Button
                 className="addReminderButton"
                 variant="outlined"
-                onClick={() => this.props.saveAboutUser(height, weight)}
+                onClick={() => this.props.saveAboutUser(height, weight, gender, age)}
               >
                 {i18n._('Save')}
               </Button>
@@ -111,6 +146,8 @@ const mapStateToProps = (state: UserPanelState) => {
   return {
     weight: state.aboutUserReducer.weight,
     height: state.aboutUserReducer.height,
+    gender: state.aboutUserReducer.gender,
+    age: state.aboutUserReducer.age,
     success: state.aboutUserReducer.success,
     error: state.aboutUserReducer.error,
     pending: state.aboutUserReducer.pending
@@ -124,6 +161,8 @@ const mapDispatchToProps = (dispatch: any) =>
       saveAboutUser,
       setUserHeight,
       setUserWeight,
+      setUserAge,
+      setUserGender,
       clearAboutUserError,
       clearAboutUserSuccess
     },

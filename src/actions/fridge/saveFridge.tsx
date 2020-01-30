@@ -21,11 +21,20 @@ function saveFridgeSuccess() {
   };
 }
 
+function mapFridgeToData(fridge) {
+  let data = [];
+  fridge.forEach((e) => {
+    data = [...data, ...e.products];
+  });
+  return data.map((p) => ({ id: p.id, amount: p.amount }));
+}
+
 export function saveFridge(fridge) {
   return (dispatch: any) => {
     dispatch(saveFridgePending());
+    const data = mapFridgeToData(fridge);
     axiosInstanceWithAuth
-      .post(requestConsts.FRIDGE_URL, { params: fridge })
+      .post(requestConsts.FRIDGE_URL, { products: data })
       .then(() => {
         dispatch(saveFridgeSuccess());
       })
