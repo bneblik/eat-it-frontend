@@ -5,7 +5,7 @@ food. With the application they will know how many calories their meal contains,
 
 ### Demo
 
-The application is deployed to heroku.
+The application is deployed to Heroku.
 You can see it here: [https://app-eat-it.herokuapp.com](https://app-eat-it.herokuapp.com)
 
 ### `yarn start`
