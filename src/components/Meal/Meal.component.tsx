@@ -82,7 +82,12 @@ export class Meal extends Component<MealProps, MealState> {
 
   displayEditButton() {
     if (this.props.pending) return <Skeleton width="20px" height="10px" />;
-    else if (!this.props.meal.yourMeal) return <EditMeal mealToEdit={this.props.meal} />;
+    else if (this.props.meal.yourMeal)
+      return (
+        <span>
+          <EditMeal mealToEdit={this.props.meal} />
+        </span>
+      );
   }
   renderYoutubeVideo() {
     const { meal } = this.props;
