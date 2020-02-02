@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import { requestConsts, axiosInstance, USER_ID } from '../utils/RequestService';
+import { requestConsts, USER_ID, axiosInstanceWithAuth } from '../utils/RequestService';
 import {
   FETCH_MEALS_PENDING,
   CLEAR_MEALS_ERRORS,
@@ -45,7 +45,7 @@ function mapResponseToMeals(data): TMeal[] {
 export function fetchMeals(page: number, check?: string, categId?: number, onlyMy?: boolean) {
   return (dispatch: any) => {
     dispatch(fetchMealsPending());
-    axiosInstance
+    axiosInstanceWithAuth
       .get(requestConsts.MEALS_URL, {
         params: {
           page,

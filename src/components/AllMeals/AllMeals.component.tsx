@@ -49,7 +49,7 @@ export class AllMeals extends Component<AllMealsProps, AllMealsState> {
       return;
     const { page } = this.props;
     if (!this.props.last && !this.props.pending) {
-      window.scrollTo(0, 300);
+      window.scrollTo(0, document.body.scrollHeight - 20);
       const { searcher, cat, onlyMy } = this.state;
       this.setFetchParams(page, searcher, cat.id, onlyMy);
     } else if (this.props.last) window.removeEventListener('scroll', this.handleScroll);

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import { requestConsts, axiosInstance, axiosInstanceWithAuth } from '../utils/RequestService';
+import { requestConsts, axiosInstanceWithAuth } from '../utils/RequestService';
 import {
   ADD_MEAL_PENDING,
   ADD_MEAL_SUCCESS,
@@ -9,7 +9,8 @@ import {
   FETCH_MEAL_PENDING,
   FETCH_MEAL_SUCCESS,
   FETCH_MEAL_ERROR,
-  TMeal
+  TMeal,
+  REMOVE_MEAL_SUCCESS
 } from '../types/MealTypes';
 import { i18n } from '..';
 
@@ -45,7 +46,7 @@ function mapDataToMeal(data): TMeal {
     proteins: response.attributes.proteins,
     carbs: response.attributes.carbs,
     prepareTime: response.attributes.time,
-    category: response.attributes.category,
+    category: { name: response.attributes.category, id: response.attributes.category_id },
     video: response.attributes.video,
     image: response.attributes.image,
     yourMeal: response.attributes.your_meal,
@@ -57,7 +58,7 @@ function mapDataToMeal(data): TMeal {
 export function fetchMeal(id: string) {
   return (dispatch: any) => {
     dispatch(fetchMealPending());
-    axiosInstance
+    axiosInstanceWithAuth
       .get(`${requestConsts.MEALS_URL}/${id}`)
       .then((response) => {
         const data = mapDataToMeal(response.data);
@@ -78,6 +79,13 @@ function addMealPending() {
 function addMealSuccess(successMessage: any) {
   return {
     type: ADD_MEAL_SUCCESS,
+    success: successMessage
+  };
+}
+
+function removeMealSuccess(successMessage: any) {
+  return {
+    type: REMOVE_MEAL_SUCCESS,
     success: successMessage
   };
 }
@@ -135,6 +143,21 @@ export function editMeal(meal: any, mealId: number) {
       })
       .then(() => {
         dispatch(addMealSuccess(i18n._('The meal has been successfully updated.')));
+      })
+      .catch((error) => {
+        if (!error.response) dispatch(addMealError(error.toString()));
+        else dispatch(addMealError(error.response.statusText));
+      });
+  };
+}
+
+export function removeMeal(mealId: number) {
+  return (dispatch: any) => {
+    dispatch(addMealPending());
+    axiosInstanceWithAuth
+      .delete(`${requestConsts.MEALS_URL}/${mealId}`)
+      .then(() => {
+        dispatch(removeMealSuccess(i18n._('The meal has been successfully removed.')));
       })
       .catch((error) => {
         if (!error.response) dispatch(addMealError(error.toString()));

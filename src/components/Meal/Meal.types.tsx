@@ -1,4 +1,4 @@
-import { fetchMeal } from '../../actions/mealAction';
+import { fetchMeal, removeMeal } from '../../actions/mealAction';
 
 import { addIngredientsToList } from '../../actions/shoppingList/addIngredientsToShoppingList';
 
@@ -24,6 +24,7 @@ export interface MealProps {
    * @param {string} id
    */
   fetchMeal: typeof fetchMeal;
+  removeMeal: typeof removeMeal;
   addIngredientsToList: typeof addIngredientsToList;
   clearShoppingListError: typeof clearShoppingListError;
   clearShoppingListSuccess: typeof clearShoppingListSuccess;

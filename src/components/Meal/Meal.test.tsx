@@ -52,6 +52,7 @@ describe('Meal', () => {
       addIngredientsToList: jest.fn(),
       clearShoppingListError: jest.fn(),
       clearShoppingListSuccess: jest.fn(),
+      removeMeal: jest.fn(),
       addIngredientsToListStatus: { error: null, success: null, pending: false },
       history: {} as any
     };
