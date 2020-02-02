@@ -17,7 +17,9 @@ describe('Statistics', () => {
       },
       day: null,
       statistics: undefined,
-      pending: false
+      pending: false,
+      clearStatisticsError: jest.fn(),
+      error: null
     };
     wrapper = shallow(<Statistics {...props} />);
     component = wrapper.instance();

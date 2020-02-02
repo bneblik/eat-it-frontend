@@ -13,7 +13,8 @@ import {
   faListOl,
   faCheck,
   faCamera,
-  faVideo
+  faVideo,
+  faBalanceScaleRight
 } from '@fortawesome/free-solid-svg-icons';
 import { faClock } from '@fortawesome/free-regular-svg-icons';
 import { Recipe } from '../Recipe/Recipe.component';
@@ -227,7 +228,7 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
               />
             </div>
             <div className="padding">
-              <FontAwesomeIcon icon={faVideo} />
+              <FontAwesomeIcon icon={faBalanceScaleRight} />
               <TextField
                 label={i18n._('Servings')}
                 variant="outlined"

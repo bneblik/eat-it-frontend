@@ -28,7 +28,7 @@ export function addIngredientsToList(ingredients: { id: number; amount: string }
   return (dispatch: any) => {
     dispatch(addIngredientsToListPending());
     axiosInstanceWithAuth
-      .post(requestConsts.SHOPPING_LIST_URL, ingredients)
+      .post(requestConsts.SHOPPING_LIST_URL, { products: ingredients })
       .then(() => {
         dispatch(addIngredientsToListSuccess());
       })

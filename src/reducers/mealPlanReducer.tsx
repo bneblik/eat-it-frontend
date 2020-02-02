@@ -20,7 +20,7 @@ const initialState: MealPlanState = {
 export function mealPlanReducer(state = initialState, action: any) {
   switch (action.type) {
     case FETCH_MEAL_PLAN_SUCCESS:
-      return { ...state, mealPlan: action.mealPlan };
+      return { ...state, pending: false, mealPlan: action.mealPlan };
     case MEAL_PLAN_PENDING:
       return { ...state, pending: true };
     case MEAL_PLAN_ERROR:

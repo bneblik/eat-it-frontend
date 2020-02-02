@@ -27,12 +27,14 @@ const alert = ({ isOpen, message, onClose, severity }) => {
  * Displays information about action failure
  */
 export const errorAlert = ({ isOpen, message, onClose }) => {
+  setTimeout(() => onClose(), 2000);
   return alert({ isOpen, message, onClose, severity: 'error' });
 };
 /**
  * Displays information about a successful completion of the action
  */
 export const successAlert = ({ isOpen, message, onClose }) => {
+  setTimeout(() => onClose(), 2000);
   return alert({ isOpen, message, onClose, severity: 'success' });
 };
 
@@ -66,7 +68,7 @@ export const showAlert = (
     });
   } else if (!pending && !!success) {
     return successAlert({
-      isOpen: true,
+      isOpen: !!success,
       message: success,
       onClose: () => clearSuccess()
     });

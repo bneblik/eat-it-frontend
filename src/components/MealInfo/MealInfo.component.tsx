@@ -16,9 +16,21 @@ import { API_URL } from '../../utils/RequestService';
  * @author Beata Szczuka
  */
 class MealInfo extends Component<MealInfoProps> {
+  getMealId() {
+    if (!!this.props.meal) return this.props.meal.id;
+  }
   render() {
     return (
-      <div className="mealInfoComponent">
+      <Link
+        onClick={(e) => {
+          if (!this.props.meal) e.preventDefault();
+        }}
+        to={{
+          pathname: `/${i18n.language}/meals/${this.getMealId()}`
+        }}
+        color="inherit"
+        className="mealInfoComponent link"
+      >
         <div className="image">
           {!this.props.meal ? (
             <Skeleton variant="rect" width={'100%'} height={'330px'} />
@@ -33,17 +45,7 @@ class MealInfo extends Component<MealInfoProps> {
             {!this.props.meal ? (
               <Skeleton variant="rect" width={'30%'} height={'30px'} />
             ) : (
-              <Link
-                onClick={(e) => {
-                  if (!this.props.meal) e.preventDefault();
-                }}
-                to={{
-                  pathname: `/${i18n.language}/meals/${this.props.meal.id}`
-                }}
-                color="inherit"
-              >
-                <div className="name link">{this.props.meal.name}</div>
-              </Link>
+              <div className="name">{this.props.meal.name}</div>
             )}
             {!this.props.meal ? (
               <div className="relative">
@@ -70,7 +72,7 @@ class MealInfo extends Component<MealInfoProps> {
           )}
           {this.displayDescription()}
         </div>
-      </div>
+      </Link>
     );
   }
 

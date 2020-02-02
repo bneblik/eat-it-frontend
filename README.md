@@ -23,11 +23,9 @@ Launches the test runner in the interactive watch mode.
 ### `yarn build`
 
 Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance. The build is minified and the filenames include the hashes.<br />
+It correctly bundles React in production mode and optimizes the build for the best performance. The build is minified nd the filenames include the hashes.<br />
 
 ### Default settings
 
 By default, queries are sent to http://damp-chamber-97402.herokuapp.com.
 You can change it by setting `API_URL` variable in src/utils/RequestService.tsx
-
-In the project directory, you can run:

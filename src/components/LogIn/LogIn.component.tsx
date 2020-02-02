@@ -6,6 +6,7 @@ import { logIn } from '../../actions/authAction';
 import { connect } from 'react-redux';
 import { LogInProps, LogInState } from './LogIn.types';
 import { JWT_TOKEN } from '../../utils/RequestService';
+import { routes } from '../App/RouteConstants';
 
 /**
  * This component is a login form
@@ -25,8 +26,10 @@ class LogIn extends Component<LogInProps, LogInState> {
     this.setState({ email: '', password: '' });
   };
   componentDidUpdate() {
-    if (!this.props.pending && !!this.props.success && !!this.props.location.state) {
-      this.props.history.push({ pathname: this.props.location.state.from.pathname });
+    if (!this.props.pending && !!this.props.success) {
+      if (!!this.props.location.state)
+        this.props.history.push({ pathname: this.props.location.state.from.pathname });
+      else this.props.history.push({ pathname: routes.meals });
     }
   }
 

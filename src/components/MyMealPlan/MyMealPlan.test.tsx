@@ -16,7 +16,16 @@ const testMeal: TMeal = {
   description: 'It is a short description',
   recipe: ['step 1', 'step 2', 'step 3', 'step 4'],
   ingredients: [
-    { id: 1, name: 'butter', unit: 'g', calories: 12, fats: 123, carbs: 22, proteins: 2, category: 'dairy' }
+    {
+      id: 1,
+      name: 'butter',
+      unit: 'g',
+      calories: 12,
+      fats: 123,
+      carbs: 22,
+      proteins: 2,
+      category: { name: 'dairy', id: 1 }
+    }
   ],
   calories: 200,
   fats: 9,

@@ -61,7 +61,7 @@ class RecommendedMeals extends Component<RecommendedMealsProps, RecommMealsCompo
           ref={(el) => {
             if (!el) return;
             const width = el.getBoundingClientRect().width;
-            if (width > 360 && diff === 0) this.setState({ diff: 1 });
+            if (width > 657 && diff === 0) this.setState({ diff: 1 });
           }}
         >
           <h3>{i18n._('Recommended by users')}</h3>
@@ -69,7 +69,7 @@ class RecommendedMeals extends Component<RecommendedMealsProps, RecommMealsCompo
           <MobileStepper
             steps={this.state.maxSteps}
             position="static"
-            activeStep={this.state.activeStep}
+            activeStep={this.state.activeStep - this.state.diff}
             nextButton={
               <IconButton
                 size="small"

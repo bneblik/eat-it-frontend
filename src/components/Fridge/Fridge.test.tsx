@@ -20,7 +20,12 @@ describe('Fridge', () => {
       changeAmount: jest.fn(),
       removeProduct: jest.fn(),
       saveFridge: jest.fn(),
-      addProduct: jest.fn()
+      addProduct: jest.fn(),
+      error: null,
+      success: null,
+      pending: false,
+      clearFridgeSuccess: jest.fn(),
+      clearFridgeError: jest.fn()
     };
     wrapper = shallow(<Fridge {...props} />);
     component = wrapper.instance();
