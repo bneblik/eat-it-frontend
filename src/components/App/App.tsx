@@ -17,11 +17,12 @@ import { i18n } from '../..';
 import { fetchCategories } from '../../actions/categoriesAction';
 import { logOut, clearAuthSuccess, clearAuthError } from '../../actions/authAction';
 import { bindActionCreators } from 'redux';
-import { successAlert, errorAlert } from '../../helpers/Alert.component';
+import { successAlert, errorAlert, showAlert } from '../../helpers/Alert.component';
 import { JWT_TOKEN } from '../../utils/RequestService';
 import { defaultLang } from '../../utils/LanguageService';
 import { AppProps } from './App.types';
 import { AppState } from '../../store/store';
+import { clearAddMealError, clearAddMealSuccess } from '../../actions/mealAction';
 
 library.add(faEnvelope, faKey);
 /**
@@ -95,6 +96,13 @@ class App extends Component<AppProps> {
           />
         </div>
         {this.showAuthAlert()}
+        {showAlert(
+          this.props.meal.pending,
+          this.props.meal.error,
+          this.props.meal.success,
+          this.props.clearAddMealError,
+          this.props.clearAddMealSuccess
+        )}
       </>
     );
   }
@@ -130,6 +138,7 @@ class App extends Component<AppProps> {
 const mapStateToProps = (state: AppState) => {
   return {
     meals: state.mealsReducer,
+    meal: state.mealReducer,
     auth: state.authReducer,
     categories: state.categoriesReducer
   };
@@ -141,7 +150,9 @@ const mapDispatchToProps = (dispatch: any) =>
       logOut,
       clearAuthSuccess,
       clearAuthError,
-      fetchCategories
+      fetchCategories,
+      clearAddMealError,
+      clearAddMealSuccess
     },
     dispatch
   );

@@ -37,6 +37,7 @@ export type MealStateType = {
 export const ADD_MEAL_PENDING = 'ADD_MEAL_PENDING';
 export const ADD_MEAL_SUCCESS = 'ADD_MEAL_SUCCESS';
 export const ADD_MEAL_ERROR = 'ADD_MEAL_ERROR';
+export const REMOVE_MEAL_SUCCESS = 'REMOVE_MEAL_SUCCESS';
 
 export const CLEAR_ADD_MEAL_SUCCESS = 'CLEAR_ADD_MEAL_SUCCESS';
 export const CLEAR_ADD_MEAL_ERROR = 'CLEAR_ADD_MEAL_ERROR';

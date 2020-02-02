@@ -43,6 +43,7 @@ export class AddMeal extends Component<AddMealProps, AddMealState> {
       this.setState({
         name: mealToEdit.name,
         description: mealToEdit.description ? mealToEdit.description : '',
+        selectedFile: mealToEdit.image ? mealToEdit.image : null,
         prepTime: mealToEdit.prepareTime ? mealToEdit.prepareTime : '',
         recipeSteps: mealToEdit.recipe ? mealToEdit.recipe : [],
         category: mealToEdit.category ? mealToEdit.category : ({} as Category),

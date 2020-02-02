@@ -7,7 +7,8 @@ import {
   ADD_MEAL_SUCCESS,
   ADD_MEAL_ERROR,
   CLEAR_ADD_MEAL_ERROR,
-  CLEAR_ADD_MEAL_SUCCESS
+  CLEAR_ADD_MEAL_SUCCESS,
+  REMOVE_MEAL_SUCCESS
 } from '../types/MealTypes';
 
 const initialState: MealStateType = {
@@ -38,6 +39,12 @@ export function mealReducer(state: MealStateType = initialState, action: any): M
         pending: true
       };
     case ADD_MEAL_SUCCESS:
+      return {
+        ...state,
+        pending: false,
+        success: action.success
+      };
+    case REMOVE_MEAL_SUCCESS:
       return {
         ...state,
         pending: false,

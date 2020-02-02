@@ -4,12 +4,12 @@ import image from '../../styles/images/placeholder.png';
 import MealComments from '../MealComments/MealComments.component';
 import { Button, FormControlLabel, Checkbox } from '@material-ui/core';
 import { NutrientsInfo } from '../NutrientsInfo/NutrientsInfo.component';
-import { faShoppingBasket, faPlus, faFilter } from '@fortawesome/free-solid-svg-icons';
+import { faShoppingBasket, faPlus, faFilter, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faClock } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import AddToMealPlan from '../AddToMealPlan/AddToMealPlan.component';
 import { i18n } from '@lingui/core';
-import { fetchMeal } from '../../actions/mealAction';
+import { fetchMeal, removeMeal } from '../../actions/mealAction';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Skeleton } from '@material-ui/lab';
@@ -23,6 +23,7 @@ import {
 import { addIngredientsToList } from '../../actions/shoppingList/addIngredientsToShoppingList';
 import { MealProps, MealState } from './Meal.types';
 import EditMeal from '../EditMeal/EditMeal.component';
+import { routes } from '../App/RouteConstants';
 
 /**
  * This component renders full information about one meal.
@@ -60,7 +61,7 @@ export class Meal extends Component<MealProps, MealState> {
               <span className="divider"> | </span>
               <span className="category">
                 <FontAwesomeIcon icon={faFilter} />
-                {`${i18n._('Category')}: ${meal.category}`}
+                {`${i18n._('Category')}: ${meal.category.name}`}
               </span>
             </>
           )}
@@ -75,17 +76,32 @@ export class Meal extends Component<MealProps, MealState> {
         ) : (
           <AddToMealPlan mealId={meal.id} mealName={meal.name} />
         )}
-        {this.displayEditButton()}
+        {this.displayButtonsIfOwner()}
       </div>
     );
   }
 
-  displayEditButton() {
+  removeMeal(mealId: number) {
+    this.props.removeMeal(mealId);
+    this.props.history.push({ pathname: routes.meals });
+  }
+
+  displayButtonsIfOwner() {
     if (this.props.pending) return <Skeleton width="20px" height="10px" />;
     else if (this.props.meal.yourMeal)
       return (
         <span>
           <EditMeal mealToEdit={this.props.meal} />
+          <Button
+            className="addProduct"
+            variant="contained"
+            color="inherit"
+            size="small"
+            onClick={() => this.removeMeal(this.props.meal.id)}
+            startIcon={<FontAwesomeIcon icon={faTrash} />}
+          >
+            {i18n._('Remove meal')}
+          </Button>
         </span>
       );
   }
@@ -270,7 +286,8 @@ const mapDispatchToProps = (dispatch: any) =>
       fetchMeal,
       addIngredientsToList,
       clearShoppingListError,
-      clearShoppingListSuccess
+      clearShoppingListSuccess,
+      removeMeal
     },
     dispatch
   );

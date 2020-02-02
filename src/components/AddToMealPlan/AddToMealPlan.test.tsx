@@ -19,7 +19,8 @@ describe('AddToMealPlan', () => {
       pending: false,
       addToMealPlan: jest.fn(),
       clearMealPlanSuccess: jest.fn(),
-      clearMealPlanError: jest.fn()
+      clearMealPlanError: jest.fn(),
+      mealId: 1
     };
     wrapper = shallow(<AddToMealPlan {...props} />);
     component = wrapper.instance();
