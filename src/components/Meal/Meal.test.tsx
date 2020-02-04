@@ -65,7 +65,7 @@ describe('Meal', () => {
   it('should display text', () => {
     expect(mockedFetch).toHaveBeenCalled();
     const content = wrapper.find('div').props().children;
-    expect(content[0]).toContain(`Cannot find element with id`);
+    expect(content[0]).toContain(`Sorry, we couldn't find element with id`);
     expect(content[2]).toContain(id);
   });
   it('should display text', () => {
