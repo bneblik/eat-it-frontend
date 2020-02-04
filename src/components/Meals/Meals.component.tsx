@@ -22,8 +22,9 @@ class Meals extends Component<MealsProps, MealsState> {
   }
 
   render() {
-    if (this.props.error || this.props.meals.length === 0) return <div>{i18n._('Nothing to display')}</div>;
-    else if (this.props.pending) return this.showSkeletons();
+    if (this.props.pending) return this.showSkeletons();
+    else if (this.props.error || this.props.meals.length === 0)
+      return <div className="notFound">{i18n._("Sorry, we couldn't find anything.")}</div>;
     else {
       return (
         <div className="mealsComponent">

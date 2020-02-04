@@ -131,8 +131,8 @@ export class Meal extends Component<MealProps, MealState> {
   render() {
     if (!this.props.pending && !this.props.meal) {
       return (
-        <div className="emptyInfo">
-          {i18n._('Cannot find element with id')} = {this.props.match.params.id}
+        <div className="notFound">
+          {i18n._("Sorry, we couldn't find element with id")} = {this.props.match.params.id}
         </div>
       );
     } else {
